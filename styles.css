@@ -52,17 +52,6 @@ body {
     position: relative;
 }
 
-/* Canvas Background for Particle Trail Effect */
-#bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    pointer-events: none;
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
