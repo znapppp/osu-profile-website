@@ -1,44 +1,44 @@
 /* ==========================================================================
-   Znap- osu! Setup — Luxury Dark Edition
+   Znap- osu! Setup — Monochrome Glow Edition
    ========================================================================== */
 
 /* ── Google Fonts injected via HTML ── */
 
 :root {
     /* ── Background Depths ── */
-    --bg-base:      #080808;
-    --bg-surface:   #0f0f0f;
-    --bg-subtle:    #151515;
-    --bg-inset:     #1c1c1c;
-    --bg-elevated:  #111111;
+    --bg-base:      #060606;
+    --bg-surface:   #0e0e0e;
+    --bg-subtle:    #141414;
+    --bg-inset:     #1a1a1a;
+    --bg-elevated:  #101010;
 
-    /* ── Gold Accent System ── */
-    --gold-dim:     rgba(212, 175, 95, 0.12);
-    --gold-mid:     rgba(212, 175, 95, 0.28);
-    --gold-bright:  rgba(212, 175, 95, 0.55);
-    --gold-solid:   #c9a84c;
-    --gold-text:    #e8c97a;
+    /* ── White Glow Accent System ── */
+    --glow-dim:     rgba(255, 255, 255, 0.06);
+    --glow-mid:     rgba(255, 255, 255, 0.14);
+    --glow-bright:  rgba(255, 255, 255, 0.30);
+    --glow-solid:   rgba(255, 255, 255, 0.88);
+    --glow-text:    #f0f0f0;
 
     /* ── Borders ── */
     --border-faint:  rgba(255, 255, 255, 0.04);
     --border-light:  rgba(255, 255, 255, 0.07);
-    --border-mid:    rgba(255, 255, 255, 0.13);
+    --border-mid:    rgba(255, 255, 255, 0.12);
     --border-strong: rgba(255, 255, 255, 0.22);
-    --border-gold:   rgba(212, 175, 95, 0.30);
+    --border-glow:   rgba(255, 255, 255, 0.20);
 
     /* ── Text ── */
-    --text-primary:   #f2f2f2;
-    --text-secondary: #a8a8a8;
-    --text-muted:     #666666;
-    --text-faint:     #3d3d3d;
+    --text-primary:   #f0f0f0;
+    --text-secondary: #9a9a9a;
+    --text-muted:     #555555;
+    --text-faint:     #333333;
 
     /* ── Ink (inverted) ── */
-    --ink-black: #f2f2f2;
-    --ink-white: #0a0a0a;
+    --ink-black: #f0f0f0;
+    --ink-white: #080808;
 
-    /* ── Typography — Luxury ── */
-    --font-display: 'DM Serif Display', Georgia, serif;
-    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+    /* ── Typography — Minimal ── */
+    --font-display: 'Syne', system-ui, sans-serif;
+    --font-heading: 'Syne', system-ui, sans-serif;
     --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
     --font-mono:    'JetBrains Mono', 'SF Mono', monospace;
 
@@ -59,12 +59,12 @@
     --t-slow:   0.48s cubic-bezier(0.16, 1, 0.3, 1);
 
     /* ── Shadows ── */
-    --shadow-xs: 0 1px 2px rgba(0,0,0,0.25);
-    --shadow-sm: 0 2px 10px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.2);
-    --shadow-md: 0 8px 28px rgba(0,0,0,0.42), 0 2px 8px rgba(0,0,0,0.3);
-    --shadow-lg: 0 20px 56px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.35);
-    --shadow-hover: 0 24px 64px rgba(0,0,0,0.6), 0 6px 20px rgba(0,0,0,0.4);
-    --shadow-gold: 0 0 24px rgba(212,175,95,0.10), 0 8px 32px rgba(0,0,0,0.5);
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.30);
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.40), 0 1px 3px rgba(0,0,0,0.25);
+    --shadow-md: 0 8px 28px rgba(0,0,0,0.48), 0 2px 8px rgba(0,0,0,0.32);
+    --shadow-lg: 0 20px 56px rgba(0,0,0,0.60), 0 6px 18px rgba(0,0,0,0.38);
+    --shadow-hover: 0 24px 64px rgba(0,0,0,0.65), 0 6px 20px rgba(0,0,0,0.42);
+    --shadow-glow: 0 0 32px rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.55);
 }
 
 /* ── Reset & Base ──────────────────────────────────────────────────────── */
@@ -82,11 +82,10 @@ html {
 
 body {
     background-color: var(--bg-base);
-    /* Subtle noise-like diagonal grid — very premium feel */
     background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212,175,95,0.06) 0%, transparent 60%),
-        linear-gradient(to right, rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.018) 1px, transparent 1px);
+        radial-gradient(ellipse 90% 40% at 50% -5%, rgba(255,255,255,0.03) 0%, transparent 65%),
+        linear-gradient(to right, rgba(255,255,255,0.016) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.016) 1px, transparent 1px);
     background-size: 100% 100%, 48px 48px, 48px 48px;
     background-attachment: fixed;
     color: var(--text-primary);
@@ -102,10 +101,10 @@ body {
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
 ::-webkit-scrollbar-thumb {
-    background: rgba(212,175,95,0.20);
+    background: rgba(255,255,255,0.12);
     border-radius: var(--radius-full);
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(212,175,95,0.38); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.26); }
 
 /* ==========================================================================
    Layout
@@ -151,9 +150,9 @@ body {
     height: 1px;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(212,175,95,0.22) 30%,
-        rgba(255,255,255,0.18) 50%,
-        rgba(212,175,95,0.22) 70%,
+        rgba(255,255,255,0.10) 30%,
+        rgba(255,255,255,0.22) 50%,
+        rgba(255,255,255,0.10) 70%,
         transparent 100%);
     pointer-events: none;
     z-index: 0;
@@ -176,8 +175,8 @@ body {
 .glass-panel > * { position: relative; z-index: 1; }
 
 .glass-panel:hover {
-    border-color: var(--border-gold);
-    box-shadow: var(--shadow-gold);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
     transform: translateY(-3px);
 }
 
@@ -212,16 +211,16 @@ body {
     height: 58px;
     border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1.5px solid var(--border-gold);
+    border: 1.5px solid var(--border-mid);
     background: var(--bg-subtle);
-    box-shadow: 0 0 16px rgba(212,175,95,0.14), var(--shadow-xs);
+    box-shadow: 0 0 12px rgba(255,255,255,0.06), var(--shadow-xs);
     flex-shrink: 0;
     transition: var(--t-normal);
 }
 
 .profile-avatar-container:hover {
-    border-color: var(--gold-solid);
-    box-shadow: 0 0 28px rgba(212,175,95,0.25), var(--shadow-md);
+    border-color: rgba(255,255,255,0.35);
+    box-shadow: 0 0 24px rgba(255,255,255,0.12), var(--shadow-md);
     transform: scale(1.06) rotate(-1deg);
 }
 
@@ -234,17 +233,20 @@ body {
 
 .page-title {
     font-family: var(--font-display);
-    font-size: clamp(1.45rem, 3.5vw, 2rem);
-    font-weight: 400; /* DM Serif Display looks best at 400 */
-    letter-spacing: -0.01em;
+    font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
     color: var(--text-primary);
     word-break: break-word;
-    line-height: 1.15;
+    line-height: 1.1;
+    text-transform: uppercase;
 }
 
 .highlight-text {
-    color: var(--gold-text);
-    font-style: italic;
+    color: var(--text-secondary);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.02em;
 }
 
 .last-update-tag {
@@ -299,11 +301,11 @@ body {
 }
 
 .social-pill:hover {
-    background: rgba(212,175,95,0.10);
-    color: var(--gold-text);
-    border-color: var(--border-gold);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-primary);
+    border-color: var(--border-glow);
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(212,175,95,0.12), var(--shadow-sm);
+    box-shadow: 0 4px 16px rgba(255,255,255,0.06), var(--shadow-sm);
 }
 
 .osu-text-pill {
@@ -316,9 +318,9 @@ body {
 }
 
 .osu-text-pill:hover {
-    background: rgba(212,175,95,0.08);
-    color: var(--gold-text);
-    border-color: var(--border-gold);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-primary);
+    border-color: var(--border-glow);
 }
 
 .icon-only-pill {
@@ -346,13 +348,13 @@ body {
 }
 
 .white-logo-pill:hover {
-    background: rgba(212,175,95,0.08);
-    border-color: var(--border-gold);
-    color: var(--gold-text);
+    background: rgba(255,255,255,0.06);
+    border-color: var(--border-glow);
+    color: var(--text-primary);
 }
 
 .white-logo-pill:hover .social-svg-logo {
-    fill: var(--gold-text);
+    fill: var(--text-primary);
 }
 
 /* ==========================================================================
@@ -377,29 +379,27 @@ body {
     position: absolute;
     bottom: -1px;
     left: 0;
-    width: 40px;
+    width: 36px;
     height: 1px;
-    background: var(--gold-solid);
-    opacity: 0.5;
+    background: rgba(255,255,255,0.45);
 }
 
 .card-header h2 {
     font-family: var(--font-heading);
-    font-size: clamp(0.92rem, 2.2vw, 1.08rem);
+    font-size: clamp(0.80rem, 2vw, 0.90rem);
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--text-primary);
-    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    letter-spacing: 0.10em;
     text-transform: uppercase;
     word-break: break-word;
 }
 
 .header-icon {
-    color: var(--gold-solid);
-    font-size: 0.92rem;
-    opacity: 0.8;
+    color: var(--text-muted);
+    font-size: 0.85rem;
     flex-shrink: 0;
 }
 
@@ -464,7 +464,7 @@ body {
     bottom: 20%;
     width: 2px;
     border-radius: 1px;
-    background: var(--gold-solid);
+    background: rgba(255,255,255,0.30);
     opacity: 0;
     transition: opacity var(--t-fast);
 }
@@ -520,9 +520,9 @@ body {
 
 .badge-pill {
     padding: 3px 10px;
-    background: var(--gold-dim);
-    border: 1px solid var(--border-gold);
-    color: var(--gold-text);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-mid);
+    color: var(--text-primary);
     border-radius: var(--radius-xs);
     font-family: var(--font-mono);
     font-weight: 500;
@@ -565,9 +565,9 @@ body {
 }
 
 .btn-download-link:hover {
-    background: rgba(212,175,95,0.08);
-    color: var(--gold-text);
-    border-color: var(--border-gold);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-primary);
+    border-color: var(--border-glow);
 }
 
 /* ==========================================================================
@@ -593,8 +593,8 @@ body {
 }
 
 .preview-image-container:hover {
-    border-color: var(--border-gold);
-    box-shadow: var(--shadow-gold);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
 }
 
 .setup-preview-img {
@@ -631,19 +631,19 @@ body {
 }
 
 .zoom-hint {
-    background: rgba(0,0,0,0.75);
-    color: var(--gold-text);
-    border: 1px solid var(--border-gold);
+    background: rgba(0,0,0,0.72);
+    color: var(--text-primary);
+    border: 1px solid rgba(255,255,255,0.20);
     padding: 6px 16px;
     border-radius: var(--radius-full);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 7px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    box-shadow: 0 0 16px rgba(212,175,95,0.2);
+    box-shadow: 0 0 20px rgba(255,255,255,0.08);
     pointer-events: none;
 }
 
@@ -695,14 +695,14 @@ body {
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212,175,95,0.18), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
 }
 
 .skin-box:hover {
-    border-color: var(--border-gold);
+    border-color: var(--border-glow);
     background: var(--bg-inset);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-gold);
+    box-shadow: var(--shadow-glow);
 }
 
 .skin-box-header {
@@ -721,9 +721,9 @@ body {
 }
 
 .main-skin {
-    background: var(--gold-dim);
-    color: var(--gold-text);
-    border: 1px solid var(--border-gold);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-primary);
+    border: 1px solid rgba(255,255,255,0.20);
 }
 
 .ar-skin {
@@ -755,8 +755,8 @@ body {
 }
 
 .skin-preview-wrapper:hover {
-    border-color: var(--border-gold);
-    box-shadow: var(--shadow-gold);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
 }
 
 .skin-preview-wrapper .setup-preview-img {
@@ -778,24 +778,24 @@ body {
     justify-content: center;
     gap: 8px;
     padding: 12px;
-    background: rgba(212,175,95,0.08);
-    color: var(--gold-text);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.80rem;
+    font-size: 0.78rem;
     border-radius: var(--radius-sm);
     margin-top: auto;
     transition: var(--t-normal);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    border: 1px solid var(--border-gold);
+    border: 1px solid var(--border-mid);
 }
 
 .btn-skin-action:hover {
-    background: var(--gold-solid);
-    color: #0a0a0a;
-    border-color: var(--gold-solid);
-    box-shadow: 0 6px 24px rgba(212,175,95,0.28);
+    background: rgba(255,255,255,0.90);
+    color: #080808;
+    border-color: rgba(255,255,255,0.90);
+    box-shadow: 0 6px 24px rgba(255,255,255,0.10);
     transform: translateY(-1px);
 }
 
@@ -811,27 +811,27 @@ body {
     justify-content: center;
     gap: 12px;
     padding: 14px 36px;
-    background: linear-gradient(135deg, rgba(212,175,95,0.12), rgba(212,175,95,0.06));
-    color: var(--gold-text);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     border-radius: var(--radius-full);
-    border: 1px solid var(--border-gold);
+    border: 1px solid var(--border-mid);
     transition: var(--t-normal);
     max-width: 100%;
     word-break: break-word;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
-    box-shadow: 0 4px 20px rgba(212,175,95,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
 .btn-full-collection:hover {
-    background: var(--gold-solid);
-    color: #0a0a0a;
-    border-color: var(--gold-solid);
+    background: rgba(255,255,255,0.90);
+    color: #080808;
+    border-color: rgba(255,255,255,0.90);
     transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 8px 32px rgba(212,175,95,0.30);
+    box-shadow: 0 8px 32px rgba(255,255,255,0.10);
 }
 
 /* ==========================================================================
@@ -866,21 +866,20 @@ body {
     max-width: 92vw;
     max-height: 85vh;
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border-gold);
-    box-shadow: 0 0 60px rgba(212,175,95,0.12), var(--shadow-lg);
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow: 0 0 60px rgba(255,255,255,0.05), var(--shadow-lg);
     animation: zoomIn 0.30s var(--ease-expo);
 }
 
 .lightbox-caption {
     margin-top: 18px;
-    color: var(--gold-text);
+    color: var(--text-muted);
     font-weight: 600;
-    font-size: 0.82rem;
+    font-size: 0.74rem;
     text-align: center;
     padding: 0 16px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    opacity: 0.75;
 }
 
 .lightbox-close {
@@ -904,11 +903,11 @@ body {
 }
 
 .lightbox-close:hover {
-    color: var(--gold-text);
-    border-color: var(--border-gold);
-    background: rgba(212,175,95,0.10);
+    color: var(--text-primary);
+    border-color: rgba(255,255,255,0.30);
+    background: rgba(255,255,255,0.06);
     transform: rotate(90deg) scale(1.08);
-    box-shadow: 0 0 16px rgba(212,175,95,0.15);
+    box-shadow: 0 0 16px rgba(255,255,255,0.06);
 }
 
 @keyframes zoomIn {
@@ -924,10 +923,10 @@ body {
     visibility: hidden;
     min-width: 220px;
     max-width: 90vw;
-    background: rgba(12,12,12,0.95);
-    color: var(--gold-text);
+    background: rgba(10,10,10,0.95);
+    color: var(--text-primary);
     text-align: center;
-    border: 1px solid var(--border-gold);
+    border: 1px solid rgba(255,255,255,0.16);
     border-radius: var(--radius-full);
     padding: 11px 24px;
     position: fixed;
@@ -935,8 +934,8 @@ body {
     left: 50%;
     bottom: 32px;
     transform: translateX(-50%);
-    box-shadow: 0 6px 28px rgba(212,175,95,0.15), var(--shadow-md);
-    font-size: 0.80rem;
+    box-shadow: 0 6px 28px rgba(255,255,255,0.05), var(--shadow-md);
+    font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
