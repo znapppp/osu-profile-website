@@ -1,4 +1,4 @@
-# osu! Profile Showcase Platform
+# Znap- | osu! Setup Configuration & Showcase
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -6,145 +6,90 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://pages.github.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-A premium, modern gaming-themed showcase website for displaying personal **osu!** player profiles and gameplay statistics. Built with modern UI design principles featuring **Glassmorphism**, dynamic **Neon Glow** visual effects, interactive audio previews, and mouse-following particle effects. 
+A premium, minimalist gaming-themed showcase website for **Znap-**, presenting hardware settings (Tablet, Keyboard, Keypad), custom osu! skins, and official social media profiles. Built with modern UI design principles featuring **Glassmorphism**, neon accent glows, interactive image zoom modals, and automatic osu! profile picture synchronization.
 
-Designed for instant, hassle-free deployment on **GitHub Pages** with a zero-build, zero-dependency architecture.
-
----
-
-## Key Features
-
-- **Modern Gaming & Glassmorphism Aesthetic**: Vibrant dark-mode UI with official osu! color accents (`#ff66aa`), translucent glassmorphism cards, and smooth ambient neon glow animations.
-- **Dynamic Game Mode Switcher**: Real-time statistics toggle supporting all standard game modes (`osu!std`, `osu!taiko`, `osu!catch`, and `osu!mania`).
-- **Top Performances Showcase & Audio Preview**: Dynamic performance cards featuring calculated Star Difficulty color gradients, glowing rank badges (SSH, SS, SH, S, A), and an integrated Audio Preview Engine for beatmaps.
-- **Hardware & Playstyle Specifications**: Dedicated display for player setup details (Tablet Area, Rapid Trigger Keyboards, Keybinds, Mouse Sensitivity, and Monitor refresh rates).
-- **Skin Showcase**: Dedicated section to showcase custom player skins with feature lists, preview images, and `.osk` download links.
-- **Badges & Achievements**: Highlight reel for player achievements, tournament badges, and community roles.
-- **Interactive Particle Cursor**: Custom canvas-rendered osu! cursor particle trailing effect responsive to mouse movement.
+Designed for instant, zero-dependency static deployment on **GitHub Pages**.
 
 ---
 
-## Configuration Guide
+## 🌟 Key Features
 
-All website data and player statistics are configured via a single central configuration file: **[`config.js`](config.js)**. 
-
-Customize your profile details instantly without altering any HTML structure:
-
-```javascript
-const PROFILE_CONFIG = {
-    // Personal Information & User Metadata
-    user: {
-        username: "YourName",
-        tagline: "Rhythm is just a click away!",
-        avatar: "https://a.ppy.sh/2", // Avatar URL or local image path
-        banner: "https://images.unsplash.com/...", // Banner background image URL
-        country: "Thailand",
-        countryCode: "TH",
-        supporterLevel: 3, // Supporter tier (0 = None, 1-3 = Tier)
-        isOnline: true,
-        statusText: "In-Game • Editing beatmap",
-        joinedDate: "March 2021",
-        playTime: "482 hrs"
-    },
-
-    // Mode-specific Statistics
-    modes: {
-        std: {
-            name: "osu!standard",
-            pp: "6,842",
-            globalRank: "#14,250",
-            countryRank: "#215",
-            accuracy: "98.74%",
-            level: 98,
-            levelProgress: 65,
-            playCount: "45,820",
-            grades: { ssh: 12, ss: 85, sh: 48, s: 320, a: 1120 }
-        }
-    },
-
-    // Top Performance Showcase
-    topPlays: [
-        {
-            title: "BLUE CLAPPER",
-            artist: "Hololive IDOL Project",
-            mapper: "Sotarks",
-            stars: 6.84,
-            pp: 462,
-            accuracy: "99.24%",
-            grade: "SH",
-            mods: ["HD", "DT"],
-            beatmapUrl: "https://osu.ppy.sh/b/2742358",
-            audioPreview: "https://b.ppy.sh/preview/1302830.mp3"
-        }
-    ]
-};
-```
+- **Modern Glassmorphism & Gaming Design**: Dark-mode UI with official osu! pink accents (`#ff66aa`), translucent glassmorphism cards, and smooth hover micro-animations.
+- **Auto-Sync osu! Profile Avatar**: Automatically fetches and updates the latest profile picture directly from official osu! servers (`a.ppy.sh`) using dynamic cache-busting timestamps (`?t=timestamp`), with local `avatar.jpg` fallback support.
+- **Hardware & Peripherals Setup Grid**:
+  - **Tablet Settings**: Wacom CTL-472 specification (39mm x 26mm area), OpenTabletDriver details & preview.
+  - **Keyboard Settings**: Keychron C75 TMR (Ring / Index Z, C bind, 0.3mm actuation point, 0.5mm rapid trigger).
+  - **Keypad Settings**: Sayodevice O3C (3.00mm stroke, custom release/trigger actuation & rapid trigger specs).
+  - **Monitor Settings**: LG ULTRAGEAR 24GS60F-B (180 Hz, 1920x1080 FHD, 1ms GtG).
+  - **Audio Settings**: Apple EarPods (USB-C In-Ear / Wired).
+- **Interactive Lightbox Image Zoom**: Click any hardware or skin preview screenshot to view in a high-resolution lightbox modal.
+- **Custom osu! Skins Showcase**: Dedicated showcase for current main skin (*Aristia Instafade Znap- edit*) and High AR skin (*Milkteaism Hydro DT BETA edit*), with direct Google Drive download links.
+- **One-Click Discord Copy**: Interactive social pill button to instantly copy Discord username (`Salmoneverydayplss`) to clipboard with animated Toast Notifications.
+- **Social Media Hub**: Quick links to official osu! profile, TikTok (`@znapppp_`), and X / Twitter (`@znapppp_`).
 
 ---
 
-## Deployment (GitHub Pages)
-
-Because this repository is a static web application, it can be deployed to **GitHub Pages** in 3 simple steps:
-
-### Step 1: Push Code to GitHub Repository
-Commit and push your repository files to the `main` branch:
-```bash
-git add .
-git commit -m "feat: setup professional osu profile website"
-git push origin main
-```
-
-### Step 2: Configure GitHub Pages
-1. Navigate to your repository on GitHub (e.g., `https://github.com/<username>/osu-profile-website`).
-2. Click the **Settings** tab in the top navigation bar.
-3. Select **Pages** from the left sidebar (under the *Code and automation* section).
-4. Under **Build and deployment**:
-   - **Source**: Select `Deploy from a branch`
-   - **Branch**: Select `main` and the `/ (root)` folder.
-5. Click **Save**.
-
-### Step 3: Access Your Website
-Within 1 to 2 minutes, GitHub Actions will publish your site at:
-```text
-https://<username>.github.io/osu-profile-website/
-```
-
----
-
-## Project Structure
+## 📁 Project Structure
 
 ```text
 osu-profile-website/
-├── index.html       # Primary semantic HTML5 structure & DOM hierarchy
-├── styles.css       # Comprehensive design system, CSS variables & Glassmorphism UI
-├── app.js          # Core logic (State management, DOM rendering & Audio Engine)
-├── config.js       # Centralized user profile & stats configuration file
-├── avatar.jpg      # User profile asset image
+├── index.html       # Main HTML layout, setup grids, skin showcase & modals
+├── styles.css       # Design system, CSS variables, glassmorphism & responsive layout
+├── app.js          # Application logic (Lightbox zoom, Discord copy & Avatar cache-buster)
+├── config.js       # Profile configuration data
+├── avatar.jpg      # Fallback profile avatar image
+├── picture/        # Screenshot assets for hardware & skin previews
+│   ├── tablet/     # OpenTabletDriver area screenshots
+│   ├── keyboard/   # Keyboard driver setup screenshots
+│   ├── keypad/     # Sayodevice O3C configuration screenshots
+│   └── skin/       # osu! skin gameplay previews (Aristia, DT, etc.)
 └── README.md        # Project documentation & usage guide
 ```
 
-- **[`index.html`](index.html)**: Semantic layout, DOM container structure, and component mounts.
-- **[`styles.css`](styles.css)**: Glassmorphism panels, CSS variables, neon glows, and responsive layout breakpoints.
-- **[`app.js`](app.js)**: State handlers for game modes, dynamic DOM rendering, audio preview controls, and cursor particle engine.
-- **[`config.js`](config.js)**: Single Source of Truth (SSOT) containing personal metadata and play stats.
+---
+
+## 🚀 Deployment (GitHub Pages)
+
+Deploy to **GitHub Pages** in 3 simple steps:
+
+### Step 1: Push Code to GitHub
+```bash
+git add .
+git commit -m "update: refresh website & readme documentation"
+git push origin main
+```
+
+### Step 2: Enable GitHub Pages
+1. Go to your repository on GitHub.
+2. Click **Settings** > **Pages** (under *Code and automation*).
+3. Under **Build and deployment**:
+   - **Source**: Select `Deploy from a branch`
+   - **Branch**: Select `main` and `/ (root)` folder.
+4. Click **Save**.
+
+### Step 3: View Your Site
+Your site will be live at:
+```text
+https://<your-username>.github.io/osu-profile-website/
+```
 
 ---
 
-## Tech Stack & Dependencies
+## 🛠️ Tech Stack
 
-- **Frontend Core**: Standard HTML5, Modern CSS3 (CSS Variables, Flexbox, Grid), Vanilla JavaScript (ES6+)
-- **Design & UI**: Custom Glassmorphism UI Components, Ambient Neon Lighting System
-- **Fonts & Typography**: Google Fonts ([Outfit](https://fonts.google.com/specimen/Outfit)), [Font Awesome 6 Pro/Free Icons](https://fontawesome.com/)
-- **Hosting Infrastructure**: [GitHub Pages](https://pages.github.com/) (Zero-Build Static Hosting)
+- **Core**: HTML5, Vanilla CSS3 (CSS Grid/Flexbox, Glassmorphism, CSS Variables), ES6+ JavaScript
+- **Typography**: Google Fonts ([Exo 2](https://fonts.google.com/specimen/Exo+2), [Inter](https://fonts.google.com/specimen/Inter), [Outfit](https://fonts.google.com/specimen/Outfit))
+- **Icons**: [Font Awesome 6](https://fontawesome.com/) & Custom SVG logos
+- **Hosting**: [GitHub Pages](https://pages.github.com/)
 
 ---
 
-## License
+## 📄 License
 
-This project is open-source and available under the **[MIT License](LICENSE)**. Feel free to customize and modify for personal use.
+This project is licensed under the **[MIT License](LICENSE)**. Feel free to use or adapt it for your own osu! setup showcase.
 
 ---
 
 <p align="center">
-  Developed for the <b>osu! Community</b>
+  Crafted with ❤️ for the <b>osu! Community</b>
 </p>

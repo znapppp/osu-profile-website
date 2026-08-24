@@ -364,6 +364,10 @@ body {
     width: 100%;
 }
 
+.spec-list:last-child {
+    margin-bottom: 0;
+}
+
 .spec-item {
     display: flex;
     justify-content: space-between;
