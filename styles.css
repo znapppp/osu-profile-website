@@ -36,9 +36,9 @@
     --ink-black: #f0f0f0;
     --ink-white: #080808;
 
-    /* ── Typography — Minimal ── */
-    --font-display: 'Syne', system-ui, sans-serif;
-    --font-heading: 'Syne', system-ui, sans-serif;
+    /* ── Typography — Minimal Cute ── */
+    --font-display: 'Nunito', system-ui, sans-serif;
+    --font-heading: 'Nunito', system-ui, sans-serif;
     --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
     --font-mono:    'JetBrains Mono', 'SF Mono', monospace;
 
@@ -233,13 +233,12 @@ body {
 
 .page-title {
     font-family: var(--font-display);
-    font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
     font-weight: 800;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
     word-break: break-word;
-    line-height: 1.1;
-    text-transform: uppercase;
+    line-height: 1.15;
 }
 
 .highlight-text {
