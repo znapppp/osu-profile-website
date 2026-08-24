@@ -301,7 +301,7 @@ body {
 
 .setup-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
     width: 100%;
 }
@@ -334,6 +334,22 @@ body {
     transition: var(--transition-fast);
     min-width: 0;
     width: 100%;
+}
+
+.driver-spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
 }
 
 .spec-item:hover {
