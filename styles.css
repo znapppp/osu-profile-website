@@ -113,18 +113,29 @@ body {
     gap: 20px;
 }
 
-.profile-avatar-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(255, 102, 170, 0.25), rgba(255, 192, 203, 0.08));
-    border: 1.5px solid var(--pink-accent);
+.profile-avatar-container {
+    width: 58px;
+    height: 58px;
     border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.75rem;
-    color: var(--pink-accent);
-    box-shadow: 0 0 25px var(--pink-glow);
+    overflow: hidden;
+    border: 1px solid var(--border-glass);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+    transition: var(--transition-fast);
+}
+
+.profile-avatar-container:hover {
+    border-color: var(--pink-accent);
+    box-shadow: 0 0 18px var(--pink-glow);
+    transform: scale(1.03);
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .page-title {
