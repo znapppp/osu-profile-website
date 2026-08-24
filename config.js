@@ -8,7 +8,7 @@ const PROFILE_CONFIG = {
     user: {
         username: "Jakkaf1rst",
         tagline: "Rhythm is just a click away! 🎮⚡",
-        avatar: "https://a.ppy.sh/2", // ลิงก์ รูป Avatar (หรือใส่เป็นไฟล์รูปภาพ local เช่น ./assets/avatar.jpg)
+        avatar: "https://a.ppy.sh/22919575", // ลิงก์ รูป Avatar (หรือใส่เป็นไฟล์รูปภาพ local เช่น ./assets/avatar.jpg)
         banner: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop", // Banner หลัง
         country: "Thailand",
         countryCode: "TH",

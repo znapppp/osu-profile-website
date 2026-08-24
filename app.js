@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Copy Discord Tag Listener
     initDiscordCopy();
 
+    // Initialize Auto-Update osu! Profile Avatar
+    initAvatarCacheBuster();
+
     // ----------------------------------------------------------------------
     // 1. Lightbox Image Zoom System
     // ----------------------------------------------------------------------
@@ -63,6 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.warn("Clipboard copy failed:", err);
                 });
             });
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // 3. Auto-Update osu! Profile Avatar (Cache Busting)
+    // ----------------------------------------------------------------------
+    function initAvatarCacheBuster() {
+        const avatarImg = document.querySelector('.profile-avatar-img');
+        if (avatarImg) {
+            const currentSrc = avatarImg.getAttribute('src');
+            if (currentSrc && currentSrc.includes('a.ppy.sh')) {
+                const baseUrl = currentSrc.split('?')[0];
+                // Append timestamp query parameter to bypass browser/CDN caching
+                avatarImg.src = `${baseUrl}?t=${Date.now()}`;
+            }
         }
     }
 
