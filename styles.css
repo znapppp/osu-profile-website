@@ -349,6 +349,14 @@ body {
     width: 100%;
 }
 
+.setup-grid-duo {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
 .setup-card {
     display: flex;
     flex-direction: column;
@@ -835,6 +843,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .setup-grid-duo {
+        grid-template-columns: 1fr;
+    }
+
     .app-container {
         padding: 24px 16px 56px;
     }

@@ -20,8 +20,8 @@ Designed for instant, zero-dependency static deployment on **GitHub Pages**.
   - **Tablet Settings**: Wacom CTL-472 specification (39mm x 26mm area), OpenTabletDriver details & preview.
   - **Keyboard Settings**: Keychron C75 TMR (Ring / Index Z, C bind, 0.3mm actuation point, 0.5mm rapid trigger).
   - **Keypad Settings**: Sayodevice O3C (3.00mm stroke, custom release/trigger actuation & rapid trigger specs).
-  - **Monitor Settings**: LG ULTRAGEAR 24GS60F-B (180 Hz, 1920x1080 FHD, 1ms GtG).
-  - **Audio Settings**: Apple EarPods (USB-C In-Ear / Wired).
+  - **Monitor**: LG ULTRAGEAR 24GS60F-B (180 Hz, 1920x1080 FHD, 1ms GtG).
+  - **Audio**: Apple EarPods (USB-C Earbud Wired).
 - **Interactive Lightbox Image Zoom**: Click any hardware or skin preview screenshot to view in a high-resolution lightbox modal.
 - **Custom osu! Skins Showcase**: Dedicated showcase for current main skin (*Aristia Instafade Znap- edit*) and High AR skin (*Milkteaism Hydro DT BETA edit*), with direct Google Drive download links.
 - **One-Click Discord Copy**: Interactive social pill button to instantly copy Discord username (`Salmoneverydayplss`) to clipboard with animated Toast Notifications.
