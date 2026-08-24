@@ -834,6 +834,69 @@ body {
 }
 
 /* ==========================================================================
+   Scroll-to-Skins FAB Button
+   ========================================================================== */
+
+.fab-scroll-skins {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px 10px 14px;
+    background: rgba(10, 10, 10, 0.85);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+    transition: var(--t-normal);
+    /* entrance animation */
+    animation: fab-enter 0.6s 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.fab-scroll-skins svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--text-muted);
+    transition: var(--t-fast);
+    flex-shrink: 0;
+}
+
+.fab-scroll-skins:hover {
+    background: rgba(255,255,255,0.90);
+    color: #080808;
+    border-color: rgba(255,255,255,0.90);
+    box-shadow: 0 6px 28px rgba(255,255,255,0.10), 0 4px 16px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+}
+
+.fab-scroll-skins:hover svg {
+    stroke: #080808;
+    transform: translateY(2px);
+}
+
+.fab-scroll-skins.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+}
+
+@keyframes fab-enter {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
    Lightbox Modal
    ========================================================================== */
 

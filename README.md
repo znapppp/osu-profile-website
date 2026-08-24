@@ -8,7 +8,7 @@ A static personal showcase website documenting hardware peripherals, osu! skin c
 
 Built with plain HTML, CSS, and JavaScript — no build tools, no frameworks, no dependencies. Designed to be deployed as-is on GitHub Pages.
 
-The site presents hardware specifications (tablet, keyboard, keypad, monitor, audio), interactive screenshot previews with a lightbox zoom modal, custom skin downloads, and a live-synced osu! profile avatar.
+The site presents hardware specifications (tablet, keyboard, keypad, monitor, audio), interactive screenshot previews with a lightbox zoom modal, custom skin downloads, floating quick-navigation controls, and a live-synced osu! profile avatar.
 
 ---
 
@@ -17,12 +17,14 @@ The site presents hardware specifications (tablet, keyboard, keypad, monitor, au
 ```
 osu-profile-website/
 ├── index.html       — Layout, content, and modal structure
-├── styles.css       — Design system, variables, and responsive layout
-├── app.js           — Lightbox, Discord copy, avatar cache-busting, scroll reveal
-├── sparkle.js       — Canvas-based star particle system
-├── sparkle.css      — Sparkle canvas positioning
-├── config.js        — Static profile configuration data
 ├── avatar.jpg       — Local avatar fallback
+├── css/
+│   ├── styles.css   — Design system, variables, glassmorphism, responsive layout
+│   └── sparkle.css  — Sparkle canvas positioning styles
+├── js/
+│   ├── app.js       — Lightbox, Discord copy, avatar cache-busting, scroll reveal, FAB button
+│   ├── sparkle.js   — Canvas-based star particle system
+│   └── config.js    — Static profile configuration data
 └── picture/
     ├── tablet/      — OpenTabletDriver screenshots
     ├── keyboard/    — Keyboard driver screenshots
@@ -51,7 +53,7 @@ osu-profile-website/
 
 ```bash
 git add .
-git commit -m "chore: update site"
+git commit -m "chore: update site structure and documentation"
 git push origin main
 ```
 

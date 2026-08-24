@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <!-- Sparkle Effect -->
-    <link rel="stylesheet" href="sparkle.css">
+    <link rel="stylesheet" href="css/sparkle.css">
 </head>
 
 <body>
@@ -237,7 +237,7 @@
             </div>
 
             <!-- 6. Skins Showcase Section -->
-            <section class="glass-panel skin-section-card">
+            <section id="skins" class="glass-panel skin-section-card">
                 <div class="card-header skin-card-header">
                     <div>
                         <h2><i class="fas fa-paint-brush header-icon"></i> Custom osu! Skins</h2>
@@ -292,6 +292,14 @@
         <!-- Toast Notification Popup -->
         <div id="toast" class="toast">Copied to clipboard!</div>
 
+        <!-- Scroll to Skins FAB -->
+        <button id="scroll-to-skins" class="fab-scroll-skins" title="Go to Skins" onclick="document.getElementById('skins').scrollIntoView({behavior:'smooth',block:'start'})">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+            <span>Skins</span>
+        </button>
+
         <!-- Lightbox Image Zoom Modal -->
         <div id="lightbox-modal" class="lightbox-modal" onclick="if(event.target===this) closeLightbox();">
             <span class="lightbox-close" id="lightbox-close" onclick="closeLightbox()">&times;</span>
@@ -306,8 +314,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="sparkle.js"></script>
-    <script src="app.js"></script>
+    <script src="js/sparkle.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

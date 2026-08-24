@@ -76,6 +76,9 @@ function initApp() {
 
     // Initialize Scroll-Reveal Animation
     initScrollReveal();
+
+    // Initialize Skins FAB visibility toggle
+    initSkinsButton();
 }
 
 // ----------------------------------------------------------------------
@@ -157,6 +160,27 @@ function showToast(msg) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 2500);
+}
+
+// ----------------------------------------------------------------------
+// Scroll-to-Skins FAB — hide when skins section is already in view
+// ----------------------------------------------------------------------
+function initSkinsButton() {
+    const fab = document.getElementById('scroll-to-skins');
+    const skinsSection = document.getElementById('skins');
+    if (!fab || !skinsSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                fab.classList.add('hidden');
+            } else {
+                fab.classList.remove('hidden');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    observer.observe(skinsSection);
 }
 
 // Execute immediately if DOM is ready, or wait for DOMContentLoaded
