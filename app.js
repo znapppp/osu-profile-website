@@ -73,6 +73,9 @@ function initApp() {
 
     // Initialize Auto-Update Profile Avatar Cache Buster
     initAvatarCacheBuster();
+
+    // Initialize Scroll-Reveal Animation
+    initScrollReveal();
 }
 
 // ----------------------------------------------------------------------
@@ -105,6 +108,44 @@ function initAvatarCacheBuster() {
             avatarImg.src = `${baseUrl}?t=${Date.now()}`;
         }
     }
+}
+
+// ----------------------------------------------------------------------
+// Scroll-Reveal Animation (IntersectionObserver)
+// ----------------------------------------------------------------------
+function initScrollReveal() {
+    // Elements to animate: cards, spec rows, skin boxes, header, footer
+    const targets = document.querySelectorAll(
+        '.glass-panel, .spec-item, .skin-box, .skin-preview-wrapper, .btn-full-collection, .footer'
+    );
+
+    // Start all elements as invisible + slightly shifted down
+    targets.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(22px)';
+        el.style.transition = 'opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)';
+        // stagger delay based on position in DOM
+        el.dataset.revealDelay = Math.min(i * 40, 320);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const delay = parseInt(el.dataset.revealDelay || 0, 10);
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, delay);
+                observer.unobserve(el); // animate once only
+            }
+        });
+    }, {
+        threshold: 0.08,       // trigger when 8% of element is visible
+        rootMargin: '0px 0px -30px 0px' // trigger slightly before fully visible
+    });
+
+    targets.forEach(el => observer.observe(el));
 }
 
 // Toast Helper Utility
