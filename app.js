@@ -21,13 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const captionText = document.getElementById('lightbox-caption');
         const closeBtn = document.getElementById('lightbox-close');
 
-        const previewImages = document.querySelectorAll('.setup-preview-img');
+        // Select all preview containers and setup preview images
+        const zoomElements = document.querySelectorAll('.preview-image-container, .skin-preview-wrapper, .setup-preview-img');
 
-        previewImages.forEach(img => {
-            img.addEventListener('click', () => {
-                modal.style.display = 'flex';
-                modalImg.src = img.src;
-                captionText.textContent = img.alt;
+        zoomElements.forEach(element => {
+            element.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const img = element.tagName.toLowerCase() === 'img' ? element : element.querySelector('img');
+                if (img && img.src) {
+                    modal.style.display = 'flex';
+                    modalImg.src = img.src;
+                    captionText.textContent = img.alt || '';
+                }
             });
         });
 
@@ -38,15 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Close on clicking outside the image container
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal || e.target === closeBtn) {
-                modal.style.display = 'none';
-            }
-        });
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target === closeBtn) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
 
         // Close on Escape key press
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
+            if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
                 modal.style.display = 'none';
             }
         });

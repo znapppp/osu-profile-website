@@ -538,6 +538,7 @@ body {
     opacity: 0;
     transition: opacity 0.25s ease;
     z-index: 2;
+    pointer-events: none;
 }
 
 .preview-image-container:hover .image-overlay {
@@ -556,6 +557,7 @@ body {
     gap: 7px;
     letter-spacing: 0.02em;
     box-shadow: var(--shadow-sm);
+    pointer-events: none;
 }
 
 /* ==========================================================================
@@ -651,6 +653,13 @@ body {
     border: 1px solid var(--border-light);
     width: 100%;
     background: var(--bg-surface);
+    cursor: pointer;
+    transition: var(--t-normal);
+}
+
+.skin-preview-wrapper:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
 }
 
 .skin-preview-wrapper .setup-preview-img {
@@ -659,6 +668,11 @@ body {
     object-fit: cover;
     border-radius: 0;
     box-shadow: none;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skin-preview-wrapper:hover .setup-preview-img {
+    transform: scale(1.03);
 }
 
 .btn-skin-action {
