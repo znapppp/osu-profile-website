@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.size = Math.random() * 8 + 4;
                 this.speedX = (Math.random() - 0.5) * 2;
                 this.speedY = (Math.random() - 0.5) * 2;
-                this.color = Math.random() > 0.5 ? '#ff66aa' : '#00f2fe';
+                this.color = Math.random() > 0.5 ? '#ffffff' : '#a1a1aa';
                 this.alpha = 1;
                 this.decay = Math.random() * 0.03 + 0.015;
             }
