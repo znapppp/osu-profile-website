@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Znap- | osu! Setup Configuration</title>
-    <meta name="description" content="Znap- official osu! tablet settings, keyboard configuration, Sayodevice keypad, and custom skins.">
-    
+    <meta name="description"
+        content="Znap- official osu! tablet settings, keyboard configuration, Sayodevice keypad, and custom skins.">
+
     <!-- Google Fonts — Luxury Edition -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     <!-- Sparkle Effect -->
     <link rel="stylesheet" href="sparkle.css">
 </head>
+
 <body>
     <!-- Luxury Star Sparkle Canvas -->
     <canvas id="sparkle-canvas" aria-hidden="true"></canvas>
@@ -29,7 +34,8 @@
             <div class="header-main-info">
                 <div class="user-badge-title">
                     <div class="profile-avatar-container">
-                        <img src="https://a.ppy.sh/22919575" alt="Znap- Avatar" class="profile-avatar-img" id="profile-avatar-img" onerror="this.onerror=null; this.src='avatar.jpg';">
+                        <img src="https://a.ppy.sh/22919575" alt="Znap- Avatar" class="profile-avatar-img"
+                            id="profile-avatar-img" onerror="this.onerror=null; this.src='avatar.jpg';">
                     </div>
                     <div>
                         <h1 class="page-title">Znap- <span class="highlight-text">Setup Configuration</span></h1>
@@ -38,25 +44,32 @@
                         </p>
                     </div>
                 </div>
-                
+
                 <!-- Social Links Bar -->
                 <div class="header-socials">
-                    <a href="https://osu.ppy.sh/users/22919575" target="_blank" rel="noopener noreferrer" class="social-pill osu-text-pill">
+                    <a href="https://osu.ppy.sh/users/22919575" target="_blank" rel="noopener noreferrer"
+                        class="social-pill osu-text-pill">
                         osu! Profile
                     </a>
-                    <a href="https://www.tiktok.com/@znapppp_" target="_blank" rel="noopener noreferrer" class="social-pill icon-only-pill white-logo-pill" title="TikTok (@znapppp_)">
+                    <a href="https://www.tiktok.com/@znapppp_" target="_blank" rel="noopener noreferrer"
+                        class="social-pill icon-only-pill white-logo-pill" title="TikTok (@znapppp_)">
                         <svg class="social-svg-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68a6.34 6.34 0 0 0 10.86 4.49 6.27 6.27 0 0 0 1.91-4.49V8.62a8.28 8.28 0 0 0 4.82 1.52V6.69z"/>
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68a6.34 6.34 0 0 0 10.86 4.49 6.27 6.27 0 0 0 1.91-4.49V8.62a8.28 8.28 0 0 0 4.82 1.52V6.69z" />
                         </svg>
                     </a>
-                    <a href="https://x.com/znapppp_" target="_blank" rel="noopener noreferrer" class="social-pill icon-only-pill white-logo-pill" title="X / Twitter (@znapppp_)">
+                    <a href="https://x.com/znapppp_" target="_blank" rel="noopener noreferrer"
+                        class="social-pill icon-only-pill white-logo-pill" title="X / Twitter (@znapppp_)">
                         <svg class="social-svg-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                         </svg>
                     </a>
-                    <button class="social-pill icon-only-pill white-logo-pill" id="copy-discord" title="Discord: Salmoneverydayplss (Click to copy)">
+                    <button class="social-pill icon-only-pill white-logo-pill" id="copy-discord"
+                        title="Discord: Salmoneverydayplss (Click to copy)">
                         <svg class="social-svg-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            <path
+                                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
                         </svg>
                     </button>
                 </div>
@@ -85,7 +98,8 @@
                             <span class="spec-label">Driver</span>
                             <span class="spec-value spec-mono">OpenTabletDriver v0.6.7</span>
                         </div>
-                        <a href="https://github.com/OpenTabletDriver/OpenTabletDriver/releases" target="_blank" rel="noopener noreferrer" class="btn-download-link">
+                        <a href="https://github.com/OpenTabletDriver/OpenTabletDriver/releases" target="_blank"
+                            rel="noopener noreferrer" class="btn-download-link">
                             Download Link
                         </a>
                     </div>
@@ -96,7 +110,8 @@
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
-                    <img src="picture/tablet/Screenshot 2026-08-22 221453.png" alt="Wacom CTL-472 Tablet Settings" class="setup-preview-img">
+                    <img src="picture/tablet/Screenshot 2026-08-22 221453.png" alt="Wacom CTL-472 Tablet Settings"
+                        class="setup-preview-img">
                 </div>
             </section>
 
@@ -130,7 +145,8 @@
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
-                    <img src="picture/keyboard/Screenshot 2026-08-23 231651.png" alt="Keychron C75 Keyboard Settings" class="setup-preview-img">
+                    <img src="picture/keyboard/Screenshot 2026-08-23 231651.png" alt="Keychron C75 Keyboard Settings"
+                        class="setup-preview-img">
                 </div>
             </section>
 
@@ -164,7 +180,8 @@
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
-                    <img src="picture/keypad/Screenshot 2026-08-22 221530.png" alt="Sayodevice O3C Keypad Settings" class="setup-preview-img">
+                    <img src="picture/keypad/Screenshot 2026-08-22 221530.png" alt="Sayodevice O3C Keypad Settings"
+                        class="setup-preview-img">
                 </div>
             </section>
 
@@ -236,9 +253,11 @@
                             <h3>Aristia(Edit) Instafade Znap- edit.</h3>
                         </div>
                         <div class="skin-preview-wrapper" onclick="openLightbox(this)">
-                            <img src="picture/skin/aristia/screenshot012.png" alt="Aristia Instafade Preview" class="setup-preview-img">
+                            <img src="picture/skin/aristia/screenshot012.png" alt="Aristia Instafade Preview"
+                                class="setup-preview-img">
                         </div>
-                        <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                        <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link"
+                            target="_blank" rel="noopener noreferrer" class="btn-skin-action">
                             Download Here
                         </a>
                     </div>
@@ -250,9 +269,11 @@
                             <h3>Milkteaism Hydro DT BETA(Znap- edit)</h3>
                         </div>
                         <div class="skin-preview-wrapper" onclick="openLightbox(this)">
-                            <img src="picture/skin/DT/screenshot018.png" alt="Milkteaism Hydro DT Preview" class="setup-preview-img">
+                            <img src="picture/skin/DT/screenshot018.png" alt="Milkteaism Hydro DT Preview"
+                                class="setup-preview-img">
                         </div>
-                        <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                        <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link"
+                            target="_blank" rel="noopener noreferrer" class="btn-skin-action">
                             Download Here
                         </a>
                     </div>
@@ -260,7 +281,8 @@
 
                 <!-- Full Collection Link -->
                 <div class="full-skin-banner">
-                    <a href="https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-full-collection">
+                    <a href="https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing"
+                        target="_blank" rel="noopener noreferrer" class="btn-full-collection">
                         <span>SKIN THAT I'VE BEEN USING (CLICK HERE)</span>
                     </a>
                 </div>
@@ -279,7 +301,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Znap- osu! Setup Configuration • Synced with Google Site</p>
+            <p>Znap- osu! Setup Configuration • enjoy you osu! </p>
         </footer>
     </div>
 
@@ -287,4 +309,5 @@
     <script src="sparkle.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
