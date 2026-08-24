@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>osu! Profile | Gamer Showcase</title>
+    <meta name="description" content="Personal osu! profile website showcasing stats, top plays, peripherals, skin, and achievements.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Interactive Background Canvas for osu! Particle / Cursor Effect -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Audio Player (Hidden control, triggered by Top Plays) -->
+    <audio id="audio-preview" preload="none"></audio>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Floating Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fab fa-optin-monster brand-logo"></i>
+                <span class="brand-text">osu! <span class="brand-highlight">Profile</span></span>
+            </div>
+            
+            <div class="mode-tabs" id="mode-tabs">
+                <button class="mode-tab active" data-mode="std">
+                    <i class="fas fa-circle-notch"></i> osu!std
+                </button>
+                <button class="mode-tab" data-mode="taiko">
+                    <i class="fas fa-drum"></i> taiko
+                </button>
+                <button class="mode-tab" data-mode="catch">
+                    <i class="fas fa-apple-alt"></i> catch
+                </button>
+                <button class="mode-tab" data-mode="mania">
+                    <i class="fas fa-keyboard"></i> mania
+                </button>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn-icon" id="toggle-cursor" title="Toggle Cursor Effect">
+                    <i class="fas fa-magic"></i>
+                </button>
+                <button class="btn-icon" id="toggle-audio" title="Now Playing / Audio Info">
+                    <i class="fas fa-music"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Banner & Profile Header -->
+        <header class="profile-hero">
+            <div class="hero-banner" id="hero-banner">
+                <div class="banner-overlay"></div>
+            </div>
+
+            <div class="profile-header-content">
+                <div class="avatar-container">
+                    <img src="" alt="Avatar" id="user-avatar" class="user-avatar">
+                    <div class="status-indicator online" id="status-indicator" title="Online"></div>
+                </div>
+
+                <div class="user-info">
+                    <div class="username-row">
+                        <h1 id="user-username">Loading...</h1>
+                        <span class="supporter-badge" id="supporter-badge" title="osu! Supporter">
+                            <i class="fas fa-heart"></i>
+                        </span>
+                        <div class="country-tag">
+                            <span class="fi fi-th" id="user-flag"></span>
+                            <span id="user-country">TH</span>
+                        </div>
+                    </div>
+
+                    <p class="user-tagline" id="user-tagline"></p>
+
+                    <div class="user-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Joined <strong id="user-joined">-</strong></span>
+                        <span><i class="fas fa-clock"></i> Playtime <strong id="user-playtime">-</strong></span>
+                        <span><i class="fas fa-circle" id="status-dot"></i> <span id="user-status">Online</span></span>
+                    </div>
+
+                    <!-- Social Links Pill Container -->
+                    <div class="socials-container" id="socials-container">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content Grid -->
+        <main class="dashboard-grid">
+            <!-- Left Column: Key Stats & Grade Badges -->
+            <section class="stats-overview-card glass-panel">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line header-icon"></i> Performance Stats</h2>
+                    <span class="active-mode-tag" id="active-mode-label">osu!standard</span>
+                </div>
+
+                <div class="main-stats-grid">
+                    <!-- PP Card -->
+                    <div class="stat-box highlight-box">
+                        <span class="stat-label">Performance Points</span>
+                        <div class="stat-value pp-value" id="stat-pp">0</div>
+                        <span class="stat-sub">pp</span>
+                    </div>
+
+                    <!-- Global Rank -->
+                    <div class="stat-box">
+                        <span class="stat-label">Global Rank</span>
+                        <div class="stat-value" id="stat-global-rank">#0</div>
+                        <span class="stat-sub"><i class="fas fa-globe"></i> World</span>
+                    </div>
+
+                    <!-- Country Rank -->
+                    <div class="stat-box">
+                        <span class="stat-label">Country Rank</span>
+                        <div class="stat-value" id="stat-country-rank">#0</div>
+                        <span class="stat-sub"><i class="fas fa-flag"></i> National</span>
+                    </div>
+
+                    <!-- Accuracy Circle -->
+                    <div class="stat-box accuracy-box">
+                        <span class="stat-label">Accuracy</span>
+                        <div class="accuracy-circle-wrapper">
+                            <svg class="accuracy-svg" viewBox="0 0 100 100">
+                                <circle class="bg" cx="50" cy="50" r="42"></circle>
+                                <circle class="meter" id="acc-circle" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
+                            </svg>
+                            <div class="accuracy-number" id="stat-accuracy">0.00%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level & Extra Stats -->
+                <div class="level-container">
+                    <div class="level-header">
+                        <span>Level <strong id="stat-level">0</strong></span>
+                        <span id="stat-level-progress-text">0%</span>
+                    </div>
+                    <div class="level-bar-bg">
+                        <div class="level-bar-fill" id="stat-level-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="sub-stats-grid">
+                    <div class="sub-stat-item">
+                        <span class="label">Play Count</span>
+                        <span class="value" id="stat-playcount">0</span>
+                    </div>
+                    <div class="sub-stat-item">
+                        <span class="label">Ranked Score</span>
+                        <span class="value" id="stat-ranked-score">0</span>
+                    </div>
+                    <div class="sub-stat-item">
+                        <span class="label">Replays Watched</span>
+                        <span class="value" id="stat-replays">0</span>
+                    </div>
+                </div>
+
+                <!-- Grade Counters Showcase -->
+                <div class="grades-showcase">
+                    <h3 class="subsection-title">Rank Grades Breakdown</h3>
+                    <div class="grades-grid">
+                        <div class="grade-pill ssh" title="SS Silver">
+                            <span class="grade-symbol">SS</span>
+                            <span class="grade-count" id="grade-ssh">0</span>
+                        </div>
+                        <div class="grade-pill ss" title="SS Gold">
+                            <span class="grade-symbol">SS</span>
+                            <span class="grade-count" id="grade-ss">0</span>
+                        </div>
+                        <div class="grade-pill sh" title="S Silver">
+                            <span class="grade-symbol">S</span>
+                            <span class="grade-count" id="grade-sh">0</span>
+                        </div>
+                        <div class="grade-pill s" title="S Gold">
+                            <span class="grade-symbol">S</span>
+                            <span class="grade-count" id="grade-s">0</span>
+                        </div>
+                        <div class="grade-pill a" title="A Rank">
+                            <span class="grade-symbol">A</span>
+                            <span class="grade-count" id="grade-a">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Top Plays Showcase -->
+            <section class="top-plays-card glass-panel">
+                <div class="card-header">
+                    <h2><i class="fas fa-crown header-icon star-gold"></i> Top Performances</h2>
+                    <span class="hint-text"><i class="fas fa-volume-up"></i> Click card to preview song audio</span>
+                </div>
+
+                <div class="top-plays-list" id="top-plays-list">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Second Row: Setup & Hardware + Custom Skin -->
+        <section class="secondary-grid">
+            <!-- Hardware / Setup Card -->
+            <div class="glass-panel setup-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-gamepad header-icon"></i> Hardware & Playstyle</h2>
+                </div>
+                
+                <div class="playstyle-banner">
+                    <div class="playstyle-info">
+                        <span class="playstyle-label">Playstyle</span>
+                        <h3 id="setup-playstyle">-</h3>
+                    </div>
+                    <div class="area-info">
+                        <span class="area-label"><i class="fas fa-vector-square"></i> Tablet Area / Sensitivity</span>
+                        <p id="setup-area">-</p>
+                    </div>
+                </div>
+
+                <div class="peripherals-grid" id="peripherals-grid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Custom Skin Showcase -->
+            <div class="glass-panel skin-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-paint-brush header-icon"></i> Custom Skin Showcase</h2>
+                    <span class="skin-version-badge" id="skin-version">v1.0</span>
+                </div>
+
+                <div class="skin-body">
+                    <div class="skin-info">
+                        <h3 id="skin-name">Skin Name</h3>
+                        <p class="skin-author">Created by <strong id="skin-author">Author</strong> • <span id="skin-size">0 MB</span></p>
+
+                        <ul class="skin-features-list" id="skin-features">
+                            <!-- Rendered by JS -->
+                        </ul>
+
+                        <a href="#" id="skin-download-btn" target="_blank" class="btn-primary skin-btn">
+                            <i class="fas fa-download"></i> Download Skin (.osk)
+                        </a>
+                    </div>
+
+                    <div class="skin-preview-carousel">
+                        <img src="" id="skin-preview-img" alt="Skin Preview" class="skin-preview-thumb">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Badges & Showcase -->
+        <section class="glass-panel badges-card">
+            <div class="card-header">
+                <h2><i class="fas fa-certificate header-icon"></i> Badges & Achievements</h2>
+            </div>
+            
+            <div class="badges-grid" id="badges-grid">
+                <!-- Rendered by JS -->
+            </div>
+        </section>
+
+        <!-- Toast Notification Popup -->
+        <div id="toast" class="toast">Copied to clipboard!</div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Designed with <i class="fas fa-heart pink-text"></i> for the osu! Community • Ready for <strong class="pink-text">GitHub Pages</strong></p>
+            <p class="footer-sub">osu! is a trademark of ppy Pty Ltd. This is an unofficial fan profile website.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
