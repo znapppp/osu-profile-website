@@ -1,4 +1,4 @@
-# 🎮 osu! Profile Showcase Platform
+# osu! Profile Showcase Platform
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -12,19 +12,19 @@ Designed for instant, hassle-free deployment on **GitHub Pages** with a zero-bui
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-- 🎨 **Modern Gaming & Glassmorphism Aesthetic**: Vibrant dark-mode UI with official osu! color accents (`#ff66aa`), translucent glassmorphism cards, and smooth ambient neon glow animations.
-- 🕹️ **Dynamic Game Mode Switcher**: Real-time statistics toggle supporting all standard game modes (`osu!std`, `osu!taiko`, `osu!catch`, and `osu!mania`).
-- 👑 **Top Performances Showcase & Audio Preview**: Dynamic performance cards featuring calculated Star Difficulty color gradients, glowing rank badges (SSH, SS, SH, S, A), and an integrated Audio Preview Engine for beatmaps.
-- 🎧 **Hardware & Playstyle Specifications**: Dedicated display for player setup details (Tablet Area, Rapid Trigger Keyboards, Keybinds, Mouse Sensitivity, and Monitor refresh rates).
-- 🎨 **Skin Showcase**: Dedicated section to showcase custom player skins with feature lists, preview images, and `.osk` download links.
-- 🏆 **Badges & Achievements**: Highlight reel for player achievements, tournament badges, and community roles.
-- ✨ **Interactive Particle Cursor**: Custom canvas-rendered osu! cursor particle trailing effect responsive to mouse movement.
+- **Modern Gaming & Glassmorphism Aesthetic**: Vibrant dark-mode UI with official osu! color accents (`#ff66aa`), translucent glassmorphism cards, and smooth ambient neon glow animations.
+- **Dynamic Game Mode Switcher**: Real-time statistics toggle supporting all standard game modes (`osu!std`, `osu!taiko`, `osu!catch`, and `osu!mania`).
+- **Top Performances Showcase & Audio Preview**: Dynamic performance cards featuring calculated Star Difficulty color gradients, glowing rank badges (SSH, SS, SH, S, A), and an integrated Audio Preview Engine for beatmaps.
+- **Hardware & Playstyle Specifications**: Dedicated display for player setup details (Tablet Area, Rapid Trigger Keyboards, Keybinds, Mouse Sensitivity, and Monitor refresh rates).
+- **Skin Showcase**: Dedicated section to showcase custom player skins with feature lists, preview images, and `.osk` download links.
+- **Badges & Achievements**: Highlight reel for player achievements, tournament badges, and community roles.
+- **Interactive Particle Cursor**: Custom canvas-rendered osu! cursor particle trailing effect responsive to mouse movement.
 
 ---
 
-## 🛠️ Configuration Guide
+## Configuration Guide
 
 All website data and player statistics are configured via a single central configuration file: **[`config.js`](config.js)**. 
 
@@ -35,7 +35,7 @@ const PROFILE_CONFIG = {
     // Personal Information & User Metadata
     user: {
         username: "YourName",
-        tagline: "Rhythm is just a click away! 🎮⚡",
+        tagline: "Rhythm is just a click away!",
         avatar: "https://a.ppy.sh/2", // Avatar URL or local image path
         banner: "https://images.unsplash.com/...", // Banner background image URL
         country: "Thailand",
@@ -82,7 +82,7 @@ const PROFILE_CONFIG = {
 
 ---
 
-## 🚀 Deployment (GitHub Pages)
+## Deployment (GitHub Pages)
 
 Because this repository is a static web application, it can be deployed to **GitHub Pages** in 3 simple steps:
 
@@ -111,7 +111,7 @@ https://<username>.github.io/osu-profile-website/
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 osu-profile-website/
@@ -130,7 +130,7 @@ osu-profile-website/
 
 ---
 
-## 💻 Tech Stack & Dependencies
+## Tech Stack & Dependencies
 
 - **Frontend Core**: Standard HTML5, Modern CSS3 (CSS Variables, Flexbox, Grid), Vanilla JavaScript (ES6+)
 - **Design & UI**: Custom Glassmorphism UI Components, Ambient Neon Lighting System
@@ -139,12 +139,12 @@ osu-profile-website/
 
 ---
 
-## 📄 License
+## License
 
 This project is open-source and available under the **[MIT License](LICENSE)**. Feel free to customize and modify for personal use.
 
 ---
 
 <p align="center">
-  Developed with ❤️ for the <b>osu! Community</b>
+  Developed for the <b>osu! Community</b>
 </p>
