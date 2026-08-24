@@ -1,0 +1,10 @@
+# Personal / draft setting notes
+my setting.md
+
+# OS / System generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp files
+*.log
