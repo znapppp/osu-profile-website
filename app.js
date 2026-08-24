@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lightbox Modal for Image Preview Zoom
     initLightboxModal();
 
+    // Initialize Copy Discord Tag Listener
+    initDiscordCopy();
+
     // ----------------------------------------------------------------------
     // 1. Lightbox Image Zoom System
     // ----------------------------------------------------------------------
@@ -44,6 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.style.display = 'none';
             }
         });
+    }
+
+    // ----------------------------------------------------------------------
+    // 2. Discord Tag Copy Utility
+    // ----------------------------------------------------------------------
+    function initDiscordCopy() {
+        const copyBtn = document.getElementById('copy-discord');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const tag = "Salmoneverydayplss";
+                navigator.clipboard.writeText(tag).then(() => {
+                    showToast(`Copied Discord: ${tag}`);
+                }).catch(err => {
+                    console.warn("Clipboard copy failed:", err);
+                });
+            });
+        }
     }
 
     // Helper Utility Toast

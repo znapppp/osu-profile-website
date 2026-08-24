@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Znap- | osu! Setup Configuration</title>
-    <meta name="description" content="Znap- official osu! tablet settings, keyboard configuration, and custom skin.">
+    <meta name="description" content="Znap- official osu! tablet settings, keyboard configuration, Sayodevice keypad, and custom skins.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,22 +30,32 @@
                     <div>
                         <h1 class="page-title">Znap- <span class="highlight-text">Setup Configuration</span></h1>
                         <p class="last-update-tag">
-                            <i class="far fa-clock"></i> Last update : <strong>26 July 2026</strong>
+                            <i class="far fa-clock"></i> Last update : <strong>23 August 2026</strong> <span class="heart-tag">&lt;3</span>
                         </p>
                     </div>
                 </div>
                 
-                <div class="header-actions">
-                    <a href="https://osu.ppy.sh/users/22919575" target="_blank" rel="noopener noreferrer" class="btn-profile-link">
-                        <i class="fas fa-external-link-alt"></i> osu! Profile Link
+                <!-- Social Links Bar -->
+                <div class="header-socials">
+                    <a href="https://osu.ppy.sh/users/22919575" target="_blank" rel="noopener noreferrer" class="social-pill osu-pill">
+                        <i class="fab fa-optin-monster"></i> osu! Profile
                     </a>
+                    <a href="https://www.tiktok.com/@znapppp_" target="_blank" rel="noopener noreferrer" class="social-pill tiktok-pill">
+                        <i class="fab fa-tiktok"></i> @znapppp_
+                    </a>
+                    <a href="https://x.com/znapppp_" target="_blank" rel="noopener noreferrer" class="social-pill twitter-pill">
+                        <i class="fab fa-x-twitter"></i> @znapppp_
+                    </a>
+                    <button class="social-pill discord-pill" id="copy-discord" title="Click to copy Discord Tag">
+                        <i class="fab fa-discord"></i> Salmoneverydayplss
+                    </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content Layout -->
+        <!-- Hardware Setup Grid -->
         <main class="setup-grid">
-            <!-- Tablet Settings Card -->
+            <!-- 1. Tablet Settings Card -->
             <section class="glass-panel setup-card">
                 <div class="card-header">
                     <h2><i class="fas fa-tablet-alt header-icon"></i> Tablet Settings</h2>
@@ -59,7 +69,7 @@
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">Area</span>
-                        <span class="spec-value badge-pill">42mm x 34mm</span>
+                        <span class="spec-value badge-pill">39 mm x 26 mm</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">Driver</span>
@@ -77,11 +87,11 @@
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
-                    <img src="https://github.com/user-attachments/assets/5bde6890-dba1-423a-aa1b-2899bb4e8c0a" alt="Wacom Tablet Settings" class="setup-preview-img" id="tablet-img">
+                    <img src="https://lh3.googleusercontent.com/sitesv/AG8ngQU-Y3NyD5YGRDA5SXdVyqrIRG3Bd-ZIVJt_UEt1zCCBIf_sg7D2nCrobMG_RlXGG3VVzKQf2Spyi3PC7IONlIndWNIp8hQsPJF1VOO-nHskf7G_6tYPEkpVnfUz3pZ0_qA72pMpuWOXN51iuBIWd5ceCtPH4XWmTHHocOZe-uPK2YToakmYmrXzjkg_HuVoxoi3Gw18-_-4pVd6r6nbZOFage_A0nvb8ot1iTwPqY4=w1280" alt="Wacom CTL-472 Tablet Settings" class="setup-preview-img">
                 </div>
             </section>
 
-            <!-- Keyboard Settings Card -->
+            <!-- 2. Keyboard Settings Card -->
             <section class="glass-panel setup-card">
                 <div class="card-header">
                     <h2><i class="fas fa-keyboard header-icon"></i> Keyboard Setting</h2>
@@ -91,19 +101,19 @@
                 <div class="spec-list">
                     <div class="spec-item">
                         <span class="spec-label">Device</span>
-                        <span class="spec-value highlight-value">Keychron C75 TMR 8K</span>
+                        <span class="spec-value highlight-value">Keychron C75 TMR</span>
                     </div>
                     <div class="spec-item">
-                        <span class="spec-label">Switch</span>
-                        <span class="spec-value badge-pill green-accent">Ultra-Fast Lime Magnetic</span>
+                        <span class="spec-label">Keybind</span>
+                        <span class="spec-value badge-pill green-accent">Ring / Index (Z, C)</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">Actuation Point</span>
-                        <span class="spec-value">0.42 mm</span>
+                        <span class="spec-value spec-mono">0.3 mm</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">Rapid Trigger</span>
-                        <span class="spec-value spec-mono">Release : 0.38 | Press : 0.37</span>
+                        <span class="spec-value spec-mono">0.5 mm</span>
                     </div>
                 </div>
 
@@ -112,33 +122,98 @@
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
-                    <img src="https://github.com/user-attachments/assets/31b9e3bf-2543-483b-a962-1f477fac6c77" alt="AP Keyboard Settings" class="setup-preview-img" id="keyboard-img">
+                    <img src="https://lh3.googleusercontent.com/sitesv/AG8ngQUFHsaRKbix57V_jvjj2bkhWKuE9Bc_kHVZuY6YYWHQJCJ0ycKpwpcGSurLdYJfiHWQO9HHj4b2dMRXq00JZVU1oW-c6ZEJ92CY5FuG9mLxv4Q9LWmO95r8GnCxLRfImrehCUh8BmXJsI2dXaEv4aVR5eX0OxXx48PM0Nb5WXY1SywY9QuRTynuZK4DZYalzp7Pyzk3DXsNFh3fv4lG-HRw9f-qQPd1vi8zz8DiIUU=w1280" alt="Keychron C75 Keyboard Settings" class="setup-preview-img">
                 </div>
             </section>
 
-            <!-- Skin Download Card -->
+            <!-- 3. Keypad Settings Card -->
+            <section class="glass-panel setup-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-calculator header-icon"></i> Keypad Setting</h2>
+                    <span class="category-tag"><i class="fas fa-microchip"></i> Sayodevice</span>
+                </div>
+
+                <div class="spec-list">
+                    <div class="spec-item">
+                        <span class="spec-label">Device</span>
+                        <span class="spec-value highlight-value">Sayodevice O3C</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Stroke</span>
+                        <span class="spec-value spec-mono">3.00 mm</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Profile 1</span>
+                        <span class="spec-value spec-mono">Release: 0.3 mm | Trigger: 0.7 mm</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Profile 2</span>
+                        <span class="spec-value spec-mono">Release: 0.5 mm | Trigger: 0.3 mm</span>
+                    </div>
+                </div>
+
+                <!-- Keypad Screenshot Preview -->
+                <div class="preview-image-container">
+                    <div class="image-overlay">
+                        <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
+                    </div>
+                    <img src="https://lh3.googleusercontent.com/sitesv/AG8ngQWlVlJPuhJ95IRegCA4yysJ9YxTdq5SWRnZHpRk7MOmwSOj9HcscH2LqP-ubXkNMzsWdsrv2wlJJ24NlUmfcowOtOqNp4jCd29X6HEpudMvh3MsJO1xngJ8yXlY4Oh-57NL_Zfo5cmzs6ZI4W0P5gGS3MtQCi0T9RGup90G-gzCIrwzFmSzGM0QPd6e5LUMHN-UvctAncCqxJw5kb8-ECCotUxJU0NVrlLv-H2w3FQ=w1280" alt="Sayodevice O3C Keypad Settings" class="setup-preview-img">
+                </div>
+            </section>
+
+            <!-- 4. Skins Showcase Section -->
             <section class="glass-panel skin-section-card">
-                <div class="skin-banner-content">
-                    <div class="skin-text-group">
-                        <div class="skin-icon-badge">
-                            <i class="fas fa-paint-brush"></i>
+                <div class="card-header">
+                    <h2><i class="fas fa-paint-brush header-icon"></i> Custom osu! Skins</h2>
+                    <span class="category-tag"><i class="fas fa-heart"></i> Favorite Skins</span>
+                </div>
+
+                <p class="skin-motto">
+                    <i class="fas fa-quote-left"></i> I'm way more comfortable playing with the Instafade skin :) <i class="fas fa-quote-right"></i>
+                </p>
+
+                <div class="skin-items-grid">
+                    <!-- Skin Item 1: Current Use -->
+                    <div class="skin-box current-skin-box">
+                        <div class="skin-box-header">
+                            <span class="skin-tag-badge main-skin"><i class="fas fa-star"></i> Current Use</span>
+                            <h3>Aristia(Edit) Instafade Znap- edit.</h3>
                         </div>
-                        <div>
-                            <h2>osu! Custom Skin</h2>
-                            <p class="skin-subtext">Download the official custom skin used in gameplay</p>
+                        <div class="skin-preview-wrapper">
+                            <img src="https://lh3.googleusercontent.com/sitesv/AG8ngQX4pLkQook6V91ynK71oBPx9XfXl5PozXfM_zUhAmV0T0ened1UUVrZBCZOvOJ0pN6ENO084qwdIk0mqrHMk-lgTdZKCIf7JBXAwFc2doNgzi5zhuznjA5MJQpp-6L8O8zKzixb-BvoQ4yuVtvyx4TCmhrM2mrrhz-RZxSeSKzGeLg2vK3ZUOiqeW-lQV9wDbSUkpuRZcZlSpj7I2Qa0xQC02bYeESa1VQli97bXsE=w1280" alt="Aristia Instafade Preview" class="setup-preview-img">
                         </div>
+                        <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                            <i class="fas fa-download"></i> Download Here
+                        </a>
                     </div>
 
-                    <a href="https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-skin-download">
-                        <i class="fas fa-cloud-download-alt"></i>
-                        <span>SKIN THAT I'VE BEEN USING (CLICK HERE)</span>
+                    <!-- Skin Item 2: High AR -->
+                    <div class="skin-box high-ar-skin-box">
+                        <div class="skin-box-header">
+                            <span class="skin-tag-badge ar-skin"><i class="fas fa-bolt"></i> High AR</span>
+                            <h3>Milkteaism Hydro DT BETA(Znap- edit)</h3>
+                        </div>
+                        <div class="skin-preview-wrapper">
+                            <img src="https://lh3.googleusercontent.com/sitesv/AG8ngQV-DgKK1dCIrk4vfPZ4JZwMBh4hYHR-59nXN-FBDx1DpD0G2lgdKF5tVo3RLwQchhqnaOEadeNddznpJMXuafCksoUP3rkM_LX2HmRj9-cdXjV06k-TWaOzCEQ2BOhmIBVtd0QpkGC0BnKyEy-GCx4cDUlWwpnsKxqCuyzzjhX3c2jbOaIygQwdn2JGbQDwqZV96yPDjOIEgKeuofzSEgwvwXhhYLvE_CPYktmb87k=w1280" alt="Milkteaism Hydro DT Preview" class="setup-preview-img">
+                        </div>
+                        <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                            <i class="fas fa-download"></i> Download Here
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Full Collection Link -->
+                <div class="full-skin-banner">
+                    <a href="https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-full-collection">
+                        <i class="fas fa-folder-open"></i>
+                        <span>SKIN THAT I'VE BEEN USING (FULL GOOGLE DRIVE FOLDER)</span>
                     </a>
                 </div>
             </section>
         </main>
 
         <!-- Toast Notification Popup -->
-        <div id="toast" class="toast">Notice message here</div>
+        <div id="toast" class="toast">Copied to clipboard!</div>
 
         <!-- Lightbox Image Zoom Modal -->
         <div id="lightbox-modal" class="lightbox-modal">
@@ -149,7 +224,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Znap- osu! Setup Configuration • Designed for maximum performance</p>
+            <p>Znap- osu! Setup Configuration • Synced with Google Site</p>
         </footer>
     </div>
 

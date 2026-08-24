@@ -1,10 +1,10 @@
 /* ==========================================================================
-   Znap- osu! Setup Configuration - Ultra Readability & Refined Aesthetics
+   Znap- osu! Setup Configuration - Clean & Modern High Readability System
    ========================================================================== */
 
 :root {
-    /* Color Palette - High Contrast Dark with Vibrant Soft Pink Accents */
-    --bg-dark: #09080e;
+    /* Color Palette - High Contrast Dark with Soft Pink Accents */
+    --bg-dark: #08070c;
     --bg-card: rgba(18, 16, 26, 0.88);
     --bg-card-hover: rgba(26, 23, 38, 0.95);
     --border-glass: rgba(255, 255, 255, 0.12);
@@ -69,7 +69,7 @@ body {
 
 /* Layout Container */
 .app-container {
-    max-width: 1120px;
+    max-width: 1160px;
     margin: 0 auto;
     padding: 40px 20px 70px 20px;
 }
@@ -154,56 +154,47 @@ body {
     font-weight: 700;
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+.heart-tag {
+    color: var(--pink-accent-bright);
+    font-weight: 800;
 }
 
-.btn-profile-link {
+/* Header Socials Pills */
+.header-socials {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.social-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 11px 22px;
-    background: rgba(255, 192, 203, 0.12);
-    color: var(--pink-accent);
-    border: 1px solid rgba(255, 192, 203, 0.35);
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-glass);
     border-radius: var(--radius-full);
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.92rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
     transition: var(--transition-fast);
 }
 
-.btn-profile-link:hover {
-    background: var(--pink-accent-bright);
+.social-pill:hover {
+    background: var(--pink-accent);
     color: #000000;
-    border-color: var(--pink-accent-bright);
-    box-shadow: 0 0 20px var(--pink-glow);
+    border-color: var(--pink-accent);
+    box-shadow: 0 0 15px var(--pink-glow);
     transform: translateY(-2px);
 }
 
-.btn-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--border-glass);
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.15rem;
-    transition: var(--transition-fast);
-}
-
-.btn-icon:hover, .btn-icon.active {
-    background: rgba(255, 192, 203, 0.25);
-    color: var(--pink-accent);
-    border-color: var(--pink-accent);
-    box-shadow: 0 0 15px var(--pink-glow);
-}
+.osu-pill:hover { background: #ff66aa; color: #fff; }
+.tiktok-pill:hover { background: #00f2fe; color: #000; }
+.twitter-pill:hover { background: #1da1f2; color: #fff; }
+.discord-pill:hover { background: #5865f2; color: #fff; }
 
 /* ==========================================================================
    Card Header
@@ -244,12 +235,12 @@ body {
 }
 
 /* ==========================================================================
-   Setup Grid & Specification Details (High Readability)
+   Setup Grid & Specification Details
    ========================================================================== */
 
 .setup-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 28px;
 }
 
@@ -285,7 +276,6 @@ body {
     font-size: 0.95rem;
     color: var(--text-muted);
     font-weight: 600;
-    letter-spacing: 0.01em;
 }
 
 .spec-value {
@@ -424,7 +414,7 @@ body {
 }
 
 /* ==========================================================================
-   Skin Download Banner Section
+   Skins Showcase Section
    ========================================================================== */
 
 .skin-section-card {
@@ -433,63 +423,120 @@ body {
     border: 1px solid rgba(255, 192, 203, 0.35);
 }
 
-.skin-banner-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+.skin-motto {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pink-accent);
+    margin-bottom: 24px;
+    padding: 12px 20px;
+    background: rgba(255, 192, 203, 0.08);
+    border-left: 3px solid var(--pink-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
-.skin-text-group {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.skin-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
-.skin-icon-badge {
-    width: 56px;
-    height: 56px;
-    background: rgba(255, 102, 170, 0.18);
+.skin-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
-    border: 1.5px solid var(--pink-accent);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-normal);
+}
+
+.skin-box:hover {
+    border-color: var(--pink-accent);
+    transform: translateY(-3px);
+}
+
+.skin-box-header {
+    margin-bottom: 14px;
+}
+
+.skin-tag-badge {
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.main-skin {
+    background: rgba(255, 102, 170, 0.2);
+    color: var(--pink-accent);
+    border: 1px solid var(--pink-accent);
+}
+
+.ar-skin {
+    background: rgba(0, 242, 254, 0.2);
+    color: #00f2fe;
+    border: 1px solid #00f2fe;
+}
+
+.skin-box h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.skin-preview-wrapper {
+    height: 180px;
+    margin: 12px 0 16px 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-skin-action {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    color: var(--pink-accent);
-    box-shadow: 0 0 18px var(--pink-glow);
-}
-
-.skin-text-group h2 {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
+    gap: 8px;
+    padding: 12px;
+    background: var(--pink-accent);
+    color: #000000;
+    text-decoration: none;
     font-weight: 800;
-    color: #ffffff;
+    border-radius: var(--radius-md);
+    margin-top: auto;
+    transition: var(--transition-fast);
 }
 
-.skin-subtext {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-top: 2px;
+.btn-skin-action:hover {
+    background: #ffffff;
+    box-shadow: 0 0 15px var(--pink-glow);
 }
 
-.btn-skin-download {
+.full-skin-banner {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn-full-collection {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    padding: 15px 30px;
+    padding: 16px 32px;
     background: linear-gradient(135deg, #ff66aa, #ff99cc);
     color: #000000;
     text-decoration: none;
     font-weight: 800;
-    font-size: 0.98rem;
+    font-size: 1rem;
     border-radius: var(--radius-full);
     box-shadow: 0 0 25px rgba(255, 102, 170, 0.45);
     transition: var(--transition-fast);
 }
 
-.btn-skin-download:hover {
+.btn-full-collection:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 0 35px rgba(255, 102, 170, 0.7);
     background: linear-gradient(135deg, #ff80bf, #ffb3d9);
@@ -604,16 +651,6 @@ body {
     .setup-grid {
         grid-template-columns: 1fr;
     }
-    
-    .skin-banner-content {
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-    }
-
-    .skin-text-group {
-        flex-direction: column;
-    }
 
     .header-main-info {
         flex-direction: column;
@@ -623,6 +660,10 @@ body {
 
     .user-badge-title {
         flex-direction: column;
+    }
+
+    .header-socials {
+        justify-content: center;
     }
 
     .preview-image-container {
