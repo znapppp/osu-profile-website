@@ -2,103 +2,125 @@
 // Znap- osu! Setup Configuration - Interactive Application Logic
 // ==========================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Lightbox Modal for Image Preview Zoom
-    initLightboxModal();
+// Global Lightbox Functions for instant execution & event handler access
+window.openLightbox = function(elementOrSrc, caption) {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    const captionText = document.getElementById('lightbox-caption');
+    if (!modal || !modalImg) return;
 
-    // Initialize Copy Discord Tag Listener
+    let src = '';
+    let alt = '';
+
+    if (typeof elementOrSrc === 'string') {
+        src = elementOrSrc;
+        alt = caption || '';
+    } else if (elementOrSrc) {
+        const img = elementOrSrc.tagName && elementOrSrc.tagName.toLowerCase() === 'img'
+            ? elementOrSrc
+            : elementOrSrc.querySelector('img');
+        if (img) {
+            src = img.src;
+            alt = img.alt || caption || '';
+        }
+    }
+
+    if (src) {
+        modalImg.src = src;
+        if (captionText) captionText.textContent = alt;
+        modal.classList.add('show', 'active');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+};
+
+window.closeLightbox = function() {
+    const modal = document.getElementById('lightbox-modal');
+    if (!modal) return;
+    modal.classList.remove('show', 'active');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+};
+
+// Application Main Initialization
+function initApp() {
+    // Global Event Delegation for clicks
+    document.addEventListener('click', (e) => {
+        // 1. Close lightbox if clicking close button or background backdrop
+        const closeBtn = e.target.closest('#lightbox-close, .lightbox-close');
+        const modal = document.getElementById('lightbox-modal');
+        if (closeBtn || e.target === modal) {
+            window.closeLightbox();
+            return;
+        }
+
+        // 2. Open lightbox if clicking any preview container or setup image
+        const zoomTarget = e.target.closest('.preview-image-container, .skin-preview-wrapper, .setup-preview-img');
+        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill')) {
+            window.openLightbox(zoomTarget);
+        }
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            window.closeLightbox();
+        }
+    });
+
+    // Initialize Discord Copy Listener
     initDiscordCopy();
 
-    // Initialize Auto-Update osu! Profile Avatar
+    // Initialize Auto-Update Profile Avatar Cache Buster
     initAvatarCacheBuster();
+}
 
-    // ----------------------------------------------------------------------
-    // 1. Lightbox Image Zoom System
-    // ----------------------------------------------------------------------
-    function initLightboxModal() {
-        const modal = document.getElementById('lightbox-modal');
-        const modalImg = document.getElementById('lightbox-img');
-        const captionText = document.getElementById('lightbox-caption');
-        const closeBtn = document.getElementById('lightbox-close');
-
-        // Select all preview containers and setup preview images
-        const zoomElements = document.querySelectorAll('.preview-image-container, .skin-preview-wrapper, .setup-preview-img');
-
-        zoomElements.forEach(element => {
-            element.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const img = element.tagName.toLowerCase() === 'img' ? element : element.querySelector('img');
-                if (img && img.src) {
-                    modal.style.display = 'flex';
-                    modalImg.src = img.src;
-                    captionText.textContent = img.alt || '';
-                }
+// ----------------------------------------------------------------------
+// Discord Tag Copy Utility
+// ----------------------------------------------------------------------
+function initDiscordCopy() {
+    const copyBtn = document.getElementById('copy-discord');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const tag = "Salmoneverydayplss";
+            navigator.clipboard.writeText(tag).then(() => {
+                showToast(`Copied Discord: ${tag}`);
+            }).catch(err => {
+                console.warn("Clipboard copy failed:", err);
             });
         });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-        }
-
-        // Close on clicking outside the image container
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal || e.target === closeBtn) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-
-        // Close on Escape key press
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        });
     }
+}
 
-    // ----------------------------------------------------------------------
-    // 2. Discord Tag Copy Utility
-    // ----------------------------------------------------------------------
-    function initDiscordCopy() {
-        const copyBtn = document.getElementById('copy-discord');
-        if (copyBtn) {
-            copyBtn.addEventListener('click', () => {
-                const tag = "Salmoneverydayplss";
-                navigator.clipboard.writeText(tag).then(() => {
-                    showToast(`Copied Discord: ${tag}`);
-                }).catch(err => {
-                    console.warn("Clipboard copy failed:", err);
-                });
-            });
+// ----------------------------------------------------------------------
+// Auto-Update osu! Profile Avatar (Cache Busting)
+// ----------------------------------------------------------------------
+function initAvatarCacheBuster() {
+    const avatarImg = document.querySelector('.profile-avatar-img');
+    if (avatarImg) {
+        const currentSrc = avatarImg.getAttribute('src');
+        if (currentSrc && currentSrc.includes('a.ppy.sh')) {
+            const baseUrl = currentSrc.split('?')[0];
+            avatarImg.src = `${baseUrl}?t=${Date.now()}`;
         }
     }
+}
 
-    // ----------------------------------------------------------------------
-    // 3. Auto-Update osu! Profile Avatar (Cache Busting)
-    // ----------------------------------------------------------------------
-    function initAvatarCacheBuster() {
-        const avatarImg = document.querySelector('.profile-avatar-img');
-        if (avatarImg) {
-            const currentSrc = avatarImg.getAttribute('src');
-            if (currentSrc && currentSrc.includes('a.ppy.sh')) {
-                const baseUrl = currentSrc.split('?')[0];
-                // Append timestamp query parameter to bypass browser/CDN caching
-                avatarImg.src = `${baseUrl}?t=${Date.now()}`;
-            }
-        }
-    }
+// Toast Helper Utility
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
+}
 
-    // Helper Utility Toast
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        if (!toast) return;
-        toast.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 2500);
-    }
-});
+// Execute immediately if DOM is ready, or wait for DOMContentLoaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}

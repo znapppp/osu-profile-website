@@ -88,7 +88,7 @@
                 </div>
 
                 <!-- Tablet Screenshot Preview -->
-                <div class="preview-image-container">
+                <div class="preview-image-container" onclick="openLightbox(this)">
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
@@ -122,7 +122,7 @@
                 </div>
 
                 <!-- Keyboard Screenshot Preview -->
-                <div class="preview-image-container">
+                <div class="preview-image-container" onclick="openLightbox(this)">
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
@@ -156,7 +156,7 @@
                 </div>
 
                 <!-- Keypad Screenshot Preview -->
-                <div class="preview-image-container">
+                <div class="preview-image-container" onclick="openLightbox(this)">
                     <div class="image-overlay">
                         <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
                     </div>
@@ -231,7 +231,7 @@
                             <span class="skin-tag-badge main-skin">Current Use</span>
                             <h3>Aristia(Edit) Instafade Znap- edit.</h3>
                         </div>
-                        <div class="skin-preview-wrapper">
+                        <div class="skin-preview-wrapper" onclick="openLightbox(this)">
                             <img src="picture/skin/aristia/screenshot012.png" alt="Aristia Instafade Preview" class="setup-preview-img">
                         </div>
                         <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-skin-action">
@@ -245,7 +245,7 @@
                             <span class="skin-tag-badge ar-skin">High AR</span>
                             <h3>Milkteaism Hydro DT BETA(Znap- edit)</h3>
                         </div>
-                        <div class="skin-preview-wrapper">
+                        <div class="skin-preview-wrapper" onclick="openLightbox(this)">
                             <img src="picture/skin/DT/screenshot018.png" alt="Milkteaism Hydro DT Preview" class="setup-preview-img">
                         </div>
                         <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-skin-action">
@@ -267,8 +267,8 @@
         <div id="toast" class="toast">Copied to clipboard!</div>
 
         <!-- Lightbox Image Zoom Modal -->
-        <div id="lightbox-modal" class="lightbox-modal">
-            <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <div id="lightbox-modal" class="lightbox-modal" onclick="if(event.target===this) closeLightbox();">
+            <span class="lightbox-close" id="lightbox-close" onclick="closeLightbox()">&times;</span>
             <img class="lightbox-content" id="lightbox-img" alt="Zoomed Setup Preview">
             <div id="lightbox-caption" class="lightbox-caption"></div>
         </div>
