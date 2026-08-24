@@ -6,22 +6,23 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://pages.github.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-A premium, minimalist gaming-themed showcase website for **Znap-**, presenting hardware settings (Tablet, Keyboard, Keypad), custom osu! skins, and official social media profiles. Built with modern UI design principles featuring **Glassmorphism**, neon accent glows, interactive image zoom modals, and automatic osu! profile picture synchronization.
+A premium, minimalist gaming-themed showcase website for **Znap-**, presenting hardware settings (Tablet, Keyboard, Keypad, Monitor, Audio), custom osu! skins, and official social media profiles. Built with modern UI design principles featuring **Glassmorphism**, neon accent glows, interactive image zoom modals, and automatic osu! profile picture synchronization.
 
 Designed for instant, zero-dependency static deployment on **GitHub Pages**.
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
 - **Modern Glassmorphism & Gaming Design**: Dark-mode UI with official osu! pink accents (`#ff66aa`), translucent glassmorphism cards, and smooth hover micro-animations.
 - **Auto-Sync osu! Profile Avatar**: Automatically fetches and updates the latest profile picture directly from official osu! servers (`a.ppy.sh`) using dynamic cache-busting timestamps (`?t=timestamp`), with local `avatar.jpg` fallback support.
 - **Hardware & Peripherals Setup Grid**:
-  - **Tablet Settings**: Wacom CTL-472 specification (39mm x 26mm area), OpenTabletDriver details & preview.
-  - **Keyboard Settings**: Keychron C75 TMR (Ring / Index Z, C bind, 0.3mm actuation point, 0.5mm rapid trigger).
-  - **Keypad Settings**: Sayodevice O3C (3.00mm stroke, custom release/trigger actuation & rapid trigger specs).
+  - **Tablet**: Wacom CTL-472 specification (39mm x 26mm area), OpenTabletDriver details & preview.
+  - **Keyboard**: Keychron C75 TMR (Ring / Index Z, C bind, 0.3mm actuation point, 0.5mm rapid trigger).
+  - **Keypad**: Sayodevice O3C (3.00mm stroke, custom release/trigger actuation & rapid trigger specs).
   - **Monitor**: LG ULTRAGEAR 24GS60F-B (180 Hz, 1920x1080 FHD, 1ms GtG).
   - **Audio**: Apple EarPods (USB-C Earbud Wired).
+- **Responsive 2-Column Duo Layout**: Monitor and Audio sections are displayed side-by-side in a 50/50 full-width row split.
 - **Interactive Lightbox Image Zoom**: Click any hardware or skin preview screenshot to view in a high-resolution lightbox modal.
 - **Custom osu! Skins Showcase**: Dedicated showcase for current main skin (*Aristia Instafade Znap- edit*) and High AR skin (*Milkteaism Hydro DT BETA edit*), with direct Google Drive download links.
 - **One-Click Discord Copy**: Interactive social pill button to instantly copy Discord username (`Salmoneverydayplss`) to clipboard with animated Toast Notifications.
@@ -29,7 +30,7 @@ Designed for instant, zero-dependency static deployment on **GitHub Pages**.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 osu-profile-website/
@@ -48,7 +49,7 @@ osu-profile-website/
 
 ---
 
-## 🚀 Deployment (GitHub Pages)
+## Deployment (GitHub Pages)
 
 Deploy to **GitHub Pages** in 3 simple steps:
 
@@ -75,7 +76,7 @@ https://<your-username>.github.io/osu-profile-website/
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Core**: HTML5, Vanilla CSS3 (CSS Grid/Flexbox, Glassmorphism, CSS Variables), ES6+ JavaScript
 - **Typography**: Google Fonts ([Exo 2](https://fonts.google.com/specimen/Exo+2), [Inter](https://fonts.google.com/specimen/Inter), [Outfit](https://fonts.google.com/specimen/Outfit))
@@ -84,12 +85,12 @@ https://<your-username>.github.io/osu-profile-website/
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **[MIT License](LICENSE)**. Feel free to use or adapt it for your own osu! setup showcase.
 
 ---
 
 <p align="center">
-  Crafted with ❤️ for the <b>osu! Community</b>
+  Crafted for the <b>osu! Community</b>
 </p>
