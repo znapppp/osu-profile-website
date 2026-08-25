@@ -857,15 +857,8 @@ body {
     background: var(--bg-inset);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
-    text-decoration: none;
     transition: var(--t-normal);
     width: 100%;
-}
-
-.other-skins-banner-bar:hover {
-    border-color: var(--border-mid);
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .banner-bar-content {
@@ -887,11 +880,6 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: transform 0.3s var(--ease-expo);
-}
-
-.other-skins-banner-bar:hover .banner-bar-icon {
-    transform: scale(1.08);
 }
 
 .banner-bar-text {
@@ -920,7 +908,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
+    padding: 9px 18px;
     background: transparent;
     border: 1px solid var(--border-mid);
     border-radius: var(--radius-xs);
@@ -932,13 +920,16 @@ body {
     text-transform: uppercase;
     white-space: nowrap;
     flex-shrink: 0;
+    text-decoration: none;
+    cursor: pointer;
     transition: var(--t-normal);
 }
 
-.other-skins-banner-bar:hover .banner-bar-action {
+.banner-bar-action:hover {
     background: rgba(255, 255, 255, 0.92);
     color: #080808;
     border-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.12);
 }
 
 .skin-preview-wrapper .setup-preview-img {
