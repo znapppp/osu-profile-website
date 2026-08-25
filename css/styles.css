@@ -411,6 +411,92 @@ body {
 }
 
 /* ==========================================================================
+   Section Divider Headers
+   ========================================================================== */
+
+.section-divider-header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 16px 22px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--text-primary);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(12px);
+    transition: var(--t-normal);
+}
+
+.skins-divider-header {
+    margin-top: 36px;
+    border-left-color: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.section-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.section-title-icon {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    background: var(--bg-inset);
+    padding: 10px 12px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.section-main-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin: 0 0 2px 0;
+    line-height: 1.2;
+}
+
+.section-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    display: block;
+}
+
+.section-badge-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: var(--radius-xs);
+    background: var(--bg-inset);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-mid);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.skins-badge {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.20);
+}
+
+/* ==========================================================================
    Setup Grid & Spec Items — Divider-row style
    ========================================================================== */
 
