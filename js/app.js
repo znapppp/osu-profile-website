@@ -56,7 +56,7 @@ function initApp() {
 
         // 2. Open lightbox if clicking any preview container or setup image
         const zoomTarget = e.target.closest('.preview-image-container, .skin-preview-wrapper, .setup-preview-img');
-        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill')) {
+        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper')) {
             window.openLightbox(zoomTarget);
         }
     });
