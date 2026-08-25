@@ -126,9 +126,9 @@ function initScrollReveal() {
     targets.forEach((el, i) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(22px)';
-        el.style.transition = 'opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)';
+        el.style.transition = 'opacity 0.95s cubic-bezier(0.16,1,0.3,1), transform 0.95s cubic-bezier(0.16,1,0.3,1)';
         // stagger delay based on position in DOM
-        el.dataset.revealDelay = Math.min(i * 40, 320);
+        el.dataset.revealDelay = Math.min(i * 50, 400);
     });
 
     const observer = new IntersectionObserver((entries) => {

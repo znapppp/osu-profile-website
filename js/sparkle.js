@@ -14,13 +14,13 @@
         count: 32,            // Number of active stars
         minSize: 2,           // px radius
         maxSize: 7,           // px radius
-        minSpeed: 0.2,       // fall speed px/frame
-        maxSpeed: 0.5,
-        driftRange: 0.25,     // horizontal drift amplitude
+        minSpeed: 0.1,        // fall speed px/frame (slightly slower)
+        maxSpeed: 0.28,
+        driftRange: 0.18,     // horizontal drift amplitude
         minOpacity: 0.15,
         maxOpacity: 0.65,
-        rotationSpeedMin: 0.002,
-        rotationSpeedMax: 0.012,
+        rotationSpeedMin: 0.001,
+        rotationSpeedMax: 0.006,
     };
 
     // ── State ───────────────────────────────────────────────────────────────
@@ -97,9 +97,9 @@
         // ── Outer soft white glow halo ──
         const glowRadius = outer * 2.8;
         const glow = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, glowRadius);
-        glow.addColorStop(0,   `rgba(255, 255, 255, ${opacity * 0.35})`);
+        glow.addColorStop(0, `rgba(255, 255, 255, ${opacity * 0.35})`);
         glow.addColorStop(0.5, `rgba(255, 255, 255, ${opacity * 0.1})`);
-        glow.addColorStop(1,   `rgba(255, 255, 255, 0)`);
+        glow.addColorStop(1, `rgba(255, 255, 255, 0)`);
         ctx.beginPath();
         ctx.arc(drawX, drawY, glowRadius, 0, Math.PI * 2);
         ctx.fillStyle = glow;
