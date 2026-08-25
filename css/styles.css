@@ -846,16 +846,17 @@ body {
     box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
 }
 
-/* Full-Width Horizontal Google Drive Banner Bar */
+/* Full-Width Horizontal Google Drive Banner Bar (Minimalist Accent Style) */
 .other-skins-banner-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     padding: 16px 20px;
-    margin-top: 6px;
+    margin-top: 8px;
     background: var(--bg-inset);
     border: 1px solid var(--border-light);
+    border-left: 3px solid var(--text-primary);
     border-radius: var(--radius-md);
     transition: var(--t-normal);
     width: 100%;
@@ -866,20 +867,6 @@ body {
     align-items: center;
     gap: 14px;
     min-width: 0;
-}
-
-.banner-bar-icon {
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-    width: 42px;
-    height: 42px;
-    border-radius: var(--radius-xs);
-    border: 1px solid var(--border-mid);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
 }
 
 .banner-bar-text {
