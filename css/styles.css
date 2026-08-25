@@ -20,11 +20,11 @@
     --border-strong: rgba(255, 255, 255, 0.20);
     --border-glow:   rgba(255, 255, 255, 0.16);
 
-    /* ── Text ── */
-    --text-primary:   #f2f2f2;
-    --text-secondary: #888888;
-    --text-muted:     #484848;
-    --text-faint:     #2e2e2e;
+    /* ── Text — WCAG AA compliant hierarchy ── */
+    --text-primary:   #f0f0f0;   /* ~18:1 contrast — headings, values */
+    --text-secondary: #a0a0a0;   /* ~8.6:1 contrast — body, pills, labels */
+    --text-muted:     #707070;   /* ~5.2:1 contrast — icons, metadata */
+    --text-faint:     #4e4e4e;   /* ~3.4:1 contrast — dividers, footer (use bold/large only) */
 
     /* ── Ink (inverted) ── */
     --ink-black: #f2f2f2;
@@ -398,7 +398,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     word-break: break-word;
@@ -491,11 +491,11 @@ body {
 }
 
 .spec-label {
-    font-size: 0.70rem;
-    color: var(--text-muted);
-    font-weight: 500;
+    font-size: 0.71rem;
+    color: var(--text-secondary);
+    font-weight: 400;
     white-space: nowrap;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     font-family: var(--font-mono);
 }
