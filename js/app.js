@@ -345,7 +345,35 @@ function initSkinSliders() {
 
     startAllAutoPlay.push(startAutoPlay);
     stopAllAutoPlay.push(stopAutoPlay);
-    startAutoPlay();
+
+    // Explicitly freeze at Slide 0 (Gameplay) on initial load
+    stopAutoPlay();
+    goToAllSliders(0);
+
+    let hasStartedFirstTime = false;
+
+    // ── IntersectionObserver: Start Auto-play ONLY when Skins section enters viewport ──
+    const skinsSection = document.querySelector('.skin-section-card') || document.getElementById('skins');
+    if (skinsSection) {
+        const viewportObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!hasStartedFirstTime) {
+                        hasStartedFirstTime = true;
+                        goToAllSliders(0); // Guarantee starting on Gameplay (Slide 0)
+                    }
+                    startAutoPlay();
+                } else {
+                    stopAutoPlay();
+                }
+            });
+        }, {
+            threshold: 0.25,                 // Requires 25% of section visible on screen
+            rootMargin: '0px 0px -60px 0px'  // Prevents premature trigger while reading above
+        });
+
+        viewportObserver.observe(skinsSection);
+    }
 
     // ── Wire up prev/next buttons AND dots for every slider ───────────────
     sliderStates.forEach(({ slider, prevBtn, nextBtn, dotsContainer }) => {
@@ -391,7 +419,16 @@ function initSkinSliders() {
     const skinTargets = document.querySelectorAll('.skin-section-card, .skin-box, .skin-slider-container');
     skinTargets.forEach(target => {
         target.addEventListener('mouseenter', () => stopAllAutoPlay.forEach(fn => fn()));
-        target.addEventListener('mouseleave', () => startAllAutoPlay.forEach(fn => fn()));
+        target.addEventListener('mouseleave', () => {
+            // Only resume autoplay on mouseleave if section is still visible
+            if (skinsSection) {
+                const rect = skinsSection.getBoundingClientRect();
+                const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                if (inView) startAllAutoPlay.forEach(fn => fn());
+            } else {
+                startAllAutoPlay.forEach(fn => fn());
+            }
+        });
     });
 }
 
