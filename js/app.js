@@ -334,10 +334,10 @@ function initSkinSliders() {
         });
     }
 
-    // ── Auto-play ─────────────────────────────────────────────────────────
+    // ── Auto-play (Slower 6.5s interval for comfortable preview viewing) ──
     function startAutoPlay() {
         stopAutoPlay();
-        autoPlayInterval = setInterval(() => goToAllSliders(sharedIndex + 1), 3500);
+        autoPlayInterval = setInterval(() => goToAllSliders(sharedIndex + 1), 6500);
     }
     function stopAutoPlay() {
         if (autoPlayInterval) { clearInterval(autoPlayInterval); autoPlayInterval = null; }
