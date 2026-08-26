@@ -80,8 +80,8 @@ function initApp() {
     // Initialize Skins FAB visibility toggle
     initSkinsButton();
 
-    // Initialize Low-CPU / No-GPU Performance Mode Detection & Toggle
-    initPerformanceMode();
+    // Automatic GPU Hardware Acceleration Auto-Detection
+    initGPUAutoDetection();
 }
 
 // ----------------------------------------------------------------------
@@ -187,17 +187,27 @@ function initSkinsButton() {
 }
 
 // ----------------------------------------------------------------------
-// Low-CPU / GPU Detection & Performance Mode Handler
+// Automatic Chrome GPU Hardware Acceleration Detection
 // ----------------------------------------------------------------------
 function checkGPUHardwareAcceleration() {
     try {
         const testCanvas = document.createElement('canvas');
         const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
-        if (!gl) return false;
+        if (!gl) return false; // WebGL disabled = Hardware acceleration OFF
+
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         if (debugInfo) {
             const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL).toLowerCase();
-            if (renderer.includes('swiftshader') || renderer.includes('llvmpipe') || renderer.includes('software') || renderer.includes('basic render')) {
+            const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL).toLowerCase();
+            // Known software rasterizers when Chrome GPU Hardware Acceleration is turned OFF:
+            if (
+                renderer.includes('swiftshader') ||
+                renderer.includes('llvmpipe') ||
+                renderer.includes('software') ||
+                renderer.includes('basic render') ||
+                renderer.includes('canvaskit') ||
+                (vendor.includes('google inc.') && renderer.includes('swiftshader'))
+            ) {
                 return false;
             }
         }
@@ -207,41 +217,17 @@ function checkGPUHardwareAcceleration() {
     }
 }
 
-function initPerformanceMode() {
+function initGPUAutoDetection() {
     const root = document.documentElement;
     const hasGPU = checkGPUHardwareAcceleration();
-    const storedPerf = localStorage.getItem('znap_perf_mode');
 
-    // Auto-enable no-gpu mode if Chrome GPU Hardware Acceleration is turned OFF
+    // Auto-enable .no-gpu mode if Chrome Hardware Acceleration is turned OFF
     if (!hasGPU) {
         root.classList.add('no-gpu');
-    }
-
-    // Apply manual user toggle preference
-    if (storedPerf === 'true') {
-        root.classList.add('perf-mode');
-    }
-
-    const perfBtn = document.getElementById('toggle-perf-mode');
-    if (perfBtn) {
-        const isPerfActive = root.classList.contains('no-gpu') || root.classList.contains('perf-mode');
-        if (isPerfActive) perfBtn.classList.add('active');
-
-        perfBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const nowActive = root.classList.toggle('perf-mode');
-            localStorage.setItem('znap_perf_mode', nowActive ? 'true' : 'false');
-            if (nowActive) {
-                perfBtn.classList.add('active');
-                showToast('⚡ Low CPU Mode Enabled (Ultra Smooth)');
-            } else {
-                perfBtn.classList.remove('active');
-                showToast('✨ Visual Effects Mode Enabled');
-            }
-            window.dispatchEvent(new CustomEvent('perfModeChange'));
-        });
+        console.log('[Znap- Setup] Chrome GPU Hardware Acceleration disabled: Auto-enabled .no-gpu high-performance mode.');
     }
 }
+
 
 
 // Execute immediately if DOM is ready, or wait for DOMContentLoaded

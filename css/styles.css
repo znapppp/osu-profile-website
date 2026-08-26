@@ -1259,73 +1259,43 @@ body {
 }
 
 /* ==========================================================================
-   CPU / Low-GPU Performance Optimization Mode (.no-gpu & .perf-mode)
+   CPU Software Rendering Auto-Optimization Mode (.no-gpu)
+   Triggered automatically when Chrome Hardware Acceleration is turned OFF
    ========================================================================== */
-
-/* Performance toggle pill button styling */
-.perf-pill {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-light);
-    color: var(--text-muted);
-    transition: var(--t-normal);
-}
-.perf-pill:hover {
-    background: rgba(255, 255, 255, 0.10);
-    color: var(--text-primary);
-    border-color: var(--border-mid);
-}
-.perf-pill.active {
-    background: rgba(255, 200, 0, 0.12);
-    border-color: rgba(255, 200, 0, 0.40);
-    color: #ffd700;
-}
-.perf-pill.active .perf-icon {
-    color: #ffd700;
-}
 
 /* Disable expensive backdrop-filter CPU blur passes on software rendering */
 .no-gpu .glass-panel,
 .no-gpu .section-divider-header,
 .no-gpu .fab-scroll-skins,
 .no-gpu .lightbox-modal,
-.no-gpu .toast,
-.perf-mode .glass-panel,
-.perf-mode .section-divider-header,
-.perf-mode .fab-scroll-skins,
-.perf-mode .lightbox-modal,
-.perf-mode .toast {
+.no-gpu .toast {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
 
-.no-gpu .glass-panel,
-.perf-mode .glass-panel {
+.no-gpu .glass-panel {
     background: rgba(19, 19, 23, 0.97) !important;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0,0,0,0.5) !important;
 }
 
-.no-gpu .section-divider-header,
-.perf-mode .section-divider-header {
+.no-gpu .section-divider-header {
     background: rgba(24, 24, 28, 0.98) !important;
 }
 
-.no-gpu .fab-scroll-skins,
-.perf-mode .fab-scroll-skins {
+.no-gpu .fab-scroll-skins {
     background: rgba(15, 15, 18, 0.98) !important;
 }
 
-.no-gpu .lightbox-modal,
-.perf-mode .lightbox-modal {
+.no-gpu .lightbox-modal {
     background-color: rgba(5, 5, 8, 0.98) !important;
 }
 
-.no-gpu .toast,
-.perf-mode .toast {
+.no-gpu .toast {
     background: rgba(12, 12, 14, 0.98) !important;
 }
 
-.no-gpu body,
-.perf-mode body {
+.no-gpu body {
     background-attachment: scroll !important;
 }
+
 

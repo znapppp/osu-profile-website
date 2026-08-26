@@ -119,8 +119,7 @@
     }
 
     function initStars() {
-        const isLowSpec = document.documentElement.classList.contains('no-gpu') ||
-                           document.documentElement.classList.contains('perf-mode');
+        const isLowSpec = document.documentElement.classList.contains('no-gpu');
         const targetCount = isLowSpec ? CONFIG.countNoGpu : CONFIG.count;
         stars = [];
         for (let i = 0; i < targetCount; i++) {
@@ -182,11 +181,6 @@
         } else {
             if (!raf) raf = requestAnimationFrame(loop);
         }
-    });
-
-    // ── Listen for performance mode changes ────────────────────────────────
-    window.addEventListener('perfModeChange', () => {
-        initStars();
     });
 
     // ── Init ──────────────────────────────────────────────────────────────────
