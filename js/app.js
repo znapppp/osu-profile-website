@@ -16,20 +16,24 @@ window.openLightbox = function(elementOrSrc, caption) {
         src = elementOrSrc;
         alt = caption || '';
     } else if (elementOrSrc) {
-        const sliderContainer = elementOrSrc.closest('.skin-slider-container');
         let img = null;
-        if (sliderContainer && sliderContainer.dataset.currentIndex !== undefined) {
-            const idx = parseInt(sliderContainer.dataset.currentIndex, 10);
-            const images = sliderContainer.querySelectorAll('.skin-slide-img, .setup-preview-img');
-            img = images[idx] || images[0];
+        if (elementOrSrc.tagName && elementOrSrc.tagName.toLowerCase() === 'img') {
+            img = elementOrSrc;
         } else {
-            img = elementOrSrc.tagName && elementOrSrc.tagName.toLowerCase() === 'img'
-                ? elementOrSrc
-                : (elementOrSrc.querySelector('img.active-slide') || elementOrSrc.querySelector('img'));
+            const sliderContainer = elementOrSrc.closest('.skin-slider-container, .preview-image-container, .skin-preview-wrapper');
+            if (sliderContainer) {
+                const rawIdx = sliderContainer.dataset.currentIndex;
+                const idx = (rawIdx !== undefined && !isNaN(parseInt(rawIdx, 10))) ? parseInt(rawIdx, 10) : 0;
+                const images = sliderContainer.querySelectorAll('.skin-slide-img, .setup-preview-img');
+                img = images[idx] || images[0] || sliderContainer.querySelector('img');
+            } else {
+                img = elementOrSrc.querySelector('img.active-slide') || elementOrSrc.querySelector('img');
+            }
         }
+
         if (img) {
             src = img.src;
-            alt = img.alt || caption || '';
+            alt = img.getAttribute('data-label') || img.alt || caption || '';
         }
     }
 
@@ -62,9 +66,9 @@ function initApp() {
             return;
         }
 
-        // 2. Open lightbox if clicking any preview container or setup image (except slider buttons & links)
-        const zoomTarget = e.target.closest('.preview-image-container, .skin-preview-wrapper, .setup-preview-img');
-        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper, .slider-btn, .slider-dot')) {
+        // 2. Open lightbox if clicking any preview container or setup image (except slider buttons, links, dots)
+        const zoomTarget = e.target.closest('.preview-image-container, .skin-preview-wrapper, .setup-preview-img, .skin-slider-container');
+        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper, .slider-btn, .slider-dot, .banner-bar-action')) {
             window.openLightbox(zoomTarget);
         }
     });
@@ -131,9 +135,9 @@ function initAvatarCacheBuster() {
 // Scroll-Reveal Animation (IntersectionObserver)
 // ----------------------------------------------------------------------
 function initScrollReveal() {
-    // Elements to animate: cards, spec rows, skin boxes, header, footer
+    // Elements to animate: cards, spec rows, skin boxes (excluding footer to prevent opacity issues)
     const targets = document.querySelectorAll(
-        '.glass-panel, .spec-item, .skin-box, .skin-preview-wrapper, .btn-full-collection, .footer'
+        '.glass-panel, .spec-item, .skin-box, .btn-full-collection'
     );
 
     // Start all elements as invisible + slightly shifted down

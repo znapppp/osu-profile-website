@@ -996,63 +996,76 @@ body {
 }
 
 /* ==========================================================================
-   Scroll-to-Skins FAB
+   Scroll-to-Skins FAB (High-Visibility Edition)
    ========================================================================== */
 
 .fab-scroll-skins {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 28px;
+    right: 28px;
     z-index: 9000;
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 9px 16px 9px 12px;
-    background: rgba(8, 8, 8, 0.90);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-mid);
-    border-radius: var(--radius-sm);
+    gap: 9px;
+    padding: 11px 20px;
+    background: rgba(18, 18, 22, 0.95);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: var(--radius-full);
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.55);
-    transition: var(--t-normal);
-    animation: fab-enter 0.6s 0.8s cubic-bezier(0.16,1,0.3,1) both;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.75),
+        0 0 20px rgba(255, 255, 255, 0.12);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fab-enter 0.6s 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.fab-scroll-skins svg {
-    width: 13px;
-    height: 13px;
-    stroke: var(--text-muted);
-    transition: var(--t-fast);
-    flex-shrink: 0;
+.fab-scroll-skins .fab-arrow {
+    font-size: 0.78rem;
+    color: #ffffff;
+    display: inline-block;
+    animation: fab-arrow-bounce 2.2s infinite ease-in-out;
 }
 
 .fab-scroll-skins:hover {
-    background: rgba(255,255,255,0.92);
+    background: #ffffff;
     color: #080808;
-    border-color: rgba(255,255,255,0.92);
-    box-shadow: 0 4px 24px rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.5);
+    border-color: #ffffff;
+    transform: translateY(-3px) scale(1.04);
+    box-shadow:
+        0 12px 36px rgba(255, 255, 255, 0.22),
+        0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
-.fab-scroll-skins:hover svg {
-    stroke: #080808;
-    transform: translateY(2px);
+.fab-scroll-skins:hover .fab-arrow {
+    color: #080808;
 }
 
 .fab-scroll-skins.hidden {
     opacity: 0;
     pointer-events: none;
-    transform: translateY(10px);
+    transform: translateY(14px) scale(0.92);
+}
+
+/* Slow, smooth floating up-and-down animation */
+@keyframes fab-arrow-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(4px);
+    }
 }
 
 @keyframes fab-enter {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -1142,7 +1155,9 @@ body {
    ========================================================================== */
 
 .toast {
-    visibility: hidden;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
     min-width: 200px;
     max-width: 88vw;
     background: rgba(8,8,8,0.97);
@@ -1166,7 +1181,9 @@ body {
 }
 
 .toast.show {
-    visibility: visible;
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
     animation: fadein 0.36s, fadeout 0.36s 2.3s;
 }
 
@@ -1182,13 +1199,18 @@ body {
 
 .footer {
     text-align: center;
-    margin-top: 56px;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 40px auto 36px auto;
+    padding: 24px 20px 0 20px;
     color: var(--text-muted);
     font-size: 0.68rem;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-family: var(--font-mono);
+    border-top: 1px solid var(--border-light);
+    opacity: 1 !important;
 }
 
 /* ==========================================================================
