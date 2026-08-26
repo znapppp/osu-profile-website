@@ -517,15 +517,29 @@ function initSkinGridScroll() {
     prevBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const currentIndex = getCurrentCardIndex();
-        scrollToCard(currentIndex - 1);
+        const count = getCardCount();
+
+        // Loop to last card if at start
+        if (grid.scrollLeft <= 10) {
+            scrollToCard(count - 1);
+        } else {
+            const currentIndex = getCurrentCardIndex();
+            scrollToCard(currentIndex - 1);
+        }
     });
 
     nextBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const currentIndex = getCurrentCardIndex();
-        scrollToCard(currentIndex + 1);
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+
+        // Loop to first card (0) if at end of scroll
+        if (grid.scrollLeft >= maxScroll - 10) {
+            scrollToCard(0);
+        } else {
+            const currentIndex = getCurrentCardIndex();
+            scrollToCard(currentIndex + 1);
+        }
     });
 }
 
