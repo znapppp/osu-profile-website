@@ -1,80 +1,55 @@
-# Znap- / osu! Setup Configuration
-
-A static personal showcase website documenting hardware peripherals, osu! skin configurations, and social profiles for the player **Znap-**.
-
----
+# Znap- osu! Setup Website
 
 ## Overview
+This repository contains the source code for the personal configuration showcase website of **Znap-**. The site documents hardware peripheral specifications, device settings, custom osu! skins, and profile references using static web technologies (HTML5, CSS3, JavaScript).
 
-Built with plain HTML, CSS, and JavaScript — no build tools, no frameworks, no dependencies. Designed to be deployed as-is on GitHub Pages.
+## Key Features
+- **Hardware Configuration Display**: Detailed parameter tracking for tablet, keyboard, keypad, monitor, and audio peripherals.
+- **Skin Collection & Downloads**: Direct file download links and screenshot previews for featured osu! skins.
+- **Automatic Hardware Acceleration Detection**: Built-in detection for GPU rendering status; automatically adjusts visual parameters to maintain 60 FPS in CPU software-rendering environments.
+- **Interactive Lightbox Preview**: Fullscreen image inspection modal for technical screenshots.
+- **Responsive Design**: Mobile and desktop layout optimization using vanilla CSS Grid and Flexbox.
 
-The site presents hardware specifications (tablet, keyboard, keypad, monitor, audio), interactive screenshot previews with a lightbox zoom modal, custom skin downloads, floating quick-navigation controls, and a live-synced osu! profile avatar.
+## Usage & Local Development
 
----
+### Prerequisites
+- A modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari).
+- Node.js (v18.0.0 or higher) if using the local server script.
 
-## Structure
+### Local Server Setup
+To run and preview the website locally without deploying:
 
-```
-osu-profile-website/
-├── index.html       — Layout, content, and modal structure
-├── avatar.jpg       — Local avatar fallback
-├── css/
-│   ├── styles.css   — Design system, variables, glassmorphism, responsive layout
-│   └── sparkle.css  — Sparkle canvas positioning styles
-├── js/
-│   ├── app.js       — Lightbox, Discord copy, avatar cache-busting, scroll reveal, FAB button
-│   ├── sparkle.js   — Canvas-based star particle system
-│   └── config.js    — Static profile configuration data
-└── picture/
-    ├── tablet/      — OpenTabletDriver screenshots
-    ├── keyboard/    — Keyboard driver screenshots
-    ├── keypad/      — Sayodevice O3C screenshots
-    └── skin/        — osu! skin gameplay previews
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/znapppp/osu-profile-website.git
+   cd osu-profile-website
+   ```
 
----
+2. Launch the local development server:
+   ```bash
+   npm start
+   ```
+   *(Alternatively, run `npx serve .`)*
 
-## Stack
+3. Navigate to the local server URL (e.g., `http://localhost:3000`) in your web browser.
 
-| Layer | Technology |
-|---|---|
-| Markup | HTML5 |
-| Styling | Vanilla CSS3 — Grid, Flexbox, Custom Properties |
-| Logic | Vanilla JavaScript (ES6+) — IntersectionObserver, Canvas API |
-| Typography | Nunito, Plus Jakarta Sans, JetBrains Mono (Google Fonts) |
-| Icons | Font Awesome 6 |
-| Hosting | GitHub Pages |
-
----
+### Direct Execution
+Alternatively, open `index.html` directly in any web browser without running a server.
 
 ## Deployment
+This project is structured for static hosting via GitHub Pages.
 
-**Push to GitHub and enable Pages:**
+1. Commit and push modifications to the primary branch:
+   ```bash
+   git add .
+   git commit -m "Update site configuration"
+   git push origin main
+   ```
 
-```bash
-git add .
-git commit -m "chore: update site structure and documentation"
-git push origin main
-```
-
-In the repository: **Settings > Pages > Deploy from branch > `main` / `(root)` > Save.**
-
-Site will be available at `https://<username>.github.io/osu-profile-website/`.
-
----
-
-## Hardware Documented
-
-| Peripheral | Model |
-|---|---|
-| Tablet | Wacom CTL-472 — 39 x 26 mm, OpenTabletDriver v0.6.7 |
-| Keyboard | Keychron C75 TMR — 0.3 mm actuation, 0.5 mm rapid trigger |
-| Keypad | Sayodevice O3C — 3.00 mm stroke, custom actuation points |
-| Monitor | LG ULTRAGEAR 24GS60F-B — 180 Hz, 1080p, 1 ms GtG |
-| Audio | Apple EarPods (USB-C) |
-
----
+2. Enable GitHub Pages in repository settings:
+   - Navigate to **Settings** > **Pages**.
+   - Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+   - Select **Branch: main** and **Folder: / (root)**, then click **Save**.
 
 ## License
-
 MIT

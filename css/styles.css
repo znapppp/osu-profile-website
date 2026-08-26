@@ -432,9 +432,6 @@ body {
 
 .skins-divider-header {
     margin-top: 36px;
-    border-left-color: rgba(255, 255, 255, 0.95);
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .section-title-wrapper {
@@ -560,18 +557,22 @@ body {
 
 .driver-spec-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px 12px;
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
 }
 
-.driver-info {
+.driver-info-row {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    min-width: 0;
+    width: 100%;
+}
+
+.driver-action-row {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .spec-label {
@@ -828,13 +829,15 @@ body {
 }
 
 .skin-preview-wrapper {
-    height: 220px;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    max-height: 250px;
     margin: 12px 0 14px 0;
     border-radius: var(--radius-sm);
     overflow: hidden;
     border: 1px solid var(--border-light);
     width: 100%;
-    background: var(--bg-surface);
+    background: #08080c;
     cursor: pointer;
     transition: border-color var(--t-normal), box-shadow var(--t-normal);
 }
@@ -920,7 +923,8 @@ body {
 .skin-preview-wrapper .setup-preview-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background: #08080c;
     border-radius: 0;
     box-shadow: none;
     transition: transform 0.36s var(--ease-expo);
@@ -1229,6 +1233,15 @@ body {
         gap: 3px;
     }
 
+    .driver-spec-item {
+        gap: 6px;
+    }
+
+    .driver-action-row {
+        justify-content: flex-end;
+        width: 100%;
+    }
+
     .spec-value, .spec-value-group {
         text-align: left;
         justify-content: flex-start;
@@ -1297,5 +1310,168 @@ body {
 .no-gpu body {
     background-attachment: scroll !important;
 }
+
+/* ==========================================================================
+   Skin Image Slider & Multi-Picture Carousel
+   ========================================================================== */
+
+.skin-slider-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.skin-slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.skin-slide-img {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #08080c;
+    display: block;
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    user-select: none;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skin-slider-container:hover .skin-slide-img {
+    transform: scale(1.03);
+}
+
+/* Slider Controls (Prev / Next Buttons) */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: rgba(8, 8, 8, 0.85);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--t-normal);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.skin-slider-container.has-multiple:hover .slider-btn {
+    opacity: 0.9;
+    pointer-events: auto;
+}
+
+.slider-btn:hover {
+    opacity: 1 !important;
+    background: #ffffff;
+    color: #080808;
+    border-color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-prev { left: 10px; }
+.slider-next { right: 10px; }
+
+/* Image Counter Badge */
+.slider-counter-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background: rgba(8, 8, 8, 0.85);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-normal);
+}
+
+.skin-slider-container.has-multiple:hover .slider-counter-badge {
+    opacity: 1;
+}
+
+/* Dots Indicator Container */
+.slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-normal);
+}
+
+.skin-slider-container.has-multiple:hover .slider-dots {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: var(--t-normal);
+}
+
+.slider-dot.active {
+    width: 18px;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Bottom-Right Image Label Tag */
+.slider-caption-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+    background: rgba(8, 8, 8, 0.88);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+    padding: 3px 9px;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-mono);
+    font-size: 0.60rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-normal);
+}
+
+.skin-slider-container.has-multiple:hover .slider-caption-badge {
+    opacity: 1;
+}
+
+
 
 

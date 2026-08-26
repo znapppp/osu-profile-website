@@ -16,9 +16,17 @@ window.openLightbox = function(elementOrSrc, caption) {
         src = elementOrSrc;
         alt = caption || '';
     } else if (elementOrSrc) {
-        const img = elementOrSrc.tagName && elementOrSrc.tagName.toLowerCase() === 'img'
-            ? elementOrSrc
-            : elementOrSrc.querySelector('img');
+        const sliderContainer = elementOrSrc.closest('.skin-slider-container');
+        let img = null;
+        if (sliderContainer && sliderContainer.dataset.currentIndex !== undefined) {
+            const idx = parseInt(sliderContainer.dataset.currentIndex, 10);
+            const images = sliderContainer.querySelectorAll('.skin-slide-img, .setup-preview-img');
+            img = images[idx] || images[0];
+        } else {
+            img = elementOrSrc.tagName && elementOrSrc.tagName.toLowerCase() === 'img'
+                ? elementOrSrc
+                : (elementOrSrc.querySelector('img.active-slide') || elementOrSrc.querySelector('img'));
+        }
         if (img) {
             src = img.src;
             alt = img.alt || caption || '';
@@ -54,9 +62,9 @@ function initApp() {
             return;
         }
 
-        // 2. Open lightbox if clicking any preview container or setup image
+        // 2. Open lightbox if clicking any preview container or setup image (except slider buttons & links)
         const zoomTarget = e.target.closest('.preview-image-container, .skin-preview-wrapper, .setup-preview-img');
-        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper')) {
+        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper, .slider-btn, .slider-dot')) {
             window.openLightbox(zoomTarget);
         }
     });
@@ -79,6 +87,9 @@ function initApp() {
 
     // Initialize Skins FAB visibility toggle
     initSkinsButton();
+
+    // Initialize Skin Multi-Picture Carousel Sliders
+    initSkinSliders();
 
     // Automatic GPU Hardware Acceleration Auto-Detection
     initGPUAutoDetection();
@@ -226,6 +237,143 @@ function initGPUAutoDetection() {
         root.classList.add('no-gpu');
         console.log('[Znap- Setup] Chrome GPU Hardware Acceleration disabled: Auto-enabled .no-gpu high-performance mode.');
     }
+}
+
+// ----------------------------------------------------------------------
+// Skin Multi-Picture Slider / Carousel System (With Hover Auto-Play & Caption Badge)
+// ----------------------------------------------------------------------
+function initSkinSliders() {
+    const sliders = document.querySelectorAll('.skin-slider-container');
+
+    sliders.forEach((slider) => {
+        const images = slider.querySelectorAll('.skin-slide-img, .setup-preview-img');
+        if (images.length === 0) return;
+
+        let currentIndex = 0;
+        let autoPlayInterval = null;
+
+        // Ensure active class is properly set
+        images.forEach((img, idx) => {
+            if (idx === 0) img.classList.add('active-slide');
+            else img.classList.remove('active-slide');
+        });
+
+        const counter = slider.querySelector('.slider-counter-badge');
+        const caption = slider.querySelector('.slider-caption-badge');
+        const dotsContainer = slider.querySelector('.slider-dots');
+        const prevBtn = slider.querySelector('.slider-prev');
+        const nextBtn = slider.querySelector('.slider-next');
+
+        if (images.length > 1) {
+            slider.classList.add('has-multiple');
+
+            // Render indicator dots
+            if (dotsContainer) {
+                dotsContainer.innerHTML = '';
+                images.forEach((_, idx) => {
+                    const dot = document.createElement('span');
+                    dot.className = `slider-dot ${idx === 0 ? 'active' : ''}`;
+                    dot.setAttribute('title', `Slide ${idx + 1}`);
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        goToSlide(idx);
+                        resetAutoPlay();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            }
+
+            function updateSliderUI() {
+                images.forEach((img, idx) => {
+                    if (idx === currentIndex) img.classList.add('active-slide');
+                    else img.classList.remove('active-slide');
+                });
+
+                // Update counter badge (e.g. 1 / 3)
+                if (counter) {
+                    counter.textContent = `${currentIndex + 1} / ${images.length}`;
+                }
+
+                // Update bottom-right label tag (e.g. Gameplay, Song Select)
+                if (caption) {
+                    const activeImg = images[currentIndex];
+                    const label = activeImg.getAttribute('data-label') || activeImg.alt || 'Preview';
+                    caption.textContent = label;
+                }
+
+                // Update dots active state
+                if (dotsContainer) {
+                    const dots = dotsContainer.querySelectorAll('.slider-dot');
+                    dots.forEach((dot, idx) => {
+                        if (idx === currentIndex) dot.classList.add('active');
+                        else dot.classList.remove('active');
+                    });
+                }
+            }
+
+            function goToSlide(index) {
+                currentIndex = (index + images.length) % images.length;
+                slider.dataset.currentIndex = currentIndex;
+                const track = slider.querySelector('.skin-slider-track');
+                if (track) {
+                    track.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
+                }
+                updateSliderUI();
+            }
+
+            // Hover Auto-Play feature: cycle slides every 2.2s on hover
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayInterval = setInterval(() => {
+                    goToSlide(currentIndex + 1);
+                }, 2200);
+            }
+
+            function stopAutoPlay() {
+                if (autoPlayInterval) {
+                    clearInterval(autoPlayInterval);
+                    autoPlayInterval = null;
+                }
+            }
+
+            function resetAutoPlay() {
+                startAutoPlay();
+            }
+
+            slider.addEventListener('mouseenter', () => {
+                startAutoPlay();
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                stopAutoPlay();
+            });
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(currentIndex - 1);
+                    resetAutoPlay();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(currentIndex + 1);
+                    resetAutoPlay();
+                });
+            }
+
+            updateSliderUI();
+        } else {
+            slider.classList.remove('has-multiple');
+            if (counter) counter.textContent = '1 / 1';
+            if (caption) {
+                const singleImg = images[0];
+                caption.textContent = singleImg.getAttribute('data-label') || singleImg.alt || 'Preview';
+            }
+        }
+    });
 }
 
 
