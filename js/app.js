@@ -427,7 +427,10 @@ function initSkinGridScroll() {
     function scrollToCard(index) {
         const cards = Array.from(grid.querySelectorAll('.skin-box'));
         const count = cards.length;
-        currentCardIndex = Math.max(0, Math.min(index, count - 1));
+        if (count === 0) return;
+
+        // Circular wrap-around for standard carousel experience
+        currentCardIndex = (index % count + count) % count;
 
         // Compute position relative to the scrollable grid container
         const card = cards[currentCardIndex];

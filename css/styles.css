@@ -827,6 +827,8 @@ body {
     scrollbar-width: none;
     -ms-overflow-style: none;
     will-change: scroll-position;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 1px;
 }
 
 /* Hide native browser scrollbar completely */
@@ -892,12 +894,15 @@ body {
     transition: border-color var(--t-normal), box-shadow var(--t-normal);
     position: relative;
     overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 @media (max-width: 768px) {
     .skin-box {
-        flex: 0 0 88%;
+        flex: 0 0 100%;
         min-width: 270px;
+        scroll-snap-align: center;
     }
 }
 
