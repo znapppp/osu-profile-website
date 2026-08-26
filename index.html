@@ -269,69 +269,116 @@
                     </div>
                 </div>
 
-                <div class="skin-items-grid">
-                    <!-- Skin Item 1: Current Use -->
-                    <div class="skin-box current-skin-box">
-                        <div class="skin-box-header">
-                            <span class="skin-tag-badge main-skin">Current Use</span>
-                            <h3>Aristia(Edit) Instafade Znap- edit.</h3>
-                        </div>
-                        <div class="skin-preview-wrapper skin-slider-container">
-                            <div class="skin-slider-track">
-                                <img src="picture/skin/aristia/gameplay.png" alt="Aristia Instafade Gameplay"
-                                    data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide">
-                                <img src="picture/skin/aristia/songselect.png" alt="Aristia Song Select UI"
-                                    data-label="Song Select" class="setup-preview-img skin-slide-img">
-                                <img src="picture/skin/aristia/result.png" alt="Aristia Results UI"
-                                    data-label="Results UI" class="setup-preview-img skin-slide-img">
+                <div class="skin-grid-wrapper">
+                    <button class="skin-grid-scroll-btn scroll-left" id="skin-grid-prev" title="Scroll Left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="skin-items-grid" id="skin-items-grid">
+                        <!-- Skin Item 1: Current Use -->
+                        <div class="skin-box current-skin-box">
+                            <div class="skin-box-header">
+                                <span class="skin-tag-badge main-skin">Current Use</span>
+                                <h3>Aristia(Edit) Instafade Znap- edit.</h3>
                             </div>
-                            <div class="image-overlay">
-                                <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
+                            <div class="skin-preview-wrapper skin-slider-container">
+                                <div class="skin-slider-track">
+                                    <img src="picture/skin/aristia/gameplay.png" alt="Aristia Instafade Gameplay"
+                                        data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide">
+                                    <img src="picture/skin/aristia/songselect.png" alt="Aristia Song Select UI"
+                                        data-label="Song Select" class="setup-preview-img skin-slide-img">
+                                    <img src="picture/skin/aristia/result.png" alt="Aristia Results UI"
+                                        data-label="Results UI" class="setup-preview-img skin-slide-img">
+                                </div>
+                                <div class="image-overlay">
+                                    <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
+                                </div>
+                                <button class="slider-btn slider-prev" title="Previous Image"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="slider-btn slider-next" title="Next Image"><i
+                                        class="fas fa-chevron-right"></i></button>
+                                <div class="slider-counter-badge">1 / 3</div>
+                                <div class="slider-caption-badge">Gameplay</div>
+                                <div class="slider-dots"></div>
                             </div>
-                            <button class="slider-btn slider-prev" title="Previous Image"><i
-                                    class="fas fa-chevron-left"></i></button>
-                            <button class="slider-btn slider-next" title="Next Image"><i
-                                    class="fas fa-chevron-right"></i></button>
-                            <div class="slider-counter-badge">1 / 3</div>
-                            <div class="slider-caption-badge">Gameplay</div>
-                            <div class="slider-dots"></div>
+                            <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link"
+                                target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                                Download Here
+                            </a>
                         </div>
-                        <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link"
-                            target="_blank" rel="noopener noreferrer" class="btn-skin-action">
-                            Download Here
-                        </a>
-                    </div>
 
-                    <!-- Skin Item 2: High AR -->
-                    <div class="skin-box high-ar-skin-box">
-                        <div class="skin-box-header">
-                            <span class="skin-tag-badge ar-skin">High AR</span>
-                            <h3>Milkteaism Hydro DT BETA(Znap- edit)</h3>
-                        </div>
-                        <div class="skin-preview-wrapper skin-slider-container">
-                            <div class="skin-slider-track">
-                                <img src="picture/skin/DT/gameplay.png" alt="Milkteaism Hydro DT Gameplay"
-                                    data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide">
-                                <img src="picture/skin/DT/songelect.png" alt="Milkteaism Hydro DT Song Select"
-                                    data-label="Song Select" class="setup-preview-img skin-slide-img">
-                                <img src="picture/skin/DT/result.png" alt="Milkteaism Hydro DT Results UI"
-                                    data-label="Results UI" class="setup-preview-img skin-slide-img">
+                        <!-- Skin Item 2: High AR -->
+                        <div class="skin-box high-ar-skin-box">
+                            <div class="skin-box-header">
+                                <span class="skin-tag-badge ar-skin">High AR</span>
+                                <h3>Milkteaism Hydro DT BETA(Znap- edit)</h3>
                             </div>
-                            <div class="image-overlay">
-                                <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
+                            <div class="skin-preview-wrapper skin-slider-container">
+                                <div class="skin-slider-track">
+                                    <img src="picture/skin/DT/gameplay.png" alt="Milkteaism Hydro DT Gameplay"
+                                        data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide">
+                                    <img src="picture/skin/DT/songelect.png" alt="Milkteaism Hydro DT Song Select"
+                                        data-label="Song Select" class="setup-preview-img skin-slide-img">
+                                    <img src="picture/skin/DT/result.png" alt="Milkteaism Hydro DT Results UI"
+                                        data-label="Results UI" class="setup-preview-img skin-slide-img">
+                                </div>
+                                <div class="image-overlay">
+                                    <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
+                                </div>
+                                <button class="slider-btn slider-prev" title="Previous Image"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="slider-btn slider-next" title="Next Image"><i
+                                        class="fas fa-chevron-right"></i></button>
+                                <div class="slider-counter-badge">1 / 3</div>
+                                <div class="slider-caption-badge">Gameplay</div>
+                                <div class="slider-dots"></div>
                             </div>
-                            <button class="slider-btn slider-prev" title="Previous Image"><i
-                                    class="fas fa-chevron-left"></i></button>
-                            <button class="slider-btn slider-next" title="Next Image"><i
-                                    class="fas fa-chevron-right"></i></button>
-                            <div class="slider-counter-badge">1 / 3</div>
-                            <div class="slider-caption-badge">Gameplay</div>
-                            <div class="slider-dots"></div>
+                            <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link"
+                                target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                                Download Here
+                            </a>
                         </div>
-                        <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link"
-                            target="_blank" rel="noopener noreferrer" class="btn-skin-action">
-                            Download Here
-                        </a>
+
+                        <!-- Skin Item 3: DT Skin (dddx15dt) -->
+                        <div class="skin-box demo-skin-box">
+                            <div class="skin-box-header">
+                                <span class="skin-tag-badge ar-skin">DT</span>
+                                <h3>dddx15dt(Znap- edit)</h3>
+                            </div>
+                            <div class="skin-preview-wrapper skin-slider-container">
+                                <div class="skin-slider-track">
+                                    <img src="picture/skin/dddx15dt/gameplay.png" alt="dddx15dt Gameplay"
+                                        data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide">
+                                    <img src="picture/skin/dddx15dt/songselect.png" alt="dddx15dt Song Select"
+                                        data-label="Song Select" class="setup-preview-img skin-slide-img">
+                                    <img src="picture/skin/dddx15dt/result.png" alt="dddx15dt Results UI"
+                                        data-label="Results UI" class="setup-preview-img skin-slide-img">
+                                </div>
+                                <div class="image-overlay">
+                                    <span class="zoom-hint"><i class="fas fa-search-plus"></i> Click to Zoom</span>
+                                </div>
+                                <button class="slider-btn slider-prev" title="Previous Image"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="slider-btn slider-next" title="Next Image"><i
+                                        class="fas fa-chevron-right"></i></button>
+                                <div class="slider-counter-badge">1 / 3</div>
+                                <div class="slider-caption-badge">Gameplay</div>
+                                <div class="slider-dots"></div>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1HR_FhGM8iDg_X84VBrq-3cw7ERQHQcPs/view?usp=drive_link"
+                                target="_blank" rel="noopener noreferrer" class="btn-skin-action">
+                                Download Here
+                            </a>
+                        </div>
+                    </div>
+                    <button class="skin-grid-scroll-btn scroll-right" id="skin-grid-next" title="Scroll Right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <!-- Non-interactive Visual Progress Line Indicator -->
+                    <div class="skin-grid-progress-wrapper">
+                        <span class="skin-grid-progress-text" id="skin-grid-progress-text">1 / 2</span>
+                        <div class="skin-grid-progress-track">
+                            <div class="skin-grid-progress-thumb" id="skin-grid-progress-thumb"></div>
+                        </div>
                     </div>
                 </div>
 

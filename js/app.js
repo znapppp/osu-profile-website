@@ -68,7 +68,7 @@ function initApp() {
 
         // 2. Open lightbox if clicking any preview container or setup image (except slider buttons, links, dots)
         const zoomTarget = e.target.closest('.preview-image-container, .skin-preview-wrapper, .setup-preview-img, .skin-slider-container');
-        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper, .slider-btn, .slider-dot, .banner-bar-action')) {
+        if (zoomTarget && !e.target.closest('.btn-download-link, .btn-skin-action, .social-pill, .skin-folder-wrapper, .slider-btn, .slider-dot, .banner-bar-action, .skin-grid-scroll-btn')) {
             window.openLightbox(zoomTarget);
         }
     });
@@ -94,6 +94,9 @@ function initApp() {
 
     // Initialize Skin Multi-Picture Carousel Sliders
     initSkinSliders();
+
+    // Initialize Skin Grid Horizontal Navigation Arrows
+    initSkinGridScroll();
 
     // Automatic GPU Hardware Acceleration Auto-Detection
     initGPUAutoDetection();
@@ -244,143 +247,282 @@ function initGPUAutoDetection() {
 }
 
 // ----------------------------------------------------------------------
-// Skin Multi-Picture Slider / Carousel System (With Hover Auto-Play & Caption Badge)
+// Skin Multi-Picture Slider / Carousel System — Synced across all cards
 // ----------------------------------------------------------------------
 function initSkinSliders() {
     const sliders = document.querySelectorAll('.skin-slider-container');
+    const sliderStates = [];   // per-slider state objects
     const startAllAutoPlay = [];
     const stopAllAutoPlay = [];
 
+    // ── Build per-slider state ────────────────────────────────────────────
     sliders.forEach((slider) => {
         const images = slider.querySelectorAll('.skin-slide-img, .setup-preview-img');
         if (images.length === 0) return;
 
-        let currentIndex = 0;
-        let autoPlayInterval = null;
-
-        // Ensure active class is properly set
         images.forEach((img, idx) => {
             if (idx === 0) img.classList.add('active-slide');
             else img.classList.remove('active-slide');
         });
 
-        const counter = slider.querySelector('.slider-counter-badge');
-        const caption = slider.querySelector('.slider-caption-badge');
+        const counter      = slider.querySelector('.slider-counter-badge');
+        const caption      = slider.querySelector('.slider-caption-badge');
         const dotsContainer = slider.querySelector('.slider-dots');
-        const prevBtn = slider.querySelector('.slider-prev');
-        const nextBtn = slider.querySelector('.slider-next');
+        const prevBtn      = slider.querySelector('.slider-prev');
+        const nextBtn      = slider.querySelector('.slider-next');
+        const maxImages    = images.length;
 
-        if (images.length > 1) {
+        if (maxImages > 1) {
             slider.classList.add('has-multiple');
 
-            // Render indicator dots
+            // Render dots
             if (dotsContainer) {
                 dotsContainer.innerHTML = '';
                 images.forEach((_, idx) => {
                     const dot = document.createElement('span');
                     dot.className = `slider-dot ${idx === 0 ? 'active' : ''}`;
                     dot.setAttribute('title', `Slide ${idx + 1}`);
-                    dot.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        goToSlide(idx);
-                    });
                     dotsContainer.appendChild(dot);
                 });
             }
 
-            function updateSliderUI() {
-                images.forEach((img, idx) => {
-                    if (idx === currentIndex) img.classList.add('active-slide');
-                    else img.classList.remove('active-slide');
-                });
-
-                // Update counter badge (e.g. 1 / 3)
-                if (counter) {
-                    counter.textContent = `${currentIndex + 1} / ${images.length}`;
-                }
-
-                // Update bottom-right label tag (e.g. Gameplay, Song Select)
-                if (caption) {
-                    const activeImg = images[currentIndex];
-                    const label = activeImg.getAttribute('data-label') || activeImg.alt || 'Preview';
-                    caption.textContent = label;
-                }
-
-                // Update dots active state
-                if (dotsContainer) {
-                    const dots = dotsContainer.querySelectorAll('.slider-dot');
-                    dots.forEach((dot, idx) => {
-                        if (idx === currentIndex) dot.classList.add('active');
-                        else dot.classList.remove('active');
-                    });
-                }
-            }
-
-            function goToSlide(index) {
-                currentIndex = (index + images.length) % images.length;
-                slider.dataset.currentIndex = currentIndex;
-                const track = slider.querySelector('.skin-slider-track');
-                if (track) {
-                    track.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
-                }
-                updateSliderUI();
-            }
-
-            // Auto-Play controls
-            function startAutoPlay() {
-                stopAutoPlay();
-                autoPlayInterval = setInterval(() => {
-                    goToSlide(currentIndex + 1);
-                }, 3500);
-            }
-
-            function stopAutoPlay() {
-                if (autoPlayInterval) {
-                    clearInterval(autoPlayInterval);
-                    autoPlayInterval = null;
-                }
-            }
-
-            startAllAutoPlay.push(startAutoPlay);
-            stopAllAutoPlay.push(stopAutoPlay);
-
-            // Start auto-play automatically on page load
-            startAutoPlay();
-
-            if (prevBtn) {
-                prevBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    goToSlide(currentIndex - 1);
-                });
-            }
-
-            if (nextBtn) {
-                nextBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    goToSlide(currentIndex + 1);
-                });
-            }
-
-            updateSliderUI();
+            sliderStates.push({ slider, images, counter, caption, dotsContainer, prevBtn, nextBtn, maxImages });
         } else {
             slider.classList.remove('has-multiple');
             if (counter) counter.textContent = '1 / 1';
             if (caption) {
-                const singleImg = images[0];
-                caption.textContent = singleImg.getAttribute('data-label') || singleImg.alt || 'Preview';
+                const img = images[0];
+                caption.textContent = img.getAttribute('data-label') || img.alt || 'Preview';
             }
         }
     });
 
-    // Pause BOTH skin sliders when hovering over skin section / skin cards, resume when leaving
+    if (sliderStates.length === 0) return;
+
+    // ── Shared state ─────────────────────────────────────────────────────
+    const maxSlides = Math.max(...sliderStates.map(s => s.maxImages));
+    let sharedIndex = 0;
+    let autoPlayInterval = null;
+
+    // ── Move ALL sliders to the given index simultaneously ───────────────
+    function goToAllSliders(rawIndex) {
+        sharedIndex = ((rawIndex % maxSlides) + maxSlides) % maxSlides;
+
+        sliderStates.forEach(({ slider, images, counter, caption, dotsContainer }) => {
+            const count = images.length;
+            const idx   = sharedIndex % count;   // wrap for shorter slide sets
+
+            images.forEach((img, i) => {
+                if (i === idx) img.classList.add('active-slide');
+                else           img.classList.remove('active-slide');
+            });
+
+            const track = slider.querySelector('.skin-slider-track');
+            if (track) track.style.transform = `translate3d(-${idx * 100}%, 0, 0)`;
+            slider.dataset.currentIndex = idx;
+
+            if (counter) counter.textContent = `${idx + 1} / ${count}`;
+            if (caption) {
+                const label = images[idx].getAttribute('data-label') || images[idx].alt || 'Preview';
+                caption.textContent = label;
+            }
+            if (dotsContainer) {
+                dotsContainer.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === idx);
+                });
+            }
+        });
+    }
+
+    // ── Auto-play ─────────────────────────────────────────────────────────
+    function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(() => goToAllSliders(sharedIndex + 1), 3500);
+    }
+    function stopAutoPlay() {
+        if (autoPlayInterval) { clearInterval(autoPlayInterval); autoPlayInterval = null; }
+    }
+
+    startAllAutoPlay.push(startAutoPlay);
+    stopAllAutoPlay.push(stopAutoPlay);
+    startAutoPlay();
+
+    // ── Wire up prev/next buttons AND dots for every slider ───────────────
+    sliderStates.forEach(({ slider, prevBtn, nextBtn, dotsContainer }) => {
+        // Prime GPU compositor layer to prevent first-click stutter
+        const track = slider.querySelector('.skin-slider-track');
+        if (track) {
+            requestAnimationFrame(() => {
+                track.style.transform = 'translate3d(0.1px, 0, 0)';
+                requestAnimationFrame(() => {
+                    track.style.transform = 'translate3d(0, 0, 0)';
+                });
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                stopAutoPlay();
+                goToAllSliders(sharedIndex - 1);
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                stopAutoPlay();
+                goToAllSliders(sharedIndex + 1);
+            });
+        }
+        if (dotsContainer) {
+            dotsContainer.querySelectorAll('.slider-dot').forEach((dot, idx) => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    stopAutoPlay();
+                    goToAllSliders(idx);
+                });
+            });
+        }
+    });
+
+    goToAllSliders(0);   // initialise UI
+
+    // ── Pause all when hovering any skin card / section ──────────────────
     const skinTargets = document.querySelectorAll('.skin-section-card, .skin-box, .skin-slider-container');
     skinTargets.forEach(target => {
-        target.addEventListener('mouseenter', () => {
-            stopAllAutoPlay.forEach(stopFn => stopFn());
+        target.addEventListener('mouseenter', () => stopAllAutoPlay.forEach(fn => fn()));
+        target.addEventListener('mouseleave', () => startAllAutoPlay.forEach(fn => fn()));
+    });
+}
+
+// ----------------------------------------------------------------------
+// Skin Grid Horizontal Navigation Arrows
+// ----------------------------------------------------------------------
+function initSkinGridScroll() {
+    const grid = document.getElementById('skin-items-grid');
+    const prevBtn = document.getElementById('skin-grid-prev');
+    const nextBtn = document.getElementById('skin-grid-next');
+
+    if (!grid || !prevBtn || !nextBtn) return;
+
+    // ── Prime the GPU compositor layer BEFORE first user interaction ──────
+    // This eliminates "first scroll only" jitter caused by lazy layer creation
+    requestAnimationFrame(() => {
+        const saved = grid.scrollLeft;
+        grid.scrollLeft = saved + 1;
+        grid.scrollLeft = saved;
+    });
+
+    let currentCardIndex = 0;
+
+    function getCardCount() {
+        return grid.querySelectorAll('.skin-box').length;
+    }
+
+    function getScrollStep() {
+        const firstCard = grid.querySelector('.skin-box');
+        return firstCard ? firstCard.offsetWidth + 16 : 340;
+    }
+
+    function scrollToCard(index) {
+        const cards = Array.from(grid.querySelectorAll('.skin-box'));
+        const count = cards.length;
+        currentCardIndex = Math.max(0, Math.min(index, count - 1));
+
+        // Compute position relative to the scrollable grid container
+        const card = cards[currentCardIndex];
+        const gridRect = grid.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        // Current scrollLeft + distance of card's left edge from grid's left edge
+        const targetLeft = grid.scrollLeft + (cardRect.left - gridRect.left);
+
+        requestAnimationFrame(() => {
+            grid.scrollTo({ left: targetLeft, behavior: 'smooth' });
         });
-        target.addEventListener('mouseleave', () => {
-            startAllAutoPlay.forEach(startFn => startFn());
+    }
+
+    function getCurrentCardIndex() {
+        const cards = Array.from(grid.querySelectorAll('.skin-box'));
+        const gridRect = grid.getBoundingClientRect();
+        
+        let closestIndex = 0;
+        let minDistance = Infinity;
+        
+        cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            // Calculate distance from left edge of grid to left edge of card
+            // We subtract a small padding/margin offset if needed, but absolute diff is fine.
+            const distance = Math.abs(cardRect.left - gridRect.left);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestIndex = index;
+            }
         });
+        
+        return closestIndex;
+    }
+
+    // ── Non-interactive Progress Line Indicator Update ───────────────────
+    const progressThumb = document.getElementById('skin-grid-progress-thumb');
+    const progressText = document.getElementById('skin-grid-progress-text');
+
+    function updateProgressLine() {
+        if (!progressThumb || !progressThumb.parentElement) return;
+        const cards = grid.querySelectorAll('.skin-box');
+        const count = cards.length || 1;
+
+        const scrollLeft = grid.scrollLeft;
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        const progress = maxScroll > 0 ? Math.max(0, Math.min(scrollLeft / maxScroll, 1)) : 0;
+
+        // Calculate visible cards per page & total viewable pages
+        const firstCard = cards[0];
+        const cardWidth = firstCard ? firstCard.offsetWidth : 300;
+        const visibleCards = Math.max(1, Math.floor((grid.clientWidth + 16) / (cardWidth + 16)));
+        const totalPages = Math.max(1, count - visibleCards + 1);
+
+        const currentPage = Math.min(totalPages, Math.floor(progress * (totalPages - 1) + 0.5) + 1);
+
+        // Update small thin counter text (e.g. "1 / 2")
+        if (progressText) {
+            progressText.textContent = `${currentPage} / ${totalPages}`;
+        }
+
+        // Equal division of progress line based on total viewable pages
+        const trackWidth = progressThumb.parentElement.clientWidth;
+        const thumbWidth = trackWidth / totalPages;
+        progressThumb.style.width = `${thumbWidth}px`;
+
+        const maxTranslate = trackWidth - thumbWidth;
+        const translateX = progress * maxTranslate;
+
+        progressThumb.style.transform = `translate3d(${translateX}px, 0, 0)`;
+    }
+
+    grid.addEventListener('scroll', () => {
+        requestAnimationFrame(updateProgressLine);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        requestAnimationFrame(updateProgressLine);
+    }, { passive: true });
+
+    // Initial update
+    requestAnimationFrame(updateProgressLine);
+
+    prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const currentIndex = getCurrentCardIndex();
+        scrollToCard(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const currentIndex = getCurrentCardIndex();
+        scrollToCard(currentIndex + 1);
     });
 }
 

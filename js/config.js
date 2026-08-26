@@ -74,6 +74,13 @@ const PROFILE_CONFIG = {
                 name: "Milkteaism Hydro DT BETA(Znap- edit)",
                 previewImage: "picture/skin/DT/gameplay.png",
                 downloadUrl: "https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link"
+            },
+            {
+                id: "dt",
+                tag: "DT",
+                name: "dddx15dt",
+                previewImage: "picture/skin/dddx15dt/gameplay.png",
+                downloadUrl: "https://drive.google.com/file/d/1HR_FhGM8iDg_X84VBrq-3cw7ERQHQcPs/view?usp=drive_link"
             }
         ],
         fullCollectionUrl: "https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing"
