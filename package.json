@@ -1,0 +1,8 @@
+{
+  "name": "osu-profile-website",
+  "version": "1.0.0",
+  "description": "Znap- official osu! setup configuration profile website",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}
