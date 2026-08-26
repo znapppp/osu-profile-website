@@ -65,14 +65,14 @@ const PROFILE_CONFIG = {
                 id: "current",
                 tag: "Current Use",
                 name: "Aristia(Edit) Instafade Znap- edit.",
-                previewImage: "picture/skin/aristia/screenshot012.png",
+                previewImage: "picture/skin/aristia/gameplay.png",
                 downloadUrl: "https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link"
             },
             {
                 id: "high-ar",
                 tag: "High AR",
                 name: "Milkteaism Hydro DT BETA(Znap- edit)",
-                previewImage: "picture/skin/DT/screenshot018.png",
+                previewImage: "picture/skin/DT/gameplay.png",
                 downloadUrl: "https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link"
             }
         ],

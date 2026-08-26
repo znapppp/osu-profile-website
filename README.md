@@ -27,7 +27,7 @@ To run and preview the website locally without deploying:
 
 2. Launch the local development server:
    ```bash
-   npm start
+   npm start or python -m http.server 8000
    ```
    *(Alternatively, run `npx serve .`)*
 
