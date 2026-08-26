@@ -1347,8 +1347,10 @@ body {
     width: 100%;
     height: 100%;
     position: relative;
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .skin-slide-img {
@@ -1362,11 +1364,11 @@ body {
     opacity: 1;
     visibility: visible;
     user-select: none;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .skin-slider-container:hover .skin-slide-img {
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 /* Slider Controls (Prev / Next Buttons) */
@@ -1408,16 +1410,18 @@ body {
 .slider-prev { left: 10px; }
 .slider-next { right: 10px; }
 
-/* Image Counter Badge */
+/* Image Counter Badge (Top-Right - Hover Only) */
 .slider-counter-badge {
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 10;
-    background: rgba(8, 8, 8, 0.85);
-    color: var(--text-secondary);
+    background: rgba(8, 8, 12, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
     border: 1px solid var(--border-light);
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: var(--radius-xs);
     font-family: var(--font-mono);
     font-size: 0.62rem;
@@ -1425,11 +1429,13 @@ body {
     letter-spacing: 0.05em;
     opacity: 0;
     pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     transition: opacity var(--t-normal);
 }
 
 .skin-slider-container.has-multiple:hover .slider-counter-badge {
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* Dots Indicator Container */
@@ -1468,30 +1474,28 @@ body {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-/* Bottom-Right Image Label Tag */
+/* Bottom-Right Image Label Tag (Always Visible) */
 .slider-caption-badge {
     position: absolute;
     bottom: 10px;
     right: 10px;
     z-index: 10;
-    background: rgba(8, 8, 8, 0.88);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-light);
+    background: rgba(12, 12, 18, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     padding: 3px 9px;
     border-radius: var(--radius-xs);
     font-family: var(--font-mono);
-    font-size: 0.60rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--t-normal);
-}
-
-.skin-slider-container.has-multiple:hover .slider-caption-badge {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     opacity: 1;
+    pointer-events: auto;
+    transition: var(--t-normal);
 }
 
 

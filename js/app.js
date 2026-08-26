@@ -248,6 +248,8 @@ function initGPUAutoDetection() {
 // ----------------------------------------------------------------------
 function initSkinSliders() {
     const sliders = document.querySelectorAll('.skin-slider-container');
+    const startAllAutoPlay = [];
+    const stopAllAutoPlay = [];
 
     sliders.forEach((slider) => {
         const images = slider.querySelectorAll('.skin-slide-img, .setup-preview-img');
@@ -281,7 +283,6 @@ function initSkinSliders() {
                     dot.addEventListener('click', (e) => {
                         e.stopPropagation();
                         goToSlide(idx);
-                        resetAutoPlay();
                     });
                     dotsContainer.appendChild(dot);
                 });
@@ -325,12 +326,12 @@ function initSkinSliders() {
                 updateSliderUI();
             }
 
-            // Hover Auto-Play feature: cycle slides every 2.2s on hover
+            // Auto-Play controls
             function startAutoPlay() {
                 stopAutoPlay();
                 autoPlayInterval = setInterval(() => {
                     goToSlide(currentIndex + 1);
-                }, 2200);
+                }, 3500);
             }
 
             function stopAutoPlay() {
@@ -340,23 +341,16 @@ function initSkinSliders() {
                 }
             }
 
-            function resetAutoPlay() {
-                startAutoPlay();
-            }
+            startAllAutoPlay.push(startAutoPlay);
+            stopAllAutoPlay.push(stopAutoPlay);
 
-            slider.addEventListener('mouseenter', () => {
-                startAutoPlay();
-            });
-
-            slider.addEventListener('mouseleave', () => {
-                stopAutoPlay();
-            });
+            // Start auto-play automatically on page load
+            startAutoPlay();
 
             if (prevBtn) {
                 prevBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     goToSlide(currentIndex - 1);
-                    resetAutoPlay();
                 });
             }
 
@@ -364,7 +358,6 @@ function initSkinSliders() {
                 nextBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     goToSlide(currentIndex + 1);
-                    resetAutoPlay();
                 });
             }
 
@@ -377,6 +370,17 @@ function initSkinSliders() {
                 caption.textContent = singleImg.getAttribute('data-label') || singleImg.alt || 'Preview';
             }
         }
+    });
+
+    // Pause BOTH skin sliders when hovering over skin section / skin cards, resume when leaving
+    const skinTargets = document.querySelectorAll('.skin-section-card, .skin-box, .skin-slider-container');
+    skinTargets.forEach(target => {
+        target.addEventListener('mouseenter', () => {
+            stopAllAutoPlay.forEach(stopFn => stopFn());
+        });
+        target.addEventListener('mouseleave', () => {
+            startAllAutoPlay.forEach(startFn => startFn());
+        });
     });
 }
 
