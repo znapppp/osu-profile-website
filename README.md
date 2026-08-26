@@ -5,7 +5,7 @@ This repository contains the source code for the personal configuration showcase
 
 ## Key Features
 - **Hardware Configuration Display**: Detailed parameter tracking for tablet, keyboard, keypad, monitor, and audio peripherals.
-- **Skin Collection & Downloads**: Direct file download links and screenshot previews for featured osu! skins.
+- **Skin Showcase & Downloads**: Multi-screenshot image sliders (Gameplay, Song Select, Results UI) and direct download links for featured osu! skins (Aristia Instafade & Milkteaism Hydro DT).
 - **Automatic Hardware Acceleration Detection**: Built-in detection for GPU rendering status; automatically adjusts visual parameters to maintain 60 FPS in CPU software-rendering environments.
 - **Interactive Lightbox Preview**: Fullscreen image inspection modal for technical screenshots.
 - **Responsive Design**: Mobile and desktop layout optimization using vanilla CSS Grid and Flexbox.
@@ -14,27 +14,35 @@ This repository contains the source code for the personal configuration showcase
 
 ### Prerequisites
 - A modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari).
-- Node.js (v18.0.0 or higher) if using the local server script.
+- *(Optional)* Python 3.x or Node.js (v18.0.0 or higher) for running a local HTTP server.
 
 ### Local Server Setup
-To run and preview the website locally without deploying:
+To run and preview the website locally:
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/znapppp/osu-profile-website.git
    cd osu-profile-website
    ```
 
-2. Launch the local development server:
-   ```bash
-   npm start or python -m http.server 8000
-   ```
-   *(Alternatively, run `npx serve .`)*
+2. **Launch a local server using any of the following methods:**
 
-3. Navigate to the local server URL (e.g., `http://localhost:3000`) in your web browser.
+   - **Using Python (Recommended - Built-in):**
+     ```bash
+     python -m http.server 8000
+     ```
+     Then navigate to `http://localhost:8000` in your web browser.
+
+   - **Using Node.js:**
+     ```bash
+     npm start
+     # or
+     npx serve .
+     ```
+     Then navigate to `http://localhost:3000` in your web browser.
 
 ### Direct Execution
-Alternatively, open `index.html` directly in any web browser without running a server.
+Alternatively, open `index.html` directly in any web browser without running a local server.
 
 ## Deployment
 This project is structured for static hosting via GitHub Pages.
