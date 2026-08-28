@@ -270,9 +270,6 @@
                 </div>
 
                 <div class="skin-grid-wrapper">
-                    <button class="skin-grid-scroll-btn scroll-left" id="skin-grid-prev" title="Scroll Left">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
                     <div class="skin-items-grid" id="skin-items-grid">
                         <!-- Skin Item 1: Current Use -->
                         <div class="skin-box current-skin-box">
@@ -370,15 +367,21 @@
                             </a>
                         </div>
                     </div>
-                    <button class="skin-grid-scroll-btn scroll-right" id="skin-grid-next" title="Scroll Right">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <!-- Non-interactive Visual Progress Line Indicator -->
+
+                    <!-- Visual Progress Line Indicator & Navigation Controls -->
                     <div class="skin-grid-progress-wrapper">
-                        <span class="skin-grid-progress-text" id="skin-grid-progress-text">1 / 2</span>
-                        <div class="skin-grid-progress-track">
-                            <div class="skin-grid-progress-thumb" id="skin-grid-progress-thumb"></div>
+                        <button class="skin-grid-scroll-btn scroll-left" id="skin-grid-prev" title="Scroll Left">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="skin-grid-progress-center">
+                            <span class="skin-grid-progress-text" id="skin-grid-progress-text">1 / 2</span>
+                            <div class="skin-grid-progress-track">
+                                <div class="skin-grid-progress-thumb" id="skin-grid-progress-thumb"></div>
+                            </div>
                         </div>
+                        <button class="skin-grid-scroll-btn scroll-right" id="skin-grid-next" title="Scroll Right">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
 
