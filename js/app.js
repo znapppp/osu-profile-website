@@ -347,9 +347,30 @@ function initSkinSliders() {
     startAllAutoPlay.push(startAutoPlay);
     stopAllAutoPlay.push(stopAutoPlay);
 
-    // Explicitly freeze at Slide 0 (Gameplay) on initial load
+    // Explicitly freeze at Slide 0 (Gameplay) on initial load — no animation
+    // Add .no-transition to ALL tracks before positioning so goToAllSliders(0)
+    // does NOT trigger the CSS transition (prevents flash animation on page load)
+    sliderStates.forEach(({ slider }) => {
+        const track = slider.querySelector('.skin-slider-track');
+        if (track) track.classList.add('no-transition');
+    });
+
     stopAutoPlay();
     goToAllSliders(0);
+
+    // After one rAF: force GPU layer promotion, then remove .no-transition
+    // so all subsequent prev/next clicks animate normally
+    requestAnimationFrame(() => {
+        sliderStates.forEach(({ slider }) => {
+            const track = slider.querySelector('.skin-slider-track');
+            if (track) {
+                track.getBoundingClientRect(); // force reflow → promote compositor layer
+                requestAnimationFrame(() => {
+                    track.classList.remove('no-transition');
+                });
+            }
+        });
+    });
 
     let hasStartedFirstTime = false;
 
@@ -378,17 +399,6 @@ function initSkinSliders() {
 
     // ── Wire up prev/next buttons AND dots for every slider ───────────────
     sliderStates.forEach(({ slider, prevBtn, nextBtn, dotsContainer }) => {
-        // Prime GPU compositor layer to prevent first-click stutter
-        const track = slider.querySelector('.skin-slider-track');
-        if (track) {
-            requestAnimationFrame(() => {
-                track.style.transform = 'translate3d(0.1px, 0, 0)';
-                requestAnimationFrame(() => {
-                    track.style.transform = 'translate3d(0, 0, 0)';
-                });
-            });
-        }
-
         if (prevBtn) {
             prevBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -414,7 +424,8 @@ function initSkinSliders() {
         }
     });
 
-    goToAllSliders(0);   // initialise UI
+    // Initialise UI — already done above with no-transition; this is a safety net
+    // goToAllSliders(0) was already called; skip second call to avoid double-animate
 
     // ── Pause all when hovering any skin card / section ──────────────────
     const skinTargets = document.querySelectorAll('.skin-section-card, .skin-box, .skin-slider-container');

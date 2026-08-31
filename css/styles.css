@@ -220,6 +220,11 @@ body {
     -webkit-backface-visibility: hidden;
 }
 
+/* Suppress transition during init — prevents flash animation on first load */
+.skin-slider-track.no-transition {
+    transition: none !important;
+}
+
 .skin-slide-img {
     flex: 0 0 100%;
     width: 100%;
