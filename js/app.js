@@ -3,7 +3,7 @@
 // ==========================================================================
 
 // Global Lightbox Functions for instant execution & event handler access
-window.openLightbox = function(elementOrSrc, caption) {
+window.openLightbox = function (elementOrSrc, caption) {
     const modal = document.getElementById('lightbox-modal');
     const modalImg = document.getElementById('lightbox-img');
     const captionText = document.getElementById('lightbox-caption');
@@ -11,6 +11,7 @@ window.openLightbox = function(elementOrSrc, caption) {
 
     let src = '';
     let alt = '';
+
 
     if (typeof elementOrSrc === 'string') {
         src = elementOrSrc;
@@ -46,7 +47,7 @@ window.openLightbox = function(elementOrSrc, caption) {
     }
 };
 
-window.closeLightbox = function() {
+window.closeLightbox = function () {
     const modal = document.getElementById('lightbox-modal');
     if (!modal) return;
     modal.classList.remove('show', 'active');
@@ -265,12 +266,12 @@ function initSkinSliders() {
             else img.classList.remove('active-slide');
         });
 
-        const counter      = slider.querySelector('.slider-counter-badge');
-        const caption      = slider.querySelector('.slider-caption-badge');
+        const counter = slider.querySelector('.slider-counter-badge');
+        const caption = slider.querySelector('.slider-caption-badge');
         const dotsContainer = slider.querySelector('.slider-dots');
-        const prevBtn      = slider.querySelector('.slider-prev');
-        const nextBtn      = slider.querySelector('.slider-next');
-        const maxImages    = images.length;
+        const prevBtn = slider.querySelector('.slider-prev');
+        const nextBtn = slider.querySelector('.slider-next');
+        const maxImages = images.length;
 
         if (maxImages > 1) {
             slider.classList.add('has-multiple');
@@ -310,11 +311,11 @@ function initSkinSliders() {
 
         sliderStates.forEach(({ slider, images, counter, caption, dotsContainer }) => {
             const count = images.length;
-            const idx   = sharedIndex % count;   // wrap for shorter slide sets
+            const idx = sharedIndex % count;   // wrap for shorter slide sets
 
             images.forEach((img, i) => {
                 if (i === idx) img.classList.add('active-slide');
-                else           img.classList.remove('active-slide');
+                else img.classList.remove('active-slide');
             });
 
             const track = slider.querySelector('.skin-slider-track');
@@ -484,22 +485,22 @@ function initSkinGridScroll() {
     function getCurrentCardIndex() {
         const cards = Array.from(grid.querySelectorAll('.skin-box'));
         const gridRect = grid.getBoundingClientRect();
-        
+
         let closestIndex = 0;
         let minDistance = Infinity;
-        
+
         cards.forEach((card, index) => {
             const cardRect = card.getBoundingClientRect();
             // Calculate distance from left edge of grid to left edge of card
             // We subtract a small padding/margin offset if needed, but absolute diff is fine.
             const distance = Math.abs(cardRect.left - gridRect.left);
-            
+
             if (distance < minDistance) {
                 minDistance = distance;
                 closestIndex = index;
             }
         });
-        
+
         return closestIndex;
     }
 

@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Znap- official osu! setup configuration profile website",
   "scripts": {
-    "start": "npx serve ."
+    "start": "npx serve .",
+    "dev": "npx serve .",
+    "build:css": "npx tailwindcss -i ./css/styles.css -o ./css/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
   }
 }
