@@ -56,11 +56,6 @@ html {
 
 body {
     background-color: var(--bg-base);
-    background-image:
-        radial-gradient(ellipse 80% 35% at 50% -8%, rgba(255,255,255,0.025) 0%, transparent 70%),
-        radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
-    background-size: 100% 100%, 28px 28px;
-    background-attachment: scroll;
     color: var(--text-primary);
     font-family: var(--font-body);
     min-height: 100vh;
@@ -69,6 +64,19 @@ body {
     position: relative;
     width: 100%;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Fixed background layer — avoids repainting dot pattern on scroll */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(ellipse 80% 35% at 50% -8%, rgba(255,255,255,0.025) 0%, transparent 70%),
+        radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px;
 }
 
 /* - Scrollbar - */
@@ -1081,14 +1089,16 @@ body {
    Scroll Reveal
    ========================================================================== */
 
-.reveal-element {
+/* Scroll reveal — stagger delay via --reveal-delay custom prop set by JS */
+.reveal-pending {
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(22px);
+    transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1),
+                transform 0.95s cubic-bezier(0.16,1,0.3,1);
+    transition-delay: var(--reveal-delay, 0ms);
 }
 
-.reveal-element.is-visible {
+.reveal-pending.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -1146,6 +1156,32 @@ body {
     background: rgba(12, 12, 14, 0.98) !important;
 }
 
-.no-gpu body {
-    background-attachment: scroll !important;
+.no-gpu body::before {
+    display: none;
+}
+
+/* ==========================================================================
+   Accessibility Focus Outlines & Skeleton Loading Micro-Interactions
+   ========================================================================== */
+
+:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.6) !important;
+    outline-offset: 3px !important;
+}
+
+.preview-image-container,
+.skin-preview-wrapper {
+    background-color: var(--bg-inset);
+    position: relative;
+}
+
+@keyframes skeletonPulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 0.25; }
+    100% { opacity: 0.6; }
+}
+
+.setup-preview-img:not([src]),
+.setup-preview-img[src=""] {
+    animation: skeletonPulse 1.5s ease-in-out infinite;
 }

@@ -245,8 +245,28 @@ function initApp() {
     });
 
     document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('lightbox-modal');
+        const isLightboxOpen = modal && (modal.classList.contains('show') || modal.style.display === 'flex');
+
         if (e.key === 'Escape') {
             window.closeLightbox();
+        } else if (isLightboxOpen && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+            const activePrev = document.querySelector('.skin-slider-container.has-multiple .slider-prev');
+            const activeNext = document.querySelector('.skin-slider-container.has-multiple .slider-next');
+
+            if (e.key === 'ArrowLeft' && activePrev) {
+                activePrev.click();
+                setTimeout(() => {
+                    const activeImg = document.querySelector('.skin-slide-img.active-slide');
+                    if (activeImg) window.openLightbox(activeImg);
+                }, 40);
+            } else if (e.key === 'ArrowRight' && activeNext) {
+                activeNext.click();
+                setTimeout(() => {
+                    const activeImg = document.querySelector('.skin-slide-img.active-slide');
+                    if (activeImg) window.openLightbox(activeImg);
+                }, 40);
+            }
         }
     });
 
@@ -293,23 +313,17 @@ function initAvatarCacheBuster() {
 function initScrollReveal() {
     const targets = document.querySelectorAll('.glass-panel, .spec-item, .skin-box, .btn-full-collection');
 
+    // Batch DOM reads first, then writes
     targets.forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(22px)';
-        el.style.transition = 'opacity 0.95s cubic-bezier(0.16,1,0.3,1), transform 0.95s cubic-bezier(0.16,1,0.3,1)';
-        el.dataset.revealDelay = Math.min(i * 50, 400);
+        el.style.setProperty('--reveal-delay', `${Math.min(i * 50, 400)}ms`);
+        el.classList.add('reveal-pending');
     });
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const el = entry.target;
-                const delay = parseInt(el.dataset.revealDelay || 0, 10);
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, delay);
-                observer.unobserve(el);
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             }
         });
     }, {
@@ -660,8 +674,13 @@ function initSkinGridScroll() {
         requestAnimationFrame(updateProgressLine);
     }, { passive: true });
 
+    let _resizeRaf = null;
     window.addEventListener('resize', () => {
-        requestAnimationFrame(updateProgressLine);
+        if (_resizeRaf) return;
+        _resizeRaf = requestAnimationFrame(() => {
+            updateProgressLine();
+            _resizeRaf = null;
+        });
     }, { passive: true });
 
     requestAnimationFrame(updateProgressLine);

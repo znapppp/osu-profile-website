@@ -11,8 +11,8 @@
 
     // System Configuration
     const CONFIG = {
-        count: 28,            // Active particle count (high-performance)
-        countNoGpu: 12,       // Active particle count (low-performance / no-gpu)
+        count: 22,            // Active particle count (high-performance)
+        countNoGpu: 8,        // Active particle count (low-performance / no-gpu)
         minSize: 2,           // Particle radius (px)
         maxSize: 7,           // Particle radius (px)
         minSpeed: 0.1,        // Fall rate (px/frame)
@@ -20,8 +20,6 @@
         driftRange: 0.18,     // Horizontal drift amplitude
         minOpacity: 0.15,
         maxOpacity: 0.65,
-        rotationSpeedMin: 0.001,
-        rotationSpeedMax: 0.006,
     };
 
     // System State
@@ -111,8 +109,6 @@
             driftFreq: rand(0.005, 0.018),
             driftPhase: rand(0, Math.PI * 2),
             opacity: rand(CONFIG.minOpacity, CONFIG.maxOpacity),
-            rotation: rand(0, Math.PI / 4),
-            rotSpeed: rand(CONFIG.rotationSpeedMin, CONFIG.rotationSpeedMax) * (Math.random() > 0.5 ? 1 : -1),
             frame: 0,
         };
     }
@@ -143,7 +139,6 @@
     // Update Particle State
     function updateStar(s) {
         s.y += s.speed;
-        s.rotation += s.rotSpeed;
         s.frame++;
         if (s.y > H + s.size + 20) {
             const ns = createStar(true);
@@ -170,7 +165,7 @@
         if (scrollTimeout) clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             isScrolling = false;
-        }, 120);
+        }, 180);
     }, { passive: true });
 
     // Page Visibility Handler
