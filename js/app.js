@@ -43,6 +43,11 @@ function renderFromConfig() {
         if (footerText && p.username) {
             footerText.textContent = `© ${new Date().getFullYear()} ${p.username} Setup. All rights reserved.`;
         }
+        
+        const lastUpdateEl = document.getElementById('footer-last-update');
+        if (lastUpdateEl && p.lastUpdate) {
+            lastUpdateEl.textContent = `Last Update: ${p.lastUpdate}`;
+        }
     }
 
     // 2. Tablet Settings
