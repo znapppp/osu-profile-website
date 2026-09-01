@@ -1,487 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Znap- | osu! Setup Configuration</title>
-    <meta name="description"
-        content="Znap- official osu! tablet settings, keyboard configuration, Sayodevice keypad, and custom skins.">
-
-    <!-- Google Fonts - only weights actually used -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-
-    <!-- Stylesheet (all styles - no Tailwind, no Font Awesome) -->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Sparkle Effect -->
-    <link rel="stylesheet" href="css/sparkle.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Znap- osu! Setup Configuration</title>
+<style>
+@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#393939","obsidian-deep":"#0A0A0A","outline":"#8e9192","surface-container-high":"#2a2a2a","primary":"#ffffff","secondary-fixed-dim":"#c7c6c6","on-surface":"#e2e2e2","inverse-primary":"#5d5f5f","tertiary":"#ffffff","glass-stroke":"rgba(255, 255, 255, 0.15)","on-error":"#690005","error":"#ffb4ab","on-background":"#e2e2e2","primary-fixed-dim":"#c6c6c7","surface-container":"#1f1f1f","surface-tint":"#c6c6c7","on-primary-container":"#636565","background":"#131313","surface-container-lowest":"#0e0e0e","on-tertiary-fixed-variant":"#474746","outline-variant":"#444748","inverse-surface":"#e2e2e2","inverse-on-surface":"#303030","on-surface-variant":"#c4c7c8","on-secondary-fixed-variant":"#464747","tertiary-container":"#e5e2e1","tertiary-fixed-dim":"#c8c6c5","surface-container-highest":"#353535","secondary-container":"#484949","on-tertiary":"#313030","secondary":"#c7c6c6","secondary-fixed":"#e3e2e2","soft-charcoal":"#262626","on-primary-fixed":"#1a1c1c","surface-dim":"#131313","on-secondary-fixed":"#1a1c1c","on-tertiary-fixed":"#1c1b1b","on-secondary-container":"#b8b8b8","primary-container":"#e2e2e2","surface-container-low":"#1b1b1b","on-secondary":"#2f3131","on-primary":"#2f3131","on-tertiary-container":"#656464","on-error-container":"#ffdad6","on-primary-fixed-variant":"#454747","surface-variant":"#353535","tertiary-fixed":"#e5e2e1","surface":"#131313","primary-fixed":"#e2e2e2","error-container":"#93000a"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"margin-safe":"48px","section-mobile":"64px",base:"8px","section-desktop":"120px",gutter:"24px"},fontFamily:{"label-small":["Geist"],"body-md":["Geist"],"body-lg":["Geist"],"headline-lg":["Geist"],"headline-lg-mobile":["Geist"],"label-caps":["JetBrains Mono"],"display-hero":["Geist"]},fontSize:{"label-small":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-md":["16px",{lineHeight:"26px",letterSpacing:"0.01em",fontWeight:"300"}],"body-lg":["20px",{lineHeight:"32px",letterSpacing:"0.01em",fontWeight:"300"}],"headline-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-caps":["12px",{lineHeight:"16px",letterSpacing:"0.1em",fontWeight:"500"}],"display-hero":["80px",{lineHeight:"88px",letterSpacing:"-0.04em",fontWeight:"700"}]}}}}
+</script>
 </head>
-
-<body>
-    <!-- Luxury Star Sparkle Canvas -->
-    <canvas id="sparkle-canvas" aria-hidden="true"></canvas>
-    <!-- Main Container -->
-    <div class="app-container">
-        <!-- Header & Profile Navigation Bar -->
-        <header class="setup-header glass-panel">
-            <div class="header-main-info">
-                <div class="user-badge-title">
-                    <div class="profile-avatar-container">
-                        <img src="https://a.ppy.sh/22919575" alt="Znap- Avatar" class="profile-avatar-img"
-                            id="profile-avatar-img" decoding="async" onerror="this.onerror=null; this.src='avatar.jpg';">
-                    </div>
-                    <div>
-                        <h1 class="page-title">Znap- <span class="highlight-text">Setup Configuration</span></h1>
-                        <p class="last-update-tag">
-                            Last update : <strong>23 August 2026</strong>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Social Links Bar -->
-                <div class="header-socials">
-                    <a href="https://osu.ppy.sh/users/22919575" target="_blank" rel="noopener noreferrer"
-                        class="social-pill osu-text-pill">
-                        osu! Profile
-                    </a>
-                    <a href="https://www.tiktok.com/@znapppp_" target="_blank" rel="noopener noreferrer"
-                        class="social-pill icon-only-pill white-logo-pill" title="TikTok (@znapppp_)">
-                        <svg class="social-svg-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68a6.34 6.34 0 0 0 10.86 4.49 6.27 6.27 0 0 0 1.91-4.49V8.62a8.28 8.28 0 0 0 4.82 1.52V6.69z" />
-                        </svg>
-                    </a>
-                    <a href="https://x.com/znapppp_" target="_blank" rel="noopener noreferrer"
-                        class="social-pill icon-only-pill white-logo-pill" title="X / Twitter (@znapppp_)">
-                        <svg class="social-svg-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                    </a>
-                    <button class="social-pill icon-only-pill white-logo-pill" id="copy-discord"
-                        title="Discord: Salmoneverydayplss (Click to copy)">
-                        <svg class="social-svg-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <!-- Hardware Setup Grid -->
-        <main class="setup-grid">
-            <!-- Section 1 Header: Hardware & Settings -->
-            <div class="section-divider-header">
-                <div class="section-title-wrapper">
-                    <!-- sliders icon -->
-                    <span class="section-title-icon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-                    </span>
-                    <div>
-                        <h2 class="section-main-title">Hardware &amp; Device Settings</h2>
-                        <span class="section-subtitle">Tablet, Keyboard, Keypad &amp; Audio Configurations</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 1. Tablet Settings Card -->
-            <section class="glass-panel setup-card" id="card-tablet">
-                <div class="card-header">
-                    <h2>
-                        <!-- tablet icon -->
-                        <svg class="header-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                        Tablet Settings
-                    </h2>
-                </div>
-
-                <div class="spec-list">
-                    <div class="spec-item">
-                        <span class="spec-label">Device</span>
-                        <span class="spec-value highlight-value device-val">Wacom CTL-472</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Area</span>
-                        <span class="spec-value badge-pill area-val">39 mm x 26 mm</span>
-                    </div>
-                    <div class="spec-item driver-spec-item">
-                        <div class="driver-info-row">
-                            <span class="spec-label">Driver</span>
-                            <span class="spec-value spec-mono driver-val">OpenTabletDriver v0.6.7</span>
-                        </div>
-                        <div class="driver-action-row">
-                            <a href="https://github.com/OpenTabletDriver/OpenTabletDriver/releases" target="_blank"
-                                rel="noopener noreferrer" class="btn-download-link driver-link">
-                                Download Link
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tablet Screenshot Preview -->
-                <div class="preview-image-container" onclick="openLightbox(this)">
-                    <div class="image-overlay">
-                        <span class="zoom-hint">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                            Click to Zoom
-                        </span>
-                    </div>
-                    <img src="picture/tablet/Screenshot 2026-08-22 221453.webp" alt="Wacom CTL-472 Tablet Settings"
-                        class="setup-preview-img" loading="lazy" decoding="async">
-                </div>
-            </section>
-
-            <!-- 2. Keyboard Settings Card -->
-            <section class="glass-panel setup-card" id="card-keyboard">
-                <div class="card-header">
-                    <h2>
-                        <!-- keyboard icon -->
-                        <svg class="header-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
-                        Keyboard Setting
-                    </h2>
-                </div>
-
-                <div class="spec-list">
-                    <div class="spec-item">
-                        <span class="spec-label">Device</span>
-                        <span class="spec-value highlight-value device-val">Keychron C75 TMR</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Keybind</span>
-                        <span class="spec-value badge-pill green-accent keybind-val">Ring / Index (Z, C)</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Actuation Point</span>
-                        <span class="spec-value spec-mono actuation-val">0.3 mm</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Rapid Trigger</span>
-                        <span class="spec-value spec-mono rapid-val">0.5 mm</span>
-                    </div>
-                </div>
-
-                <!-- Keyboard Screenshot Preview -->
-                <div class="preview-image-container" onclick="openLightbox(this)">
-                    <div class="image-overlay">
-                        <span class="zoom-hint">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                            Click to Zoom
-                        </span>
-                    </div>
-                    <img src="picture/keyboard/Screenshot 2026-08-23 231651.webp" alt="Keychron C75 Keyboard Settings"
-                        class="setup-preview-img" loading="lazy" decoding="async">
-                </div>
-            </section>
-
-            <!-- 3. Keypad Settings Card -->
-            <section class="glass-panel setup-card" id="card-keypad">
-                <div class="card-header">
-                    <h2>
-                        <svg class="header-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
-                        Keypad Setting
-                    </h2>
-                </div>
-
-                <div class="spec-list">
-                    <div class="spec-item">
-                        <span class="spec-label">Device</span>
-                        <span class="spec-value highlight-value device-val">Sayodevice O3C</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Stroke</span>
-                        <span class="spec-value spec-mono stroke-val">3.00 mm</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Actuation Point</span>
-                        <span class="spec-value spec-mono actuation-val">Release: 0.3 mm | Trigger: 0.7 mm</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Rapid Trigger</span>
-                        <span class="spec-value spec-mono rapid-val">Release: 0.5 mm | Trigger: 0.3 mm</span>
-                    </div>
-                </div>
-
-                <!-- Keypad Screenshot Preview -->
-                <div class="preview-image-container" onclick="openLightbox(this)">
-                    <div class="image-overlay">
-                        <span class="zoom-hint">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                            Click to Zoom
-                        </span>
-                    </div>
-                    <img src="picture/keypad/Screenshot 2026-08-22 221530.webp" alt="Sayodevice O3C Keypad Settings"
-                        class="setup-preview-img" loading="lazy" decoding="async">
-                </div>
-            </section>
-
-            <!-- 4. Monitor & Audio Duo Row -->
-            <div class="setup-grid-duo">
-                <!-- Monitor Card -->
-                <section class="glass-panel setup-card" id="card-monitor">
-                    <div class="card-header">
-                        <h2>
-                            <!-- monitor icon -->
-                            <svg class="header-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                            Monitor
-                        </h2>
-                    </div>
-
-                    <div class="spec-list">
-                        <div class="spec-item">
-                            <span class="spec-label">Device</span>
-                            <span class="spec-value highlight-value device-val">LG ULTRAGEAR 24GS60F-B</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Refresh Rate</span>
-                            <span class="spec-value badge-pill green-accent refresh-val">180 Hz</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Resolution</span>
-                            <span class="spec-value spec-mono res-val">1920 x 1080 (FHD)</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Response Time</span>
-                            <span class="spec-value spec-mono response-val">1 ms (GtG)</span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Audio Card -->
-                <section class="glass-panel setup-card" id="card-audio">
-                    <div class="card-header">
-                        <h2>
-                            <!-- headphones icon -->
-                            <svg class="header-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-                            Audio
-                        </h2>
-                    </div>
-
-                    <div class="spec-list">
-                        <div class="spec-item">
-                            <span class="spec-label">Device</span>
-                            <span class="spec-value highlight-value device-val">Apple EarPods</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Connector</span>
-                            <span class="spec-value badge-pill conn-val">USB-C</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Type</span>
-                            <span class="spec-value spec-mono type-val">Earbud Wired</span>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Section 2 Header: Skins Showcase -->
-            <div id="skins" class="section-divider-header skins-divider-header">
-                <div class="section-title-wrapper">
-                    <!-- paint brush icon (Lucide brush - matches Hardware sliders style) -->
-                    <span class="section-title-icon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/>
-                            <path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/>
-                        </svg>
-                    </span>
-                    <div>
-                        <h2 class="section-main-title">Skins</h2>
-                        <span class="section-subtitle">My personal skins &amp; favorites</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. Skins Showcase Section -->
-            <section class="glass-panel skin-section-card">
-                <div class="card-header skin-card-header">
-                    <div>
-                        <h2>Featured Skins</h2>
-                        <p class="skin-subtext">I'm way more comfortable playing with the Instafade skin :)</p>
-                    </div>
-                </div>
-
-                <div class="skin-grid-wrapper">
-                    <div class="skin-items-grid" id="skin-items-grid">
-                        <!-- Skin Item 1: Current Use -->
-                        <div class="skin-box current-skin-box">
-                            <div class="skin-box-header">
-                                <span class="skin-tag-badge main-skin">Current Use</span>
-                                <h3>Aristia(Edit) Instafade Znap- edit.</h3>
-                            </div>
-                            <div class="skin-preview-wrapper skin-slider-container">
-                                <div class="skin-slider-track">
-                                    <img src="picture/skin/aristia/gameplay.webp" alt="Aristia Instafade Gameplay"
-                                        data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide" loading="lazy" decoding="async">
-                                    <img src="picture/skin/aristia/songselect.webp" alt="Aristia Song Select UI"
-                                        data-label="Song Select" class="setup-preview-img skin-slide-img" loading="lazy" decoding="async">
-                                    <img src="picture/skin/aristia/result.webp" alt="Aristia Results UI"
-                                        data-label="Results UI" class="setup-preview-img skin-slide-img" loading="lazy" decoding="async">
-                                </div>
-                                <div class="image-overlay">
-                                    <span class="zoom-hint">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                                        Click to Zoom
-                                    </span>
-                                </div>
-                                <button class="slider-btn slider-prev" title="Previous Image">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                                </button>
-                                <button class="slider-btn slider-next" title="Next Image">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                                </button>
-                                <div class="slider-counter-badge">1 / 3</div>
-                                <div class="slider-caption-badge">Gameplay</div>
-                                <div class="slider-dots"></div>
-                            </div>
-                            <a href="https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="btn-skin-action">
-                                Download Here
-                            </a>
-                        </div>
-
-                        <!-- Skin Item 2: High AR -->
-                        <div class="skin-box high-ar-skin-box">
-                            <div class="skin-box-header">
-                                <span class="skin-tag-badge ar-skin">High AR</span>
-                                <h3>Milkteaism Hydro DT BETA(Znap- edit)</h3>
-                            </div>
-                            <div class="skin-preview-wrapper skin-slider-container">
-                                <div class="skin-slider-track">
-                                    <img src="picture/skin/DT/gameplay.webp" alt="Milkteaism Hydro DT Gameplay"
-                                        data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide" loading="lazy" decoding="async">
-                                    <img src="picture/skin/DT/songelect.webp" alt="Milkteaism Hydro DT Song Select"
-                                        data-label="Song Select" class="setup-preview-img skin-slide-img" loading="lazy" decoding="async">
-                                    <img src="picture/skin/DT/result.webp" alt="Milkteaism Hydro DT Results UI"
-                                        data-label="Results UI" class="setup-preview-img skin-slide-img" loading="lazy" decoding="async">
-                                </div>
-                                <div class="image-overlay">
-                                    <span class="zoom-hint">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                                        Click to Zoom
-                                    </span>
-                                </div>
-                                <button class="slider-btn slider-prev" title="Previous Image">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                                </button>
-                                <button class="slider-btn slider-next" title="Next Image">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                                </button>
-                                <div class="slider-counter-badge">1 / 3</div>
-                                <div class="slider-caption-badge">Gameplay</div>
-                                <div class="slider-dots"></div>
-                            </div>
-                            <a href="https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="btn-skin-action">
-                                Download Here
-                            </a>
-                        </div>
-
-                        <!-- Skin Item 3: DT Skin (dddx15dt) -->
-                        <div class="skin-box demo-skin-box">
-                            <div class="skin-box-header">
-                                <span class="skin-tag-badge ar-skin">DT</span>
-                                <h3>dddx15dt(Znap- edit)</h3>
-                            </div>
-                            <div class="skin-preview-wrapper skin-slider-container">
-                                <div class="skin-slider-track">
-                                    <img src="picture/skin/dddx15dt/gameplay.webp" alt="dddx15dt Gameplay"
-                                        data-label="Gameplay" class="setup-preview-img skin-slide-img active-slide" loading="lazy" decoding="async">
-                                    <img src="picture/skin/dddx15dt/songselect.webp" alt="dddx15dt Song Select"
-                                        data-label="Song Select" class="setup-preview-img skin-slide-img" loading="lazy" decoding="async">
-                                    <img src="picture/skin/dddx15dt/result.webp" alt="dddx15dt Results UI"
-                                        data-label="Results UI" class="setup-preview-img skin-slide-img" loading="lazy" decoding="async">
-                                </div>
-                                <div class="image-overlay">
-                                    <span class="zoom-hint">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                                        Click to Zoom
-                                    </span>
-                                </div>
-                                <button class="slider-btn slider-prev" title="Previous Image">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                                </button>
-                                <button class="slider-btn slider-next" title="Next Image">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                                </button>
-                                <div class="slider-counter-badge">1 / 3</div>
-                                <div class="slider-caption-badge">Gameplay</div>
-                                <div class="slider-dots"></div>
-                            </div>
-                            <a href="https://drive.google.com/file/d/1HR_FhGM8iDg_X84VBrq-3cw7ERQHQcPs/view?usp=drive_link"
-                                target="_blank" rel="noopener noreferrer" class="btn-skin-action">
-                                Download Here
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Visual Progress Line Indicator & Navigation Controls -->
-                    <div class="skin-grid-progress-wrapper">
-                        <button class="skin-grid-scroll-btn scroll-left" id="skin-grid-prev" title="Scroll Left">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                        </button>
-                        <div class="skin-grid-progress-center">
-                            <span class="skin-grid-progress-text" id="skin-grid-progress-text">1 / 2</span>
-                            <div class="skin-grid-progress-track">
-                                <div class="skin-grid-progress-thumb" id="skin-grid-progress-thumb"></div>
-                            </div>
-                        </div>
-                        <button class="skin-grid-scroll-btn scroll-right" id="skin-grid-next" title="Scroll Right">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Other Skins Google Drive Full-width Banner Bar -->
-                <div class="other-skins-banner-bar">
-                    <div class="banner-bar-content">
-                        <div class="banner-bar-text">
-                            <span class="banner-bar-title">Other Skins</span>
-                            <span class="banner-bar-desc">Looking for other skins I've used? Click here to see my all
-                                skin collection.</span>
-                        </div>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing"
-                        target="_blank" rel="noopener noreferrer" class="banner-bar-action">
-                        <span>OPEN DRIVE</span>
-                        <!-- external link icon -->
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    </a>
-                </div>
-            </section>
-        </main>
+<body class="bg-background font-body-md text-on-surface antialiased">
+<header class="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-3xl shadow-[0_1px_12px_rgba(0,0,0,0.5)]">
+    <div class="h-16 max-w-[1440px] mx-auto px-6 md:px-margin-safe flex items-center justify-between">
+        <div class="flex items-center gap-4 md:gap-12">
+            <span id="header-username" class="font-headline-lg text-lg md:text-[20px] tracking-tighter text-primary">Znap-</span>
+            <nav class="hidden sm:flex items-center gap-4 md:gap-8" data-active-classes="text-primary">
+                <a aria-current="page" class="text-sm md:text-base font-medium transition-colors text-primary" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Overview</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors" data-path="hardware" href="#hardware">Hardware</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors" data-path="skins" href="#skins">Skins</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-6">
+            <a id="osu-profile-link" href="#" target="_blank" rel="noopener noreferrer">
+                <img id="header-avatar" alt="Profile" class="w-8 h-8 rounded-full object-cover border border-glass-stroke ring-1 ring-white/5 transition-transform hover:scale-105" src="avatar.jpg"/>
+            </a>
+        </div>
     </div>
+</header>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Znap- osu! Setup Configuration | enjoy your osu!</p>
-    </footer>
+<main class="w-full pt-16 bg-background">
+    <div class="flex flex-col w-full text-on-surface">
+        
+        <!-- Hero Section -->
+        <section class="w-full relative min-h-[100svh] md:min-h-[921px] flex flex-col justify-center items-center py-section-mobile md:py-section-desktop px-6 md:px-margin-safe overflow-hidden">
+            <div class="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-surface-variant via-background to-background"></div>
+            
+            <!-- Dot Pattern Background -->
+            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/30 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]">
+                <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="dotPattern" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+                            <circle cx="1.5" cy="1.5" r="1.5" fill="currentColor"></circle>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#dotPattern)"></rect>
+                </svg>
+            </div>
 
-    <!-- Floating UI Elements -->
-    <!-- Toast Notification Popup -->
-    <div id="toast" class="toast">Copied to clipboard!</div>
+            <div class="z-10 text-center max-w-4xl mx-auto flex flex-col items-center gap-4 md:gap-6 mt-[-5vh] md:mt-[-10vh]">
 
-    <!-- Scroll to Skins FAB (High-Visibility Edition) -->
-    <button id="scroll-to-skins" class="fab-scroll-skins" title="Jump to Skins Section"
-        onclick="document.getElementById('skins').scrollIntoView({behavior:'smooth',block:'start'})">
-        <span>Jump to Skins</span>
-        <!-- arrow down icon -->
-        <svg class="fab-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-    </button>
+                <h1 id="hero-title" class="font-display-hero text-5xl md:text-display-hero text-primary tracking-tighter opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.2s_forwards]">Znap- Setup.</h1>
+                <p class="font-body-lg text-base md:text-body-lg text-on-surface-variant max-w-2xl opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.4s_forwards]">Welcome to my osu! setup page! Here you can find all the hardware I use to play and the skins I currently enjoy.</p>
+                
+                <!-- Social Dock -->
+                <div class="flex items-center gap-4 px-5 py-3 mt-4 rounded-2xl bg-surface-container-highest/60 backdrop-blur-xl border border-glass-stroke shadow-[0_8px_32px_rgba(0,0,0,0.4)] opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.6s_forwards]">
+                    <a href="#" id="dock-tiktok" class="group relative flex items-center justify-center w-12 h-12 rounded-xl bg-transparent hover:bg-surface-bright/40 transition-all duration-300 hover:-translate-y-2 hover:scale-110" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 448 512" class="w-6 h-6 text-on-surface group-hover:text-primary transition-colors fill-current"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
+                    </a>
+                    <a href="#" id="dock-x" class="group relative flex items-center justify-center w-12 h-12 rounded-xl bg-transparent hover:bg-surface-bright/40 transition-all duration-300 hover:-translate-y-2 hover:scale-110" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 text-on-surface group-hover:text-primary transition-colors fill-current"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+                    </a>
+                    <a id="dock-discord" class="group relative flex items-center justify-center w-12 h-12 rounded-xl bg-transparent hover:bg-surface-bright/40 transition-all duration-300 hover:-translate-y-2 hover:scale-110 cursor-pointer" title="Copy Discord ID">
+                        <svg viewBox="0 0 127.14 96.36" class="w-6 h-6 text-on-surface group-hover:text-primary transition-colors fill-current"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-19.32-72.15ZM42.68,65.33C38,65.33,34.2,61,34.2,55.53s3.76-9.81,8.48-9.81,8.51,4.39,8.48,9.81-3.76,9.8-8.48,9.8Zm41.72,0c-4.73,0-8.48-4.39-8.48-9.81s3.76-9.81,8.48-9.81,8.51,4.39,8.48,9.81-3.76,9.8-8.48,9.8Z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 animate-[fade-in_1s_ease-out_1.2s_forwards]">
+                <span class="font-label-caps text-label-small text-on-surface-variant/50 tracking-widest uppercase">Scroll to explore</span>
+                <div class="w-[1px] h-12 bg-gradient-to-b from-on-surface-variant/50 to-transparent"></div>
+            </div>
+        </section>
 
-    <!-- Lightbox Image Zoom Modal -->
-    <div id="lightbox-modal" class="lightbox-modal" onclick="if(event.target===this) closeLightbox();">
-        <span class="lightbox-close" id="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" alt="Zoomed Setup Preview" decoding="async">
-        <div id="lightbox-caption" class="lightbox-caption"></div>
+        <!-- Hardware Section -->
+        <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative" id="hardware">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="flex items-center gap-4 mb-16 md:mb-24 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <span class="font-label-caps text-3xl md:text-headline-lg text-surface-variant/30 select-none">01</span>
+                    <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary tracking-tight">Hardware Calibration</h2>
+                    <div class="flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
+                </div>
+                
+                <div class="flex flex-col gap-32">
+                    <!-- Tablet -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="md:col-span-5 flex flex-col gap-6">
+                            <div class="inline-block px-3 py-1 rounded bg-surface-container-high w-max mb-2 shadow-sm">
+                                <span class="font-label-caps text-label-caps text-on-surface">Input / Tablet</span>
+                            </div>
+                            <h3 id="tablet-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight">Wacom CTL-472</h3>
+                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">My go-to tablet for osu! It's super reliable, and with OpenTabletDriver, the cursor movement feels incredibly snappy without any weird smoothing.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-8">
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Active Area</span>
+                                    <span id="tablet-area" class="font-label-caps text-body-md text-primary">68 x 38.25 mm</span>
+                                </div>
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Driver</span>
+                                    <span id="tablet-driver" class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="OpenTabletDriver">OpenTabletDriver</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-7 relative group">
+                            <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
+                            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-lg">
+                                <div id="tablet-img" class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('')"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyboard -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="md:col-span-7 order-2 md:order-1 relative group">
+                            <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
+                            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-lg">
+                                <div id="keyboard-img" class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('')"></div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-5 order-1 md:order-2 flex flex-col gap-6 md:pl-12">
+                            <div class="inline-block px-3 py-1 rounded bg-surface-container-high w-max mb-2 shadow-sm">
+                                <span class="font-label-caps text-label-caps text-on-surface">Input / Keyboard</span>
+                            </div>
+                            <h3 id="keyboard-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight">Keychron C75 TMR</h3>
+                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">My main keyboard for everyday use. It has a great feel for typing and casual tapping to the beat.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-8">
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Actuation</span>
+                                    <span id="keyboard-actuation" class="font-label-caps text-body-md text-primary">0.3 mm</span>
+                                </div>
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Rapid Trigger</span>
+                                    <span id="keyboard-rapid" class="font-label-caps text-body-md text-primary">0.5 mm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keypad -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="md:col-span-5 flex flex-col gap-6">
+                            <div class="inline-block px-3 py-1 rounded bg-surface-container-high w-max mb-2 shadow-sm">
+                                <span class="font-label-caps text-label-caps text-on-surface">Input / Keypad</span>
+                            </div>
+                            <h3 id="keypad-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight">Sayodevice O3C</h3>
+                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">This thing is a beast for high-BPM maps! The rapid trigger makes a huge difference when I need to stream really fast.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-8">
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Stroke</span>
+                                    <span id="keypad-stroke" class="font-label-caps text-body-md text-primary">3.00 mm</span>
+                                </div>
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Actuation</span>
+                                    <span id="keypad-actuation" class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Release: 0.3 mm | Trigger: 0.7 mm">Release: 0.3 mm | Trigger: 0.7 mm</span>
+                                </div>
+                                <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke sm:col-span-2">
+                                    <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Rapid Trigger</span>
+                                    <span id="keypad-rapid" class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Release: 0.5 mm | Trigger: 0.3 mm">Release: 0.5 mm | Trigger: 0.3 mm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-7 relative group">
+                            <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
+                            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-lg">
+                                <div id="keypad-img" class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('')"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitor & Audio Section -->
+        <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe bg-surface-container-lowest relative border-y border-glass-stroke/50">
+            <div class="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-surface-variant via-transparent to-transparent pointer-events-none"></div>
+            <div class="max-w-[1440px] mx-auto relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-gutter">
+                    <!-- Monitor -->
+                    <div class="flex flex-col gap-8 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="flex items-center gap-4 border-b border-glass-stroke pb-4">
+                            <span class="material-symbols-outlined text-primary">desktop_windows</span>
+                            <h4 class="font-label-caps text-body-md text-primary tracking-widest uppercase">Output Monitor</h4>
+                        </div>
+                        <div>
+                            <h3 id="monitor-device" class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-2">LG ULTRAGEAR 24GS60F-B</h3>
+                            <p class="font-body-md text-on-surface-variant mb-6">A solid 180Hz screen that makes reading high AR so much easier. Everything just looks buttery smooth.</p>
+                            <ul class="flex flex-col gap-3">
+                                <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
+                                    <span class="font-body-md text-on-surface-variant">Refresh Rate</span>
+                                    <span id="monitor-refresh" class="font-label-caps text-primary">180 Hz</span>
+                                </li>
+                                <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
+                                    <span class="font-body-md text-on-surface-variant">Response Time</span>
+                                    <span id="monitor-response" class="font-label-caps text-primary">1 ms (GtG)</span>
+                                </li>
+                                <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
+                                    <span class="font-body-md text-on-surface-variant">Resolution</span>
+                                    <span id="monitor-resolution" class="font-label-caps text-primary">1920 x 1080 (FHD)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Audio -->
+                    <div class="flex flex-col gap-8 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal delay-100">
+                        <div class="flex items-center gap-4 border-b border-glass-stroke pb-4">
+                            <span class="material-symbols-outlined text-primary">headphones</span>
+                            <h4 class="font-label-caps text-body-md text-primary tracking-widest uppercase">Audio Output</h4>
+                        </div>
+                        <div>
+                            <h3 id="audio-device" class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-2">Apple EarPods</h3>
+                            <p class="font-body-md text-on-surface-variant mb-6">Good old wired EarPods. They're super comfy for long sessions and have zero audio delay, which is a must!</p>
+                            <ul class="flex flex-col gap-3">
+                                <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
+                                    <span class="font-body-md text-on-surface-variant">Connection</span>
+                                    <span id="audio-conn" class="font-label-caps text-primary">USB-C</span>
+                                </li>
+                                <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
+                                    <span class="font-body-md text-on-surface-variant">Type</span>
+                                    <span id="audio-type" class="font-label-caps text-primary">Earbud Wired</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skins Section -->
+        <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative" id="skins">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="flex items-center gap-4 mb-12 md:mb-16 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <span class="font-label-caps text-3xl md:text-headline-lg text-surface-variant/30 select-none">02</span>
+                    <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary tracking-tight">My Skin Collection</h2>
+                    <div class="flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
+                </div>
+                
+                <div id="skins-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- JS WILL INJECT CARDS HERE -->
+                </div>
+            </div>
+        </section>
     </div>
+</main>
+
+<footer class="w-full bg-background pt-16 md:pt-section-desktop pb-8 md:pb-margin-safe">
+    <div class="max-w-[1440px] mx-auto px-6 md:px-margin-safe">
+        <div class="w-full h-[1px] bg-glass-stroke mb-8 md:mb-12"></div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div id="footer-text" class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant/50 text-center md:text-left">© 2026 Znap- Setup. All rights reserved.</div>
+            <nav class="flex flex-wrap justify-center md:justify-end items-center gap-6 md:gap-8">
+                <a id="footer-discord" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer" title="Copy Discord ID">Discord</a>
+                <a id="footer-x" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#" target="_blank" rel="noopener noreferrer">X</a>
+                <a id="footer-tiktok" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#" target="_blank" rel="noopener noreferrer">TikTok</a>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-surface-container-highest/80 backdrop-blur-lg border border-glass-stroke rounded-full text-primary font-label-caps text-sm shadow-xl opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
 
     <!-- Scripts -->
     <script src="js/config.js"></script>
-    <script src="js/sparkle.js"></script>
     <script src="js/app.js"></script>
 </body>
-
 </html>
