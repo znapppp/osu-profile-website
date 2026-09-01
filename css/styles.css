@@ -1,47 +1,47 @@
 /* ==========================================================================
-   Znap- osu! Setup — Base & Complex Styles
+   Znap- osu! Setup - Base & Complex Styles
    All component styles included here (no Tailwind dependency)
    ========================================================================== */
 
 :root {
-    /* ── Background ── */
+    /* - Background - */
     --bg-base:      #080808;
     --bg-surface:   #131316;
     --bg-subtle:    #18181c;
     --bg-inset:     #1d1d22;
     --bg-elevated:  #151518;
 
-    /* ── Borders ── */
+    /* - Borders - */
     --border-faint:  rgba(255, 255, 255, 0.06);
     --border-light:  rgba(255, 255, 255, 0.10);
     --border-mid:    rgba(255, 255, 255, 0.16);
     --border-strong: rgba(255, 255, 255, 0.28);
 
-    /* ── Text ── */
+    /* - Text - */
     --text-primary:   #ffffff;
     --text-secondary: #c4cbd8;
     --text-muted:     #9099a8;
 
-    /* ── Typography ── */
+    /* - Typography - */
     --font-display: 'Nunito', system-ui, sans-serif;
     --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
     --font-mono:    'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
 
-    /* ── Shape ── */
+    /* - Shape - */
     --radius-xs:   4px;
     --radius-sm:   8px;
     --radius-md:   12px;
     --radius-lg:   14px;
     --radius-full: 9999px;
 
-    /* ── Motion ── */
+    /* - Motion - */
     --ease-expo:   cubic-bezier(0.16, 1, 0.3, 1);
     --t-fast:   0.14s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --t-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     --t-slow:   0.44s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Reset & Base ── */
+/* - Reset & Base - */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -71,7 +71,7 @@ body {
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
-/* ── Scrollbar ── */
+/* - Scrollbar - */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
 ::-webkit-scrollbar-thumb {
@@ -84,7 +84,7 @@ body {
    Component Classes (converted from Tailwind @apply)
    ========================================================================== */
 
-/* ── Layout ── */
+/* - Layout - */
 .app-container {
     width: 100%;
     margin-left: auto;
@@ -95,7 +95,7 @@ body {
     z-index: 1;
 }
 
-/* ── Glass Panel / Card ── */
+/* - Glass Panel / Card - */
 .glass-panel {
     width: 100%;
     max-width: 100%;
@@ -116,7 +116,7 @@ body {
     box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 8px 32px rgba(0,0,0,0.55);
 }
 
-/* ── Header ── */
+/* - Header - */
 .setup-header { margin-bottom: 20px; padding: 24px 32px; }
 
 .header-main-info {
@@ -150,7 +150,7 @@ body {
 }
 .profile-avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* ── Page Title ── */
+/* - Page Title - */
 .page-title {
     font-weight: 700;
     word-break: break-word;
@@ -179,7 +179,7 @@ body {
 }
 .last-update-tag strong { color: #c4cbd8; font-weight: 500; }
 
-/* ── Social Pills ── */
+/* - Social Pills - */
 .header-socials { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 
 .social-pill {
@@ -230,7 +230,7 @@ body {
 }
 .white-logo-pill:hover .social-svg-logo { fill: #ffffff; }
 
-/* ── Card Header ── */
+/* - Card Header - */
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -251,7 +251,7 @@ body {
 }
 .header-icon { flex-shrink: 0; color: #9099a8; font-size: 0.75rem; }
 
-/* ── Section Divider ── */
+/* - Section Divider - */
 .section-divider-header {
     grid-column: 1 / -1;
     display: flex;
@@ -302,7 +302,7 @@ body {
     border-color: rgba(255, 255, 255, 0.20);
 }
 
-/* ── Setup Grid ── */
+/* - Setup Grid - */
 .setup-grid {
     display: grid;
     width: 100%;
@@ -316,7 +316,7 @@ body {
 }
 .setup-card { display: flex; flex-direction: column; width: 100%; min-width: 0; }
 
-/* ── Spec List ── */
+/* - Spec List - */
 .spec-list { display: flex; flex-direction: column; width: 100%; gap: 0; margin-bottom: 20px; }
 .spec-list:last-child { margin-bottom: 0; }
 
@@ -387,7 +387,7 @@ body {
     border-color: rgba(255, 255, 255, 0.16);
 }
 
-/* ── Image Preview ── */
+/* - Image Preview - */
 .preview-image-container {
     position: relative;
     overflow: hidden;
@@ -435,7 +435,7 @@ body {
     font-size: 0.68rem; font-weight: 600; letter-spacing: 0.10em;
 }
 
-/* ── Skins Section ── */
+/* - Skins Section - */
 .skin-section-card {
     grid-column: 1 / -1;
     width: 100%;
@@ -559,7 +559,7 @@ body {
 }
 .skin-slider-container { position: relative; overflow: hidden; }
 
-/* ── Other Skins Banner Bar ── */
+/* - Other Skins Banner Bar - */
 .other-skins-banner-bar {
     display: flex;
     align-items: center;
@@ -596,7 +596,7 @@ body {
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.12);
 }
 
-/* ── Skin Download Button ── */
+/* - Skin Download Button - */
 .btn-skin-action {
     display: flex;
     align-items: center;
@@ -615,7 +615,7 @@ body {
     box-shadow: 0 4px 20px rgba(255,255,255,0.08);
 }
 
-/* ── FAB Button (Jump to Skins) ── */
+/* - FAB Button (Jump to Skins) - */
 .fab-scroll-skins {
     position: fixed;
     cursor: pointer;
@@ -639,7 +639,7 @@ body {
 .fab-scroll-skins:hover .fab-arrow { color: #080808; }
 .fab-scroll-skins .fab-arrow { font-size: 0.78rem; color: #ffffff; display: inline-block; }
 
-/* ── Lightbox Modal ── */
+/* - Lightbox Modal - */
 .lightbox-modal {
     position: fixed; z-index: 99999; left: 0; top: 0;
     width: 100vw; height: 100vh; overflow: auto;
@@ -677,7 +677,7 @@ body {
     background: rgba(255,255,255,0.05); transform: rotate(90deg);
 }
 
-/* ── Toast Notification ── */
+/* - Toast Notification - */
 .toast {
     text-align: center;
     position: fixed;
@@ -694,7 +694,7 @@ body {
     font-family: 'JetBrains Mono', monospace;
 }
 
-/* ── Footer ── */
+/* - Footer - */
 .footer {
     text-align: center;
     width: 100%;
@@ -706,7 +706,7 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
 
-/* ── Responsive Breakpoints ── */
+/* - Responsive Breakpoints - */
 @media (max-width: 950px) {
     .setup-grid { grid-template-columns: 1fr; }
 }
@@ -727,7 +727,7 @@ body {
 }
 
 /* ==========================================================================
-   Pseudo-Elements — Cannot be expressed with @apply
+   Pseudo-Elements - Cannot be expressed with @apply
    ========================================================================== */
 
 /* Glass panel top shimmer line */
@@ -811,7 +811,7 @@ body {
 .lightbox-content          { animation: zoomIn 0.28s var(--ease-expo); }
 
 /* ==========================================================================
-   State Classes — display: flex/block !important (JS-toggled)
+   State Classes - display: flex/block !important (JS-toggled)
    ========================================================================== */
 
 .lightbox-modal.show,
@@ -827,7 +827,7 @@ body {
 }
 
 /* ==========================================================================
-   Skin Image Slider — Complex compound selectors & will-change
+   Skin Image Slider - Complex compound selectors & will-change
    ========================================================================== */
 
 .skin-slider-track {
@@ -863,7 +863,7 @@ body {
     transform: scale(1.018);
 }
 
-/* Slider Prev/Next Buttons — opaque bg (no backdrop-filter = better perf) */
+/* Slider Prev/Next Buttons - opaque bg (no backdrop-filter = better perf) */
 .slider-btn {
     position: absolute;
     top: 50%;
@@ -909,7 +909,7 @@ body {
 .slider-prev { left: 12px; }
 .slider-next { right: 12px; }
 
-/* Counter Badge — hover-reveal, no backdrop-filter */
+/* Counter Badge - hover-reveal, no backdrop-filter */
 .slider-counter-badge {
     position: absolute;
     top: 10px;
@@ -971,7 +971,7 @@ body {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-/* Caption Badge — no backdrop-filter */
+/* Caption Badge - no backdrop-filter */
 .slider-caption-badge {
     position: absolute;
     bottom: 10px;
@@ -994,7 +994,7 @@ body {
 }
 
 /* ==========================================================================
-   Skin Grid Scroll Buttons — complex multi-state transitions
+   Skin Grid Scroll Buttons - complex multi-state transitions
    ========================================================================== */
 
 .skin-grid-scroll-btn {
@@ -1045,7 +1045,7 @@ body {
 }
 
 /* ==========================================================================
-   skin-items-grid — scroll snap & hide native scrollbar
+   skin-items-grid - scroll snap & hide native scrollbar
    ========================================================================== */
 
 .skin-items-grid {
@@ -1070,7 +1070,7 @@ body {
 }
 
 /* ==========================================================================
-   Parent:hover → Child selector chains
+   Parent:hover -> Child selector chains
    ========================================================================== */
 
 .preview-image-container:hover .image-overlay     { opacity: 1; }
@@ -1101,7 +1101,7 @@ body {
 }
 
 /* ==========================================================================
-   content-visibility: auto — skip rendering below-the-fold sections
+   content-visibility: auto - skip rendering below-the-fold sections
    ========================================================================== */
 
 .setup-grid > section,

@@ -1,7 +1,6 @@
 /**
- * sparkle.js — Optimized Pure White 4-Point Star Particle System
- * Clean floating & falling star sparkles for Znap- osu! Setup Page
- * Hardware Acceleration & CPU Software Rendering Optimized
+ * sparkle.js - Star Particle Animation System
+ * Optimized offscreen canvas sprite rendering for background visual effects.
  */
 (function () {
     'use strict';
@@ -10,22 +9,22 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // ── Configuration ──────────────────────────────────────────────────────
+    // System Configuration
     const CONFIG = {
-        count: 28,            // Default active stars
-        countNoGpu: 12,       // Low CPU star count
-        minSize: 2,           // px radius
-        maxSize: 7,           // px radius
-        minSpeed: 0.1,        // fall speed px/frame
+        count: 28,            // Active particle count (high-performance)
+        countNoGpu: 12,       // Active particle count (low-performance / no-gpu)
+        minSize: 2,           // Particle radius (px)
+        maxSize: 7,           // Particle radius (px)
+        minSpeed: 0.1,        // Fall rate (px/frame)
         maxSpeed: 0.28,
-        driftRange: 0.18,     // horizontal drift amplitude
+        driftRange: 0.18,     // Horizontal drift amplitude
         minOpacity: 0.15,
         maxOpacity: 0.65,
         rotationSpeedMin: 0.001,
         rotationSpeedMax: 0.006,
     };
 
-    // ── State ───────────────────────────────────────────────────────────────
+    // System State
     let W = 0, H = 0;
     let stars = [];
     let raf = null;
@@ -33,7 +32,7 @@
     let isScrolling = false;
     let scrollTimeout = null;
 
-    // ── Sprite Cache (Pre-rendered offscreen canvases for CPU speed) ─────────
+    // Sprite Cache (Offscreen canvas caching for fast rendering)
     const spriteCache = {};
 
     function getOrCreateStarSprite(size) {
@@ -52,17 +51,17 @@
         const cx = pad;
         const cy = pad;
 
-        // 1. Soft white glow halo
+        // Radial glow halo
         const glow = sctx.createRadialGradient(cx, cy, 0, cx, cy, glowRadius);
-        glow.addColorStop(0, `rgba(255, 255, 255, 0.35)`);
-        glow.addColorStop(0.5, `rgba(255, 255, 255, 0.10)`);
-        glow.addColorStop(1, `rgba(255, 255, 255, 0)`);
+        glow.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
+        glow.addColorStop(0.5, 'rgba(255, 255, 255, 0.10)');
+        glow.addColorStop(1, 'rgba(255, 255, 255, 0)');
         sctx.beginPath();
         sctx.arc(cx, cy, glowRadius, 0, Math.PI * 2);
         sctx.fillStyle = glow;
         sctx.fill();
 
-        // 2. Star body (4-point star)
+        // 4-point star polygon
         const inner = outer * 0.2;
         const spikes = 4;
         const step = Math.PI / spikes;
@@ -79,7 +78,7 @@
         sctx.fillStyle = '#ffffff';
         sctx.fill();
 
-        // 3. Core dot
+        // Star center core
         sctx.beginPath();
         sctx.arc(cx, cy, outer * 0.25, 0, Math.PI * 2);
         sctx.fillStyle = '#ffffff';
@@ -90,16 +89,16 @@
         return sprite;
     }
 
-    // ── Resize handler ──────────────────────────────────────────────────────
+    // Canvas Resize Handler
     function resize() {
         W = canvas.width = window.innerWidth;
         H = canvas.height = window.innerHeight;
     }
 
-    // ── Utility ─────────────────────────────────────────────────────────────
+    // Utility Generator
     function rand(min, max) { return min + Math.random() * (max - min); }
 
-    // ── Star factory ────────────────────────────────────────────────────────
+    // Particle Factory
     function createStar(fromTop) {
         const size = rand(CONFIG.minSize, CONFIG.maxSize);
         return {
@@ -127,7 +126,7 @@
         }
     }
 
-    // ── Render a single star using pre-rendered sprite ───────────────────────
+    // Render Particle
     function renderStar(s) {
         const t = s.frame;
         const opacity = s.opacity;
@@ -141,7 +140,7 @@
         ctx.drawImage(sprite.canvas, drawX - sprite.pad, drawY - sprite.pad);
     }
 
-    // ── Update a single star ─────────────────────────────────────────────────
+    // Update Particle State
     function updateStar(s) {
         s.y += s.speed;
         s.rotation += s.rotSpeed;
@@ -152,7 +151,7 @@
         }
     }
 
-    // ── Main loop ────────────────────────────────────────────────────────────
+    // Main Animation Loop
     function loop() {
         if (!isScrolling) {
             ctx.clearRect(0, 0, W, H);
@@ -165,7 +164,7 @@
         raf = requestAnimationFrame(loop);
     }
 
-    // ── Scroll event optimization: throttle canvas rendering during active scroll ──
+    // Scroll Throttle Handler
     window.addEventListener('scroll', () => {
         isScrolling = true;
         if (scrollTimeout) clearTimeout(scrollTimeout);
@@ -174,7 +173,7 @@
         }, 120);
     }, { passive: true });
 
-    // ── Page visibility: pause when tab hidden ──────────────────────────────
+    // Page Visibility Handler
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             if (raf) { cancelAnimationFrame(raf); raf = null; }
@@ -183,7 +182,7 @@
         }
     });
 
-    // ── Init ──────────────────────────────────────────────────────────────────
+    // Initialization
     function init() {
         resize();
         window.addEventListener('resize', resize, { passive: true });

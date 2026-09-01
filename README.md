@@ -1,63 +1,53 @@
 # Znap- osu! Setup Website
 
-## Overview
-This repository contains the source code for the personal configuration showcase website of **Znap-**. The site documents hardware peripheral specifications, device settings, custom osu! skins, and profile references using static web technologies (HTML5, CSS3, JavaScript).
+Static web application for showcasing hardware peripheral configurations, device parameters, and custom osu! skins for **Znap-**. Built using vanilla HTML5, CSS3, and JavaScript.
 
-## Key Features
-- **Hardware Configuration Display**: Detailed parameter tracking for tablet, keyboard, keypad, monitor, and audio peripherals.
-- **Skin Showcase & Downloads**: Multi-screenshot image sliders (Gameplay, Song Select, Results UI) and direct download links for featured osu! skins (Aristia Instafade & Milkteaism Hydro DT).
-- **Automatic Hardware Acceleration Detection**: Built-in detection for GPU rendering status; automatically adjusts visual parameters to maintain 60 FPS in CPU software-rendering environments.
-- **Interactive Lightbox Preview**: Fullscreen image inspection modal for technical screenshots.
-- **Responsive Design**: Mobile and desktop layout optimization using vanilla CSS Grid and Flexbox.
+## Architecture
 
-## Usage & Local Development
+- **Data-Driven Architecture**: Content is decoupled from markup and managed via `js/config.js`.
+- **Performance Optimized**: Vanilla JS engine with zero external framework dependencies. Features WebP media assets, inline SVGs, lazy loading, and GPU hardware acceleration detection.
 
-### Prerequisites
-- A modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari).
-- *(Optional)* Python 3.x or Node.js (v18.0.0 or higher) for running a local HTTP server.
+## File Structure
 
-### Local Server Setup
-To run and preview the website locally:
+```
+.
+├── index.html       # Document structure
+├── css/
+│   ├── styles.css   # Main stylesheet
+│   └── sparkle.css  # Particle layer styles
+├── js/
+│   ├── config.js    # Central configuration data
+│   ├── app.js       # Dynamic DOM rendering and UI controllers
+│   └── sparkle.js   # Background canvas particle engine
+└── picture/         # Media assets (WebP format)
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/znapppp/osu-profile-website.git
-   cd osu-profile-website
-   ```
+## Content Management
 
-2. **Launch a local server using any of the following methods:**
+Modify `js/config.js` to update website content:
 
-   - **Using Python (Recommended - Built-in):**
-     ```bash
-     python -m http.server 8000
-     ```
-     Then navigate to `http://localhost:8000` in your web browser.
+- `profile`: User metadata, avatar links, and social accounts.
+- `tablet` / `keyboard` / `keypad` / `monitor` / `audio`: Device parameters and download URLs.
+- `skins`: Featured skin listings, download URLs, and screenshot paths.
 
-   - **Using Node.js:**
-     ```bash
-     npm start
-     # or
-     npx serve .
-     ```
-     Then navigate to `http://localhost:3000` in your web browser.
+## Local Development
 
-### Direct Execution
-Alternatively, open `index.html` directly in any web browser without running a local server.
+Run using any static HTTP server:
+
+```bash
+# Python
+python -m http.server 8000
+
+# Node.js
+npx serve .
+```
+
+Alternatively, open `index.html` directly in any web browser.
 
 ## Deployment
-This project is structured for static hosting via GitHub Pages.
 
-1. Commit and push modifications to the primary branch:
-   ```bash
-   git add .
-   git commit -m "Update site configuration"
-   git push origin main
-   ```
-
-2. Enable GitHub Pages in repository settings:
-   - Navigate to **Settings** > **Pages**.
-   - Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-   - Select **Branch: main** and **Folder: / (root)**, then click **Save**.
+Deployable via GitHub Pages by setting the build source to the `main` branch root (`/`) directory.
 
 ## License
+
 MIT
