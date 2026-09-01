@@ -114,7 +114,7 @@ function renderFromConfig() {
         if (grid && Array.isArray(s.items) && s.items.length > 0) {
             grid.innerHTML = s.items.map((item, i) => {
                 // Determine description based on badgeText or generic text
-                let desc = `Custom osu! skin for ${item.badgeText || 'standard'} gameplay.`;
+                let desc = `My ${item.badgeText || 'favorite'} skin.`;
                 
                 // Get the first slide as the main background image
                 const mainImgSrc = item.slides && item.slides.length > 0 ? item.slides[0].src : '';
