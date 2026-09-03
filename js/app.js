@@ -14,6 +14,11 @@ function renderFromConfig() {
             headerUsername.textContent = p.username;
         }
 
+        const heroTitle = document.getElementById('hero-title');
+        if (heroTitle && p.username) {
+            heroTitle.textContent = p.username;
+        }
+
         const avatarImg = document.getElementById('header-avatar');
         if (avatarImg && p.avatarUrl) {
             avatarImg.src = p.avatarUrl;
