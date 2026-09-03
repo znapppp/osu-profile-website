@@ -73,7 +73,7 @@ const SITE_CONFIG = {
     // Skins Configuration
     skins: {
         subtext: "I'm way more comfortable playing with the Instafade skin :)",
-        driveFolderUrl: "https://drive.google.com/drive/folders/1UlYZANah6EOanaB47LspkXFrU1NtYOxr?usp=sharing",
+        driveFolderUrl: "https://drive.google.com/drive/folders/1NQAOlXTy9oibloNPvzCS4ZRdHu3fjedv?usp=drive_link",
         items: [
             {
                 name: "Aristia(Edit) Instafade Znap- edit.",

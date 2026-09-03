@@ -114,6 +114,14 @@ function renderFromConfig() {
     // 7. Skins Grid
     if (SITE_CONFIG.skins) {
         const s = SITE_CONFIG.skins;
+        
+        const driveLink = document.getElementById('skins-drive-link');
+        if (driveLink && s.driveFolderUrl) {
+            driveLink.href = s.driveFolderUrl;
+        } else if (driveLink) {
+            driveLink.style.display = 'none';
+        }
+
         const grid = document.getElementById('skins-grid');
         
         if (grid && Array.isArray(s.items) && s.items.length > 0) {
