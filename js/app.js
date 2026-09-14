@@ -178,6 +178,77 @@ function renderFromConfig() {
             }).join('');
         }
     }
+
+    // 8. tosu Overlays Grid
+    if (SITE_CONFIG.overlays) {
+        const o = SITE_CONFIG.overlays;
+        const githubLink = document.getElementById('overlays-github-link');
+        if (githubLink && o.githubUrl) {
+            githubLink.href = o.githubUrl;
+        } else if (githubLink) {
+            githubLink.style.display = 'none';
+        }
+
+        const grid = document.getElementById('overlays-grid');
+        if (grid && Array.isArray(o.items) && o.items.length > 0) {
+            grid.innerHTML = o.items.map((item, i) => {
+                const desc = item.description || `Custom overlay created for tosu.`;
+                const imgSrc = item.previewImg || (item.slides && item.slides.length > 0 ? item.slides[0].src : '');
+                const downloadUrl = item.downloadUrl || '#';
+                const githubUrl = item.githubUrl || '';
+                const sourceRefUrl = item.sourceRefUrl || '';
+                const tags = item.tags || [];
+
+                return `
+                <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal bg-surface-container-lowest/70 backdrop-blur-xl border border-glass-stroke rounded-2xl p-5 hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_24px_rgba(0,0,0,0.5)]" style="transition-delay: ${i * 100}ms;">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-5 bg-surface-container border border-glass-stroke/50 group/preview">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover/preview:scale-105" style="background-image: url('${imgSrc}')"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/30 to-transparent opacity-60 group-hover/preview:opacity-30 transition-opacity duration-300 pointer-events-none"></div>
+                        
+                        <div class="absolute top-3 left-3 flex gap-2 z-10">
+                            <span class="bg-primary/90 backdrop-blur-md px-2.5 py-1 rounded text-[11px] font-semibold text-obsidian-deep shadow-sm">${item.badgeText || 'tosu Overlay'}</span>
+                        </div>
+
+                        <div class="absolute bottom-3 right-3 flex items-center gap-2 z-10">
+                            ${githubUrl ? `
+                                <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="w-8 h-8 rounded-full bg-obsidian-deep/70 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-white hover:text-obsidian-deep transition-all duration-300 shadow-md" title="View Source on GitHub">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </a>
+                            ` : ''}
+                            ${downloadUrl && downloadUrl !== '#' ? `
+                                <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="w-8 h-8 rounded-full bg-primary text-obsidian-deep flex items-center justify-center hover:bg-secondary transition-all duration-300 shadow-md" title="Download Overlay">
+                                    <span class="material-symbols-outlined text-[18px]">download</span>
+                                </a>
+                            ` : `
+                                <button onclick="event.stopPropagation(); showToast('Download link available soon!')" class="w-8 h-8 rounded-full bg-primary text-obsidian-deep flex items-center justify-center hover:bg-secondary transition-all duration-300 shadow-md cursor-pointer" title="Download">
+                                    <span class="material-symbols-outlined text-[18px]">download</span>
+                                </button>
+                            `}
+                        </div>
+                    </div>
+
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                        <h3 class="font-headline-lg text-lg md:text-xl text-primary tracking-tight truncate" title="${item.name}">${item.name}</h3>
+                    </div>
+
+                    <p class="font-body-md text-on-surface-variant text-xs md:text-sm mb-4 line-clamp-3 leading-relaxed">${desc}</p>
+
+                    ${tags.length > 0 ? `
+                        <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-glass-stroke/40">
+                            ${tags.map(t => `<span class="px-2 py-0.5 rounded bg-surface-container-high/60 text-[11px] font-['Geist'] text-on-surface-variant/80 border border-white/[0.04]">${t}</span>`).join('')}
+                        </div>
+                    ` : ''}
+
+                    ${sourceRefUrl ? `
+                        <div class="mt-3 pt-2 text-[11px] text-on-surface-variant/50 flex items-center gap-1">
+                            <span>Forked / Modified from:</span>
+                            <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant/70 hover:text-primary underline transition-colors">Citrusis/OBSDecoratePack</a>
+                        </div>
+                    ` : ''}
+                </div>`;
+            }).join('');
+        }
+    }
 }
 
 // Toast Helper

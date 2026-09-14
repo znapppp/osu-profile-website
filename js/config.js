@@ -109,5 +109,24 @@ const SITE_CONFIG = {
                 ]
             }
         ]
+    },
+
+    // tosu Overlays Configuration
+    overlays: {
+        subtext: "Custom stream overlays & widgets built for tosu to decorate your osu! streaming screen.",
+        githubUrl: "https://github.com/znapppp",
+        items: [
+            {
+                name: "Znap-BackgroundOsu",
+                badgeText: "tosu Overlay",
+                badgeClass: "main-overlay",
+                description: "Custom tosu background overlay & switcher edited by Znap- for decorating osu! stream and gameplay screens in OBS (customized from Citrusis/OBSDecoratePack).",
+                downloadUrl: "https://github.com/znapppp",
+                githubUrl: "https://github.com/znapppp",
+                sourceRefUrl: "https://github.com/Citrusis/OBSDecoratePack",
+                previewImg: "picture/overlay/znap-background.webp",
+                tags: ["tosu", "OBS Decorate", "Background"]
+            }
+        ]
     }
 };
