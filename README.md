@@ -56,7 +56,7 @@ All dynamic content is managed through `js/config.js`. Updating this file update
 - **`overlays`**:
   - `subtext`: Section subtitle / description for stream overlays.
   - `githubUrl`: Link to GitHub profile or overlays repository.
-  - `items`: Array of tosu overlay objects, each containing overlay name, category badge (`badgeText`), description, direct download URL, GitHub repository link, source reference link, preview image (`previewImg`), and category/feature tags (`tags`).
+  - `items`: Array of tosu overlay objects, each containing overlay name, category badge (`badgeText`), description, direct download URL, video preview link (`videoPreviewUrl`), optional GitHub repository link, source reference link, preview image (`previewImg`), preview video (`previewVideo`), and category/feature tags (`tags`).
 
 ## Local Development
 

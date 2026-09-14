@@ -202,6 +202,7 @@ function renderFromConfig() {
                 const desc = item.description || `Custom overlay created for tosu.`;
                 const imgSrc = item.previewImg || (item.slides && item.slides.length > 0 ? item.slides[0].src : '');
                 const downloadUrl = item.downloadUrl || '#';
+                const videoPreviewUrl = item.videoPreviewUrl || '';
                 const githubUrl = item.githubUrl || '';
                 const sourceRefUrl = item.sourceRefUrl || '';
                 const tags = item.tags || [];
@@ -246,6 +247,13 @@ function renderFromConfig() {
                                     <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-obsidian-deep font-['Geist'] font-semibold text-xs hover:bg-secondary transition-all duration-300 shadow-md hover:-translate-y-0.5">
                                         <span class="material-symbols-outlined text-[18px]">download</span>
                                         <span>Download Overlay (.zip)</span>
+                                    </a>
+                                ` : ''}
+                                ${videoPreviewUrl ? `
+                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest/80 border border-white/10 text-on-surface hover:text-primary hover:border-white/25 font-['Geist'] text-xs transition-all duration-300 shadow-sm hover:-translate-y-0.5 group">
+                                        <span class="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform">smart_display</span>
+                                        <span>Video Preview</span>
+                                        <span class="material-symbols-outlined text-[14px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
                                     </a>
                                 ` : ''}
                                 ${githubUrl ? `

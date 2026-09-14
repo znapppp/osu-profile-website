@@ -123,7 +123,7 @@ const SITE_CONFIG = {
                 badgeClass: "main-overlay",
                 description: "Designed for players using letterboxed / non-fullscreen resolutions (e.g., playing at 1440x900 on a 1920x1080 monitor with black borders). Fills the empty border space with dynamic beatmap artwork or music videos, featuring customizable background dimming and video toggles via config.",
                 downloadUrl: "https://github.com/znapppp/Znap-OsuBackground/archive/refs/heads/main.zip",
-                githubUrl: "https://github.com/znapppp/Znap-OsuBackground",
+                videoPreviewUrl: "https://drive.google.com/file/d/1B7kju2izmLIfe_iq1cu05M1qIrqgbPBp/view?usp=drive_link",
                 sourceRefUrl: "https://github.com/Citrusis/OBSDecoratePack",
                 previewImg: "picture/overlay/preview.png",
                 previewVideo: "picture/overlay/vdo/preview_vdo.mp4",
