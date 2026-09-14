@@ -210,63 +210,71 @@ function renderFromConfig() {
                 const videoSrc = item.previewVideo || '';
 
                 return `
-                <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal bg-surface-container-lowest/70 backdrop-blur-xl border border-glass-stroke rounded-2xl p-5 hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_24px_rgba(0,0,0,0.5)]" style="transition-delay: ${i * 100}ms;">
-                    <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-5 bg-surface-container border border-glass-stroke/50 group/preview">
-                        ${hasVideo ? `
-                            <video class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/preview:scale-105" src="${videoSrc}" poster="${imgSrc}" autoplay loop muted playsinline preload="metadata"></video>
-                        ` : `
-                            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover/preview:scale-105" style="background-image: url('${imgSrc}')"></div>
-                        `}
-                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/30 to-transparent opacity-60 group-hover/preview:opacity-30 transition-opacity duration-300 pointer-events-none"></div>
-                        
-                        <div class="absolute top-3 left-3 flex items-center gap-2 z-10">
-                            <span class="bg-primary/90 backdrop-blur-md px-2.5 py-1 rounded text-[11px] font-semibold text-obsidian-deep shadow-sm">${item.badgeText || 'tosu Overlay'}</span>
-                            ${hasVideo ? `<span class="bg-surface-container-lowest/80 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded text-[10px] font-medium text-white/90 flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[13px] text-primary">videocam</span>Preview</span>` : ''}
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
+                    <!-- Left: Info & Specs (5 Cols) -->
+                    <div class="md:col-span-5 flex flex-col gap-6">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-block px-3 py-1 rounded bg-surface-container-high w-max font-label-caps text-label-caps text-on-surface shadow-sm">Overlay / tosu</span>
+                            ${hasVideo ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-[11px] font-medium text-primary shadow-sm"><span class="material-symbols-outlined text-[13px]">videocam</span>Video Preview</span>` : ''}
                         </div>
 
-                        <div class="absolute bottom-3 right-3 flex items-center gap-2 z-10">
-                            ${githubUrl ? `
-                                <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="w-8 h-8 rounded-full bg-obsidian-deep/70 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-white hover:text-obsidian-deep transition-all duration-300 shadow-md" title="View Source on GitHub">
-                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                                </a>
+                        <div>
+                            <h3 class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">${item.name}</h3>
+                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${desc}</p>
+                        </div>
+
+                        <!-- Quick Spec Boxes (Like Tablet Setting) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-1 md:mt-2">
+                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke shadow-sm">
+                                <span class="font-body-md text-sm text-on-surface-variant">Compatible With</span>
+                                <span class="font-label-caps text-body-md text-primary">tosu</span>
+                            </div>
+                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke shadow-sm">
+                                <span class="font-body-md text-sm text-on-surface-variant">Target Screen</span>
+                                <span class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="1440x900 on 1920x1080">1440x900 on 1080p</span>
+                            </div>
+                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke shadow-sm sm:col-span-2">
+                                <span class="font-body-md text-sm text-on-surface-variant">Key Features</span>
+                                <span class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Dynamic Beatmap Artwork, Video Toggle, Custom Dim">Dynamic BG & Video / Custom Dim</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons & Tags -->
+                        <div class="flex flex-col gap-4 mt-2">
+                            <div class="flex flex-wrap items-center gap-3">
+                                ${downloadUrl && downloadUrl !== '#' ? `
+                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-obsidian-deep font-['Geist'] font-semibold text-xs hover:bg-secondary transition-all duration-300 shadow-md hover:-translate-y-0.5">
+                                        <span class="material-symbols-outlined text-[18px]">download</span>
+                                        <span>Download Overlay (.zip)</span>
+                                    </a>
+                                ` : ''}
+                                ${githubUrl ? `
+                                    <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest/80 border border-white/10 text-on-surface hover:text-primary hover:border-white/25 font-['Geist'] text-xs transition-all duration-300 shadow-sm hover:-translate-y-0.5">
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                        <span>Source Code</span>
+                                    </a>
+                                ` : ''}
+                            </div>
+
+                            ${sourceRefUrl ? `
+                                <div class="text-[11px] text-on-surface-variant/50 flex items-center gap-1.5 pt-1">
+                                    <span>Forked from:</span>
+                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant/70 hover:text-primary underline transition-colors">Citrusis/OBSDecoratePack</a>
+                                </div>
                             ` : ''}
-                            ${downloadUrl && downloadUrl !== '#' ? `
-                                <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="w-8 h-8 rounded-full bg-primary text-obsidian-deep flex items-center justify-center hover:bg-secondary transition-all duration-300 shadow-md" title="Download Overlay">
-                                    <span class="material-symbols-outlined text-[18px]">download</span>
-                                </a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Large Video/Image Showcase (7 Cols) -->
+                    <div class="md:col-span-7 relative group">
+                        <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
+                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-xl">
+                            ${hasVideo ? `
+                                <video class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" poster="${imgSrc}" autoplay loop muted playsinline preload="metadata"></video>
                             ` : `
-                                <button onclick="event.stopPropagation(); showToast('Download link available soon!')" class="w-8 h-8 rounded-full bg-primary text-obsidian-deep flex items-center justify-center hover:bg-secondary transition-all duration-300 shadow-md cursor-pointer" title="Download">
-                                    <span class="material-symbols-outlined text-[18px]">download</span>
-                                </button>
+                                <div class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('${imgSrc}')"></div>
                             `}
                         </div>
-                    </div>
-
-                    <div class="flex items-start justify-between gap-3 mb-2">
-                        <h3 class="font-headline-lg text-lg md:text-xl text-primary tracking-tight truncate" title="${item.name}">${item.name}</h3>
-                    </div>
-
-                    <p class="font-body-md text-on-surface-variant text-xs md:text-sm mb-4 leading-relaxed">${desc}</p>
-
-                    ${tags.length > 0 ? `
-                        <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-glass-stroke/40">
-                            ${tags.map(t => `<span class="px-2 py-0.5 rounded bg-surface-container-high/60 text-[11px] font-['Geist'] text-on-surface-variant/80 border border-white/[0.04]">${t}</span>`).join('')}
-                        </div>
-                    ` : ''}
-
-                    <div class="mt-3 pt-2 text-[11px] text-on-surface-variant/50 flex flex-wrap items-center justify-between gap-2">
-                        ${sourceRefUrl ? `
-                            <div class="flex items-center gap-1">
-                                <span>Forked from:</span>
-                                <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant/70 hover:text-primary underline transition-colors">Citrusis/OBSDecoratePack</a>
-                            </div>
-                        ` : '<div></div>'}
-                        ${o.tosuDownloadUrl ? `
-                            <a href="${o.tosuDownloadUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-on-surface-variant/70 hover:text-primary transition-colors">
-                                <span>Requires tosu</span>
-                                <span class="material-symbols-outlined text-[13px]">open_in_new</span>
-                            </a>
-                        ` : ''}
                     </div>
                 </div>`;
             }).join('');
