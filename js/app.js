@@ -270,7 +270,7 @@ function renderFromConfig() {
                         <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
                         <div class="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-xl">
                             ${hasVideo ? `
-                                <video class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" poster="${imgSrc}" autoplay loop muted playsinline preload="metadata"></video>
+                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" poster="${imgSrc}" loop muted playsinline preload="auto"></video>
                             ` : `
                                 <div class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('${imgSrc}')"></div>
                             `}
@@ -278,6 +278,26 @@ function renderFromConfig() {
                     </div>
                 </div>`;
             }).join('');
+
+            // IntersectionObserver for video playback: Play only when visible on screen
+            const videos = document.querySelectorAll('video.video-layer');
+            if ('IntersectionObserver' in window && videos.length > 0) {
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const v = entry.target;
+                        if (entry.isIntersecting) {
+                            const playPromise = v.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {});
+                            }
+                        } else {
+                            v.pause();
+                        }
+                    });
+                }, { threshold: 0.25 });
+
+                videos.forEach(v => videoObserver.observe(v));
+            }
         }
     }
 }
