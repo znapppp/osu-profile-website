@@ -342,10 +342,18 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
                         <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary tracking-tight">My tosu overlay</h2>
                         <div class="hidden md:block flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
                     </div>
-                    <a id="overlays-github-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-['Geist'] font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 group w-max shrink-0">
-                        <span>GitHub Archive</span>
-                        <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
-                    </a>
+                    <div class="flex flex-wrap items-center gap-3 shrink-0">
+                        <a id="tosu-download-link" href="https://github.com/tosuapp/tosu/releases" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-['Geist'] font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 group w-max">
+                            <img src="picture/overlay/tosu-logo.png" alt="tosu" class="w-4 h-4 rounded-sm object-contain" />
+                            <span>Get tosu</span>
+                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
+                        </a>
+                        <a id="overlays-github-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-['Geist'] font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 group w-max">
+                            <svg class="w-3.5 h-3.5 fill-current text-on-surface-variant/80 group-hover:text-primary transition-colors" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            <span>Overlay GitHub</span>
+                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
+                        </a>
+                    </div>
                 </div>
                 
                 <div id="overlays-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

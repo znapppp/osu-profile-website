@@ -7,7 +7,7 @@ A high-performance, responsive static web application showcasing the hardware co
 - **Obsidian & Glassmorphism Aesthetic**: Apple/Linear-inspired dark interface with ambient glows, subtle dot pattern masks, and smooth micro-interactions.
 - **Hardware Calibration Showcase**: Detailed active area specs (OpenTabletDriver), rapid trigger depths, keypad strokes, and peripheral configurations.
 - **Interactive Skin Collection**: Multi-slide preview carousel (Gameplay, Song Select, Results UI) with category badges, instant download triggers, and Google Drive archive links.
-- **tosu Stream Overlays**: Showcase for custom stream overlays and OBS widgets (e.g., `Znap-BackgroundOsu` customized from `Citrusis/OBSDecoratePack`) with direct download and GitHub links.
+- **tosu Stream Overlays**: Showcase for custom stream overlays and OBS widgets (e.g., `Znap-OsuBackground` customized from `Citrusis/OBSDecoratePack`) with direct download and GitHub links.
 - **Purely Config-Driven**: All website content (profile, hardware specs, skins, overlays) is fully decoupled in `js/config.js` with zero build steps required.
 
 ## Technology Stack

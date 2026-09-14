@@ -114,18 +114,20 @@ const SITE_CONFIG = {
     // tosu Overlays Configuration
     overlays: {
         subtext: "Custom stream overlays & widgets built for tosu to decorate your osu! streaming screen.",
-        githubUrl: "https://github.com/znapppp",
+        githubUrl: "https://github.com/znapppp/Znap-OsuBackground",
+        tosuDownloadUrl: "https://github.com/tosuapp/tosu/releases",
         items: [
             {
-                name: "Znap-BackgroundOsu",
+                name: "Znap-OsuBackground",
                 badgeText: "tosu Overlay",
                 badgeClass: "main-overlay",
-                description: "Custom tosu background overlay & switcher edited by Znap- for decorating osu! stream and gameplay screens in OBS (customized from Citrusis/OBSDecoratePack).",
-                downloadUrl: "https://github.com/znapppp",
-                githubUrl: "https://github.com/znapppp",
+                description: "Designed for players using letterboxed / non-fullscreen resolutions (e.g., playing at 1440x900 on a 1920x1080 monitor with black borders). Fills the empty border space with dynamic beatmap artwork or music videos, featuring customizable background dimming and video toggles via config.",
+                downloadUrl: "https://github.com/znapppp/Znap-OsuBackground/archive/refs/heads/main.zip",
+                githubUrl: "https://github.com/znapppp/Znap-OsuBackground",
                 sourceRefUrl: "https://github.com/Citrusis/OBSDecoratePack",
-                previewImg: "picture/overlay/znap-background.webp",
-                tags: ["tosu", "OBS Decorate", "Background"]
+                previewImg: "picture/overlay/preview.png",
+                previewVideo: "picture/overlay/vdo/preview_vdo.mp4",
+                tags: ["tosu", "OBS Overlay", "1440x900 / 1920x1080", "Beatmap Video / BG", "Custom Dim"]
             }
         ]
     }
