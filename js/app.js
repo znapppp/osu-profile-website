@@ -65,6 +65,11 @@ function renderFromConfig() {
         if (el('tablet-img') && t.previewImage) {
             el('tablet-img').src = t.previewImage;
             if (t.previewAlt) el('tablet-img').alt = t.previewAlt;
+            const btn = el('tablet-img').closest('[data-lightbox]');
+            if (btn) {
+                btn.setAttribute('data-lightbox', t.previewImage);
+                if (t.previewAlt) btn.setAttribute('data-lightbox-title', t.previewAlt);
+            }
         }
     }
 
@@ -78,6 +83,11 @@ function renderFromConfig() {
         if (el('keyboard-img') && k.previewImage) {
             el('keyboard-img').src = k.previewImage;
             if (k.previewAlt) el('keyboard-img').alt = k.previewAlt;
+            const btn = el('keyboard-img').closest('[data-lightbox]');
+            if (btn) {
+                btn.setAttribute('data-lightbox', k.previewImage);
+                if (k.previewAlt) btn.setAttribute('data-lightbox-title', k.previewAlt);
+            }
         }
     }
 
@@ -98,6 +108,11 @@ function renderFromConfig() {
         if (el('keypad-img') && kp.previewImage) {
             el('keypad-img').src = kp.previewImage;
             if (kp.previewAlt) el('keypad-img').alt = kp.previewAlt;
+            const btn = el('keypad-img').closest('[data-lightbox]');
+            if (btn) {
+                btn.setAttribute('data-lightbox', kp.previewImage);
+                if (kp.previewAlt) btn.setAttribute('data-lightbox-title', kp.previewAlt);
+            }
         }
     }
 
@@ -450,12 +465,79 @@ function initNavScroll() {
     }, { passive: true });
 }
 
+// 11. Accessible Image Lightbox Viewer
+function initLightbox() {
+    const dialog = document.getElementById('image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    if (!dialog || !lightboxImg || !closeBtn) return;
+
+    let previousActiveElement = null;
+
+    function openLightbox(src, alt, title) {
+        if (!src) return;
+        previousActiveElement = document.activeElement;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || title || 'Enlarged settings preview';
+        if (lightboxTitle) lightboxTitle.textContent = title || alt || '';
+
+        if (typeof dialog.showModal === 'function') {
+            dialog.showModal();
+        } else {
+            dialog.setAttribute('open', '');
+        }
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+    }
+
+    function closeLightbox() {
+        if (typeof dialog.close === 'function') {
+            dialog.close();
+        } else {
+            dialog.removeAttribute('open');
+        }
+        document.body.style.overflow = '';
+        lightboxImg.src = '';
+        if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+            previousActiveElement.focus();
+        }
+    }
+
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-lightbox]');
+        if (trigger) {
+            e.preventDefault();
+            const src = trigger.getAttribute('data-lightbox');
+            const title = trigger.getAttribute('data-lightbox-title');
+            const img = trigger.querySelector('img');
+            const alt = img ? img.alt : '';
+            openLightbox(src, alt, title);
+        }
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+
+    dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+            closeLightbox();
+        }
+    });
+
+    dialog.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        closeLightbox();
+    });
+}
+
 // Application Initialization Entry Point
 function initApp() {
     renderFromConfig();
     initSocials();
     initScrollReveal();
     initNavScroll();
+    initLightbox();
 }
 
 // Dom Ready Execution
