@@ -3,81 +3,28 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Znap- official osu! setup configuration profile website, hardware settings, skins, and overlays."/>
 <title>Znap- osu! Setup Configuration</title>
-<style>
-@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}
-/* High-Visibility Custom Scrollbar */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.38) #131313;
-}
-::-webkit-scrollbar {
-    width: 11px;
-    height: 11px;
-}
-::-webkit-scrollbar-track {
-    background: #131313;
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.35);
-    border-radius: 9999px;
-    border: 2px solid #131313;
-    min-height: 40px;
-    transition: background-color 0.2s ease;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.65);
-}
-::-webkit-scrollbar-thumb:active {
-    background: rgba(255, 255, 255, 0.9);
-}
-@keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-.scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-.video-layer {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: transform;
-}
-.hero-gradient-text {
-    background: linear-gradient(180deg, #FFFFFF 15%, rgba(255, 255, 255, 0.75) 55%, rgba(255, 255, 255, 0.22) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script id="tailwind-config">
-tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#393939","obsidian-deep":"#0A0A0A","outline":"#8e9192","surface-container-high":"#2a2a2a","primary":"#ffffff","secondary-fixed-dim":"#c7c6c6","on-surface":"#e2e2e2","inverse-primary":"#5d5f5f","tertiary":"#ffffff","glass-stroke":"rgba(255, 255, 255, 0.15)","on-error":"#690005","error":"#ffb4ab","on-background":"#e2e2e2","primary-fixed-dim":"#c6c6c7","surface-container":"#1f1f1f","surface-tint":"#c6c6c7","on-primary-container":"#636565","background":"#131313","surface-container-lowest":"#0e0e0e","on-tertiary-fixed-variant":"#474746","outline-variant":"#444748","inverse-surface":"#e2e2e2","inverse-on-surface":"#303030","on-surface-variant":"#c4c7c8","on-secondary-fixed-variant":"#464747","tertiary-container":"#e5e2e1","tertiary-fixed-dim":"#c8c6c5","surface-container-highest":"#353535","secondary-container":"#484949","on-tertiary":"#313030","secondary":"#c7c6c6","secondary-fixed":"#e3e2e2","soft-charcoal":"#262626","on-primary-fixed":"#1a1c1c","surface-dim":"#131313","on-secondary-fixed":"#1a1c1c","on-tertiary-fixed":"#1c1b1b","on-secondary-container":"#b8b8b8","primary-container":"#e2e2e2","surface-container-low":"#1b1b1b","on-secondary":"#2f3131","on-primary":"#2f3131","on-tertiary-container":"#656464","on-error-container":"#ffdad6","on-primary-fixed-variant":"#454747","surface-variant":"#353535","tertiary-fixed":"#e5e2e1","surface":"#131313","primary-fixed":"#e2e2e2","error-container":"#93000a"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"margin-safe":"48px","section-mobile":"64px",base:"8px","section-desktop":"120px",gutter:"24px"},fontFamily:{"label-small":["Geist"],"body-md":["Geist"],"body-lg":["Geist"],"headline-lg":["Geist"],"headline-lg-mobile":["Geist"],"label-caps":["JetBrains Mono"],"display-hero":["Geist"]},fontSize:{"label-small":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-md":["16px",{lineHeight:"26px",letterSpacing:"0.01em",fontWeight:"300"}],"body-lg":["20px",{lineHeight:"32px",letterSpacing:"0.01em",fontWeight:"300"}],"headline-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-caps":["12px",{lineHeight:"16px",letterSpacing:"0.1em",fontWeight:"500"}],"display-hero":["80px",{lineHeight:"88px",letterSpacing:"-0.04em",fontWeight:"700"}]}}}}
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/output.css"/>
 </head>
 <body class="bg-background font-body-md text-on-surface antialiased">
 <header class="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-3xl shadow-[0_1px_12px_rgba(0,0,0,0.5)]">
     <div class="h-16 max-w-[1440px] mx-auto px-6 md:px-margin-safe flex items-center justify-between">
         <div class="flex items-center gap-4 md:gap-8">
             <div class="flex items-center gap-3">
-                <a id="osu-profile-link" href="#" target="_blank" rel="noopener noreferrer">
-                    <img id="header-avatar" alt="Profile" class="w-9 h-9 rounded-xl object-cover object-center aspect-square border border-glass-stroke ring-1 ring-white/10 transition-all duration-300 hover:scale-105 shadow-sm" src="avatar.jpg"/>
+                <a id="osu-profile-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Znap- osu! Profile" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl">
+                    <img id="header-avatar" alt="Znap- profile avatar" width="36" height="36" class="w-9 h-9 rounded-xl object-cover object-center aspect-square border border-glass-stroke ring-1 ring-white/10 transition-all duration-300 hover:border-white/40 shadow-sm" src="avatar.jpg"/>
                 </a>
                 <span id="header-username" class="font-headline-lg text-lg md:text-[20px] tracking-tighter text-primary">Znap-</span>
             </div>
-            <nav class="hidden sm:flex items-center gap-4 md:gap-8" data-active-classes="text-primary">
-                <a aria-current="page" class="text-sm md:text-base font-medium transition-colors text-primary" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Home</a>
-                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors" data-path="hardware" href="#hardware">Hardware</a>
-                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors" data-path="skins" href="#skins">Skins</a>
-                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors" data-path="overlays" href="#overlays">Overlays</a>
+            <nav class="hidden sm:flex items-center gap-4 md:gap-8" aria-label="Main Navigation" data-active-classes="text-primary">
+                <a aria-current="page" class="text-sm md:text-base font-medium transition-colors text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Home</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="hardware" href="#hardware">Hardware</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="skins" href="#skins">Skins</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="overlays" href="#overlays">Overlays</a>
             </nav>
         </div>
     </div>
@@ -89,10 +36,10 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
         <!-- Hero Section -->
         <section class="w-full relative min-h-screen flex flex-col justify-between items-center pt-20 pb-8 px-6 md:px-margin-safe overflow-hidden" id="overview">
             <!-- Magic UI Ambient Glow -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none animate-pulse" aria-hidden="true"></div>
 
             <!-- Full Coverage Dot Pattern (Full Screen on Hero Overview) -->
-            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/25">
+            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/25" aria-hidden="true">
                 <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <pattern id="dotPatternHero" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
@@ -108,76 +55,59 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
 
             <div class="z-10 text-center max-w-4xl mx-auto flex flex-col items-center gap-4 md:gap-6 my-auto py-6">
 
-                <h1 id="hero-title" class="font-display-hero hero-gradient-text text-6xl sm:text-7xl md:text-8xl lg:text-[104px] font-bold tracking-[-0.045em] leading-none opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.2s_forwards] select-none py-1">Znap-</h1>
+                <h1 id="hero-title" class="font-display-hero text-white text-6xl sm:text-7xl md:text-8xl lg:text-[104px] font-bold tracking-[-0.03em] leading-none opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.2s_forwards] select-none py-1">Znap-</h1>
                 <p class="font-body-lg text-base md:text-body-lg text-on-surface-variant max-w-2xl opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.4s_forwards]">Welcome to my osu! setup page!<span class="block text-sm md:text-base text-on-surface-variant/75 mt-1.5 font-normal">Here you can find all the hardware I use to play and the skins I currently enjoy.</span></p>
                 
                 <!-- Social Dock -->
                 <div class="flex items-center gap-3 md:gap-4 px-4 py-2.5 mt-4 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_12px_32px_rgba(0,0,0,0.6)] opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_0.6s_forwards]">
-                    <a href="#" id="dock-tiktok" class="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 448 512" class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors fill-current"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
+                    <a href="#" id="dock-tiktok" class="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">
+                        <svg viewBox="0 0 448 512" class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors fill-current" aria-hidden="true"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
                     </a>
-                    <a href="#" id="dock-x" class="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" class="w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors fill-current"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+                    <a href="#" id="dock-x" class="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">
+                        <svg viewBox="0 0 24 24" class="w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors fill-current" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
                     </a>
-                    <a id="dock-discord" class="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 cursor-pointer" title="Copy Discord ID">
-                        <svg viewBox="0 0 127.14 96.36" class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors fill-current"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-19.32-72.15ZM42.68,65.33C38,65.33,34.2,61,34.2,55.53s3.76-9.81,8.48-9.81,8.51,4.39,8.48,9.81-3.76,9.8-8.48,9.8Zm41.72,0c-4.73,0-8.48-4.39-8.48-9.81s3.76-9.81,8.48-9.81,8.51,4.39,8.48,9.81-3.76,9.8-8.48,9.8Z"/></svg>
-                    </a>
+                    <button type="button" id="dock-discord" class="group relative flex items-center justify-center w-11 h-11 rounded-xl bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" title="Copy Discord ID" aria-label="Copy Discord username">
+                        <svg viewBox="0 0 127.14 96.36" class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors fill-current" aria-hidden="true"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-19.32-72.15ZM42.68,65.33C38,65.33,34.2,61,34.2,55.53s3.76-9.81,8.48-9.81,8.51,4.39,8.48,9.81-3.76,9.8-8.48,9.8Zm41.72,0c-4.73,0-8.48-4.39-8.48-9.81s3.76-9.81,8.48-9.81,8.51,4.39,8.48,9.81-3.76,9.8-8.48,9.8Z"/></svg>
+                    </button>
                 </div>
             </div>
             <div class="z-10 flex flex-col items-center gap-2.5 opacity-0 animate-[fade-in_1s_ease-out_1.2s_forwards] pb-2">
-                <span class="font-['Geist'] text-[11px] md:text-xs font-medium tracking-[0.2em] text-on-surface-variant/60 uppercase select-none transition-colors hover:text-primary">Scroll to explore</span>
+                <span class="text-[11px] md:text-xs font-medium tracking-wider text-on-surface-variant/80 uppercase select-none transition-colors hover:text-primary">Scroll to explore</span>
                 <div class="w-[1px] h-10 bg-gradient-to-b from-on-surface-variant/40 to-transparent"></div>
             </div>
         </section>
 
         <!-- Hardware Section -->
         <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative overflow-hidden" id="hardware">
-            <!-- Magic UI Ambient Glow (Top Left) -->
-            <div class="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-            
-            <!-- Dot Pattern Background (Masked to focus on text area & header, avoiding images) -->
-            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/25 [mask-image:linear-gradient(to_bottom,white_30%,transparent_90%)]">
-                <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="dotPatternHardware" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="1.5" fill="currentColor"></circle>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dotPatternHardware)"></rect>
-                </svg>
-            </div>
-
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="flex items-center gap-4 mb-16 md:mb-24 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <span class="font-label-caps text-3xl md:text-headline-lg text-on-surface-variant/40 select-none">01</span>
+                <div class="flex items-center gap-4 mb-10 md:mb-14 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
                     <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary tracking-tight">Hardware Calibration</h2>
                     <div class="flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
                 </div>
                 
-                <div class="flex flex-col gap-32">
+                <div class="flex flex-col gap-16 md:gap-20">
                     <!-- Tablet -->
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="md:col-span-5 flex flex-col gap-6">
-                            <div class="inline-block px-3 py-1 rounded bg-surface-container-high w-max mb-2 shadow-sm">
-                                <span class="font-label-caps text-label-caps text-on-surface">Input / Tablet</span>
+                        <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
+                            <div>
+                                <h3 id="tablet-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">Wacom CTL-472</h3>
+                                <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">My main tablet. Super reliable with OpenTabletDriver and zero smoothing.</p>
                             </div>
-                            <h3 id="tablet-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight">Wacom CTL-472</h3>
-                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">My main tablet. Super reliable with OpenTabletDriver and zero smoothing.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-8">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-2 md:mt-3">
                                 <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
                                     <span class="font-body-md text-sm md:text-base text-on-surface-variant">Active Area</span>
-                                    <span id="tablet-area" class="font-label-caps text-body-md text-primary">68 x 38.25 mm</span>
+                                    <span id="tablet-area" class="font-label-caps text-body-md text-primary">39 mm x 26 mm</span>
                                 </div>
                                 <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
                                     <span class="font-body-md text-sm md:text-base text-on-surface-variant">Driver</span>
-                                    <span id="tablet-driver" class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="OpenTabletDriver">OpenTabletDriver</span>
+                                    <span id="tablet-driver" class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="OpenTabletDriver v0.6.7">OpenTabletDriver v0.6.7</span>
                                 </div>
                             </div>
                         </div>
                         <div class="md:col-span-7 relative group">
                             <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
                             <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-lg">
-                                <div id="tablet-img" class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('')"></div>
+                                <img id="tablet-img" class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" src="picture/tablet/Screenshot 2026-08-22 221453.webp" alt="Wacom CTL-472 Tablet Settings" loading="lazy" decoding="async" />
                             </div>
                         </div>
                     </div>
@@ -187,16 +117,15 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
                         <div class="md:col-span-7 order-2 md:order-1 relative group">
                             <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
                             <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-lg">
-                                <div id="keyboard-img" class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('')"></div>
+                                <img id="keyboard-img" class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" src="picture/keyboard/Screenshot 2026-08-23 231651.webp" alt="Keychron C75 Keyboard Settings" loading="lazy" decoding="async" />
                             </div>
                         </div>
-                        <div class="md:col-span-5 order-1 md:order-2 flex flex-col gap-6 md:pl-12">
-                            <div class="inline-block px-3 py-1 rounded bg-surface-container-high w-max mb-2 shadow-sm">
-                                <span class="font-label-caps text-label-caps text-on-surface">Input / Keyboard</span>
+                        <div class="md:col-span-5 order-1 md:order-2 flex flex-col gap-4 md:gap-5">
+                            <div>
+                                <h3 id="keyboard-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">Keychron C75 TMR</h3>
+                                <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">My daily driver. Feels nice for typing and casual tapping.</p>
                             </div>
-                            <h3 id="keyboard-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight">Keychron C75 TMR</h3>
-                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">My daily driver. Feels nice for typing and casual tapping.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-8">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-2 md:mt-3">
                                 <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
                                     <span class="font-body-md text-sm md:text-base text-on-surface-variant">Actuation</span>
                                     <span id="keyboard-actuation" class="font-label-caps text-body-md text-primary">0.3 mm</span>
@@ -211,13 +140,12 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
 
                     <!-- Keypad -->
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="md:col-span-5 flex flex-col gap-6">
-                            <div class="inline-block px-3 py-1 rounded bg-surface-container-high w-max mb-2 shadow-sm">
-                                <span class="font-label-caps text-label-caps text-on-surface">Input / Keypad</span>
+                        <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
+                            <div>
+                                <h3 id="keypad-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">Sayodevice O3C</h3>
+                                <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">Beast for high BPM! Rapid trigger makes streaming super smooth.</p>
                             </div>
-                            <h3 id="keypad-device" class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight">Sayodevice O3C</h3>
-                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-md">Beast for high BPM! Rapid trigger makes streaming super smooth.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-8">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-2 md:mt-3">
                                 <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke">
                                     <span class="font-body-md text-sm md:text-base text-on-surface-variant">Stroke</span>
                                     <span id="keypad-stroke" class="font-label-caps text-body-md text-primary">3.00 mm</span>
@@ -235,7 +163,7 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
                         <div class="md:col-span-7 relative group">
                             <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
                             <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-lg">
-                                <div id="keypad-img" class="absolute inset-0 bg-contain bg-no-repeat bg-center grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" style="background-image: url('')"></div>
+                                <img id="keypad-img" class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" src="picture/keypad/Screenshot 2026-08-22 221530.webp" alt="Sayodevice O3C Keypad Settings" loading="lazy" decoding="async" />
                             </div>
                         </div>
                     </div>
@@ -245,32 +173,17 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
 
         <!-- Monitor & Audio Section -->
         <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe bg-surface-container-lowest/50 relative overflow-hidden border-y border-glass-stroke/50">
-            <!-- Magic UI Ambient Glow (Center) -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-            
-            <!-- Magic UI Dot Pattern Background -->
-            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/30 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]">
-                <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="dotPatternMonitor" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="1.5" fill="currentColor"></circle>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dotPatternMonitor)"></rect>
-                </svg>
-            </div>
-
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-gutter">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     <!-- Monitor -->
-                    <div class="flex flex-col gap-8 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="flex items-center gap-4 border-b border-glass-stroke pb-4">
-                            <span class="material-symbols-outlined text-primary">desktop_windows</span>
-                            <h4 class="font-label-caps text-body-md text-primary tracking-widest uppercase">Output Monitor</h4>
+                    <div class="flex flex-col gap-5 md:gap-6 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="flex items-center gap-3 border-b border-glass-stroke pb-4">
+                            <span class="material-symbols-outlined text-primary" aria-hidden="true">desktop_windows</span>
+                            <span class="text-sm font-medium text-primary uppercase tracking-wider">Output Monitor</span>
                         </div>
                         <div>
                             <h3 id="monitor-device" class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-2">LG ULTRAGEAR 24GS60F-B</h3>
-                            <p class="font-body-md text-on-surface-variant mb-6">180Hz display—reading high AR feels super smooth.</p>
+                            <p class="font-body-md text-on-surface-variant mb-4 md:mb-5">180Hz display—reading high AR feels super smooth.</p>
                             <ul class="flex flex-col gap-3">
                                 <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
                                     <span class="font-body-md text-on-surface-variant">Refresh Rate</span>
@@ -289,14 +202,14 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
                     </div>
                     
                     <!-- Audio -->
-                    <div class="flex flex-col gap-8 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal delay-100">
-                        <div class="flex items-center gap-4 border-b border-glass-stroke pb-4">
-                            <span class="material-symbols-outlined text-primary">headphones</span>
-                            <h4 class="font-label-caps text-body-md text-primary tracking-widest uppercase">Audio Output</h4>
+                    <div class="flex flex-col gap-5 md:gap-6 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal delay-100">
+                        <div class="flex items-center gap-3 border-b border-glass-stroke pb-4">
+                            <span class="material-symbols-outlined text-primary" aria-hidden="true">headphones</span>
+                            <span class="text-sm font-medium text-primary uppercase tracking-wider">Audio Output</span>
                         </div>
                         <div>
                             <h3 id="audio-device" class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-2">Apple EarPods</h3>
-                            <p class="font-body-md text-on-surface-variant mb-6">Wired EarPods. Comfy for long sessions with zero delay.</p>
+                            <p class="font-body-md text-on-surface-variant mb-4 md:mb-5">Wired EarPods. Comfy for long sessions with zero delay.</p>
                             <ul class="flex flex-col gap-3">
                                 <li class="flex justify-between items-center py-2 border-b border-surface-container-high">
                                     <span class="font-body-md text-on-surface-variant">Connection</span>
@@ -315,35 +228,19 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
 
         <!-- Skins Section -->
         <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative overflow-hidden" id="skins">
-            <!-- Magic UI Ambient Glow -->
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-            
-            <!-- Dot Pattern Background (Focused on Title & Header area, leaving skin preview cards clean) -->
-            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/25 [mask-image:linear-gradient(to_bottom,white_10%,transparent_60%)]">
-                <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="dotPatternSkins" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="1.5" fill="currentColor"></circle>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dotPatternSkins)"></rect>
-                </svg>
-            </div>
-
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12 md:mb-16 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-10 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
                     <div class="flex items-center gap-4 flex-grow">
-                        <span class="font-label-caps text-3xl md:text-headline-lg text-on-surface-variant/40 select-none">02</span>
                         <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary tracking-tight">My Skin Collection</h2>
                         <div class="hidden md:block flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
                     </div>
-                    <a id="skins-drive-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-['Geist'] font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 group w-max shrink-0">
+                    <a id="skins-drive-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open previous skins archive in Google Drive" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group w-max shrink-0">
                         <span>Previous Skins Archive</span>
-                        <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
+                        <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
                     </a>
                 </div>
                 
-                <div id="skins-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div id="skins-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 min-h-[400px]">
                     <!-- JS WILL INJECT CARDS HERE -->
                 </div>
             </div>
@@ -351,43 +248,27 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
 
         <!-- Overlays Section -->
         <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative overflow-hidden" id="overlays">
-            <!-- Magic UI Ambient Glow -->
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-            
-            <!-- Dot Pattern Background -->
-            <div class="absolute inset-0 z-0 pointer-events-none text-on-surface-variant/25 [mask-image:linear-gradient(to_bottom,white_10%,transparent_60%)]">
-                <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="dotPatternOverlays" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="1.5" fill="currentColor"></circle>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#dotPatternOverlays)"></rect>
-                </svg>
-            </div>
-
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12 md:mb-16 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-10 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
                     <div class="flex items-center gap-4 flex-grow">
-                        <span class="font-label-caps text-3xl md:text-headline-lg text-on-surface-variant/40 select-none">03</span>
                         <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary tracking-tight">My tosu overlay</h2>
                         <div class="hidden md:block flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 shrink-0">
-                        <a id="tosu-download-link" href="https://github.com/tosuapp/tosu/releases" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-['Geist'] font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 group w-max">
-                            <img src="picture/overlay/tosu-logo.png" alt="tosu" class="w-4 h-4 rounded-sm object-contain" />
+                        <a id="tosu-download-link" href="https://github.com/tosuapp/tosu/releases" target="_blank" rel="noopener noreferrer" aria-label="Get tosu release on GitHub" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group w-max">
+                            <img src="picture/overlay/tosu-logo.png" alt="tosu logo" width="16" height="16" class="w-4 h-4 rounded-sm object-contain" />
                             <span>Get tosu</span>
-                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
+                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
                         </a>
-                        <a id="overlays-github-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-['Geist'] font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 group w-max">
-                            <svg class="w-3.5 h-3.5 fill-current text-on-surface-variant/80 group-hover:text-primary transition-colors" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        <a id="overlays-github-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group w-max">
+                            <svg class="w-3.5 h-3.5 fill-current text-on-surface-variant/80 group-hover:text-primary transition-colors" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                             <span>Overlay GitHub</span>
-                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">arrow_outward</span>
+                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
                         </a>
                     </div>
                 </div>
                 
-                <div id="overlays-grid" class="flex flex-col gap-16 md:gap-24">
+                <div id="overlays-grid" class="flex flex-col gap-12 md:gap-16 min-h-[350px]">
                     <!-- JS WILL INJECT CARDS HERE -->
                 </div>
             </div>
@@ -395,24 +276,24 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-bright":"#3939
     </div>
 </main>
 
-<footer class="w-full bg-background pt-16 md:pt-section-desktop pb-8 md:pb-margin-safe">
+<footer class="w-full bg-background pt-12 md:pt-16 pb-8 md:pb-12">
     <div class="max-w-[1440px] mx-auto px-6 md:px-margin-safe">
-        <div class="w-full h-[1px] bg-glass-stroke mb-8 md:mb-12"></div>
+        <div class="w-full h-[1px] bg-glass-stroke mb-6 md:mb-8"></div>
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex flex-col gap-1 items-center md:items-start">
-                <div id="footer-text" class="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant/50 text-center md:text-left">© 2026 Znap- Setup. All rights reserved.</div>
-                <div id="footer-last-update" class="font-label-caps text-[10px] text-on-surface-variant/30 text-center md:text-left"></div>
+                <div id="footer-text" class="text-xs text-on-surface-variant/80 text-center md:text-left">© 2026 Znap- Setup. All rights reserved.</div>
+                <div id="footer-last-update" class="text-xs text-on-surface-variant/70 text-center md:text-left"></div>
             </div>
-            <nav class="flex flex-wrap justify-center md:justify-end items-center gap-6 md:gap-8">
-                <a id="footer-discord" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer" title="Copy Discord ID">Discord</a>
-                <a id="footer-x" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#" target="_blank" rel="noopener noreferrer">X</a>
-                <a id="footer-tiktok" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <nav class="flex flex-wrap justify-center md:justify-end items-center gap-6 md:gap-8" aria-label="Footer Social Navigation">
+                <button type="button" id="footer-discord" class="text-xs text-on-surface-variant hover:text-primary transition-colors cursor-pointer bg-transparent border-0 p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded" title="Copy Discord ID" aria-label="Copy Discord username">Discord</button>
+                <a id="footer-x" class="text-xs text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">X</a>
+                <a id="footer-tiktok" class="text-xs text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">TikTok</a>
             </nav>
         </div>
     </div>
 </footer>
 
-    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-surface-container-highest/80 backdrop-blur-lg border border-glass-stroke rounded-full text-primary font-label-caps text-sm shadow-xl opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
+    <div id="toast" role="status" aria-live="polite" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-surface-container-highest/80 backdrop-blur-lg border border-glass-stroke rounded-full text-primary text-sm font-medium shadow-xl opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
 
     <!-- Scripts -->
     <script src="js/config.js"></script>

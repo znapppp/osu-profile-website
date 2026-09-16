@@ -1,40 +1,47 @@
 # Znap- osu! Setup Website
 
-A high-performance, responsive static web application showcasing the hardware configuration, tablet calibration, custom skin collection, and tosu stream overlays for osu! player **Znap-**.
+A high-performance, accessible, and responsive static web application showcasing the hardware configuration, tablet calibration, custom skin collection, and tosu stream overlays for osu! player **Znap-**.
 
 ## Features
 
-- **Obsidian & Glassmorphism Aesthetic**: Apple/Linear-inspired dark interface with ambient glows, subtle dot pattern masks, and smooth micro-interactions.
-- **Hardware Calibration Showcase**: Detailed active area specs (OpenTabletDriver), rapid trigger depths, keypad strokes, and peripheral configurations.
+- **Obsidian & Minimalist Aesthetic**: High-contrast dark interface with authentic surface depths, solid typography, and subtle micro-interactions following modern Frontend craft standards.
+- **Hardware Calibration Showcase**: Detailed active area specs (OpenTabletDriver), rapid trigger depths, keypad strokes, and peripheral configurations in a symmetric 12-column grid.
 - **Interactive Skin Collection**: Multi-slide preview carousel (Gameplay, Song Select, Results UI) with category badges, instant download triggers, and Google Drive archive links.
-- **tosu Stream Overlays**: Showcase for custom stream overlays and OBS widgets (e.g., `Znap-OsuBackground` customized from `Citrusis/OBSDecoratePack`) with direct download and GitHub links.
-- **Purely Config-Driven**: All website content (profile, hardware specs, skins, overlays) is fully decoupled in `js/config.js` with zero build steps required.
+- **tosu Stream Overlays**: Showcase for custom stream overlays and OBS widgets with direct download, video previews (`preload="none"` with `IntersectionObserver`), and GitHub source links.
+- **Accessibility & Keyboard Navigation (a11y)**: 100% keyboard accessible (Tab, Enter, Space), semantic `<button>` elements, complete `focus-visible` styling, ARIA labels, and `@media (prefers-reduced-motion: reduce)` support.
+- **Core Web Vitals Optimized**: Zero layout shift (0 CLS) via explicit dimensions and min-heights, pre-compiled lightweight CSS, and RAF-throttled scroll listeners.
+- **Config-Driven Architecture**: All dynamic content (profile, hardware specs, skins, overlays) is fully decoupled in `js/config.js`.
 
 ## Technology Stack
 
 - **Core**: HTML5, Vanilla JavaScript (ES6+)
-- **Styling**: Tailwind CSS (CDN), custom CSS variables, and glassmorphic utilities
+- **Styling**: Tailwind CSS (Pre-compiled & minified to ~29 KB via Tailwind CLI, no Play CDN runtime)
 - **Typography**: Geist (primary display and body), JetBrains Mono (technical specifications)
 - **Icons**: Google Material Symbols Outlined
-- **Deployment**: Static architecture compatible with GitHub Pages, Vercel, Cloudflare Pages, or static HTTP servers
+- **Tooling**: Node.js, Tailwind CSS CLI
 
 ## Project Structure
 
 ```
 osu-profile-website/
-├── index.html          # Core layout, semantic sections, and inline design tokens
+├── index.html          # Semantic HTML layout, accessible landmarks, and UI markup
+├── css/
+│   ├── styles.css      # Tailwind base entrypoint, custom scrollbars, and animations
+│   └── output.css     # Production-ready minified CSS (~29 KB)
 ├── js/
-│   ├── config.js       # Centralized configuration for profile, hardware, skins, and overlays
-│   └── app.js          # Client-side hydration, event listeners, and interactive UI logic
-├── picture/            # Image assets categorized by device, skin, and overlay
-│   ├── keyboard/       # Keychron actuation and rapid trigger settings
+│   ├── config.js       # Centralized data store (profile, hardware, skins, overlays)
+│   └── app.js          # DOM hydration, image slider logic, clipboard, and scroll tracking
+├── picture/            # Image assets categorized by hardware and skins
+│   ├── keyboard/       # Keychron actuation and rapid trigger screenshots
 │   ├── keypad/         # Sayodevice calibration screenshots
-│   ├── overlay/        # tosu stream overlay previews and graphics
-│   ├── skin/           # Skin gameplay, song selection, and results UI previews
+│   ├── overlay/        # tosu stream overlay previews and assets
+│   ├── skin/           # Multi-slide gameplay, song selection, and results UI previews
 │   └── tablet/         # OpenTabletDriver area screenshots
 ├── avatar.jpg          # Profile avatar asset
 ├── favicon.svg         # Browser favicon
-├── package.json        # Project metadata and development scripts
+├── package.json        # Dependencies and build scripts
+├── tailwind.config.js  # Tailwind theme, typography tokens, and spacing scales
+├── design.md           # Design system and architecture document
 └── README.md           # Project documentation
 ```
 
@@ -56,17 +63,34 @@ All dynamic content is managed through `js/config.js`. Updating this file update
 - **`overlays`**:
   - `subtext`: Section subtitle / description for stream overlays.
   - `githubUrl`: Link to GitHub profile or overlays repository.
-  - `items`: Array of tosu overlay objects, each containing overlay name, category badge (`badgeText`), description, direct download URL, video preview link (`videoPreviewUrl`), optional GitHub repository link, source reference link, preview image (`previewImg`), preview video (`previewVideo`), and category/feature tags (`tags`).
+  - `tosuDownloadUrl`: Direct link to official tosu release.
+  - `items`: Array of tosu overlay objects, each containing overlay name, description, direct download URL, video preview link (`videoPreviewUrl`), optional GitHub repository link, source reference link, preview image (`previewImg`), and preview video (`previewVideo`).
 
-## Local Development
+## Local Development & Build
 
-Run a local HTTP server to serve static assets:
+### 1. Install Dependencies
+```bash
+npm install
+```
 
+### 2. Build CSS
+Compile Tailwind CSS to `css/output.css`:
+```bash
+npm run build
+```
+
+During development, to watch for HTML/JS changes and rebuild automatically:
+```bash
+npm run build:css -- --watch
+```
+
+### 3. Run Local Server
+Serve static assets locally:
 ```bash
 # Using Node.js
 npx serve .
 
-# Using Python 3
+# Or using Python 3
 python -m http.server 3000
 ```
 
@@ -74,7 +98,10 @@ Access the application in your browser at `http://localhost:3000`.
 
 ## Deployment
 
-Because the application contains no build dependencies, it can be deployed directly from the repository root:
+Deployable to any modern static hosting provider:
 
-- **GitHub Pages**: Set source branch to `main` and directory to `/ (root)`.
-- **Vercel / Netlify / Cloudflare Pages**: Deploy as a static project with output directory set to `./` and no build command.
+- **Vercel / Netlify / Cloudflare Pages**:
+  - Build command: `npm run build`
+  - Output directory: `./`
+- **GitHub Pages**:
+  - Commit the generated `css/output.css` and configure GitHub Pages to serve from the root directory (`/`).

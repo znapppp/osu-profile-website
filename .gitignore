@@ -9,3 +9,8 @@ desktop.ini
 
 # Logs & temp files
 *.log
+
+# Dependencies & Agent Skills
+node_modules/
+.agents/
+skills-lock.json
