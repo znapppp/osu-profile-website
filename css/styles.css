@@ -45,25 +45,228 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* Animations */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* ==========================================================================
+   Hardware-Accelerated Smooth Motion & Compositor Optimizations
+   ========================================================================== */
+
+/* GPU Compositor Promotion */
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
-.scroll-reveal.visible {
+/* Butter-Smooth Pill Buttons (Spring Curve, No Subpixel Font Jitter) */
+.btn-pill {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  will-change: transform, background-color, border-color;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-pill:hover {
+    transform: translate3d(0, -2px, 0) scale(1.015);
+  }
+}
+
+.btn-pill:active {
+  transform: translate3d(0, 0, 0) scale(0.985);
+  transition-duration: 0.18s;
+}
+
+/* Modal Surface: Hardware-accelerated Smooth Fade & Scale */
+dialog.modal-sheet {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: scale(0.98) translate3d(0, 12px, 0) translateZ(0);
+  transition: opacity 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.52s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.52s;
+  will-change: opacity, transform;
+}
+
+dialog.modal-sheet[open] {
+  visibility: visible;
+}
+
+dialog.modal-sheet.is-active {
   opacity: 1;
-  transform: translateY(0);
+  pointer-events: auto;
+  transform: scale(1) translate3d(0, 0, 0) translateZ(0);
+}
+
+/* Modal Content Subtle Drift */
+dialog.modal-sheet > main {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+              transform 0.60s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+  will-change: opacity, transform;
+}
+
+dialog.modal-sheet.is-active > main {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Lightbox Modal */
+dialog#image-lightbox {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.42s;
+  will-change: opacity;
+}
+
+dialog#image-lightbox[open] {
+  visibility: visible;
+}
+
+dialog#image-lightbox.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+dialog#image-lightbox .lightbox-content {
+  transform: scale(0.94) translate3d(0, 12px, 0) translateZ(0);
+  transition: transform 0.50s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+dialog#image-lightbox.is-active .lightbox-content {
+  transform: scale(1) translate3d(0, 0, 0) translateZ(0);
+}
+
+/* Smooth Skin Slide Crossfade */
+.skin-slide-img {
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+/* High-Performance Sticky Header (Fallback when HW acceleration is disabled) */
+.modal-header-glass {
+  background-color: rgba(18, 18, 18, 0.96);
+  transform: translateZ(0);
+  contain: paint;
+}
+@supports (backdrop-filter: blur(12px)) {
+  .modal-header-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Page Entrance Animation (Ultra Smooth Fluid Glide) */
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-card-enter {
+  animation: card-entrance 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+@keyframes link-entrance {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.stagger-in {
+  animation: link-entrance 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
 }
 
 .video-layer {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: transform;
+}
+
+/* ==========================================================================
+   FlyingTuna Floating Cross Background Animations (Visibly Floating & Smooth)
+   ========================================================================== */
+
+@keyframes tuna-float-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes tuna-float-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-10px, 12px, 0);
+  }
+}
+
+@keyframes tuna-float-sway {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(10px, -10px, 0);
+  }
+}
+
+@keyframes tuna-sparkle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.28);
+    opacity: 0.95;
+  }
+}
+
+.tuna-anim-slow {
+  animation: tuna-float-slow 9.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tuna-anim-drift {
+  animation: tuna-float-drift 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tuna-anim-sway {
+  animation: tuna-float-sway 10.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tuna-anim-pulse {
+  animation: tuna-sparkle-pulse 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
 }
 
 /* Browser Surfaces: Themed Selection */
@@ -77,24 +280,4 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
-}
-
-/* Accessibility: Respect Reduced Motion Preferences */
-@media (prefers-reduced-motion: reduce) {
-  html.scroll-smooth {
-    scroll-behavior: auto !important;
-  }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .scroll-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .animate-pulse {
-    animation: none !important;
-  }
 }

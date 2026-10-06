@@ -7,7 +7,7 @@ const SITE_CONFIG = {
     profile: {
         username: "Znap-",
         titleHighlight: "Setup Configuration",
-        lastUpdate: "23 August 2026",
+        lastUpdate: "6 October 2026",
         avatarUrl: "https://a.ppy.sh/22919575",
         avatarFallback: "avatar.jpg",
         socials: {
