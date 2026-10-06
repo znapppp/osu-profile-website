@@ -161,32 +161,55 @@ function renderFromConfig() {
         if (grid && Array.isArray(o.items)) {
             grid.innerHTML = o.items.map((item, i) => {
                 const downloadUrl = item.downloadUrl || '#';
+                const videoPreviewUrl = item.videoPreviewUrl || '';
                 const videoSrc = item.previewVideo || '';
 
                 return `
-                <div class="flex flex-col gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                    <div class="flex items-center justify-between">
-                        <h3 class="font-medium text-white text-sm">${item.name}</h3>
-                        <div class="flex items-center gap-2">
+                <div class="flex flex-col gap-3.5 p-5 sm:p-6 rounded-2xl bg-[#18181a] border border-white/[0.08]">
+                    <!-- Item Header & Actions -->
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <h3 class="font-semibold text-white text-base sm:text-lg tracking-tight">${item.name}</h3>
+                            ${item.badgeText ? `
+                                <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.08] text-white/70 border border-white/[0.06] shrink-0">
+                                    ${item.badgeText}
+                                </span>
+                            ` : ''}
+                        </div>
+                        
+                        <!-- Action Buttons: Download & Google Drive (VDO Preview) -->
+                        <div class="flex items-center flex-wrap gap-2">
                             ${downloadUrl !== '#' ? `
-                                <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-black hover:bg-white/90 font-medium text-xs transition-colors">
-                                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                                <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-white/90 font-medium text-xs transition-colors shrink-0" aria-label="Download ${item.name}">
+                                    <svg class="w-3.5 h-3.5 fill-current shrink-0" width="14" height="14" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                                     <span>Download</span>
                                 </a>
                             ` : ''}
-                            ${o.githubUrl ? `
-                                <a href="${o.githubUrl}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-full bg-white/10 text-white/80 font-medium text-xs hover:text-white transition-colors">
-                                    GitHub
+                            ${videoPreviewUrl ? `
+                                <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.08] text-white/90 hover:text-white font-medium text-xs transition-colors shrink-0" aria-label="Watch VDO preview">
+                                    <svg class="w-3.5 h-3.5 fill-current shrink-0" width="14" height="14" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    <span>VDO Preview</span>
+                                    <svg class="w-3 h-3 fill-none stroke-current stroke-2 shrink-0 opacity-60" width="12" height="12" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                                 </a>
                             ` : ''}
                         </div>
                     </div>
 
-                    <p class="text-white/60 text-xs leading-relaxed">${item.description || ''}</p>
+                    <!-- Description -->
+                    <p class="text-white/60 text-xs sm:text-sm leading-relaxed">${item.description || ''}</p>
 
+                    <!-- Video Preview -->
                     ${videoSrc ? `
-                        <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-black border border-white/[0.08]">
-                            <video id="overlay-video-${i}" class="w-full h-full object-cover" src="${videoSrc}" loop muted controls playsinline preload="metadata"></video>
+                        <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/[0.08] shadow-lg mt-0.5">
+                            <video id="overlay-video-${i}" class="w-full h-full object-cover" src="${videoSrc}" loop muted controls playsinline webkit-playsinline preload="metadata"></video>
+                        </div>
+                    ` : ''}
+
+                    <!-- Attribution -->
+                    ${item.sourceRefUrl ? `
+                        <div class="text-[11px] text-white/40 flex items-center gap-1.5 pt-0.5">
+                            <span>Forked from:</span>
+                            <a href="${item.sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-white underline transition-colors">Citrusis/OBSDecoratePack</a>
                         </div>
                     ` : ''}
                 </div>`;
@@ -285,14 +308,21 @@ function initModals() {
 
         if (modalId === 'modal-overlays') {
             const v = dialog.querySelector('video');
-            if (v) v.play().catch(() => {});
+            if (v) {
+                v.muted = true;
+                v.currentTime = 0;
+                v.play().catch(() => {});
+            }
         }
     }
 
     function closeModal(dialog) {
         if (!dialog) return;
         const v = dialog.querySelector('video');
-        if (v) v.pause();
+        if (v) {
+            v.pause();
+            v.currentTime = 0;
+        }
 
         dialog.classList.remove('is-active');
 
