@@ -24,10 +24,10 @@ const SITE_CONFIG = {
     tablet: {
         title: "Tablet Settings",
         device: "Wacom CTL-472",
-        area: "39 mm x 26 mm",
+        area: "43 mm x 28.5 mm",
         driverName: "OpenTabletDriver v0.6.7",
         driverDownloadUrl: "https://github.com/OpenTabletDriver/OpenTabletDriver/releases",
-        previewImage: "picture/tablet/Screenshot 2026-08-22 221453.webp",
+        previewImage: "picture/tablet/tablet-area.png",
         previewAlt: "Wacom CTL-472 Tablet Settings"
     },
 
