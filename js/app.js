@@ -108,7 +108,7 @@ function renderFromConfig() {
                 const firstSlide = slides[0] || { src: '', label: 'Preview' };
 
                 return `
-                <div class="flex flex-col p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/10 transition-colors">
+                <div class="flex flex-col p-4 rounded-xl surface-card surface-card-interactive">
                     <!-- Interactive Slide Viewport -->
                     <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-black border border-white/[0.08] group/slide">
                         <img id="skin-img-${i}" class="w-full h-full object-cover cursor-zoom-in transition-opacity duration-200" src="${firstSlide.src}" alt="${item.name}" data-lightbox="${firstSlide.src}" data-lightbox-title="${item.name} (${firstSlide.label})" />
@@ -165,7 +165,7 @@ function renderFromConfig() {
                 const videoSrc = item.previewVideo || '';
 
                 return `
-                <div class="flex flex-col gap-3.5 p-5 sm:p-6 rounded-2xl bg-[#18181a] border border-white/[0.08]">
+                <div class="flex flex-col gap-3.5 p-5 sm:p-6 rounded-2xl surface-card">
                     <!-- Item Header & Actions -->
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div class="flex items-center gap-2.5 flex-wrap">

@@ -6,6 +6,7 @@
   html, body {
     margin: 0;
     padding: 0;
+    background-color: #0e0e10;
   }
   body {
     overscroll-behavior: none;
@@ -15,6 +16,30 @@
   }
   main > :last-child {
     margin-bottom: 0 !important;
+  }
+}
+
+/* Material Surface & Specular Rim Highlight */
+.surface-card {
+  background-color: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.surface-card-subtle {
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.surface-card-interactive {
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .surface-card-interactive:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -58,18 +83,25 @@
 
 /* Butter-Smooth Pill Buttons (Spring Curve, No Subpixel Font Jitter) */
 .btn-pill {
+  background-color: #171719;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
-  will-change: transform, background-color, border-color;
+  will-change: transform, background-color, border-color, box-shadow;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               color 0.3s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn-pill:hover {
+    background-color: #1f1f22;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
     transform: translate3d(0, -2px, 0) scale(1.015);
   }
 }
@@ -155,7 +187,7 @@ dialog#image-lightbox.is-active .lightbox-content {
 
 /* High-Performance Sticky Header (Fallback when HW acceleration is disabled) */
 .modal-header-glass {
-  background-color: rgba(18, 18, 18, 0.96);
+  background-color: rgba(14, 14, 16, 0.94);
   transform: translateZ(0);
   contain: paint;
 }

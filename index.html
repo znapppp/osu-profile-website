@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/output.css"/>
 </head>
-<body class="bg-[#121212] text-[#e0e0e0] font-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
+<body class="bg-[#0e0e10] text-[#e0e0e0] font-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-white selection:text-black relative overflow-x-hidden">
 
     <!-- FlyingTuna Inspired Aesthetic Floating Cross Background (Monochrome White on Obsidian Dark) -->
     <div class="fixed inset-0 pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
@@ -299,7 +299,7 @@
     <!-- ========================================================================= -->
 
     <!-- 1. Hardware & Setting Modal (Fullscreen) -->
-    <dialog id="modal-hardware" class="modal-sheet fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-[#121212] p-0 z-50 flex flex-col overflow-y-auto" aria-labelledby="hardware-modal-title" aria-modal="true">
+    <dialog id="modal-hardware" class="modal-sheet fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-[#0e0e10] p-0 z-50 flex flex-col overflow-y-auto" aria-labelledby="hardware-modal-title" aria-modal="true">
         <!-- Sticky Top Navigation -->
         <header class="sticky top-0 z-30 w-full modal-header-glass border-b border-white/[0.08] shrink-0">
             <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -317,16 +317,16 @@
         <!-- Fullscreen Content -->
         <main class="w-full max-w-4xl mx-auto px-6 py-8 flex flex-col gap-6 text-xs text-white/80 my-auto">
             <!-- Tablet -->
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 p-5 rounded-2xl bg-[#18181a] border border-white/[0.08] items-center">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 p-5 rounded-2xl surface-card items-center">
                 <div class="sm:col-span-7 flex flex-col gap-2.5">
                     <span class="text-[11px] uppercase tracking-wider text-white/40 font-medium">Tablet Device</span>
                     <h3 class="font-semibold text-white text-lg tracking-tight" id="tablet-device">Wacom CTL-472</h3>
                     <div class="grid grid-cols-2 gap-2.5 mt-1">
-                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+                        <div class="p-3 rounded-xl surface-card-subtle">
                             <span class="text-[11px] text-white/50 block">Active Area</span>
                             <span class="font-mono text-white text-xs sm:text-sm font-medium" id="tablet-area">43 mm x 28.5 mm</span>
                         </div>
-                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+                        <div class="p-3 rounded-xl surface-card-subtle">
                             <span class="text-[11px] text-white/50 block">Driver</span>
                             <span class="font-mono text-white text-xs sm:text-sm font-medium block" id="tablet-driver">OpenTabletDriver v0.6.7</span>
                         </div>
@@ -340,16 +340,16 @@
             </div>
 
             <!-- Keyboard -->
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 p-5 rounded-2xl bg-[#18181a] border border-white/[0.08] items-center">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 p-5 rounded-2xl surface-card items-center">
                 <div class="sm:col-span-7 flex flex-col gap-2.5">
                     <span class="text-[11px] uppercase tracking-wider text-white/40 font-medium">Keyboard</span>
                     <h3 class="font-semibold text-white text-lg tracking-tight" id="keyboard-device">Keychron C75 TMR</h3>
                     <div class="grid grid-cols-2 gap-2.5 mt-1">
-                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+                        <div class="p-3 rounded-xl surface-card-subtle">
                             <span class="text-[11px] text-white/50 block">Actuation Point</span>
                             <span class="font-mono text-white text-xs sm:text-sm font-medium" id="keyboard-actuation">0.3 mm</span>
                         </div>
-                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+                        <div class="p-3 rounded-xl surface-card-subtle">
                             <span class="text-[11px] text-white/50 block">Rapid Trigger</span>
                             <span class="font-mono text-white text-xs sm:text-sm font-medium" id="keyboard-rapid">0.5 mm</span>
                         </div>
@@ -363,16 +363,16 @@
             </div>
 
             <!-- Keypad -->
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 p-5 rounded-2xl bg-[#18181a] border border-white/[0.08] items-center">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 p-5 rounded-2xl surface-card items-center">
                 <div class="sm:col-span-7 flex flex-col gap-2.5">
                     <span class="text-[11px] uppercase tracking-wider text-white/40 font-medium">Keypad</span>
                     <h3 class="font-semibold text-white text-lg tracking-tight" id="keypad-device">Sayodevice O3C</h3>
                     <div class="grid grid-cols-2 gap-2.5 mt-1">
-                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+                        <div class="p-3 rounded-xl surface-card-subtle">
                             <span class="text-[11px] text-white/50 block">Actuation Point</span>
                             <span class="font-mono text-white text-xs sm:text-sm font-medium block mt-1 leading-snug" id="keypad-actuation">Release: 0.3 mm<br>Trigger: 0.7 mm</span>
                         </div>
-                        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+                        <div class="p-3 rounded-xl surface-card-subtle">
                             <span class="text-[11px] text-white/50 block">Rapid Trigger</span>
                             <span class="font-mono text-white text-xs sm:text-sm font-medium block mt-1 leading-snug" id="keypad-rapid">Release: 0.5 mm<br>Trigger: 0.3 mm</span>
                         </div>
@@ -387,7 +387,7 @@
 
             <!-- Peripherals -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div class="p-5 rounded-2xl bg-[#18181a] border border-white/[0.08] flex flex-col gap-2">
+                <div class="p-5 rounded-2xl surface-card flex flex-col gap-2">
                     <span class="text-[11px] uppercase tracking-wider text-white/40 font-medium">Output Monitor</span>
                     <span class="font-medium text-white text-base" id="monitor-device">LG ULTRAGEAR 24GS60F-B</span>
                     <div class="flex items-center gap-3 text-white/50 font-mono text-xs mt-1">
@@ -398,7 +398,7 @@
                         <span id="monitor-resolution">1080p FHD</span>
                     </div>
                 </div>
-                <div class="p-5 rounded-2xl bg-[#18181a] border border-white/[0.08] flex flex-col gap-2">
+                <div class="p-5 rounded-2xl surface-card flex flex-col gap-2">
                     <span class="text-[11px] uppercase tracking-wider text-white/40 font-medium">Audio Output</span>
                     <span class="font-medium text-white text-base" id="audio-device">Apple EarPods</span>
                     <div class="flex items-center gap-3 text-white/50 text-xs mt-1">
@@ -412,7 +412,7 @@
     </dialog>
 
     <!-- 2. Skins Gallery Modal (Fullscreen) -->
-    <dialog id="modal-skins" class="modal-sheet fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-[#121212] p-0 z-50 flex flex-col overflow-y-auto" aria-labelledby="skins-modal-title" aria-modal="true">
+    <dialog id="modal-skins" class="modal-sheet fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-[#0e0e10] p-0 z-50 flex flex-col overflow-y-auto" aria-labelledby="skins-modal-title" aria-modal="true">
         <!-- Sticky Top Navigation -->
         <header class="sticky top-0 z-30 w-full modal-header-glass border-b border-white/[0.08] shrink-0">
             <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -442,7 +442,7 @@
     </dialog>
 
     <!-- 3. tosu Overlay Modal (Fullscreen) -->
-    <dialog id="modal-overlays" class="modal-sheet fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-[#121212] p-0 z-50 flex flex-col overflow-y-auto" aria-labelledby="overlays-modal-title" aria-modal="true">
+    <dialog id="modal-overlays" class="modal-sheet fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-[#0e0e10] p-0 z-50 flex flex-col overflow-y-auto" aria-labelledby="overlays-modal-title" aria-modal="true">
         <!-- Sticky Top Navigation -->
         <header class="sticky top-0 z-30 w-full modal-header-glass border-b border-white/[0.08] shrink-0">
             <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
