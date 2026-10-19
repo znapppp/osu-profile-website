@@ -66,6 +66,70 @@
   will-change: transform;
 }
 
+/* ==========================================================================
+   FlyingTuna Floating Cross Background Animations (Visibly Floating & Smooth)
+   ========================================================================== */
+
+@keyframes tuna-float-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes tuna-float-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-10px, 12px, 0);
+  }
+}
+
+@keyframes tuna-float-sway {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(10px, -10px, 0);
+  }
+}
+
+@keyframes tuna-sparkle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.28);
+    opacity: 0.95;
+  }
+}
+
+.tuna-anim-slow {
+  animation: tuna-float-slow 9.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tuna-anim-drift {
+  animation: tuna-float-drift 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tuna-anim-sway {
+  animation: tuna-float-sway 10.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tuna-anim-pulse {
+  animation: tuna-sparkle-pulse 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
 /* Browser Surfaces: Themed Selection */
 ::selection {
   background: #ffffff;
