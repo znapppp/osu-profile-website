@@ -436,10 +436,48 @@ window.slideSkin = function(skinIndex, direction) {
     }
 };
 
+// Mobile Navigation Drawer Toggle
+function initMobileMenu() {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('mobile-menu-icon');
+    if (!toggleBtn || !menu) return;
+
+    function toggleMenu(forceClose = false) {
+        const isExpanded = forceClose ? false : menu.classList.contains('hidden');
+        if (isExpanded) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+            toggleBtn.setAttribute('aria-expanded', 'true');
+            if (menuIcon) menuIcon.textContent = 'close';
+        } else {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            if (menuIcon) menuIcon.textContent = 'menu';
+        }
+    }
+
+    toggleBtn.addEventListener('click', () => toggleMenu());
+
+    // Auto-close menu when tapping any link
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => toggleMenu(true));
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 640 && !menu.classList.contains('hidden')) {
+            toggleMenu(true);
+        }
+    }, { passive: true });
+}
+
 // Navigation highlighting with RAF throttling
 function initNavScroll() {
-    const navLinks = document.querySelectorAll('header nav a[data-path]');
-    const sections = Array.from(navLinks).map(a => document.getElementById(a.getAttribute('data-path'))).filter(Boolean);
+    const desktopLinks = document.querySelectorAll('header nav:not(#mobile-menu) a[data-path]');
+    const mobileLinks = document.querySelectorAll('#mobile-menu a[data-path]');
+    const sections = Array.from(desktopLinks).map(a => document.getElementById(a.getAttribute('data-path'))).filter(Boolean);
     sections.unshift(document.body);
     
     let ticking = false;
@@ -461,9 +499,16 @@ function initNavScroll() {
                     }
                 }
                 
-                navLinks.forEach(link => {
+                desktopLinks.forEach(link => {
                     const isActive = link.getAttribute('data-path') === current;
                     link.classList.toggle('text-primary', isActive);
+                    link.classList.toggle('text-on-surface-variant', !isActive);
+                });
+
+                mobileLinks.forEach(link => {
+                    const isActive = link.getAttribute('data-path') === current;
+                    link.classList.toggle('text-primary', isActive);
+                    link.classList.toggle('bg-surface-container/40', isActive);
                     link.classList.toggle('text-on-surface-variant', !isActive);
                 });
                 ticking = false;
@@ -545,6 +590,7 @@ function initApp() {
     initSocials();
     initScrollReveal();
     initNavScroll();
+    initMobileMenu();
     initLightbox();
 }
 

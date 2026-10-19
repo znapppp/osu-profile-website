@@ -213,15 +213,17 @@
         </div>
     </div>
 
-<header class="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-3xl shadow-[0_1px_12px_rgba(0,0,0,0.5)]">
-    <div class="h-16 max-w-[1440px] mx-auto px-6 md:px-margin-safe flex items-center justify-between">
-        <div class="flex items-center gap-4 md:gap-8">
-            <div class="flex items-center gap-3">
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-3xl border-b border-glass-stroke/40 shadow-[0_1px_12px_rgba(0,0,0,0.5)]">
+    <div class="h-16 max-w-[1440px] mx-auto px-5 sm:px-6 md:px-margin-safe flex items-center justify-between">
+        <div class="flex items-center gap-3 sm:gap-4 md:gap-8">
+            <div class="flex items-center gap-2.5 sm:gap-3">
                 <a id="osu-profile-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Znap- osu! Profile" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl">
-                    <img id="header-avatar" alt="Znap- profile avatar" width="36" height="36" class="w-9 h-9 rounded-xl object-cover object-center aspect-square border border-glass-stroke ring-1 ring-white/10 transition-all duration-300 hover:border-white/40 shadow-sm" src="avatar.jpg"/>
+                    <img id="header-avatar" alt="Znap- profile avatar" width="36" height="36" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover object-center aspect-square border border-glass-stroke ring-1 ring-white/10 transition-all duration-300 hover:border-white/40 shadow-sm" src="avatar.jpg"/>
                 </a>
-                <span id="header-username" class="font-headline-lg text-lg md:text-[20px] tracking-tighter text-primary">Znap-</span>
+                <span id="header-username" class="font-headline-lg text-base sm:text-lg md:text-[20px] tracking-tighter text-primary">Znap-</span>
             </div>
+            
+            <!-- Desktop Navigation -->
             <nav class="hidden sm:flex items-center gap-4 md:gap-8" aria-label="Main Navigation" data-active-classes="text-primary">
                 <a aria-current="page" class="text-sm md:text-base font-medium transition-colors text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Home</a>
                 <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="hardware" href="#hardware">Hardware</a>
@@ -229,7 +231,34 @@
                 <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1" data-path="overlays" href="#overlays">Overlays</a>
             </nav>
         </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" id="mobile-menu-toggle" class="sm:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-surface-container-lowest/80 border border-white/[0.08] text-white/80 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+            <span id="mobile-menu-icon" class="material-symbols-outlined text-[20px]" aria-hidden="true">menu</span>
+        </button>
     </div>
+
+    <!-- Mobile Dropdown Navigation Menu -->
+    <nav id="mobile-menu" class="sm:hidden hidden flex-col px-5 pt-2 pb-5 border-t border-glass-stroke/30 bg-background/95 backdrop-blur-3xl transition-all duration-300" aria-label="Mobile Navigation">
+        <div class="flex flex-col gap-1">
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 rounded-lg text-sm font-medium text-primary bg-surface-container/40 transition-colors" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                <span>Home</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+            </a>
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 rounded-lg text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="hardware" href="#hardware">
+                <span>Hardware</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+            </a>
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 rounded-lg text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="skins" href="#skins">
+                <span>Skins</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+            </a>
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 rounded-lg text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="overlays" href="#overlays">
+                <span>Overlays</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+            </a>
+        </div>
+    </nav>
 </header>
 
 <main class="w-full pt-16 bg-background">
