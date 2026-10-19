@@ -107,6 +107,16 @@ const SITE_CONFIG = {
                     { src: "picture/skin/dddx15dt/songselect.webp", label: "Song Select", alt: "dddx15dt Song Select" },
                     { src: "picture/skin/dddx15dt/result.webp", label: "Results UI", alt: "dddx15dt Results UI" }
                 ]
+            },
+            {
+                name: "Coming Soon Skin",
+                isPlaceholder: true, // ตั้งค่าเป็น true สำหรับช่องว่าง หรือลบออก/ใส่รูปเมื่อต้องการเปิดตัวสกินจริง
+                badgeText: "New",
+                badgeClass: "other-skin",
+                downloadUrl: "#",
+                slides: [
+                    { src: "", label: "Gameplay", alt: "Preview" }
+                ]
             }
         ]
     },

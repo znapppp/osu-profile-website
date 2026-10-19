@@ -145,6 +145,19 @@ function renderFromConfig() {
         
         if (grid && Array.isArray(s.items) && s.items.length > 0) {
             grid.innerHTML = s.items.map((item, i) => {
+                if (item.isPlaceholder) {
+                    return `
+                    <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
+                        <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-3.5 md:mb-4 bg-surface-container/40 border border-dashed border-glass-stroke/70 flex flex-col items-center justify-center text-center p-6 transition-all duration-300 hover:border-white/30 hover:bg-surface-container/60">
+                            <span class="material-symbols-outlined text-on-surface-variant/40 text-3xl mb-2" aria-hidden="true">add_circle_outline</span>
+                            <span class="text-xs uppercase tracking-wider text-on-surface-variant/60 font-medium">Coming Soon</span>
+                            <span class="text-[11px] text-on-surface-variant/40 mt-1">New Skin Placeholder</span>
+                        </div>
+                        <h3 class="font-body-lg text-lg md:text-xl text-primary/40 mb-1.5 truncate" title="${item.name}">${item.name}</h3>
+                        <p class="font-body-md text-on-surface-variant/40 text-sm mb-2">Slot reserved for next skin</p>
+                    </div>`;
+                }
+
                 let desc = `My ${item.badgeText || 'favorite'} skin.`;
                 
                 return `
