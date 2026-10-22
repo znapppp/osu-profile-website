@@ -1,29 +1,47 @@
 # Znap- osu! Profile Website
 
-Static website showcasing hardware settings, tablet area, osu! skins, and tosu stream overlays for **Znap-**.
+A static website presenting the osu! setup of Znap-: hardware and settings, skins, and a tosu stream overlay.
 
 ## Tech Stack
 
-- **HTML5 & Vanilla JavaScript**
-- **Tailwind CSS**
+- HTML and vanilla JavaScript (no framework, no bundler)
+- Tailwind CSS 3, compiled with the Tailwind CLI
 
-## Quick Start
+## Getting Started
 
-### 1. Install Dependencies
+Requires Node.js.
+
 ```bash
 npm install
+npm run build      # compile css/styles.css to css/output.css (minified)
+npm start          # serve the site locally
 ```
 
-### 2. Build CSS
-```bash
-npm run build
-```
+During development, run `npm run build:css` to rebuild the CSS on every change.
 
-Watch mode for development:
-```bash
-npm run build:css -- --watch
-```
+## Project Structure
 
-## Configuration
+| Path | Description |
+|------|-------------|
+| `index.html` | Page markup |
+| `js/config.js` | Site content (`SITE_CONFIG`) |
+| `js/app.js` | Renders the content from `config.js` and handles page interactions |
+| `css/styles.css` | Tailwind input and custom styles |
+| `css/output.css` | Compiled stylesheet loaded by the page |
+| `tailwind.config.js` | Theme colors, fonts, and spacing |
+| `picture/` | Images and the overlay preview video |
 
-Edit `js/config.js` to update all profile data, hardware specs, skin downloads, and overlay links.
+## Updating Content
+
+Edit `js/config.js` to change the content shown on the page:
+
+- `profile`: username, avatar, social links, Discord tag, and last update date
+- `tablet`, `keyboard`, `keypad`, `monitor`, `audio`: device names, settings, and preview images
+- `skins`: skin cards, screenshots, and download links. Set `isPlaceholder: true` to show an empty "Coming Soon" card
+- `overlays`: overlay details, preview video, and download and source links
+
+## Maintenance Notes
+
+- `css/output.css` is committed to the repository. Run `npm run build` after changing `css/styles.css`, `tailwind.config.js`, or any Tailwind classes in HTML or JavaScript.
+- The Material Symbols font loads only the icons listed in the `icon_names` parameter in `index.html`. When using a new icon, add its name to that list in alphabetical order, or it will not render.
+- The avatar URL is set in both `index.html` and `js/config.js`. Update both when changing it.
