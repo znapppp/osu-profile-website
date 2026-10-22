@@ -14,7 +14,8 @@ function renderFromConfig() {
             headerUsername.textContent = p.username;
         }
 
-        const heroTitle = document.getElementById('hero-title');
+        // Screen-reader text only; the visible wordmark is a fixed SVG in index.html
+        const heroTitle = document.getElementById('hero-title-text');
         if (heroTitle && p.username) {
             heroTitle.textContent = p.username;
         }

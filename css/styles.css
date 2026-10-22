@@ -60,6 +60,46 @@
   transform: translateY(0);
 }
 
+/* Hero wordmark: each letter's outline draws in, then the fill fades in as the outline fades out.
+   Per letter: first path is the fill; each following path is one contour, starting at its top and running clockwise,
+   with pathLength="1" so every contour finishes at the same time. */
+.wordmark-reveal g > path:first-child {
+  fill: currentColor;
+  fill-opacity: 0;
+  animation: wordmark-fill 0.8s cubic-bezier(.14, 1, .34, 1) calc(1s + var(--i) * 90ms) forwards;
+}
+
+.wordmark-reveal g > path:not(:first-child) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1.01;
+  stroke-dashoffset: 1.01;
+  animation:
+    wordmark-draw 0.9s cubic-bezier(.645, .045, .355, 1) calc(0.2s + var(--i) * 90ms) forwards,
+    wordmark-outline-out 0.8s cubic-bezier(.14, 1, .34, 1) calc(1s + var(--i) * 90ms) forwards;
+}
+
+@keyframes wordmark-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes wordmark-fill {
+  to { fill-opacity: 1; }
+}
+
+@keyframes wordmark-outline-out {
+  to { opacity: 0; }
+}
+
+/* Hero subtitle: words fade in one after another */
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  animation: fade-in 0.4s linear var(--delay) forwards;
+}
+
 /* Lightbox is display:none while closed, so fade in from opacity 0 on open */
 @starting-style {
   #image-lightbox[open] {
@@ -167,5 +207,17 @@ button:focus-visible {
   }
   .animate-pulse {
     animation: none !important;
+  }
+  .wordmark-reveal g > path:first-child {
+    animation: none !important;
+    fill-opacity: 1;
+  }
+  .wordmark-reveal g > path:not(:first-child) {
+    animation: none !important;
+    opacity: 0;
+  }
+  .hero-word {
+    animation: none !important;
+    opacity: 1;
   }
 }
