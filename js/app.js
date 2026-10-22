@@ -187,9 +187,9 @@ function renderFromConfig() {
                         
                         <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end pointer-events-none z-10">
                             <div class="bg-primary/85 backdrop-blur-sm px-2.5 py-1 rounded text-[11px] font-medium text-obsidian-deep/90 shadow-sm">${item.badgeText || 'Skin'}</div>
-                            <button type="button" onclick="event.stopPropagation(); window.open('${item.downloadUrl}', '_blank')" class="pointer-events-auto w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 shadow-lg hover:bg-secondary cursor-pointer" title="Download ${item.name}" aria-label="Download skin ${item.name}">
+                            <a href="${item.downloadUrl}" target="_blank" rel="noopener noreferrer" class="pointer-events-auto w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 shadow-lg hover:bg-secondary cursor-pointer" title="Download ${item.name}" aria-label="Download skin ${item.name}">
                                 <span class="material-symbols-outlined text-obsidian-deep text-[18px]" aria-hidden="true">download</span>
-                            </button>
+                            </a>
                         </div>
 
                         <!-- Dots -->
@@ -337,13 +337,15 @@ function renderFromConfig() {
 }
 
 // Toast Helper
+let toastTimer = null;
 function showToast(msg) {
     const toast = document.getElementById('toast');
     if (!toast) return;
     toast.textContent = msg;
     toast.style.opacity = '1';
     toast.classList.add('visible');
-    setTimeout(() => {
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
         toast.style.opacity = '0';
         toast.classList.remove('visible');
     }, 2500);
@@ -358,12 +360,14 @@ function initSocials() {
     // Footer Discord Copy
     const footerDiscord = el('footer-discord');
     if (footerDiscord && sc.discordTag) {
+        const originalText = footerDiscord.textContent;
+        let resetTimer = null;
         footerDiscord.addEventListener('click', (e) => {
             e.preventDefault();
             navigator.clipboard.writeText(sc.discordTag).then(() => {
-                const originalText = e.target.textContent;
-                e.target.textContent = 'Copied!';
-                setTimeout(() => e.target.textContent = originalText, 2000);
+                footerDiscord.textContent = 'Copied!';
+                clearTimeout(resetTimer);
+                resetTimer = setTimeout(() => footerDiscord.textContent = originalText, 2000);
             }).catch(() => {
                 showToast('Unable to copy Discord ID');
             });
@@ -481,6 +485,7 @@ function initNavScroll() {
     sections.unshift(document.body);
     
     let ticking = false;
+    let lastActive = null;
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
@@ -498,7 +503,14 @@ function initNavScroll() {
                         }
                     }
                 }
-                
+
+                // Skip class writes when the active section hasn't changed
+                if (current === lastActive) {
+                    ticking = false;
+                    return;
+                }
+                lastActive = current;
+
                 desktopLinks.forEach(link => {
                     const isActive = link.getAttribute('data-path') === current;
                     link.classList.toggle('text-primary', isActive);
