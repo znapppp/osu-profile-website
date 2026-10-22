@@ -60,6 +60,13 @@
   transform: translateY(0);
 }
 
+/* Lightbox is display:none while closed, so fade in from opacity 0 on open */
+@starting-style {
+  #image-lightbox[open] {
+    opacity: 0;
+  }
+}
+
 .video-layer {
   transform: translateZ(0);
   backface-visibility: hidden;
