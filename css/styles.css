@@ -108,9 +108,7 @@
 }
 
 .video-layer {
-  transform: translateZ(0);
   backface-visibility: hidden;
-  will-change: transform;
 }
 
 /* ==========================================================================
@@ -119,28 +117,28 @@
 
 @keyframes tuna-float-slow {
   0%, 100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate3d(0, -14px, 0);
+    transform: translate(0, -14px);
   }
 }
 
 @keyframes tuna-float-drift {
   0%, 100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate3d(-10px, 12px, 0);
+    transform: translate(-10px, 12px);
   }
 }
 
 @keyframes tuna-float-sway {
   0%, 100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate3d(10px, -10px, 0);
+    transform: translate(10px, -10px);
   }
 }
 
@@ -157,24 +155,20 @@
 
 .tuna-anim-slow {
   animation: tuna-float-slow 9.5s ease-in-out infinite;
-  will-change: transform;
 }
 
 .tuna-anim-drift {
   animation: tuna-float-drift 12s ease-in-out infinite;
-  will-change: transform;
 }
 
 .tuna-anim-sway {
   animation: tuna-float-sway 10.5s ease-in-out infinite;
-  will-change: transform;
 }
 
 .tuna-anim-pulse {
   animation: tuna-sparkle-pulse 5s ease-in-out infinite;
   transform-box: fill-box;
   transform-origin: center;
-  will-change: transform, opacity;
 }
 
 /* Browser Surfaces: Themed Selection */
@@ -188,36 +182,4 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
-}
-
-/* Accessibility: Respect Reduced Motion Preferences */
-@media (prefers-reduced-motion: reduce) {
-  html.scroll-smooth {
-    scroll-behavior: auto !important;
-  }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .scroll-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .animate-pulse {
-    animation: none !important;
-  }
-  .wordmark-reveal g > path:first-child {
-    animation: none !important;
-    fill-opacity: 1;
-  }
-  .wordmark-reveal g > path:not(:first-child) {
-    animation: none !important;
-    opacity: 0;
-  }
-  .hero-word {
-    animation: none !important;
-    opacity: 1;
-  }
 }
