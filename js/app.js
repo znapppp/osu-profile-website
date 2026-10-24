@@ -167,9 +167,9 @@ function renderFromConfig() {
                         
                         <!-- Image Slider Container -->
                         <div class="relative w-full h-full flex transition-transform duration-500 ease-in-out" id="slider-${i}" data-current="0" role="region" aria-label="Screenshots of ${item.name}">
-                            ${(item.slides || []).map(slide => `
+                            ${(item.slides || []).map((slide, slideIdx) => `
                                 <div class="min-w-full h-full flex items-center justify-center">
-                                    <img src="${slide.src}" alt="${slide.alt || slide.label || item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+                                    <img ${slideIdx === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`} alt="${slide.alt || slide.label || item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover" />
                                 </div>
                             `).join('')}
                         </div>
@@ -300,12 +300,11 @@ function renderFromConfig() {
 
                     <!-- Right: Large Video/Image Showcase (7 Cols) -->
                     <div class="md:col-span-7 relative group">
-                        <div class="absolute inset-0 bg-primary/5 rounded-xl blur-2xl transition-opacity opacity-0 group-hover:opacity-100 duration-500"></div>
                         <div class="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-xl">
                             ${hasVideo ? `
                                 <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
                             ` : (imgSrc ? `
-                                <img class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 transition-all duration-700" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
+                                <img class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 transition-all duration-700" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
                             ` : `
                                 <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-on-surface-variant/50 font-label-caps text-sm">No preview available</div>
                             `)}
@@ -424,6 +423,13 @@ window.slideSkin = function(skinIndex, direction) {
     let current = parseInt(slider.getAttribute('data-current') || 0);
     current = (current + direction + total) % total;
     slider.setAttribute('data-current', current);
+
+    // Lazy-load deferred slide images on demand
+    const imgs = slider.querySelectorAll('img[data-src]');
+    imgs.forEach(img => {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+    });
     
     // Move the slider container
     slider.style.transform = `translateX(-${current * 100}%)`;
