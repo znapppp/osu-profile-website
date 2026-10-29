@@ -2,6 +2,24 @@
 
 This file hands off an in-progress redesign to a new session with no access to the previous conversation. Read all of it before changing code.
 
+## Getting started on a new machine
+
+First, on the old machine, push the branch: `git push -u origin redesign/visual-refresh-skins`.
+
+Then, on the new machine:
+
+```bash
+git fetch
+git checkout redesign/visual-refresh-skins
+npm install
+```
+
+Requirements:
+
+- Node.js, for `npm install` and `npm test`.
+- Google Chrome, because the tests use the installed Chrome. See "How the tests work" if Chrome isn't installed.
+- The `gh` CLI, logged in with `gh auth login`. Optional: it's only needed to read issue #1, and the essentials are in this file.
+
 ## Where things stand
 
 - **Branch:** `redesign/visual-refresh-skins` (based on `main`). The work is committed here; `main` is untouched. Push with `git push -u origin redesign/visual-refresh-skins` if the branch isn't on GitHub yet.
