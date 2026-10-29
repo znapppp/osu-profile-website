@@ -1,0 +1,77 @@
+// @ts-check
+const { test, expect } = require('./fixture');
+
+const featuredSkin = (page) =>
+    page.locator('#skins').getByRole('article').filter({ has: page.getByText('Current', { exact: true }) });
+
+test.describe('featured skin', () => {
+    test('the skin flagged current is featured with its note and details', async ({ page }) => {
+        await page.goto('/');
+        const featured = featuredSkin(page);
+
+        await expect(featured).toHaveCount(1);
+        await expect(featured.getByRole('heading')).toHaveText('Bravo Skin (Test edit)');
+        await expect(featured).toContainText('Bravo is the one I always come back to.');
+        await expect(featured).toContainText('Bravo Original');
+        await expect(featured).toContainText('Instafade');
+    });
+
+    test('choosing a screenshot thumbnail shows that screen in the banner', async ({ page }) => {
+        await page.goto('/');
+        const featured = featuredSkin(page);
+        await expect(featured.getByRole('img', { name: 'Bravo gameplay' })).toBeVisible();
+
+        await featured.getByRole('button', { name: 'Show Song Select' }).click();
+
+        await expect(featured.getByRole('img', { name: 'Bravo song select' })).toBeVisible();
+        await expect(featured.getByRole('button', { name: 'Show Song Select' })).toHaveAttribute('aria-pressed', 'true');
+        await expect(featured.getByRole('button', { name: 'Show Gameplay' })).toHaveAttribute('aria-pressed', 'false');
+    });
+});
+
+test.describe('without a current flag', () => {
+    test.use({ configPatch: 'SITE_CONFIG.skins.items.forEach((item) => delete item.current);' });
+
+    test('the first skin is featured', async ({ page }) => {
+        await page.goto('/');
+        await expect(featuredSkin(page).getByRole('heading')).toHaveText('Alpha Skin');
+    });
+});
+
+test('the other skins appear as cards in config order, without placeholders', async ({ page }) => {
+    await page.goto('/');
+    const skins = page.locator('#skins');
+
+    await expect(skins.getByRole('article').getByRole('heading')).toHaveText([
+        'Bravo Skin (Test edit)',
+        'Alpha Skin',
+        'Charlie Skin',
+    ]);
+    await expect(skins).not.toContainText('Placeholder Skin');
+    await expect(skins).toContainText('3 skins');
+    await expect(skins.getByRole('article').filter({ hasText: 'Charlie Skin' })).toContainText('High AR');
+});
+
+test('every skin has a visible download link without hovering', async ({ page }) => {
+    await page.goto('/');
+    const expected = {
+        'Alpha Skin': 'https://drive.example/alpha',
+        'Bravo Skin (Test edit)': 'https://drive.example/bravo',
+        'Charlie Skin': 'https://drive.example/charlie',
+    };
+    for (const [name, href] of Object.entries(expected)) {
+        const link = page.getByRole('link', { name: `Download ${name}` });
+        await link.scrollIntoViewIfNeeded();
+        await expect(link).toBeVisible();
+        await expect(link).toHaveCSS('opacity', '1');
+        await expect(link).toHaveAttribute('href', href);
+    }
+});
+
+test('the older skins archive stays linked', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#skins').getByRole('link', { name: /archive/i })).toHaveAttribute(
+        'href',
+        'https://drive.example/folder/archive'
+    );
+});

@@ -2,6 +2,74 @@
    Znap- osu! Setup Configuration - Interactive Application Logic (Tailwind)
    ========================================================================== */
 
+// Current skin: a wide banner, then a spec bar with screenshot thumbnails, the owner's note, details, and download
+function renderFeaturedSkin(skin) {
+    const slides = skin.slides || [];
+    const first = slides[0] || {};
+    const details = skin.details || [];
+
+    return `
+    <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
+        <div class="reg-t">
+            <div class="relative overflow-hidden bg-surface-container">
+                <img id="featured-skin-img" src="${first.src}" alt="${first.alt || first.label || skin.name}" decoding="async" class="w-full aspect-video md:aspect-[3/1] object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/10 to-transparent pointer-events-none"></div>
+                <div class="absolute left-4 right-4 bottom-4 md:left-6 md:bottom-6">
+                    <span class="tag bg-primary text-obsidian-deep">Current</span>
+                    <h3 id="featured-skin-name" class="font-display font-extrabold text-2xl md:text-[32px] leading-tight text-primary mt-3">${skin.name}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="reg-b flex flex-col md:flex-row border border-t-0 border-hairline divide-y md:divide-y-0 md:divide-x divide-hairline">
+            ${slides.length > 1 ? `
+            <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
+                ${slides.map((slide, i) => `
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slide.alt || slide.label || skin.name}" aria-label="Show ${slide.label}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                    <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
+                </button>`).join('')}
+            </div>` : ''}
+            ${skin.note ? `<p class="flex-1 p-4 self-center text-[15px] leading-relaxed text-on-surface-variant">${skin.note}</p>` : '<div class="flex-1"></div>'}
+            ${details.length ? `
+            <dl class="grid grid-cols-[auto_1fr] content-center gap-x-5 gap-y-1.5 p-4 text-sm shrink-0">
+                ${details.map((d) => `<dt class="text-muted">${d.label}</dt><dd class="font-mono text-primary">${d.value}</dd>`).join('')}
+            </dl>` : ''}
+            <div class="flex items-center p-4 shrink-0">
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-primary w-full md:w-auto">
+                    <span>Download skin</span>
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                </a>
+            </div>
+        </div>
+    </article>`;
+}
+
+// One of the other skins: screenshot, name, type tag, and download
+function renderSkinCard(skin, index) {
+    const slides = skin.slides || [];
+
+    return `
+    <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
+        <div class="reg-t">
+            <div class="overflow-hidden bg-surface-container">
+                <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none" data-skin-slider data-current="0">
+                    ${slides.map((slide, i) => `
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`} alt="${slide.alt || slide.label || skin.name}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 gap-4 p-4 border border-t-0 border-hairline">
+            <h3 id="skin-card-name-${index}" class="font-display font-bold text-lg leading-snug text-primary">${skin.name}</h3>
+            <div class="flex items-center justify-between gap-3 mt-auto">
+                ${skin.badgeText ? `<span class="tag border border-outline text-on-surface">${skin.badgeText}</span>` : '<span></span>'}
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-secondary">
+                    <span>Download</span>
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                </a>
+            </div>
+        </div>
+    </article>`;
+}
+
 // Dynamic Data Rendering from SITE_CONFIG (js/config.js)
 function renderFromConfig() {
     if (typeof SITE_CONFIG === 'undefined') return;
@@ -142,71 +210,23 @@ function renderFromConfig() {
             driveLink.style.display = 'none';
         }
 
+        const items = (s.items || []).filter((item) => !item.isPlaceholder);
+        const featuredIndex = Math.max(0, items.findIndex((item) => item.current));
+
+        const countEl = document.getElementById('skins-count');
+        if (countEl) countEl.textContent = `${items.length} ${items.length === 1 ? 'skin' : 'skins'}`;
+
+        const featuredEl = document.getElementById('skins-featured');
+        if (featuredEl && items[featuredIndex]) {
+            featuredEl.innerHTML = renderFeaturedSkin(items[featuredIndex]);
+        }
+
         const grid = document.getElementById('skins-grid');
-        
-        if (grid && Array.isArray(s.items) && s.items.length > 0) {
-            grid.innerHTML = s.items.map((item, i) => {
-                if (item.isPlaceholder) {
-                    return `
-                    <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
-                        <div class="relative w-full aspect-video overflow-hidden mb-3.5 md:mb-4 bg-surface-container/40 border border-dashed border-glass-stroke/70 flex flex-col items-center justify-center text-center p-6 transition-all duration-300 hover:border-white/30 hover:bg-surface-container/60">
-                            <span class="material-symbols-outlined text-on-surface-variant/40 text-3xl mb-2" aria-hidden="true">add_circle_outline</span>
-                            <span class="text-xs uppercase tracking-wider text-on-surface-variant/60 font-medium">Coming Soon</span>
-                            <span class="text-xs text-on-surface-variant/40 mt-1">New Skin Placeholder</span>
-                        </div>
-                        <h3 class="font-sans text-lg md:text-xl text-primary/40 mb-1.5 truncate" title="${item.name}">${item.name}</h3>
-                        <p class="font-sans text-on-surface-variant/40 text-sm mb-2">Slot reserved for next skin</p>
-                    </div>`;
-                }
-
-                let desc = `My ${item.badgeText || 'favorite'} skin.`;
-                
-                return `
-                <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
-                    <div class="relative w-full aspect-video overflow-hidden mb-3.5 md:mb-4 bg-surface-container shadow-md border border-glass-stroke/50 group/slider">
-                        
-                        <!-- Image Slider Container -->
-                        <div class="relative w-full h-full flex transition-transform duration-500 ease-in-out" id="slider-${i}" data-current="0" role="region" aria-label="Screenshots of ${item.name}">
-                            ${(item.slides || []).map((slide, slideIdx) => `
-                                <div class="min-w-full h-full flex items-center justify-center">
-                                    <img ${slideIdx === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`} alt="${slide.alt || slide.label || item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover" />
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        <!-- Next/Prev Buttons (visible on hover or keyboard focus) -->
-                        ${(item.slides && item.slides.length > 1) ? `
-                            <button type="button" onclick="event.stopPropagation(); window.slideSkin(${i}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-obsidian-deep/50 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-opacity z-10 hover:bg-obsidian-deep" aria-label="Previous screenshot for ${item.name}">
-                                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
-                            </button>
-                            <button type="button" onclick="event.stopPropagation(); window.slideSkin(${i}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-obsidian-deep/50 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-opacity z-10 hover:bg-obsidian-deep" aria-label="Next screenshot for ${item.name}">
-                                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
-                            </button>
-                        ` : ''}
-
-                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/20 to-transparent opacity-60 group-hover/slider:opacity-40 transition-opacity duration-300 pointer-events-none"></div>
-                        
-                        <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end pointer-events-none z-10">
-                            <div class="bg-primary/85 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-obsidian-deep/90 shadow-sm">${item.badgeText || 'Skin'}</div>
-                            <a href="${item.downloadUrl}" target="_blank" rel="noopener noreferrer" class="pointer-events-auto w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 shadow-lg hover:bg-secondary cursor-pointer" title="Download ${item.name}" aria-label="Download skin ${item.name}">
-                                <span class="material-symbols-outlined text-obsidian-deep text-[18px]" aria-hidden="true">download</span>
-                            </a>
-                        </div>
-
-                        <!-- Dots -->
-                        ${(item.slides && item.slides.length > 1) ? `
-                            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10" aria-hidden="true">
-                                ${item.slides.map((_, dotIndex) => `
-                                    <div id="dot-${i}-${dotIndex}" class="w-1.5 h-1.5 rounded-full ${dotIndex === 0 ? 'bg-primary scale-125' : 'bg-white/50'} transition-all duration-300"></div>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-
-                    </div>
-                    <h3 class="font-sans text-lg md:text-xl text-primary mb-1.5 truncate" title="${item.name}">${item.name}</h3>
-                    <p class="font-sans text-on-surface-variant text-sm mb-2 line-clamp-2">${desc}</p>
-                </div>`;
-            }).join('');
+        if (grid) {
+            grid.innerHTML = items
+                .filter((_, i) => i !== featuredIndex)
+                .map((item, i) => renderSkinCard(item, i))
+                .join('');
         }
     }
 
@@ -410,42 +430,22 @@ function initScrollReveal() {
     targets.forEach(el => observer.observe(el));
 }
 
-// Inline Skin Slider Logic
-window.slideSkin = function(skinIndex, direction) {
-    if (!SITE_CONFIG.skins || !SITE_CONFIG.skins.items) return;
-    const skin = SITE_CONFIG.skins.items[skinIndex];
-    if (!skin || !skin.slides) return;
-    
-    const total = skin.slides.length;
-    const slider = document.getElementById(`slider-${skinIndex}`);
-    if (!slider) return;
-    
-    let current = parseInt(slider.getAttribute('data-current') || 0);
-    current = (current + direction + total) % total;
-    slider.setAttribute('data-current', current);
+// Featured skin: a thumbnail swaps the banner screenshot
+function initFeaturedSkin() {
+    const featured = document.getElementById('skins-featured');
+    const banner = document.getElementById('featured-skin-img');
+    if (!featured || !banner) return;
 
-    // Lazy-load deferred slide images on demand
-    const imgs = slider.querySelectorAll('img[data-src]');
-    imgs.forEach(img => {
-        img.src = img.getAttribute('data-src');
-        img.removeAttribute('data-src');
+    featured.addEventListener('click', (e) => {
+        const thumb = e.target.closest('[data-featured-slide]');
+        if (!thumb) return;
+        banner.src = thumb.dataset.src;
+        banner.alt = thumb.dataset.alt;
+        featured.querySelectorAll('[data-featured-slide]').forEach((t) => {
+            t.setAttribute('aria-pressed', String(t === thumb));
+        });
     });
-    
-    // Move the slider container
-    slider.style.transform = `translateX(-${current * 100}%)`;
-    
-    // Update dots
-    for(let j = 0; j < total; j++) {
-        const dot = document.getElementById(`dot-${skinIndex}-${j}`);
-        if(dot) {
-            if(j === current) {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-primary scale-125 transition-all duration-300";
-            } else {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-white/50 transition-all duration-300";
-            }
-        }
-    }
-};
+}
 
 // Mobile Navigation Drawer Toggle
 function initMobileMenu() {
@@ -607,6 +607,7 @@ function initLightbox() {
 function initApp() {
     renderFromConfig();
     initSocials();
+    initFeaturedSkin();
     initScrollReveal();
     initNavScroll();
     initMobileMenu();

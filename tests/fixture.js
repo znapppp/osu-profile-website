@@ -1,14 +1,20 @@
 // @ts-check
+const fs = require('fs');
 const path = require('path');
 const base = require('@playwright/test');
 
-const FIXTURE_CONFIG = path.join(__dirname, 'fixtures', 'config.js');
+const FIXTURE_CONFIG = fs.readFileSync(path.join(__dirname, 'fixtures', 'config.js'), 'utf8');
 
-// Every test sees the page with the fixture SITE_CONFIG instead of the real js/config.js
+// Every test sees the page with the fixture SITE_CONFIG instead of the real js/config.js.
+// A test can change that data with test.use({ configPatch: '<js run after SITE_CONFIG is defined>' }).
 const test = base.test.extend({
-    page: async ({ page }, use) => {
+    configPatch: ['', { option: true }],
+    page: async ({ page, configPatch, baseURL }, use) => {
+        // Third-party requests (Google Fonts, osu! avatar) only slow tests down and make them flaky
+        const origin = new URL(baseURL || '').origin;
+        await page.route((url) => url.origin !== origin, (route) => route.abort());
         await page.route('**/js/config.js', (route) =>
-            route.fulfill({ path: FIXTURE_CONFIG, contentType: 'application/javascript' })
+            route.fulfill({ body: `${FIXTURE_CONFIG}\n${configPatch}`, contentType: 'application/javascript' })
         );
         await use(page);
     },
