@@ -6,6 +6,8 @@ const PORT = 4173;
 module.exports = defineConfig({
     testDir: './tests',
     fullyParallel: true,
+    // More parallel Chrome instances than this starve each other and push page loads past the timeout
+    workers: 2,
     reporter: 'list',
     use: {
         baseURL: `http://localhost:${PORT}`,

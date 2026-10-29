@@ -2,6 +2,27 @@
    Znap- osu! Setup Configuration - Interactive Application Logic (Tailwind)
    ========================================================================== */
 
+// Attributes the lightbox reads to open a skin screenshot full size
+function lightboxAttrs(skin, slide) {
+    return `data-lightbox="${slide.src}" data-lightbox-title="${skin.name} — ${slide.label}" data-lightbox-alt="${slide.alt || slide.label || skin.name}"`;
+}
+
+function zoomButton(skin, slide) {
+    return `
+    <button type="button" ${lightboxAttrs(skin, slide)} aria-label="View ${skin.name} screenshot full size" class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary hover:bg-obsidian-deep transition-colors cursor-zoom-in">
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">zoom_in</span>
+    </button>`;
+}
+
+// Points every lightbox trigger inside `root` at a new screenshot
+function setLightboxTarget(root, src, title, alt) {
+    root.querySelectorAll('[data-lightbox]').forEach((trigger) => {
+        trigger.dataset.lightbox = src;
+        trigger.dataset.lightboxTitle = title;
+        trigger.dataset.lightboxAlt = alt;
+    });
+}
+
 // Current skin: a wide banner, then a spec bar with screenshot thumbnails, the owner's note, details, and download
 function renderFeaturedSkin(skin) {
     const slides = skin.slides || [];
@@ -12,8 +33,9 @@ function renderFeaturedSkin(skin) {
     <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
         <div class="reg-t">
             <div class="relative overflow-hidden bg-surface-container">
-                <img id="featured-skin-img" src="${first.src}" alt="${first.alt || first.label || skin.name}" decoding="async" class="w-full aspect-video md:aspect-[3/1] object-cover" />
+                <img id="featured-skin-img" src="${first.src}" alt="${first.alt || first.label || skin.name}" decoding="async" class="w-full aspect-video md:aspect-[3/1] object-cover cursor-zoom-in" ${lightboxAttrs(skin, first)} />
                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/10 to-transparent pointer-events-none"></div>
+                ${zoomButton(skin, first)}
                 <div class="absolute left-4 right-4 bottom-4 md:left-6 md:bottom-6">
                     <span class="tag bg-primary text-obsidian-deep">Current</span>
                     <h3 id="featured-skin-name" class="font-display font-extrabold text-2xl md:text-[32px] leading-tight text-primary mt-3">${skin.name}</h3>
@@ -24,7 +46,7 @@ function renderFeaturedSkin(skin) {
             ${slides.length > 1 ? `
             <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
                 ${slides.map((slide, i) => `
-                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slide.alt || slide.label || skin.name}" aria-label="Show ${slide.label}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slide.alt || slide.label || skin.name}" data-title="${skin.name} — ${slide.label}" aria-label="Show ${slide.label}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
                     <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
@@ -51,10 +73,11 @@ function renderSkinCard(skin, index) {
     <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
         <div class="reg-t">
             <div class="relative overflow-hidden bg-surface-container">
-                <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none" data-skin-slider data-current="0">
+                <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
                     ${slides.map((slide, i) => `
-                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} alt="${slide.alt || slide.label || skin.name}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slide.alt || slide.label || skin.name}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
                 </div>
+                ${zoomButton(skin, slides[0] || {})}
                 ${slides.length > 1 ? `
                 <div class="absolute left-3 bottom-3 flex items-center bg-obsidian-deep/85">
                     <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center text-primary hover:bg-white/10 transition-colors cursor-pointer">
@@ -452,6 +475,7 @@ function initFeaturedSkin() {
         if (!thumb) return;
         banner.src = thumb.dataset.src;
         banner.alt = thumb.dataset.alt;
+        setLightboxTarget(featured, thumb.dataset.src, thumb.dataset.title, thumb.dataset.alt);
         featured.querySelectorAll('[data-featured-slide]').forEach((t) => {
             t.setAttribute('aria-pressed', String(t === thumb));
         });
@@ -478,6 +502,10 @@ function initSkinSliders() {
 
         track.style.transform = `translateX(-${current * 100}%)`;
         slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== current)));
+
+        const shown = slides[current];
+        const name = card.querySelector('h3').textContent;
+        setLightboxTarget(card, shown.src, `${name} — ${shown.dataset.label}`, shown.alt);
         card.querySelectorAll('[data-slide-to]').forEach((dot) => {
             dot.setAttribute('aria-current', String(Number(dot.dataset.slideTo) === current));
         });
@@ -650,7 +678,7 @@ function initLightbox() {
             const src = trigger.getAttribute('data-lightbox');
             const title = trigger.getAttribute('data-lightbox-title');
             const img = trigger.querySelector('img');
-            const alt = img ? img.alt : '';
+            const alt = trigger.getAttribute('data-lightbox-alt') || (img ? img.alt : '');
             openLightbox(src, alt, title);
         }
     });
