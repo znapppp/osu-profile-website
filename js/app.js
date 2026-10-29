@@ -264,23 +264,23 @@ function renderFromConfig() {
                     <!-- Left: Info & Specs (5 Cols) -->
                     <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
                         <div>
-                            <h3 class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">${item.name}</h3>
+                            <h3 class="font-display font-bold text-2xl md:text-3xl text-primary mb-2">${item.name}</h3>
                             <p class="font-sans text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${desc}</p>
                         </div>
 
                         <!-- Quick Spec Boxes -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-1">
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest border border-glass-stroke shadow-sm">
-                                <span class="font-sans text-sm text-on-surface-variant">Compatible With</span>
-                                <span class="font-mono text-body-md text-primary">tosu</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span class="font-mono text-sm text-primary">tosu</span>
+                                <span class="text-xs text-muted">Compatible with</span>
                             </div>
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest border border-glass-stroke shadow-sm">
-                                <span class="font-sans text-sm text-on-surface-variant">Target Screen</span>
-                                <span class="font-mono text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="1440x900 on 1920x1080">1440x900 on 1080p</span>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span class="font-mono text-sm text-primary">1440x900 on 1080p</span>
+                                <span class="text-xs text-muted">Target screen</span>
                             </div>
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest border border-glass-stroke shadow-sm sm:col-span-2">
-                                <span class="font-sans text-sm text-on-surface-variant">Key Features</span>
-                                <span class="font-mono text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Dynamic Beatmap Artwork, Video Toggle, Custom Dim">Dynamic BG & Video / Custom Dim</span>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0 sm:col-span-2">
+                                <span class="font-mono text-sm text-primary">Dynamic BG &amp; Video / Custom Dim</span>
+                                <span class="text-xs text-muted">Key features</span>
                             </div>
                         </div>
 
@@ -288,16 +288,16 @@ function renderFromConfig() {
                         <div class="flex flex-col gap-3 mt-1">
                             <div class="flex flex-wrap items-center gap-3">
                                 ${downloadUrl && downloadUrl !== '#' ? `
-                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-obsidian-deep font-semibold text-xs hover:bg-secondary transition-all duration-300 shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="btn-primary">
                                         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                                         <span>Download Overlay (.zip)</span>
                                     </a>
                                 ` : ''}
                                 ${videoPreviewUrl ? `
-                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest/80 border border-white/10 text-on-surface hover:text-primary hover:border-white/25 text-xs font-medium transition-all duration-300 shadow-sm hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group">
-                                        <span class="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform" aria-hidden="true">smart_display</span>
+                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="btn-secondary">
+                                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
                                         <span>Video Preview</span>
-                                        <span class="material-symbols-outlined text-[14px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
+                                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
                                     </a>
                                 ` : ''}
                                 ${githubUrl ? `
@@ -309,23 +309,23 @@ function renderFromConfig() {
                             </div>
 
                             ${sourceRefUrl ? `
-                                <div class="text-xs text-on-surface-variant/75 flex items-center gap-1.5 pt-1">
+                                <div class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
                                     <span>Forked from:</span>
-                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant/90 hover:text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">Citrusis/OBSDecoratePack</a>
+                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">Citrusis/OBSDecoratePack</a>
                                 </div>
                             ` : ''}
                         </div>
                     </div>
 
                     <!-- Right: Large Video/Image Showcase (7 Cols) -->
-                    <div class="md:col-span-7 relative group">
-                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-glass-stroke shadow-xl">
+                    <div class="md:col-span-7 relative group reg">
+                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
                             ${hasVideo ? `
-                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
+                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
                             ` : (imgSrc ? `
-                                <img class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 transition-all duration-700" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
+                                <img class="absolute inset-0 w-full h-full object-contain" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
                             ` : `
-                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-on-surface-variant/50 font-mono text-sm">No preview available</div>
+                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-muted font-mono text-sm">No preview available</div>
                             `)}
                         </div>
                     </div>
