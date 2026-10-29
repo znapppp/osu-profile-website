@@ -42,7 +42,7 @@ test('body copy is set at regular weight, not light', async ({ page }) => {
 
 test('setting values use Geist Mono', async ({ page }) => {
     await page.goto('/');
-    const family = await page.getByText('50 mm x 30 mm').evaluate((el) => getComputedStyle(el).fontFamily);
+    const family = await page.getByText('Fixture Driver v1').evaluate((el) => getComputedStyle(el).fontFamily);
     expect(family).toMatch(/^"?Geist Mono/);
 });
 

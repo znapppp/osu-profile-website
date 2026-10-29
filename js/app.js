@@ -104,6 +104,25 @@ function renderSkinCard(skin, index) {
     </article>`;
 }
 
+// A lone number with a unit ("180 Hz", "0.3 mm") shows the number large; anything else stays plain text
+function setSpecValue(id, text) {
+    const el = document.getElementById(id);
+    if (!el || !text) return;
+    el.title = text;
+    const match = /^(\d+(?:\.\d+)?)\s+([A-Za-z]+(?:\s*\([^)]*\))?)$/.exec(text);
+    if (!match) {
+        el.textContent = text;
+        return;
+    }
+    const number = document.createElement('span');
+    number.className = 'font-display font-bold text-3xl leading-none';
+    number.textContent = match[1];
+    const unit = document.createElement('span');
+    unit.className = 'font-mono text-sm text-muted';
+    unit.textContent = match[2];
+    el.replaceChildren(number, ' ', unit);
+}
+
 // Dynamic Data Rendering from SITE_CONFIG (js/config.js)
 function renderFromConfig() {
     if (typeof SITE_CONFIG === 'undefined') return;
@@ -153,87 +172,33 @@ function renderFromConfig() {
         }
     }
 
-    // 2. Tablet Settings
-    if (SITE_CONFIG.tablet) {
-        const t = SITE_CONFIG.tablet;
-        const el = (id) => document.getElementById(id);
-        if (el('tablet-device') && t.device) el('tablet-device').textContent = t.device;
-        if (el('tablet-area') && t.area) el('tablet-area').textContent = t.area;
-        if (el('tablet-driver') && t.driverName) el('tablet-driver').textContent = t.driverName;
-        if (el('tablet-img') && t.previewImage) {
-            el('tablet-img').src = t.previewImage;
-            if (t.previewAlt) el('tablet-img').alt = t.previewAlt;
-            const btn = el('tablet-img').closest('[data-lightbox]');
+    // 2. Gear spec sheet: tablet, keyboard, keypad, monitor, audio
+    const gear = [
+        ['tablet', SITE_CONFIG.tablet, { area: 'area', driver: 'driverName' }],
+        ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
+        ['keypad', SITE_CONFIG.keypad, { stroke: 'stroke', actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
+        ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', response: 'responseTime', resolution: 'resolution' }],
+        ['audio', SITE_CONFIG.audio, { conn: 'connector', type: 'type' }],
+    ];
+    gear.forEach(([prefix, data, fields]) => {
+        if (!data) return;
+        const device = document.getElementById(`${prefix}-device`);
+        if (device && data.device) device.textContent = data.device;
+        Object.entries(fields).forEach(([suffix, key]) => setSpecValue(`${prefix}-${suffix}`, data[key]));
+
+        const img = document.getElementById(`${prefix}-img`);
+        if (img && data.previewImage) {
+            img.src = data.previewImage;
+            if (data.previewAlt) img.alt = data.previewAlt;
+            const btn = img.closest('[data-lightbox]');
             if (btn) {
-                btn.setAttribute('data-lightbox', t.previewImage);
-                if (t.previewAlt) btn.setAttribute('data-lightbox-title', t.previewAlt);
+                btn.setAttribute('data-lightbox', data.previewImage);
+                if (data.previewAlt) btn.setAttribute('data-lightbox-title', data.previewAlt);
             }
         }
-    }
+    });
 
-    // 3. Keyboard Settings
-    if (SITE_CONFIG.keyboard) {
-        const k = SITE_CONFIG.keyboard;
-        const el = (id) => document.getElementById(id);
-        if (el('keyboard-device') && k.device) el('keyboard-device').textContent = k.device;
-        if (el('keyboard-actuation') && k.actuationPoint) el('keyboard-actuation').textContent = k.actuationPoint;
-        if (el('keyboard-rapid') && k.rapidTrigger) el('keyboard-rapid').textContent = k.rapidTrigger;
-        if (el('keyboard-img') && k.previewImage) {
-            el('keyboard-img').src = k.previewImage;
-            if (k.previewAlt) el('keyboard-img').alt = k.previewAlt;
-            const btn = el('keyboard-img').closest('[data-lightbox]');
-            if (btn) {
-                btn.setAttribute('data-lightbox', k.previewImage);
-                if (k.previewAlt) btn.setAttribute('data-lightbox-title', k.previewAlt);
-            }
-        }
-    }
-
-    // 4. Keypad Settings
-    if (SITE_CONFIG.keypad) {
-        const kp = SITE_CONFIG.keypad;
-        const el = (id) => document.getElementById(id);
-        if (el('keypad-device') && kp.device) el('keypad-device').textContent = kp.device;
-        if (el('keypad-stroke') && kp.stroke) el('keypad-stroke').textContent = kp.stroke;
-        if (el('keypad-actuation') && kp.actuationPoint) {
-            el('keypad-actuation').textContent = kp.actuationPoint;
-            el('keypad-actuation').title = kp.actuationPoint;
-        }
-        if (el('keypad-rapid') && kp.rapidTrigger) {
-            el('keypad-rapid').textContent = kp.rapidTrigger;
-            el('keypad-rapid').title = kp.rapidTrigger;
-        }
-        if (el('keypad-img') && kp.previewImage) {
-            el('keypad-img').src = kp.previewImage;
-            if (kp.previewAlt) el('keypad-img').alt = kp.previewAlt;
-            const btn = el('keypad-img').closest('[data-lightbox]');
-            if (btn) {
-                btn.setAttribute('data-lightbox', kp.previewImage);
-                if (kp.previewAlt) btn.setAttribute('data-lightbox-title', kp.previewAlt);
-            }
-        }
-    }
-
-    // 5. Monitor Settings
-    if (SITE_CONFIG.monitor) {
-        const m = SITE_CONFIG.monitor;
-        const el = (id) => document.getElementById(id);
-        if (el('monitor-device') && m.device) el('monitor-device').textContent = m.device;
-        if (el('monitor-refresh') && m.refreshRate) el('monitor-refresh').textContent = m.refreshRate;
-        if (el('monitor-response') && m.responseTime) el('monitor-response').textContent = m.responseTime;
-        if (el('monitor-resolution') && m.resolution) el('monitor-resolution').textContent = m.resolution;
-    }
-
-    // 6. Audio Settings
-    if (SITE_CONFIG.audio) {
-        const a = SITE_CONFIG.audio;
-        const el = (id) => document.getElementById(id);
-        if (el('audio-device') && a.device) el('audio-device').textContent = a.device;
-        if (el('audio-conn') && a.connector) el('audio-conn').textContent = a.connector;
-        if (el('audio-type') && a.type) el('audio-type').textContent = a.type;
-    }
-
-    // 7. Skins Grid
+    // 3. Skins Grid
     if (SITE_CONFIG.skins) {
         const s = SITE_CONFIG.skins;
         
