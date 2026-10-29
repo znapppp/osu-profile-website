@@ -50,11 +50,22 @@ function renderSkinCard(skin, index) {
     return `
     <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
         <div class="reg-t">
-            <div class="overflow-hidden bg-surface-container">
+            <div class="relative overflow-hidden bg-surface-container">
                 <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none" data-skin-slider data-current="0">
                     ${slides.map((slide, i) => `
-                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`} alt="${slide.alt || slide.label || skin.name}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} alt="${slide.alt || slide.label || skin.name}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
                 </div>
+                ${slides.length > 1 ? `
+                <div class="absolute left-3 bottom-3 flex items-center bg-obsidian-deep/85">
+                    <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
+                    </button>
+                    ${slides.map((_, i) => `
+                    <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
+                    <button type="button" data-slide-step="1" aria-label="Next screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
+                    </button>
+                </div>` : ''}
             </div>
         </div>
         <div class="flex flex-col flex-1 gap-4 p-4 border border-t-0 border-hairline">
@@ -447,6 +458,61 @@ function initFeaturedSkin() {
     });
 }
 
+// Skin cards: step through screenshots with the arrows, the dots, or a horizontal swipe
+function initSkinSliders() {
+    const grid = document.getElementById('skins-grid');
+    if (!grid) return;
+
+    function showSlide(card, index) {
+        const track = card.querySelector('[data-skin-slider]');
+        if (!track) return;
+        const slides = Array.from(track.children);
+        const current = (index + slides.length) % slides.length;
+        track.dataset.current = current;
+
+        // Deferred screenshots load on the first navigation
+        track.querySelectorAll('img[data-src]').forEach((img) => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+
+        track.style.transform = `translateX(-${current * 100}%)`;
+        slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== current)));
+        card.querySelectorAll('[data-slide-to]').forEach((dot) => {
+            dot.setAttribute('aria-current', String(Number(dot.dataset.slideTo) === current));
+        });
+    }
+
+    function step(card, direction) {
+        const track = card.querySelector('[data-skin-slider]');
+        if (track) showSlide(card, Number(track.dataset.current) + direction);
+    }
+
+    grid.addEventListener('click', (e) => {
+        const control = e.target.closest('[data-slide-step], [data-slide-to]');
+        if (!control) return;
+        const card = control.closest('article');
+        if (control.dataset.slideStep) step(card, Number(control.dataset.slideStep));
+        else showSlide(card, Number(control.dataset.slideTo));
+    });
+
+    let touchStart = null;
+    grid.addEventListener('touchstart', (e) => {
+        if (!e.target.closest('[data-skin-slider]')) return;
+        touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }, { passive: true });
+
+    grid.addEventListener('touchend', (e) => {
+        if (!touchStart) return;
+        const dx = e.changedTouches[0].clientX - touchStart.x;
+        const dy = e.changedTouches[0].clientY - touchStart.y;
+        touchStart = null;
+        // Ignore taps and mostly-vertical scrolling
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+        step(e.target.closest('article'), dx < 0 ? 1 : -1);
+    }, { passive: true });
+}
+
 // Mobile Navigation Drawer Toggle
 function initMobileMenu() {
     const toggleBtn = document.getElementById('mobile-menu-toggle');
@@ -608,6 +674,7 @@ function initApp() {
     renderFromConfig();
     initSocials();
     initFeaturedSkin();
+    initSkinSliders();
     initScrollReveal();
     initNavScroll();
     initMobileMenu();
