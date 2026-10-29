@@ -18,6 +18,38 @@
   }
 }
 
+@layer components {
+  /* Registration marks: "+" marks drawn just outside a frame's corners, taken from the floating cross motif.
+     .reg marks all four corners, .reg-t only the top two, .reg-b only the bottom two. */
+  .reg, .reg-t, .reg-b {
+    position: relative;
+    --mark-tl: linear-gradient(#fff, #fff) top 0 left 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) top 6px left 0 / 14px 2px no-repeat;
+    --mark-tr: linear-gradient(#fff, #fff) top 0 right 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) top 6px right 0 / 14px 2px no-repeat;
+    --mark-bl: linear-gradient(#fff, #fff) bottom 0 left 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) bottom 6px left 0 / 14px 2px no-repeat;
+    --mark-br: linear-gradient(#fff, #fff) bottom 0 right 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) bottom 6px right 0 / 14px 2px no-repeat;
+  }
+  .reg::before, .reg-t::before, .reg-b::before {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .reg::before { background: var(--mark-tl), var(--mark-tr), var(--mark-bl), var(--mark-br); }
+  .reg-t::before { background: var(--mark-tl), var(--mark-tr); }
+  .reg-b::before { background: var(--mark-bl), var(--mark-br); }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-between gap-3 px-4 py-3 bg-primary text-obsidian-deep font-display font-bold text-sm transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-between gap-3 px-3 py-2 border border-primary text-primary font-display font-bold text-sm transition-colors hover:bg-primary hover:text-obsidian-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .tag {
+    @apply inline-block px-2 py-1 font-display font-bold text-xs tracking-wider uppercase;
+  }
+}
+
 /* High-Visibility Custom Scrollbar */
 * {
   scrollbar-width: thin;
