@@ -38,7 +38,7 @@ function renderFeaturedSkin(skin) {
                 ${zoomButton(skin, first)}
                 <div class="absolute left-4 right-4 bottom-4 md:left-6 md:bottom-6">
                     <span class="tag bg-primary text-obsidian-deep">Current</span>
-                    <h3 id="featured-skin-name" class="font-display font-extrabold text-2xl md:text-[32px] leading-tight text-primary mt-3">${skin.name}</h3>
+                    <h3 id="featured-skin-name" class="font-display font-bold text-2xl md:text-[32px] leading-tight text-primary mt-3">${skin.name}</h3>
                 </div>
             </div>
         </div>

@@ -75,8 +75,8 @@ module.exports = {
         gutter: "24px"
       },
       fontFamily: {
-        // Archivo at its widest setting: headings, skin names, and key numbers
-        display: [["Archivo", "sans-serif"], { fontVariationSettings: '"wdth" 125' }],
+        // Zen Maru Gothic: headings, skin names, and key numbers
+        display: ["Zen Maru Gothic", "sans-serif"],
         sans: ["Geist", "sans-serif"],
         // Units and setting values
         mono: ["Geist Mono", "monospace"]
@@ -85,7 +85,7 @@ module.exports = {
         "label-small": ["12px", { lineHeight: "16px", fontWeight: "400" }],
         "body-md": ["16px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "400" }],
         "body-lg": ["20px", { lineHeight: "32px", letterSpacing: "0.01em", fontWeight: "400" }],
-        "headline-lg": ["48px", { lineHeight: "52px", letterSpacing: "-0.01em", fontWeight: "800" }],
+        "headline-lg": ["48px", { lineHeight: "52px", letterSpacing: "-0.01em", fontWeight: "700" }],
         "headline-lg-mobile": ["32px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "700" }],
         "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500" }],
         "display-hero": ["80px", { lineHeight: "88px", letterSpacing: "-0.03em", fontWeight: "700" }]

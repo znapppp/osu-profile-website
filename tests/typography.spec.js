@@ -23,11 +23,11 @@ function smallTextIn(page, selector, minPx) {
     }, [selector, minPx]);
 }
 
-test('section headings use the Archivo display face', async ({ page }) => {
+test('section headings use the Zen Maru Gothic display face', async ({ page }) => {
     await page.goto('/');
     for (const id of ['hardware', 'skins', 'overlays']) {
         const family = await page.locator(`#${id} h2`).evaluate((el) => getComputedStyle(el).fontFamily);
-        expect(family, `#${id} heading`).toMatch(/^"?Archivo/);
+        expect(family, `#${id} heading`).toMatch(/^"?Zen Maru Gothic/);
     }
 });
 
