@@ -1,39 +1,44 @@
-# Next tasks: site redesign handoff
+# Next tasks: site handoff
 
-This file hands off an in-progress redesign to a new session with no access to the previous conversation. Read all of it before changing code.
+This file hands the site over to a new session that has no access to earlier conversations. Read all of it before changing code.
 
-## Getting started on a new machine
-
-First, on the old machine, push the branch: `git push -u origin redesign/visual-refresh-skins`.
-
-Then, on the new machine:
+## Getting started
 
 ```bash
 git fetch
-git checkout redesign/visual-refresh-skins
+git checkout main
 npm install
+npm test
 ```
 
 Requirements:
 
 - Node.js, for `npm install` and `npm test`.
 - Google Chrome, because the tests use the installed Chrome. See "How the tests work" if Chrome isn't installed.
-- The `gh` CLI, logged in with `gh auth login`. Optional: it's only needed to read issue #1, and the essentials are in this file.
+- The `gh` CLI, logged in with `gh auth login`, to read the spec (issue #1) and open pull requests.
 
 ## Where things stand
 
-- **Branch:** `redesign/visual-refresh-skins` (based on `main`). The work is committed here; `main` is untouched. Push with `git push -u origin redesign/visual-refresh-skins` if the branch isn't on GitHub yet.
-- **Spec:** GitHub issue #1, "Redesign: sharper visual language and featured skins showcase" (`gh issue view 1`). It is the source of truth, **except for the display font** (see Decisions).
-- **Tests:** `npm test`. At the last run, 35 passed and 9 skipped. The skipped tests are the pending gear tests (desktop and mobile), marked `fixme`.
+- **`main`** has the whole redesign. PR #2 (spec: issue #1, "Redesign: sharper visual language and featured skins showcase") and PR #3 (removes the "+" registration marks around frames) are merged.
+- **Follow-ups from 2026-10-30**, pushed straight to `main`:
+  - Config text and URLs are escaped before they go into HTML.
+  - The nav marks the current section on load.
+  - The keyboard has a Keybind cell, and the tablet driver name links to its download page.
+  - The overlay facts and the fork credit come from the config.
+  - Config fields that nothing reads are removed.
+  - Motion tests, including a Playwright project that runs Chrome without hardware acceleration.
+- **`redesign/visual-refresh-skins`** is merged. Its last commit, `0d180c7`, is ported to `main` without the part that brought back the registration marks PR #3 removed, so the branch can be deleted.
+- **Tests:** `npm test`. At the last run, 95 passed and 12 skipped. A test that only applies to one kind of device skips on the other, and the GPU check runs only in the no-GPU project.
 
 ## The owner and what they want
 
 - The owner, Znap-, speaks Thai. Reply in Thai.
 - **Visitors:** mostly osu! players who come for the **skins**. Skins are the most important part of the site.
-- **What's wrong today:** the owner finds the current site cluttered, uninteresting, and hard to read.
+- **What was wrong before the redesign:** the owner found the site cluttered, uninteresting and hard to read.
 - **What to keep:** the dark monochrome feel and the floating rounded-cross motif.
 - **Typography:** fonts that are cute but simple and elegant. The owner rejected a wide, heavy esports font (Archivo) as looking weird.
-- **No "AI slop":** no glassmorphism, no soft rounded cards everywhere, no gradient text, no tiny tracked uppercase labels on every element, and no decoration that doesn't come from the existing cross motif.
+- **No "AI slop":** no glassmorphism, no soft rounded cards everywhere, no gradient text, no tiny tracked uppercase labels on every element, and no decoration that doesn't come from the cross motif.
+- **Animations:** visitors must see them, including people whose Windows animation effects or Chrome hardware acceleration are off. See "Motion".
 - **Commits:** never put Claude, Anthropic, or any AI name in commits or PRs, and no `Co-Authored-By` trailers. Commit under the configured git identity.
 
 ## Decisions already made
@@ -57,108 +62,78 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
 - Buttons (`.btn-primary`, `.btn-secondary`, slide arrows, zoom buttons, thumbnails, lightbox close, menu toggle, footer links) have 6px corners (`rounded-md`).
 - Owner exception: the hero social dock (TikTok, X, Discord) is rounded (`rounded-2xl`, 16px), and its icon buttons use `rounded-lg`.
 - Hairline borders use the `border-hairline` colour (`#2e2e2e`).
-- Shared classes in `css/styles.css` under `@layer components`:
-  - **Buttons:** `.btn-primary` is solid white, `.btn-secondary` is a white outline.
-  - **Tags:** `.tag` for small type labels.
+- Frames have no "+" registration marks (PR #3 removed them). Don't bring back `.reg`, `.reg-t` or `.reg-b`.
 - Nothing may appear only on hover. Download buttons, slide controls, dots, and zoom buttons are always visible.
 
 ### Section breaks and navigation
 
-- No section numbers. Each content section (Gear, Skins, Overlay) opens with a divider rule with "+" marks at both ends. These are the only "+" marks on the site: frames have no registration marks.
-- The header nav underlines the link of the section in view (2px, no layout shift) and sets `aria-current="location"` on it, on the mobile menu links too.
+- No section numbers. Each content section (Gear, Skins, Overlay) opens with a `.section-rule` divider: a 1px rule with "+" marks at both ends. These are the only "+" marks on the site.
+- Nav labels match the section headings: Gear, Skins, Overlay.
+- The header nav underlines the link of the section in view (2px, no layout shift) and sets `aria-current="location"` on it, on the mobile menu links too. It also does this on load, so a `#skins` link is marked straight away.
 
 ### Background
 
 - The floating rounded crosses live only in the hero (`#overview`) and scroll away with it. Gear, Skins, Overlay and the footer have a plain solid background with no crosses.
 
-### Skins section (done)
+### Motion
+
+- The hero entrance, the floating crosses, the section reveals and the overlay preview autoplay play even when the visitor's system prefers reduced motion. Windows turns that preference on whenever its animation effects are off, which is common on gaming PCs, and those visitors must see the animations too.
+- Only the skin card slide transition and the nav underline transition are instant under reduced motion.
+- Chrome with hardware acceleration off draws in software and runs the animations smoothly. It was never the cause of missing animations.
+- Full reasoning and measurements: `docs/adr/0001-animations-play-with-reduced-motion.md`. `tests/motion.spec.js` fails if this breaks.
+
+### Skins section
 
 - The skin flagged `current: true` is featured. If none is flagged, the first skin is featured.
-- **Featured banner:** 16:9 at every size with `object-contain` on black, so the whole screenshot is visible (non-16:9 images are letterboxed). The CURRENT tag and skin name sit in a row directly below the image (nothing overlays the screenshot except the zoom button), above the spec bar. Skin card sliders use the same 16:9, `object-contain` rule.
-- **Spec bar** under the banner holds:
-  - screenshot thumbnails; clicking one swaps the banner image
+- **Featured skin:** one frame. On desktop the screenshot sits on the left (16:9, `object-contain` on black, so the whole screenshot shows) and a side panel on the right holds:
+  - the CURRENT tag and the skin name
   - the owner's `note`
   - `details` rows
+  - screenshot thumbnails (clicking one swaps the screenshot)
   - a solid Download button
+
+  On smaller screens the panel stacks under the screenshot. Nothing overlays the screenshot except the zoom button.
 - **Other skins:** cards in a two-column grid (one column on mobile). Each card has:
-  - a slider with always-visible prev/next arrows and clickable dots
+  - a 16:9 `object-contain` slider with always-visible prev/next arrows and clickable dots
   - swipe on touch devices
   - an instant switch when reduced motion is preferred
-  - a type tag and an outline Download button
-- **Lightbox:** clicking a banner or card screenshot, or its zoom button, opens the existing lightbox on the screenshot currently shown. The title is "Skin name — Screen label".
+  - a type tag (`badgeText`) and an outline Download button
+- **Lightbox:** clicking a screenshot or its zoom button opens the lightbox on the screenshot shown. The title is "Skin name — Screen label".
 - **Header:** the "N skins" count, and an "Older skins" archive link.
-- Placeholder ("Coming Soon") items and auto-generated card descriptions are removed.
+- No placeholder ("Coming Soon") items and no auto-generated descriptions.
 
-## Remaining work, in order
+### Gear section
 
-### 1. Migrate the real content in `js/config.js` (not done)
+- One spec sheet in `#hardware`: tablet, keyboard, monitor and earphones. Each is an `<article>` with a small category label ("Tablet", "Keyboard", "Monitor", "Earphones") above the device name, which is an `<h3>` in `font-display`.
+- Setting values sit in hairline-divided cells. Every cell is at least 104px tall, with a small `text-muted` label.
+- A single number plus unit (`0.3 mm`, `180 Hz`) shows the number large in `font-display` and the unit small in `font-mono`. Any other value (driver, resolution, keybind) is `font-mono` text. `setSpecValue()` in `js/app.js` does the split.
+- Tablet and keyboard show their info on the left and the settings screenshot on the right, in full colour, opening in the lightbox. Monitor and earphones have no screenshots and sit side by side at equal height.
+- The keyboard has a Keybind cell (`keyboard.keybind`). The tablet driver name links to `tablet.driverDownloadUrl`.
+- The Sayodevice keypad and the monitor response time were removed on purpose.
 
-The renderer supports the new skin shape, but the real config still uses the old one.
+### Overlay section
 
-- On the Aristia skin:
-  - add `current: true`
-  - add `note`, taken from `skins.subtext` ("I'm way more comfortable playing with the Instafade skin :)")
-  - add `details`, e.g. `[{ label: "Base", value: "Aristia" }, { label: "Hitcircles", value: "Instafade" }]`
-- Clean up the skin names:
-  - "Aristia Instafade (Znap- edit)"
-  - "Milkteaism Hydro DT BETA (Znap- edit)"
-  - "dddx15dt (Znap- edit)"
-- Remove the "Coming Soon Skin" placeholder item, every `badgeClass` field, and `skins.subtext`.
-- Keep `badgeText` ("High AR", "DT"); it is the type tag on cards.
-- In `README.md` under "Updating Content", replace the `isPlaceholder` note with a description of `current`, `note`, and `details`.
-
-### 2. Ticket 6: gear section as a spec sheet
-
-The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` line at the top, confirm the tests fail, then build until they pass.
-
-- **One section:** put all four devices (tablet, keyboard, monitor, audio) inside the single `#hardware` section. Monitor and audio currently sit in a separate, unlabelled `<section>` after `#hardware`.
-- **Equal cells:** every value cell has the same minimum height (104px) and value row height, so large numbers and mono text share a baseline and labels sit at the same place. Monitor and audio sit side by side and stretch to equal height.
-- **One treatment for every device:**
-  - an `<article>` with the device name as an `<h3>` in `font-display`
-  - setting values in hairline-divided cells (e.g. a `grid gap-px bg-hairline border border-hairline` container with `bg-background` cells)
-  - each cell has a value and a small `text-muted` label, e.g. "Refresh rate"
-- **How a value is shown:**
-  - A single number plus unit (`0.3 mm`, `180 Hz`, `1 ms`) shows the number large in `font-display` and the unit small in `font-mono`.
-  - Any other value (driver name, "Release: … | Trigger: …", resolution, "USB-C") shows as `font-mono` text.
-  - The values are written by `renderFromConfig()` in `js/app.js` through element ids. That code needs a helper that splits number and unit.
-- **Layout:** no zig-zag. Info on the left and the screenshot on the right for every device that has a screenshot. Monitor and audio, which have no screenshots, can sit side by side.
-- **Screenshots:** full colour. Remove the `grayscale opacity-80` / hover treatment. Keep their lightbox buttons.
-- **Possible test update:** if the tablet area value gets split into number and unit, the test "setting values use Geist Mono" in `tests/typography.spec.js` looks up `getByText('50 mm x 30 mm')`. Point it at a value that stays whole, e.g. the driver "Fixture Driver v1".
-
-### 3. Ticket 7: naming, overlay, and footer
-
-- Make navigation labels match section headings, in both the desktop and mobile nav:
-  - "Hardware" becomes **Gear**
-  - the heading "Gear & Settings" becomes **Gear**
-  - "Overlays" stays the nav label, and the heading "My tosu overlay" becomes **Overlay**
-- Sections are not numbered (the owner rejected section numbers). Instead each content section starts with a divider rule: a 1px `rule` (#444) line with "+" marks at both ends (`.section-rule`, `aria-hidden`), then the `font-display` heading.
-- Restyle the overlay section and footer:
-  - use `.btn-primary` / `.btn-secondary`, and hairline frames
-  - remove the glassmorphism (`backdrop-blur`, inset shadows) and the `/40`–`/80` opacity text
-- Add a test in which each nav label equals its target section's `<h2>` text.
-
-### 4. Finish
-
-- Run `npm test`; everything should pass with nothing skipped.
-- Review the branch, e.g. with the `code-review` skill, then fix what it finds.
-- In `README.md`, add a Testing section: `npm test` runs Playwright against installed Google Chrome. Also list the new Tailwind classes.
-- Take desktop and mobile screenshots for the owner to check.
+- Each overlay is an `<article>`: name, description, spec cells from `specs`, buttons (`.btn-primary` download, `.btn-secondary` video and source), and a "Forked from" link whose text is `sourceRefName`. The preview video sits on the right.
+- No glassmorphism and no low-opacity text.
 
 ## Not decided yet (ask the owner before doing these)
 
-- **Section order:** move Skins above Gear and/or make the hero shorter. This was the biggest problem the site audit found. Today skins start about 3 screens down on desktop and about 9 on mobile.
+- **Section order:** move Skins above Gear and/or make the hero shorter. The site audit found this was the biggest problem. Today skins start about 3 screens down on desktop and about 9 on mobile.
 - **Hero:** the hero wordmark is a pre-drawn SVG in Geist Bold, and its entrance animation takes about 2 seconds. Both are out of scope unless the owner asks.
 
 ## How the tests work
 
 - **Setup:**
-  - `playwright.config.js` runs two projects: `desktop` (Desktop Chrome) and `mobile` (Pixel 7, touch).
-  - Both use the **installed Google Chrome** (`channel: 'chrome'`). On a machine without Chrome, install it or remove `channel` and run `npx playwright install chromium`.
+  - `playwright.config.js` runs three projects:
+    - `desktop` (Desktop Chrome) and `mobile` (Pixel 7, touch) run every test.
+    - `desktop-no-gpu` runs `tests/motion.spec.js` in Chrome started with `--disable-gpu`, which is what turning off "Use graphics acceleration when available" does.
+  - All projects use the **installed Google Chrome** (`channel: 'chrome'`). On a machine without Chrome, install it or remove `channel` and run `npx playwright install chromium`.
   - `workers: 2`, because more parallel Chrome instances caused timeouts on this machine.
   - The web server runs `npm run build && npx serve . -l 4173`, so `css/output.css` is rebuilt before every run.
+  - Outside CI, Playwright reuses a server that is already on port 4173, even one serving another checkout. Run `CI=1 npm test` when another copy of the repo might be serving.
 - **The fixture:**
   - The test-only `tests/fixtures/config.js` replaces `js/config.js` at the network level, which is the single seam the tests use.
-  - It covers both features: Bravo is flagged current with a note and details, Alpha and Charlie are plain cards, and there is one placeholder item.
+  - Bravo is flagged current with a note and details, Alpha and Charlie are plain cards, and there is one placeholder item. The overlay has `specs` and a `sourceRefName`. The tablet has a `driverDownloadUrl` and the keyboard a `keybind`.
   - `tests/fixture.js` also blocks third-party requests (Google Fonts, the osu! avatar) for speed and stability.
   - A test can change the data with `test.use({ configPatch: '<js run after SITE_CONFIG is defined>' })`.
 - **What tests check:** only what a visitor sees and does, through roles, names, text, and computed styles. Don't assert class names or DOM structure.
@@ -166,6 +141,7 @@ The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` li
 ## Gotchas
 
 - **`css/output.css`** is committed. Rebuild it with `npm run build` after changing Tailwind classes in HTML or JS, `tailwind.config.js`, or `css/styles.css`, and commit the result.
-- **Icon font:** Material Symbols loads only the icons listed in `icon_names` in `index.html`. Already listed: `download`, `zoom_in`, `chevron_left`, `chevron_right`, `arrow_outward`. Add any new icon there, in alphabetical order.
+- **Icon font:** Material Symbols loads only the icons listed in `icon_names` in `index.html`. Add any new icon there, in alphabetical order.
+- **Several sessions, one folder:** the owner sometimes runs more than one Claude session in the same working tree. Check `git status` for someone else's uncommitted work before editing, and use a git worktree for your own changes.
 - **Line endings:** files use CRLF on Windows (`core.autocrlf=true`). The LF→CRLF git warnings are harmless.
 - **`design.md`** is gitignored and out of date. Don't rely on it.
