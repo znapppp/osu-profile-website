@@ -18,7 +18,7 @@ function lightboxAttrs(skin, slide) {
 
 function zoomButton(skin, slide) {
     return `
-    <button type="button" ${lightboxAttrs(skin, slide)} aria-label="View ${skin.name} screenshot full size" class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary hover:bg-obsidian-deep transition-colors cursor-zoom-in">
+    <button type="button" ${lightboxAttrs(skin, slide)} aria-label="View ${skin.name} screenshot full size" class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary hover:bg-obsidian-deep transition-colors cursor-zoom-in">
         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">zoom_in</span>
     </button>`;
 }
@@ -42,12 +42,11 @@ function renderFeaturedSkin(skin) {
     <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
         <div class="reg-t">
             <div class="relative overflow-hidden bg-surface-container">
-                <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="w-full aspect-video md:aspect-[3/1] object-cover cursor-zoom-in" ${lightboxAttrs(skin, first)} />
-                <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/10 to-transparent pointer-events-none"></div>
+                <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
                 ${zoomButton(skin, first)}
-                <div class="absolute left-4 right-4 bottom-4 md:left-6 md:bottom-6">
+                <div class="absolute left-0 bottom-0 max-w-[calc(100%-1rem)] bg-background px-4 py-3 md:px-5 md:py-4">
                     <span class="tag bg-primary text-obsidian-deep">Current</span>
-                    <h3 id="featured-skin-name" class="font-display font-bold text-2xl md:text-[32px] leading-tight text-primary mt-3">${skin.name}</h3>
+                    <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary mt-2">${skin.name}</h3>
                 </div>
             </div>
         </div>
@@ -55,7 +54,7 @@ function renderFeaturedSkin(skin) {
             ${slides.length > 1 ? `
             <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
                 ${slides.map((slide, i) => `
-                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
                     <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
@@ -84,17 +83,17 @@ function renderSkinCard(skin, index) {
             <div class="relative overflow-hidden bg-surface-container">
                 <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
                     ${slides.map((slide, i) => `
-                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-contain bg-black" />`).join('')}
                 </div>
                 ${zoomButton(skin, slides[0] || {})}
                 ${slides.length > 1 ? `
-                <div class="absolute left-3 bottom-3 flex items-center bg-obsidian-deep/85">
-                    <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                <div class="absolute left-3 bottom-3 flex items-center rounded-md bg-obsidian-deep/85">
+                    <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
                     </button>
                     ${slides.map((_, i) => `
                     <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length} of ${skin.name}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
-                    <button type="button" data-slide-step="1" aria-label="Next screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                    <button type="button" data-slide-step="1" aria-label="Next screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
                     </button>
                 </div>` : ''}

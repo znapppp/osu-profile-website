@@ -92,3 +92,27 @@ test('slide controls name the skin they belong to', async ({ page }) => {
         await expect(dot).toHaveAccessibleName(/Alpha Skin/);
     }
 });
+
+test.describe('whole screenshots', () => {
+    test('the featured banner is 16:9 and shows the whole screenshot', async ({ page }) => {
+        await page.goto('/');
+        const img = featuredSkin(page).getByRole('img', { name: 'Bravo gameplay' });
+        await expect(img).toHaveCSS('object-fit', 'contain');
+        const box = await img.boundingBox();
+        expect(Math.abs(box.width / box.height - 16 / 9)).toBeLessThan(0.02);
+    });
+
+    test('skin card screenshots are never cropped', async ({ page }) => {
+        await page.goto('/');
+        const card = page.locator('#skins').getByRole('article').filter({ hasText: 'Alpha Skin' });
+        await expect(card.getByRole('img').first()).toHaveCSS('object-fit', 'contain');
+    });
+});
+
+test.describe('button corners', () => {
+    test('download and archive links have softly rounded corners', async ({ page }) => {
+        await page.goto('/');
+        await expect(page.getByRole('link', { name: /^Download Bravo Skin/ })).toHaveCSS('border-radius', '6px');
+        await expect(page.getByRole('link', { name: /older skins archive/i })).toHaveCSS('border-radius', '6px');
+    });
+});
