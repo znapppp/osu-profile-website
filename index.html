@@ -242,12 +242,12 @@
         </div>
     </div>
 
-<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md shadow-[0_1px_12px_rgba(0,0,0,0.5)]">
+<header class="fixed top-0 w-full z-50 bg-background border-b border-hairline">
     <div class="h-16 max-w-[1440px] mx-auto px-5 sm:px-6 md:px-margin-safe flex items-center justify-between">
         <div class="flex items-center gap-3 sm:gap-4 md:gap-8">
             <div class="flex items-center gap-2.5 sm:gap-3">
                 <a id="osu-profile-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Znap- osu! Profile" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-                    <img id="header-avatar" alt="Znap- profile avatar" width="36" height="36" class="w-8 h-8 sm:w-9 sm:h-9 object-cover object-center aspect-square border border-glass-stroke ring-1 ring-white/10 transition-all duration-300 hover:border-white/40 shadow-sm" src="https://a.ppy.sh/22919575" onerror="this.onerror=null; this.src='avatar.jpg';"/>
+                    <img id="header-avatar" alt="Znap- profile avatar" width="36" height="36" class="w-8 h-8 sm:w-9 sm:h-9 object-cover object-center aspect-square border border-hairline transition-colors duration-300 hover:border-primary" src="https://a.ppy.sh/22919575" onerror="this.onerror=null; this.src='avatar.jpg';"/>
                 </a>
                 <span id="header-username" class="font-display text-base sm:text-lg md:text-[20px] tracking-tighter text-primary">Znap-</span>
             </div>
@@ -262,27 +262,27 @@
         </div>
 
         <!-- Mobile Menu Toggle Button -->
-        <button type="button" id="mobile-menu-toggle" class="sm:hidden flex items-center justify-center w-9 h-9 bg-surface-container-lowest/80 border border-white/[0.08] text-white/80 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button type="button" id="mobile-menu-toggle" class="sm:hidden flex items-center justify-center w-9 h-9 bg-surface-container-lowest border border-hairline text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
             <span id="mobile-menu-icon" class="material-symbols-outlined text-[20px]" aria-hidden="true">menu</span>
         </button>
     </div>
 
     <!-- Mobile Dropdown Navigation Menu -->
-    <nav id="mobile-menu" class="sm:hidden hidden flex-col px-5 pt-2 pb-5 border-t border-glass-stroke/30 bg-background/95 backdrop-blur-md transition-all duration-300" aria-label="Mobile Navigation">
+    <nav id="mobile-menu" class="sm:hidden hidden flex-col px-5 pt-2 pb-5 border-t border-hairline bg-background transition-all duration-300" aria-label="Mobile Navigation">
         <div class="flex flex-col gap-1">
-            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-primary bg-surface-container/40 transition-colors" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-primary bg-surface-container transition-colors" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
                 <span>Home</span>
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
-            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="hardware" href="#hardware">
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" data-path="hardware" href="#hardware">
                 <span>Gear</span>
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
-            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="skins" href="#skins">
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" data-path="skins" href="#skins">
                 <span>Skins</span>
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
-            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="overlays" href="#overlays">
+            <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" data-path="overlays" href="#overlays">
                 <span>Overlay</span>
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
@@ -335,7 +335,7 @@
                 <p class="font-sans text-base md:text-body-lg text-on-surface-variant max-w-2xl"><span class="hero-word" style="--delay:1.1s">my</span> <span class="hero-word" style="--delay:1.2s">current</span> <span class="hero-word" style="--delay:1.3s">gear,</span> <span class="hero-word" style="--delay:1.4s">settings</span> <span class="hero-word" style="--delay:1.5s">&amp;</span> <span class="hero-word" style="--delay:1.6s">skins</span></p>
                 
                 <!-- Social Dock -->
-                <div class="flex items-center gap-3 md:gap-4 px-4 py-2.5 mt-4 bg-surface-container-lowest/80 backdrop-blur-md border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_12px_32px_rgba(0,0,0,0.6)] opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_1.8s_forwards]">
+                <div class="flex items-center gap-3 md:gap-4 px-4 py-2.5 mt-4 bg-background border border-hairline opacity-0 translate-y-8 animate-[fade-in-up_1s_ease-out_1.8s_forwards]">
                     <a href="#" id="dock-tiktok" class="group relative flex items-center justify-center w-11 h-11 bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">
                         <svg viewBox="0 0 448 512" class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors fill-current" aria-hidden="true"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
                     </a>
@@ -348,8 +348,8 @@
                 </div>
             </div>
             <div class="z-10 flex flex-col items-center gap-2.5 opacity-0 animate-[fade-in_1s_ease-out_2.4s_forwards] pb-2">
-                <span class="text-xs md:text-xs font-medium tracking-wider text-on-surface-variant/80 uppercase select-none transition-colors hover:text-primary">Scroll to explore</span>
-                <div class="w-[1px] h-10 bg-gradient-to-b from-on-surface-variant/40 to-transparent"></div>
+                <span class="text-sm font-medium text-muted select-none transition-colors hover:text-primary">Scroll to explore</span>
+                <div class="w-[1px] h-10 bg-hairline"></div>
             </div>
         </section>
 
@@ -562,27 +562,27 @@
 </footer>
 
     <!-- Accessible Image Lightbox Modal -->
-    <dialog id="image-lightbox" class="fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-black/90 backdrop-blur-md p-4 sm:p-6 md:p-8 z-50 open:flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 open:opacity-100 open:pointer-events-auto" aria-labelledby="lightbox-title" aria-modal="true">
+    <dialog id="image-lightbox" class="fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-black/90 p-4 sm:p-6 md:p-8 z-50 open:flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 open:opacity-100 open:pointer-events-auto" aria-labelledby="lightbox-title" aria-modal="true">
         <div class="relative w-full max-w-5xl max-h-full flex flex-col items-center gap-3">
             <!-- Header with Title & Close button -->
             <div class="w-full flex items-center justify-between px-1 text-white">
                 <span id="lightbox-title" class="font-sans text-sm md:text-base font-medium text-on-surface truncate"></span>
-                <button type="button" id="lightbox-close" class="inline-flex items-center justify-center w-9 h-9 bg-surface-container-lowest/80 border border-glass-stroke text-on-surface hover:text-white hover:border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer" aria-label="Close image preview">
+                <button type="button" id="lightbox-close" class="inline-flex items-center justify-center w-9 h-9 bg-surface-container-lowest border border-hairline text-on-surface hover:text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer" aria-label="Close image preview">
                     <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
                 </button>
             </div>
             
             <!-- Image Viewport -->
-            <div class="relative w-full max-h-[78vh] flex items-center justify-center overflow-hidden border border-glass-stroke bg-surface-container-lowest">
+            <div class="relative w-full max-h-[78vh] flex items-center justify-center overflow-hidden border border-hairline bg-surface-container-lowest">
                 <img id="lightbox-img" class="max-w-full max-h-[78vh] w-auto h-auto object-contain select-none" src="" alt="" />
             </div>
 
             <!-- Helper caption -->
-            <span class="text-xs text-on-surface-variant select-none">Press <kbd class="px-1.5 py-0.5 bg-surface-container border border-glass-stroke font-mono text-xs text-primary">ESC</kbd> or click outside to close</span>
+            <span class="text-xs text-on-surface-variant select-none">Press <kbd class="px-1.5 py-0.5 bg-surface-container border border-hairline font-mono text-xs text-primary">ESC</kbd> or click outside to close</span>
         </div>
     </dialog>
 
-    <div id="toast" role="status" aria-live="polite" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-surface-container-highest/80 backdrop-blur-lg border border-glass-stroke rounded-full text-primary text-sm font-medium shadow-xl opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
+    <div id="toast" role="status" aria-live="polite" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-surface-container-highest border border-hairline text-primary text-sm font-medium opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
 
     <!-- Scripts -->
     <script src="js/config.js"></script>
