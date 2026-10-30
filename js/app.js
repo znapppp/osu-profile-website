@@ -2,13 +2,18 @@
    Znap- osu! Setup Configuration - Interactive Application Logic (Tailwind)
    ========================================================================== */
 
-// Alt text and lightbox title for one screenshot of a skin
+// Config text is built into HTML strings; escape it so a quote or "<" in a name can't break the markup
+function escapeHtml(text) {
+    return String(text ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+}
+
+// Alt text and lightbox title for one screenshot of a skin, escaped for use in markup
 function slideAlt(skin, slide) {
-    return slide.alt || slide.label || skin.name;
+    return escapeHtml(slide.alt || slide.label || skin.name);
 }
 
 function slideTitle(skin, slide) {
-    return `${skin.name} — ${slide.label}`;
+    return escapeHtml(slide.label ? `${skin.name} — ${slide.label}` : skin.name);
 }
 
 // Attributes the lightbox reads to open a skin screenshot full size
@@ -18,7 +23,7 @@ function lightboxAttrs(skin, slide) {
 
 function zoomButton(skin, slide) {
     return `
-    <button type="button" ${lightboxAttrs(skin, slide)} aria-label="View ${skin.name} screenshot full size" class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary hover:bg-obsidian-deep transition-colors cursor-zoom-in">
+    <button type="button" ${lightboxAttrs(skin, slide)} aria-label="View ${escapeHtml(skin.name)} screenshot full size" class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary hover:bg-obsidian-deep transition-colors cursor-zoom-in">
         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">zoom_in</span>
     </button>`;
 }
@@ -38,6 +43,7 @@ function renderFeaturedSkin(skin) {
     const slides = skin.slides || [];
     const first = slides[0] || {};
     const details = skin.details || [];
+    const name = escapeHtml(skin.name);
 
     return `
     <article class="reg border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
@@ -48,22 +54,22 @@ function renderFeaturedSkin(skin) {
         <div class="flex flex-col divide-y divide-hairline border-t border-hairline lg:border-t-0 lg:border-l">
             <div class="flex flex-col items-start gap-2 px-4 py-3">
                 <span class="tag bg-primary text-obsidian-deep">Current</span>
-                <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary">${skin.name}</h3>
+                <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary">${name}</h3>
             </div>
-            ${skin.note ? `<p class="p-4 text-[15px] leading-relaxed text-on-surface-variant lg:flex-1">${skin.note}</p>` : '<div class="lg:flex-1"></div>'}
+            ${skin.note ? `<p class="p-4 text-[15px] leading-relaxed text-on-surface-variant lg:flex-1">${escapeHtml(skin.note)}</p>` : '<div class="lg:flex-1"></div>'}
             ${details.length ? `
             <dl class="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 p-4 text-sm">
-                ${details.map((d) => `<dt class="text-muted">${d.label}</dt><dd class="font-mono text-primary">${d.value}</dd>`).join('')}
+                ${details.map((d) => `<dt class="text-muted">${escapeHtml(d.label)}</dt><dd class="font-mono text-primary">${escapeHtml(d.value)}</dd>`).join('')}
             </dl>` : ''}
             ${slides.length > 1 ? `
-            <div class="flex gap-2.5 p-4" role="group" aria-label="Screenshots of ${skin.name}">
+            <div class="flex gap-2.5 p-4" role="group" aria-label="Screenshots of ${name}">
                 ${slides.map((slide, i) => `
-                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label ? `${escapeHtml(slide.label)} screenshot` : `screenshot ${i + 1}`} of ${name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
                     <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
             <div class="flex items-center p-4">
-                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-primary w-full">
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-primary w-full">
                     <span>Download skin</span>
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                 </a>
@@ -75,6 +81,7 @@ function renderFeaturedSkin(skin) {
 // One of the other skins: screenshot, name, type tag, and download
 function renderSkinCard(skin, index) {
     const slides = skin.slides || [];
+    const name = escapeHtml(skin.name);
 
     return `
     <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
@@ -82,27 +89,27 @@ function renderSkinCard(skin, index) {
             <div class="relative overflow-hidden bg-surface-container">
                 <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
                     ${slides.map((slide, i) => `
-                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-contain bg-black" />`).join('')}
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-title="${slideTitle(skin, slide)}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-contain bg-black" />`).join('')}
                 </div>
                 ${zoomButton(skin, slides[0] || {})}
                 ${slides.length > 1 ? `
                 <div class="absolute left-3 bottom-3 flex items-center rounded-md bg-obsidian-deep/85">
-                    <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                    <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
                     </button>
                     ${slides.map((_, i) => `
-                    <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length} of ${skin.name}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
-                    <button type="button" data-slide-step="1" aria-label="Next screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                    <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length} of ${name}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
+                    <button type="button" data-slide-step="1" aria-label="Next screenshot of ${name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
                     </button>
                 </div>` : ''}
             </div>
         </div>
         <div class="flex flex-col flex-1 gap-4 p-4 border border-t-0 border-hairline">
-            <h3 id="skin-card-name-${index}" class="font-display font-bold text-lg leading-snug text-primary">${skin.name}</h3>
+            <h3 id="skin-card-name-${index}" class="font-display font-bold text-lg leading-snug text-primary">${name}</h3>
             <div class="flex items-center justify-between gap-3 mt-auto">
-                ${skin.badgeText ? `<span class="tag border border-outline text-on-surface">${skin.badgeText}</span>` : '<span></span>'}
-                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-secondary">
+                ${skin.badgeText ? `<span class="tag border border-outline text-on-surface">${escapeHtml(skin.badgeText)}</span>` : '<span></span>'}
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-secondary">
                     <span>Download</span>
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                 </a>
@@ -475,8 +482,7 @@ function initSkinSliders() {
         slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== current)));
 
         const shown = slides[current];
-        const name = card.querySelector('h3').textContent;
-        setLightboxTarget(card, shown.src, `${name} — ${shown.dataset.label}`, shown.alt);
+        setLightboxTarget(card, shown.src, shown.dataset.title, shown.alt);
         card.querySelectorAll('[data-slide-to]').forEach((dot) => {
             dot.setAttribute('aria-current', String(Number(dot.dataset.slideTo) === current));
         });
@@ -554,59 +560,63 @@ function initNavScroll() {
     const desktopLinks = document.querySelectorAll('header nav:not(#mobile-menu) a[data-path]');
     const mobileLinks = document.querySelectorAll('#mobile-menu a[data-path]');
     const sections = Array.from(desktopLinks).map(a => document.getElementById(a.getAttribute('data-path'))).filter(Boolean);
-    sections.unshift(document.body);
-    
+
     const setCurrent = (link, isActive) => {
         if (isActive) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
     };
 
-    let ticking = false;
     let lastActive = null;
+    const update = () => {
+        let current = '';
+        const scrollY = window.scrollY;
+
+        if (scrollY < 300) {
+            current = 'overview';
+        } else {
+            for (let i = sections.length - 1; i >= 0; i--) {
+                if (scrollY >= sections[i].offsetTop - 200) {
+                    current = sections[i].id;
+                    break;
+                }
+            }
+        }
+
+        // Skip class writes when the active section hasn't changed
+        if (current === lastActive) return;
+        lastActive = current;
+
+        desktopLinks.forEach(link => {
+            const isActive = link.getAttribute('data-path') === current;
+            link.classList.toggle('text-primary', isActive);
+            link.classList.toggle('text-on-surface-variant', !isActive);
+            setCurrent(link, isActive);
+        });
+
+        mobileLinks.forEach(link => {
+            const isActive = link.getAttribute('data-path') === current;
+            link.classList.toggle('text-primary', isActive);
+            // Active gets the solid fill; others a lighter one on hover, so the two never look alike
+            link.classList.toggle('bg-surface-container', isActive);
+            link.classList.toggle('hover:bg-surface-container/50', !isActive);
+            link.classList.toggle('text-on-surface-variant', !isActive);
+            setCurrent(link, isActive);
+        });
+    };
+
+    let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                let current = '';
-                const scrollY = window.scrollY;
-                
-                if (scrollY < 300) {
-                    current = 'overview';
-                } else {
-                    for (let i = sections.length - 1; i >= 0; i--) {
-                        const section = sections[i];
-                        if (section && section.id && scrollY >= section.offsetTop - 200) {
-                            current = section.id;
-                            break;
-                        }
-                    }
-                }
-
-                // Skip class writes when the active section hasn't changed
-                if (current === lastActive) {
-                    ticking = false;
-                    return;
-                }
-                lastActive = current;
-
-                desktopLinks.forEach(link => {
-                    const isActive = link.getAttribute('data-path') === current;
-                    link.classList.toggle('text-primary', isActive);
-                    link.classList.toggle('text-on-surface-variant', !isActive);
-                    setCurrent(link, isActive);
-                });
-
-                mobileLinks.forEach(link => {
-                    const isActive = link.getAttribute('data-path') === current;
-                    link.classList.toggle('text-primary', isActive);
-                    link.classList.toggle('bg-surface-container', isActive);
-                    link.classList.toggle('text-on-surface-variant', !isActive);
-                    setCurrent(link, isActive);
-                });
+                update();
                 ticking = false;
             });
             ticking = true;
         }
     }, { passive: true });
+
+    // The page can open mid-scroll (a #section link or restored position), so mark the section in view now
+    update();
 }
 
 // 11. Accessible Image Lightbox Viewer

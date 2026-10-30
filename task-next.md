@@ -132,7 +132,7 @@ The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` li
   - "Hardware" becomes **Gear**
   - the heading "Gear & Settings" becomes **Gear**
   - "Overlays" stays the nav label, and the heading "My tosu overlay" becomes **Overlay**
-- Sections are not numbered (the owner rejected section numbers). Instead each content section starts with a divider rule: a 1px `rule` (#444) line with "+" marks at both ends (`.section-rule`, `aria-hidden`), then the `font-display` heading.
+- Sections are not numbered (the owner rejected section numbers). Instead each content section starts with a divider rule: a 1px `rule` (#444) line with "+" marks at both ends (`reg-t h-px bg-rule`, `aria-hidden`), then the `font-display` heading.
 - Restyle the overlay section and footer:
   - use `.btn-primary` / `.btn-secondary`, hairline frames, and `.reg*` marks
   - remove the glassmorphism (`backdrop-blur`, inset shadows) and the `/40`–`/80` opacity text
