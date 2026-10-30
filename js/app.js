@@ -18,7 +18,7 @@ function slideTitle(skin, slide) {
 
 // Attributes the lightbox reads to open a skin screenshot full size
 function lightboxAttrs(skin, slide) {
-    return `data-lightbox="${slide.src}" data-lightbox-title="${slideTitle(skin, slide)}" data-lightbox-alt="${slideAlt(skin, slide)}"`;
+    return `data-lightbox="${escapeHtml(slide.src)}" data-lightbox-title="${slideTitle(skin, slide)}" data-lightbox-alt="${slideAlt(skin, slide)}"`;
 }
 
 function zoomButton(skin, slide) {
@@ -48,7 +48,7 @@ function renderFeaturedSkin(skin) {
     return `
     <article class="border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
         <div class="relative overflow-hidden bg-black lg:flex lg:items-center">
-            <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
+            <img id="featured-skin-img" src="${escapeHtml(first.src)}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
             ${zoomButton(skin, first)}
         </div>
         <div class="flex flex-col divide-y divide-hairline border-t border-hairline lg:border-t-0 lg:border-l">
@@ -64,12 +64,12 @@ function renderFeaturedSkin(skin) {
             ${slides.length > 1 ? `
             <div class="flex gap-2.5 p-4" role="group" aria-label="Screenshots of ${name}">
                 ${slides.map((slide, i) => `
-                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label ? `${escapeHtml(slide.label)} screenshot` : `screenshot ${i + 1}`} of ${name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
-                    <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
+                <button type="button" data-featured-slide data-src="${escapeHtml(slide.src)}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label ? `${escapeHtml(slide.label)} screenshot` : `screenshot ${i + 1}`} of ${name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                    <img src="${escapeHtml(slide.src)}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
             <div class="flex items-center p-4">
-                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-primary w-full">
+                <a href="${escapeHtml(skin.downloadUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-primary w-full">
                     <span>Download skin</span>
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                 </a>
@@ -89,7 +89,7 @@ function renderSkinCard(skin, index) {
             <div class="relative overflow-hidden bg-surface-container">
                 <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
                     ${slides.map((slide, i) => `
-                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-title="${slideTitle(skin, slide)}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-contain bg-black" />`).join('')}
+                    <img ${i === 0 ? `src="${escapeHtml(slide.src)}"` : `data-src="${escapeHtml(slide.src)}" aria-hidden="true"`} data-title="${slideTitle(skin, slide)}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-contain bg-black" />`).join('')}
                 </div>
                 ${zoomButton(skin, slides[0] || {})}
                 ${slides.length > 1 ? `
@@ -109,7 +109,7 @@ function renderSkinCard(skin, index) {
             <h3 id="skin-card-name-${index}" class="font-display font-bold text-lg leading-snug text-primary">${name}</h3>
             <div class="flex items-center justify-between gap-3 mt-auto">
                 ${skin.badgeText ? `<span class="tag border border-outline text-on-surface">${escapeHtml(skin.badgeText)}</span>` : '<span></span>'}
-                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-secondary">
+                <a href="${escapeHtml(skin.downloadUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-secondary">
                     <span>Download</span>
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                 </a>
