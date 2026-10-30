@@ -117,7 +117,7 @@ test.describe('button corners', () => {
     });
 });
 
-test('the featured skin name sits below the banner screenshot, not over it', async ({ page }) => {
+test('the featured skin name sits below or beside the banner screenshot, not over it', async ({ page, isMobile }) => {
     await page.goto('/');
     const featured = featuredSkin(page);
     const image = await featured.getByRole('img', { name: 'Bravo gameplay' }).boundingBox();
@@ -125,5 +125,25 @@ test('the featured skin name sits below the banner screenshot, not over it', asy
 
     expect(image).not.toBeNull();
     expect(name).not.toBeNull();
-    expect(name.y).toBeGreaterThanOrEqual(image.y + image.height - 1);
+    if (isMobile) {
+        expect(name.y).toBeGreaterThanOrEqual(image.y + image.height - 1);
+    } else {
+        expect(name.x).toBeGreaterThanOrEqual(image.x + image.width - 1);
+    }
+});
+
+test('on desktop the whole featured skin, download included, fits in one screen below the section heading', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'the stacked mobile layout is taller than a screen');
+    await page.goto('/');
+    await page.getByRole('heading', { name: 'Skins', level: 2 }).evaluate((h) => {
+        window.scrollTo({ top: h.getBoundingClientRect().top + window.scrollY, behavior: 'instant' });
+    });
+    const featured = featuredSkin(page);
+    await expect(featured).toHaveCSS('opacity', '1');
+    const download = await featured.getByRole('link', { name: 'Download Bravo Skin (Test edit)' }).boundingBox();
+    const image = await featured.getByRole('img', { name: 'Bravo gameplay' }).boundingBox();
+    const viewport = page.viewportSize();
+
+    expect(download.y + download.height).toBeLessThanOrEqual(viewport.height);
+    expect(image.y).toBeGreaterThanOrEqual(0);
 });

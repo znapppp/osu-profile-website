@@ -32,39 +32,38 @@ function setLightboxTarget(root, src, title, alt) {
     });
 }
 
-// Current skin: a wide banner, then a spec bar with screenshot thumbnails, the owner's note, details, and download
+// Current skin: one frame. On desktop the screenshot sits left and a side panel (name, note, details, thumbnails, download) right;
+// on smaller screens the panel stacks under the screenshot
 function renderFeaturedSkin(skin) {
     const slides = skin.slides || [];
     const first = slides[0] || {};
     const details = skin.details || [];
 
     return `
-    <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
-        <div class="reg-t">
-            <div class="relative overflow-hidden bg-surface-container">
-                <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
-                ${zoomButton(skin, first)}
+    <article class="reg border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
+        <div class="relative overflow-hidden bg-black lg:flex lg:items-center">
+            <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
+            ${zoomButton(skin, first)}
+        </div>
+        <div class="flex flex-col divide-y divide-hairline border-t border-hairline lg:border-t-0 lg:border-l">
+            <div class="flex flex-col items-start gap-2 px-4 py-3">
+                <span class="tag bg-primary text-obsidian-deep">Current</span>
+                <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary">${skin.name}</h3>
             </div>
-        </div>
-        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 px-4 py-3 border border-t-0 border-hairline">
-            <span class="tag bg-primary text-obsidian-deep self-start">Current</span>
-            <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary">${skin.name}</h3>
-        </div>
-        <div class="reg-b flex flex-col md:flex-row border border-hairline divide-y md:divide-y-0 md:divide-x divide-hairline">
+            ${skin.note ? `<p class="p-4 text-[15px] leading-relaxed text-on-surface-variant lg:flex-1">${skin.note}</p>` : '<div class="lg:flex-1"></div>'}
+            ${details.length ? `
+            <dl class="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 p-4 text-sm">
+                ${details.map((d) => `<dt class="text-muted">${d.label}</dt><dd class="font-mono text-primary">${d.value}</dd>`).join('')}
+            </dl>` : ''}
             ${slides.length > 1 ? `
-            <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
+            <div class="flex gap-2.5 p-4" role="group" aria-label="Screenshots of ${skin.name}">
                 ${slides.map((slide, i) => `
                 <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
                     <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
-            ${skin.note ? `<p class="flex-1 p-4 self-center text-[15px] leading-relaxed text-on-surface-variant">${skin.note}</p>` : '<div class="flex-1"></div>'}
-            ${details.length ? `
-            <dl class="grid grid-cols-[auto_1fr] content-center gap-x-5 gap-y-1.5 p-4 text-sm shrink-0">
-                ${details.map((d) => `<dt class="text-muted">${d.label}</dt><dd class="font-mono text-primary">${d.value}</dd>`).join('')}
-            </dl>` : ''}
-            <div class="flex items-center p-4 shrink-0">
-                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-primary w-full md:w-auto">
+            <div class="flex items-center p-4">
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-primary w-full">
                     <span>Download skin</span>
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                 </a>
