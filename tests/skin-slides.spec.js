@@ -15,19 +15,19 @@ test('a card steps through its screenshots with always-visible controls', async 
 
     await next.click();
     await expect(charlie.getByRole('img', { name: 'Charlie song select' })).toBeInViewport();
-    await expect(charlie.getByRole('button', { name: 'Show screenshot 2 of 3' })).toHaveAttribute('aria-current', 'true');
+    await expect(charlie.getByRole('button', { name: 'Show screenshot 2 of 3 of Charlie Skin' })).toHaveAttribute('aria-current', 'true');
 
     await previous.click();
     await previous.click();
     await expect(charlie.getByRole('img', { name: 'Charlie results' })).toBeInViewport();
-    await expect(charlie.getByRole('button', { name: 'Show screenshot 3 of 3' })).toHaveAttribute('aria-current', 'true');
+    await expect(charlie.getByRole('button', { name: 'Show screenshot 3 of 3 of Charlie Skin' })).toHaveAttribute('aria-current', 'true');
 });
 
 test('a card indicator dot jumps straight to that screenshot', async ({ page }) => {
     await page.goto('/');
     const alpha = card(page, 'Alpha Skin');
 
-    await alpha.getByRole('button', { name: 'Show screenshot 3 of 3' }).click();
+    await alpha.getByRole('button', { name: 'Show screenshot 3 of 3 of Alpha Skin' }).click();
 
     await expect(alpha.getByRole('img', { name: 'Alpha results' })).toBeInViewport();
     await expect(alpha.getByRole('img', { name: 'Alpha gameplay' })).toHaveCount(0);

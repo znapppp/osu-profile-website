@@ -21,11 +21,11 @@ test.describe('featured skin', () => {
         const featured = featuredSkin(page);
         await expect(featured.getByRole('img', { name: 'Bravo gameplay' })).toBeVisible();
 
-        await featured.getByRole('button', { name: 'Show Song Select' }).click();
+        await featured.getByRole('button', { name: 'Show Song Select screenshot of Bravo Skin (Test edit)' }).click();
 
         await expect(featured.getByRole('img', { name: 'Bravo song select' })).toBeVisible();
-        await expect(featured.getByRole('button', { name: 'Show Song Select' })).toHaveAttribute('aria-pressed', 'true');
-        await expect(featured.getByRole('button', { name: 'Show Gameplay' })).toHaveAttribute('aria-pressed', 'false');
+        await expect(featured.getByRole('button', { name: 'Show Song Select screenshot of Bravo Skin (Test edit)' })).toHaveAttribute('aria-pressed', 'true');
+        await expect(featured.getByRole('button', { name: 'Show Gameplay screenshot of Bravo Skin (Test edit)' })).toHaveAttribute('aria-pressed', 'false');
     });
 });
 
@@ -74,4 +74,21 @@ test('the older skins archive stays linked', async ({ page }) => {
         'href',
         'https://drive.example/folder/archive'
     );
+});
+
+test('slide controls name the skin they belong to', async ({ page }) => {
+    await page.goto('/');
+    const featured = featuredSkin(page);
+    const thumbnails = featured.getByRole('group').getByRole('button');
+    await expect(thumbnails).toHaveCount(3);
+    for (const thumbnail of await thumbnails.all()) {
+        await expect(thumbnail).toHaveAccessibleName(/Bravo Skin \(Test edit\)/);
+    }
+
+    const alpha = page.locator('#skins-grid').getByRole('article').filter({ hasText: 'Alpha Skin' });
+    const dots = alpha.getByRole('button', { name: /^Show screenshot \d of \d/ });
+    await expect(dots).toHaveCount(3);
+    for (const dot of await dots.all()) {
+        await expect(dot).toHaveAccessibleName(/Alpha Skin/);
+    }
 });

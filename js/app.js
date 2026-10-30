@@ -46,7 +46,7 @@ function renderFeaturedSkin(skin) {
             ${slides.length > 1 ? `
             <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
                 ${slides.map((slide, i) => `
-                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slide.alt || slide.label || skin.name}" data-title="${skin.name} — ${slide.label}" aria-label="Show ${slide.label}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slide.alt || slide.label || skin.name}" data-title="${skin.name} — ${slide.label}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
                     <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
@@ -84,7 +84,7 @@ function renderSkinCard(skin, index) {
                         <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
                     </button>
                     ${slides.map((_, i) => `
-                    <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
+                    <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length} of ${skin.name}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
                     <button type="button" data-slide-step="1" aria-label="Next screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center text-primary hover:bg-white/10 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
                     </button>

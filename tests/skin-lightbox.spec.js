@@ -8,7 +8,7 @@ const card = (page, name) => page.locator('#skins-grid').getByRole('article').fi
 test('tapping the featured banner opens the screen it shows at full size', async ({ page }) => {
     await page.goto('/');
     const featured = featuredSkin(page);
-    await featured.getByRole('button', { name: 'Show Results UI' }).click();
+    await featured.getByRole('button', { name: 'Show Results UI screenshot of Bravo Skin (Test edit)' }).click();
 
     await featured.getByRole('img', { name: 'Bravo results' }).click();
 
