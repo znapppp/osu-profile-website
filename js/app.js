@@ -183,7 +183,7 @@ function renderFromConfig() {
     const gear = [
         ['tablet', SITE_CONFIG.tablet, { area: 'area', driver: 'driverName' }],
         ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
-        ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', response: 'responseTime', resolution: 'resolution' }],
+        ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', resolution: 'resolution' }],
         ['audio', SITE_CONFIG.audio, { conn: 'connector', type: 'type' }],
     ];
     gear.forEach(([prefix, data, fields]) => {

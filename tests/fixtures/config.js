@@ -33,8 +33,7 @@ const SITE_CONFIG = {
     monitor: {
         device: "Fixture Monitor M1",
         refreshRate: "240 Hz",
-        resolution: "2560 x 1440",
-        responseTime: "0.5 ms"
+        resolution: "2560 x 1440"
     },
 
     audio: {

@@ -47,8 +47,7 @@ const SITE_CONFIG = {
         title: "Monitor",
         device: "LG ULTRAGEAR 24GS60F-B",
         refreshRate: "180 Hz",
-        resolution: "1920 x 1080 (FHD)",
-        responseTime: "1 ms (GtG)"
+        resolution: "1920 x 1080 (FHD)"
     },
 
     // Audio Configuration
