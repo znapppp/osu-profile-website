@@ -55,6 +55,7 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
 
 - Frames, the banner, cards, gear grids and `.tag` have square corners: no `rounded-*` there except `rounded-full` on dots.
 - Buttons (`.btn-primary`, `.btn-secondary`, slide arrows, zoom buttons, thumbnails, lightbox close, menu toggle, footer links) have 6px corners (`rounded-md`).
+- Owner exception: the hero social dock (TikTok, X, Discord) is rounded (`rounded-2xl`, 16px), and its icon buttons use `rounded-lg`.
 - Hairline borders use the `border-hairline` colour (`#2e2e2e`).
 - Shared classes in `css/styles.css` under `@layer components`:
   - **Registration marks:** `.reg`, `.reg-t`, `.reg-b` draw "+" marks just outside a frame's corners (all four, top two, or bottom two). Don't put `overflow-hidden` on the same element, or the marks get clipped; put it on an inner wrapper instead.
