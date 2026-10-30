@@ -51,3 +51,10 @@ test('no informational text in the gear and skins sections is smaller than 12px'
     expect(await smallTextIn(page, '#hardware', 12)).toEqual([]);
     expect(await smallTextIn(page, '#skins', 12)).toEqual([]);
 });
+
+test('section headings are bold on every screen size', async ({ page }) => {
+    await page.goto('/');
+    for (const name of ['Gear', 'Skins', 'Overlay']) {
+        await expect(page.getByRole('heading', { level: 2, name, exact: true })).toHaveCSS('font-weight', '700');
+    }
+});
