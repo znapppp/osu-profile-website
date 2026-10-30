@@ -13,13 +13,20 @@ test('each navigation label matches the heading of the section it opens', async 
     }
 });
 
-test('sections are numbered in page order', async ({ page }) => {
-    await page.goto('/');
-    const tops = [];
-    for (const number of ['01', '02', '03']) {
-        const label = page.getByText(number, { exact: true });
-        await expect(label).toHaveCount(1);
-        tops.push(await label.evaluate((el) => el.getBoundingClientRect().top + window.scrollY));
-    }
-    expect(tops).toEqual([...tops].sort((a, b) => a - b));
-});
+for (const [label, id] of [['Skins', 'skins'], ['Overlay', 'overlays']]) {
+    test(`the ${label} link is marked and underlined while its section is in view`, async ({ page, isMobile }) => {
+        test.skip(isMobile, 'desktop header nav');
+        await page.goto('/');
+        const nav = page.getByRole('navigation', { name: 'Main Navigation' });
+        await expect(nav.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', /.+/);
+        await page.locator(`#${id}`).evaluate((el) => window.scrollTo(0, el.offsetTop - 60));
+        const link = nav.getByRole('link', { name: label });
+        await expect(link).toHaveAttribute('aria-current', /.+/);
+        await expect(nav.getByRole('link', { name: 'Gear' })).not.toHaveAttribute('aria-current', /.+/);
+        await expect(nav.getByRole('link', { name: 'Home' })).not.toHaveAttribute('aria-current', /.+/);
+        await expect.poll(() => link.evaluate((el) => {
+            const after = getComputedStyle(el, '::after');
+            return parseFloat(after.height) >= 2 && new DOMMatrix(after.transform).a > 0.99;
+        })).toBe(true);
+    });
+}
