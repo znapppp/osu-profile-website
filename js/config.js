@@ -42,24 +42,12 @@ const SITE_CONFIG = {
         previewAlt: "Keychron C75 Keyboard Settings"
     },
 
-    // Keypad Configuration
-    keypad: {
-        title: "Keypad Setting",
-        device: "Sayodevice O3C",
-        stroke: "3.00 mm",
-        actuationPoint: "Release: 0.3 mm | Trigger: 0.7 mm",
-        rapidTrigger: "Release: 0.5 mm | Trigger: 0.3 mm",
-        previewImage: "picture/keypad/Screenshot 2026-08-22 221530.webp",
-        previewAlt: "Sayodevice O3C Keypad Settings"
-    },
-
     // Monitor Configuration
     monitor: {
         title: "Monitor",
         device: "LG ULTRAGEAR 24GS60F-B",
         refreshRate: "180 Hz",
-        resolution: "1920 x 1080 (FHD)",
-        responseTime: "1 ms (GtG)"
+        resolution: "1920 x 1080 (FHD)"
     },
 
     // Audio Configuration
@@ -72,13 +60,16 @@ const SITE_CONFIG = {
 
     // Skins Configuration
     skins: {
-        subtext: "I'm way more comfortable playing with the Instafade skin :)",
         driveFolderUrl: "https://drive.google.com/drive/folders/1NQAOlXTy9oibloNPvzCS4ZRdHu3fjedv?usp=drive_link",
         items: [
             {
-                name: "Aristia(Edit) Instafade Znap- edit.",
-                badgeText: "Current Use",
-                badgeClass: "main-skin", // Options: 'main-skin', 'ar-skin', 'other-skin'
+                name: "Aristia Instafade (Znap- edit)",
+                current: true,
+                note: "I'm way more comfortable playing with the Instafade skin :)",
+                details: [
+                    { label: "Base", value: "Aristia" },
+                    { label: "Hitcircles", value: "Instafade" }
+                ],
                 downloadUrl: "https://drive.google.com/file/d/1-DTP5cWTEy_noE6c7cjR-I49CyluwW4D/view?usp=drive_link",
                 slides: [
                     { src: "picture/skin/aristia/gameplay.webp", label: "Gameplay", alt: "Aristia Instafade Gameplay" },
@@ -87,9 +78,8 @@ const SITE_CONFIG = {
                 ]
             },
             {
-                name: "Milkteaism Hydro DT BETA(Znap- edit)",
+                name: "Milkteaism Hydro DT BETA (Znap- edit)",
                 badgeText: "High AR",
-                badgeClass: "ar-skin",
                 downloadUrl: "https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link",
                 slides: [
                     { src: "picture/skin/DT/gameplay.webp", label: "Gameplay", alt: "Milkteaism Hydro DT Gameplay" },
@@ -98,24 +88,13 @@ const SITE_CONFIG = {
                 ]
             },
             {
-                name: "dddx15dt(Znap- edit)",
+                name: "dddx15dt (Znap- edit)",
                 badgeText: "DT",
-                badgeClass: "ar-skin",
                 downloadUrl: "https://drive.google.com/file/d/1HR_FhGM8iDg_X84VBrq-3cw7ERQHQcPs/view?usp=drive_link",
                 slides: [
                     { src: "picture/skin/dddx15dt/gameplay.webp", label: "Gameplay", alt: "dddx15dt Gameplay" },
                     { src: "picture/skin/dddx15dt/songselect.webp", label: "Song Select", alt: "dddx15dt Song Select" },
                     { src: "picture/skin/dddx15dt/result.webp", label: "Results UI", alt: "dddx15dt Results UI" }
-                ]
-            },
-            {
-                name: "Coming Soon Skin",
-                isPlaceholder: true, // ตั้งค่าเป็น true สำหรับช่องว่าง หรือลบออก/ใส่รูปเมื่อต้องการเปิดตัวสกินจริง
-                badgeText: "New",
-                badgeClass: "other-skin",
-                downloadUrl: "#",
-                slides: [
-                    { src: "", label: "Gameplay", alt: "Preview" }
                 ]
             }
         ]
@@ -130,7 +109,6 @@ const SITE_CONFIG = {
             {
                 name: "Znap-OsuBackground",
                 badgeText: "tosu Overlay",
-                badgeClass: "main-overlay",
                 description: "Designed for players using letterboxed / non-fullscreen resolutions (e.g., playing at 1440x900 on a 1920x1080 monitor with black borders). Fills the empty border space with dynamic beatmap artwork or music videos, featuring customizable background dimming and video toggles via config.",
                 downloadUrl: "https://github.com/znapppp/Znap-OsuBackground/archive/refs/heads/main.zip",
                 videoPreviewUrl: "https://drive.google.com/file/d/1B7kju2izmLIfe_iq1cu05M1qIrqgbPBp/view?usp=drive_link",

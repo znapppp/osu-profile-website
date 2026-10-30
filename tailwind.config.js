@@ -18,6 +18,9 @@ module.exports = {
         "inverse-primary": "#5d5f5f",
         "tertiary": "#ffffff",
         "glass-stroke": "rgba(255, 255, 255, 0.15)",
+        "hairline": "#2e2e2e",
+        "rule": "#444444",
+        "muted": "#9a9a9a",
         "on-error": "#690005",
         "error": "#ffb4ab",
         "on-background": "#e2e2e2",
@@ -73,20 +76,18 @@ module.exports = {
         gutter: "24px"
       },
       fontFamily: {
-        "label-small": ["Geist", "sans-serif"],
-        "body-md": ["Geist", "sans-serif"],
-        "body-lg": ["Geist", "sans-serif"],
-        "headline-lg": ["Geist", "sans-serif"],
-        "headline-lg-mobile": ["Geist", "sans-serif"],
-        "label-caps": ["JetBrains Mono", "monospace"],
-        "display-hero": ["Geist", "sans-serif"]
+        // Zen Maru Gothic: headings, skin names, and key numbers
+        display: ["Zen Maru Gothic", "sans-serif"],
+        sans: ["Geist", "sans-serif"],
+        // Units and setting values
+        mono: ["Geist Mono", "monospace"]
       },
       fontSize: {
         "label-small": ["12px", { lineHeight: "16px", fontWeight: "400" }],
-        "body-md": ["16px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "300" }],
-        "body-lg": ["20px", { lineHeight: "32px", letterSpacing: "0.01em", fontWeight: "300" }],
-        "headline-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "600" }],
-        "headline-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "600" }],
+        "body-md": ["16px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "400" }],
+        "body-lg": ["20px", { lineHeight: "32px", letterSpacing: "0.01em", fontWeight: "400" }],
+        "headline-lg": ["48px", { lineHeight: "52px", letterSpacing: "-0.01em", fontWeight: "700" }],
+        "headline-lg-mobile": ["32px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "700" }],
         "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500" }],
         "display-hero": ["80px", { lineHeight: "88px", letterSpacing: "-0.03em", fontWeight: "700" }]
       }

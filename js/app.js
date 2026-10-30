@@ -2,6 +2,134 @@
    Znap- osu! Setup Configuration - Interactive Application Logic (Tailwind)
    ========================================================================== */
 
+// Alt text and lightbox title for one screenshot of a skin
+function slideAlt(skin, slide) {
+    return slide.alt || slide.label || skin.name;
+}
+
+function slideTitle(skin, slide) {
+    return `${skin.name} — ${slide.label}`;
+}
+
+// Attributes the lightbox reads to open a skin screenshot full size
+function lightboxAttrs(skin, slide) {
+    return `data-lightbox="${slide.src}" data-lightbox-title="${slideTitle(skin, slide)}" data-lightbox-alt="${slideAlt(skin, slide)}"`;
+}
+
+function zoomButton(skin, slide) {
+    return `
+    <button type="button" ${lightboxAttrs(skin, slide)} aria-label="View ${skin.name} screenshot full size" class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary hover:bg-obsidian-deep transition-colors cursor-zoom-in">
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">zoom_in</span>
+    </button>`;
+}
+
+// Points every lightbox trigger inside `root` at a new screenshot
+function setLightboxTarget(root, src, title, alt) {
+    root.querySelectorAll('[data-lightbox]').forEach((trigger) => {
+        trigger.dataset.lightbox = src;
+        trigger.dataset.lightboxTitle = title;
+        trigger.dataset.lightboxAlt = alt;
+    });
+}
+
+// Current skin: one frame. On desktop the screenshot sits left and a side panel (name, note, details, thumbnails, download) right;
+// on smaller screens the panel stacks under the screenshot
+function renderFeaturedSkin(skin) {
+    const slides = skin.slides || [];
+    const first = slides[0] || {};
+    const details = skin.details || [];
+
+    return `
+    <article class="reg border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
+        <div class="relative overflow-hidden bg-black lg:flex lg:items-center">
+            <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
+            ${zoomButton(skin, first)}
+        </div>
+        <div class="flex flex-col divide-y divide-hairline border-t border-hairline lg:border-t-0 lg:border-l">
+            <div class="flex flex-col items-start gap-2 px-4 py-3">
+                <span class="tag bg-primary text-obsidian-deep">Current</span>
+                <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary">${skin.name}</h3>
+            </div>
+            ${skin.note ? `<p class="p-4 text-[15px] leading-relaxed text-on-surface-variant lg:flex-1">${skin.note}</p>` : '<div class="lg:flex-1"></div>'}
+            ${details.length ? `
+            <dl class="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 p-4 text-sm">
+                ${details.map((d) => `<dt class="text-muted">${d.label}</dt><dd class="font-mono text-primary">${d.value}</dd>`).join('')}
+            </dl>` : ''}
+            ${slides.length > 1 ? `
+            <div class="flex gap-2.5 p-4" role="group" aria-label="Screenshots of ${skin.name}">
+                ${slides.map((slide, i) => `
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 rounded-md opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                    <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
+                </button>`).join('')}
+            </div>` : ''}
+            <div class="flex items-center p-4">
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-primary w-full">
+                    <span>Download skin</span>
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                </a>
+            </div>
+        </div>
+    </article>`;
+}
+
+// One of the other skins: screenshot, name, type tag, and download
+function renderSkinCard(skin, index) {
+    const slides = skin.slides || [];
+
+    return `
+    <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
+        <div class="reg-t">
+            <div class="relative overflow-hidden bg-surface-container">
+                <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
+                    ${slides.map((slide, i) => `
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-contain bg-black" />`).join('')}
+                </div>
+                ${zoomButton(skin, slides[0] || {})}
+                ${slides.length > 1 ? `
+                <div class="absolute left-3 bottom-3 flex items-center rounded-md bg-obsidian-deep/85">
+                    <button type="button" data-slide-step="-1" aria-label="Previous screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
+                    </button>
+                    ${slides.map((_, i) => `
+                    <button type="button" data-slide-to="${i}" aria-label="Show screenshot ${i + 1} of ${slides.length} of ${skin.name}" aria-current="${i === 0}" class="w-5 h-8 grid place-items-center cursor-pointer before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-white/40 hover:before:bg-white/70 aria-[current=true]:before:bg-primary"></button>`).join('')}
+                    <button type="button" data-slide-step="1" aria-label="Next screenshot of ${skin.name}" class="w-8 h-8 grid place-items-center rounded-md text-primary hover:bg-white/10 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
+                    </button>
+                </div>` : ''}
+            </div>
+        </div>
+        <div class="flex flex-col flex-1 gap-4 p-4 border border-t-0 border-hairline">
+            <h3 id="skin-card-name-${index}" class="font-display font-bold text-lg leading-snug text-primary">${skin.name}</h3>
+            <div class="flex items-center justify-between gap-3 mt-auto">
+                ${skin.badgeText ? `<span class="tag border border-outline text-on-surface">${skin.badgeText}</span>` : '<span></span>'}
+                <a href="${skin.downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download ${skin.name}" class="btn-secondary">
+                    <span>Download</span>
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                </a>
+            </div>
+        </div>
+    </article>`;
+}
+
+// A lone number with a unit ("180 Hz", "0.3 mm") shows the number large; anything else stays plain text
+function setSpecValue(id, text) {
+    const el = document.getElementById(id);
+    if (!el || !text) return;
+    el.title = text;
+    const match = /^(\d+(?:\.\d+)?)\s+([A-Za-z]+(?:\s*\([^)]*\))?)$/.exec(text);
+    if (!match) {
+        el.textContent = text;
+        return;
+    }
+    const number = document.createElement('span');
+    number.className = 'font-display font-bold text-3xl leading-none';
+    number.textContent = match[1];
+    const unit = document.createElement('span');
+    unit.className = 'font-mono text-sm text-muted';
+    unit.textContent = match[2];
+    el.replaceChildren(number, ' ', unit);
+}
+
 // Dynamic Data Rendering from SITE_CONFIG (js/config.js)
 function renderFromConfig() {
     if (typeof SITE_CONFIG === 'undefined') return;
@@ -51,87 +179,32 @@ function renderFromConfig() {
         }
     }
 
-    // 2. Tablet Settings
-    if (SITE_CONFIG.tablet) {
-        const t = SITE_CONFIG.tablet;
-        const el = (id) => document.getElementById(id);
-        if (el('tablet-device') && t.device) el('tablet-device').textContent = t.device;
-        if (el('tablet-area') && t.area) el('tablet-area').textContent = t.area;
-        if (el('tablet-driver') && t.driverName) el('tablet-driver').textContent = t.driverName;
-        if (el('tablet-img') && t.previewImage) {
-            el('tablet-img').src = t.previewImage;
-            if (t.previewAlt) el('tablet-img').alt = t.previewAlt;
-            const btn = el('tablet-img').closest('[data-lightbox]');
+    // 2. Gear spec sheet: tablet, keyboard, monitor, audio
+    const gear = [
+        ['tablet', SITE_CONFIG.tablet, { area: 'area', driver: 'driverName' }],
+        ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
+        ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', resolution: 'resolution' }],
+        ['audio', SITE_CONFIG.audio, { conn: 'connector', type: 'type' }],
+    ];
+    gear.forEach(([prefix, data, fields]) => {
+        if (!data) return;
+        const device = document.getElementById(`${prefix}-device`);
+        if (device && data.device) device.textContent = data.device;
+        Object.entries(fields).forEach(([suffix, key]) => setSpecValue(`${prefix}-${suffix}`, data[key]));
+
+        const img = document.getElementById(`${prefix}-img`);
+        if (img && data.previewImage) {
+            img.src = data.previewImage;
+            if (data.previewAlt) img.alt = data.previewAlt;
+            const btn = img.closest('[data-lightbox]');
             if (btn) {
-                btn.setAttribute('data-lightbox', t.previewImage);
-                if (t.previewAlt) btn.setAttribute('data-lightbox-title', t.previewAlt);
+                btn.setAttribute('data-lightbox', data.previewImage);
+                if (data.previewAlt) btn.setAttribute('data-lightbox-title', data.previewAlt);
             }
         }
-    }
+    });
 
-    // 3. Keyboard Settings
-    if (SITE_CONFIG.keyboard) {
-        const k = SITE_CONFIG.keyboard;
-        const el = (id) => document.getElementById(id);
-        if (el('keyboard-device') && k.device) el('keyboard-device').textContent = k.device;
-        if (el('keyboard-actuation') && k.actuationPoint) el('keyboard-actuation').textContent = k.actuationPoint;
-        if (el('keyboard-rapid') && k.rapidTrigger) el('keyboard-rapid').textContent = k.rapidTrigger;
-        if (el('keyboard-img') && k.previewImage) {
-            el('keyboard-img').src = k.previewImage;
-            if (k.previewAlt) el('keyboard-img').alt = k.previewAlt;
-            const btn = el('keyboard-img').closest('[data-lightbox]');
-            if (btn) {
-                btn.setAttribute('data-lightbox', k.previewImage);
-                if (k.previewAlt) btn.setAttribute('data-lightbox-title', k.previewAlt);
-            }
-        }
-    }
-
-    // 4. Keypad Settings
-    if (SITE_CONFIG.keypad) {
-        const kp = SITE_CONFIG.keypad;
-        const el = (id) => document.getElementById(id);
-        if (el('keypad-device') && kp.device) el('keypad-device').textContent = kp.device;
-        if (el('keypad-stroke') && kp.stroke) el('keypad-stroke').textContent = kp.stroke;
-        if (el('keypad-actuation') && kp.actuationPoint) {
-            el('keypad-actuation').textContent = kp.actuationPoint;
-            el('keypad-actuation').title = kp.actuationPoint;
-        }
-        if (el('keypad-rapid') && kp.rapidTrigger) {
-            el('keypad-rapid').textContent = kp.rapidTrigger;
-            el('keypad-rapid').title = kp.rapidTrigger;
-        }
-        if (el('keypad-img') && kp.previewImage) {
-            el('keypad-img').src = kp.previewImage;
-            if (kp.previewAlt) el('keypad-img').alt = kp.previewAlt;
-            const btn = el('keypad-img').closest('[data-lightbox]');
-            if (btn) {
-                btn.setAttribute('data-lightbox', kp.previewImage);
-                if (kp.previewAlt) btn.setAttribute('data-lightbox-title', kp.previewAlt);
-            }
-        }
-    }
-
-    // 5. Monitor Settings
-    if (SITE_CONFIG.monitor) {
-        const m = SITE_CONFIG.monitor;
-        const el = (id) => document.getElementById(id);
-        if (el('monitor-device') && m.device) el('monitor-device').textContent = m.device;
-        if (el('monitor-refresh') && m.refreshRate) el('monitor-refresh').textContent = m.refreshRate;
-        if (el('monitor-response') && m.responseTime) el('monitor-response').textContent = m.responseTime;
-        if (el('monitor-resolution') && m.resolution) el('monitor-resolution').textContent = m.resolution;
-    }
-
-    // 6. Audio Settings
-    if (SITE_CONFIG.audio) {
-        const a = SITE_CONFIG.audio;
-        const el = (id) => document.getElementById(id);
-        if (el('audio-device') && a.device) el('audio-device').textContent = a.device;
-        if (el('audio-conn') && a.connector) el('audio-conn').textContent = a.connector;
-        if (el('audio-type') && a.type) el('audio-type').textContent = a.type;
-    }
-
-    // 7. Skins Grid
+    // 3. Skins Grid
     if (SITE_CONFIG.skins) {
         const s = SITE_CONFIG.skins;
         
@@ -142,71 +215,23 @@ function renderFromConfig() {
             driveLink.style.display = 'none';
         }
 
+        const items = (s.items || []).filter((item) => !item.isPlaceholder);
+        const featuredIndex = Math.max(0, items.findIndex((item) => item.current));
+
+        const countEl = document.getElementById('skins-count');
+        if (countEl) countEl.textContent = `${items.length} ${items.length === 1 ? 'skin' : 'skins'}`;
+
+        const featuredEl = document.getElementById('skins-featured');
+        if (featuredEl && items[featuredIndex]) {
+            featuredEl.innerHTML = renderFeaturedSkin(items[featuredIndex]);
+        }
+
         const grid = document.getElementById('skins-grid');
-        
-        if (grid && Array.isArray(s.items) && s.items.length > 0) {
-            grid.innerHTML = s.items.map((item, i) => {
-                if (item.isPlaceholder) {
-                    return `
-                    <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
-                        <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-3.5 md:mb-4 bg-surface-container/40 border border-dashed border-glass-stroke/70 flex flex-col items-center justify-center text-center p-6 transition-all duration-300 hover:border-white/30 hover:bg-surface-container/60">
-                            <span class="material-symbols-outlined text-on-surface-variant/40 text-3xl mb-2" aria-hidden="true">add_circle_outline</span>
-                            <span class="text-xs uppercase tracking-wider text-on-surface-variant/60 font-medium">Coming Soon</span>
-                            <span class="text-[11px] text-on-surface-variant/40 mt-1">New Skin Placeholder</span>
-                        </div>
-                        <h3 class="font-body-lg text-lg md:text-xl text-primary/40 mb-1.5 truncate" title="${item.name}">${item.name}</h3>
-                        <p class="font-body-md text-on-surface-variant/40 text-sm mb-2">Slot reserved for next skin</p>
-                    </div>`;
-                }
-
-                let desc = `My ${item.badgeText || 'favorite'} skin.`;
-                
-                return `
-                <div class="flex flex-col group opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
-                    <div class="relative w-full aspect-video rounded-xl overflow-hidden mb-3.5 md:mb-4 bg-surface-container shadow-md border border-glass-stroke/50 group/slider">
-                        
-                        <!-- Image Slider Container -->
-                        <div class="relative w-full h-full flex transition-transform duration-500 ease-in-out" id="slider-${i}" data-current="0" role="region" aria-label="Screenshots of ${item.name}">
-                            ${(item.slides || []).map((slide, slideIdx) => `
-                                <div class="min-w-full h-full flex items-center justify-center">
-                                    <img ${slideIdx === 0 ? `src="${slide.src}"` : `data-src="${slide.src}"`} alt="${slide.alt || slide.label || item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover" />
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        <!-- Next/Prev Buttons (visible on hover or keyboard focus) -->
-                        ${(item.slides && item.slides.length > 1) ? `
-                            <button type="button" onclick="event.stopPropagation(); window.slideSkin(${i}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-obsidian-deep/50 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-opacity z-10 hover:bg-obsidian-deep" aria-label="Previous screenshot for ${item.name}">
-                                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
-                            </button>
-                            <button type="button" onclick="event.stopPropagation(); window.slideSkin(${i}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-obsidian-deep/50 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-opacity z-10 hover:bg-obsidian-deep" aria-label="Next screenshot for ${item.name}">
-                                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
-                            </button>
-                        ` : ''}
-
-                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/20 to-transparent opacity-60 group-hover/slider:opacity-40 transition-opacity duration-300 pointer-events-none"></div>
-                        
-                        <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end pointer-events-none z-10">
-                            <div class="bg-primary/85 backdrop-blur-sm px-2.5 py-1 rounded text-[11px] font-medium text-obsidian-deep/90 shadow-sm">${item.badgeText || 'Skin'}</div>
-                            <a href="${item.downloadUrl}" target="_blank" rel="noopener noreferrer" class="pointer-events-auto w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 shadow-lg hover:bg-secondary cursor-pointer" title="Download ${item.name}" aria-label="Download skin ${item.name}">
-                                <span class="material-symbols-outlined text-obsidian-deep text-[18px]" aria-hidden="true">download</span>
-                            </a>
-                        </div>
-
-                        <!-- Dots -->
-                        ${(item.slides && item.slides.length > 1) ? `
-                            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10" aria-hidden="true">
-                                ${item.slides.map((_, dotIndex) => `
-                                    <div id="dot-${i}-${dotIndex}" class="w-1.5 h-1.5 rounded-full ${dotIndex === 0 ? 'bg-primary scale-125' : 'bg-white/50'} transition-all duration-300"></div>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-
-                    </div>
-                    <h3 class="font-body-lg text-lg md:text-xl text-primary mb-1.5 truncate" title="${item.name}">${item.name}</h3>
-                    <p class="font-body-md text-on-surface-variant text-sm mb-2 line-clamp-2">${desc}</p>
-                </div>`;
-            }).join('');
+        if (grid) {
+            grid.innerHTML = items
+                .filter((_, i) => i !== featuredIndex)
+                .map((item, i) => renderSkinCard(item, i))
+                .join('');
         }
     }
 
@@ -245,23 +270,23 @@ function renderFromConfig() {
                     <!-- Left: Info & Specs (5 Cols) -->
                     <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
                         <div>
-                            <h3 class="font-headline-lg-mobile text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">${item.name}</h3>
-                            <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${desc}</p>
+                            <h3 class="font-display font-bold text-2xl md:text-3xl text-primary mb-2">${item.name}</h3>
+                            <p class="font-sans text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${desc}</p>
                         </div>
 
                         <!-- Quick Spec Boxes -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-1">
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke shadow-sm">
-                                <span class="font-body-md text-sm text-on-surface-variant">Compatible With</span>
-                                <span class="font-label-caps text-body-md text-primary">tosu</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span class="font-mono text-sm text-primary">tosu</span>
+                                <span class="text-xs text-muted">Compatible with</span>
                             </div>
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke shadow-sm">
-                                <span class="font-body-md text-sm text-on-surface-variant">Target Screen</span>
-                                <span class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="1440x900 on 1920x1080">1440x900 on 1080p</span>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span class="font-mono text-sm text-primary">1440x900 on 1080p</span>
+                                <span class="text-xs text-muted">Target screen</span>
                             </div>
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest rounded-lg border border-glass-stroke shadow-sm sm:col-span-2">
-                                <span class="font-body-md text-sm text-on-surface-variant">Key Features</span>
-                                <span class="font-label-caps text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Dynamic Beatmap Artwork, Video Toggle, Custom Dim">Dynamic BG & Video / Custom Dim</span>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0 sm:col-span-2">
+                                <span class="font-mono text-sm text-primary">Dynamic BG &amp; Video / Custom Dim</span>
+                                <span class="text-xs text-muted">Key features</span>
                             </div>
                         </div>
 
@@ -269,20 +294,20 @@ function renderFromConfig() {
                         <div class="flex flex-col gap-3 mt-1">
                             <div class="flex flex-wrap items-center gap-3">
                                 ${downloadUrl && downloadUrl !== '#' ? `
-                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-obsidian-deep font-semibold text-xs hover:bg-secondary transition-all duration-300 shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="btn-primary">
                                         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                                         <span>Download Overlay (.zip)</span>
                                     </a>
                                 ` : ''}
                                 ${videoPreviewUrl ? `
-                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest/80 border border-white/10 text-on-surface hover:text-primary hover:border-white/25 text-xs font-medium transition-all duration-300 shadow-sm hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group">
-                                        <span class="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform" aria-hidden="true">smart_display</span>
+                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="btn-secondary">
+                                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
                                         <span>Video Preview</span>
-                                        <span class="material-symbols-outlined text-[14px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
+                                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
                                     </a>
                                 ` : ''}
                                 ${githubUrl ? `
-                                    <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest/80 border border-white/10 text-on-surface hover:text-primary hover:border-white/25 text-xs font-medium transition-all duration-300 shadow-sm hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                                    <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="btn-secondary">
                                         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                         <span>Source Code</span>
                                     </a>
@@ -290,23 +315,23 @@ function renderFromConfig() {
                             </div>
 
                             ${sourceRefUrl ? `
-                                <div class="text-[11px] text-on-surface-variant/75 flex items-center gap-1.5 pt-1">
+                                <div class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
                                     <span>Forked from:</span>
-                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant/90 hover:text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">Citrusis/OBSDecoratePack</a>
+                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">Citrusis/OBSDecoratePack</a>
                                 </div>
                             ` : ''}
                         </div>
                     </div>
 
                     <!-- Right: Large Video/Image Showcase (7 Cols) -->
-                    <div class="md:col-span-7 relative group">
-                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-xl overflow-hidden bg-surface-container border border-glass-stroke shadow-xl">
+                    <div class="md:col-span-7 relative group reg">
+                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
                             ${hasVideo ? `
-                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
+                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
                             ` : (imgSrc ? `
-                                <img class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 transition-all duration-700" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
+                                <img class="absolute inset-0 w-full h-full object-contain" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
                             ` : `
-                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-on-surface-variant/50 font-label-caps text-sm">No preview available</div>
+                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-muted font-mono text-sm">No preview available</div>
                             `)}
                         </div>
                     </div>
@@ -410,42 +435,82 @@ function initScrollReveal() {
     targets.forEach(el => observer.observe(el));
 }
 
-// Inline Skin Slider Logic
-window.slideSkin = function(skinIndex, direction) {
-    if (!SITE_CONFIG.skins || !SITE_CONFIG.skins.items) return;
-    const skin = SITE_CONFIG.skins.items[skinIndex];
-    if (!skin || !skin.slides) return;
-    
-    const total = skin.slides.length;
-    const slider = document.getElementById(`slider-${skinIndex}`);
-    if (!slider) return;
-    
-    let current = parseInt(slider.getAttribute('data-current') || 0);
-    current = (current + direction + total) % total;
-    slider.setAttribute('data-current', current);
+// Featured skin: a thumbnail swaps the banner screenshot
+function initFeaturedSkin() {
+    const featured = document.getElementById('skins-featured');
+    const banner = document.getElementById('featured-skin-img');
+    if (!featured || !banner) return;
 
-    // Lazy-load deferred slide images on demand
-    const imgs = slider.querySelectorAll('img[data-src]');
-    imgs.forEach(img => {
-        img.src = img.getAttribute('data-src');
-        img.removeAttribute('data-src');
+    featured.addEventListener('click', (e) => {
+        const thumb = e.target.closest('[data-featured-slide]');
+        if (!thumb) return;
+        banner.src = thumb.dataset.src;
+        banner.alt = thumb.dataset.alt;
+        setLightboxTarget(featured, thumb.dataset.src, thumb.dataset.title, thumb.dataset.alt);
+        featured.querySelectorAll('[data-featured-slide]').forEach((t) => {
+            t.setAttribute('aria-pressed', String(t === thumb));
+        });
     });
-    
-    // Move the slider container
-    slider.style.transform = `translateX(-${current * 100}%)`;
-    
-    // Update dots
-    for(let j = 0; j < total; j++) {
-        const dot = document.getElementById(`dot-${skinIndex}-${j}`);
-        if(dot) {
-            if(j === current) {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-primary scale-125 transition-all duration-300";
-            } else {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-white/50 transition-all duration-300";
-            }
-        }
+}
+
+// Skin cards: step through screenshots with the arrows, the dots, or a horizontal swipe
+function initSkinSliders() {
+    const grid = document.getElementById('skins-grid');
+    if (!grid) return;
+
+    function showSlide(card, index) {
+        const track = card.querySelector('[data-skin-slider]');
+        if (!track) return;
+        const slides = Array.from(track.children);
+        const current = (index + slides.length) % slides.length;
+        track.dataset.current = current;
+
+        // Deferred screenshots load on the first navigation
+        track.querySelectorAll('img[data-src]').forEach((img) => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+
+        track.style.transform = `translateX(-${current * 100}%)`;
+        slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== current)));
+
+        const shown = slides[current];
+        const name = card.querySelector('h3').textContent;
+        setLightboxTarget(card, shown.src, `${name} — ${shown.dataset.label}`, shown.alt);
+        card.querySelectorAll('[data-slide-to]').forEach((dot) => {
+            dot.setAttribute('aria-current', String(Number(dot.dataset.slideTo) === current));
+        });
     }
-};
+
+    function step(card, direction) {
+        const track = card.querySelector('[data-skin-slider]');
+        if (track) showSlide(card, Number(track.dataset.current) + direction);
+    }
+
+    grid.addEventListener('click', (e) => {
+        const control = e.target.closest('[data-slide-step], [data-slide-to]');
+        if (!control) return;
+        const card = control.closest('article');
+        if (control.dataset.slideStep) step(card, Number(control.dataset.slideStep));
+        else showSlide(card, Number(control.dataset.slideTo));
+    });
+
+    let touchStart = null;
+    grid.addEventListener('touchstart', (e) => {
+        if (!e.target.closest('[data-skin-slider]')) return;
+        touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }, { passive: true });
+
+    grid.addEventListener('touchend', (e) => {
+        if (!touchStart) return;
+        const dx = e.changedTouches[0].clientX - touchStart.x;
+        const dy = e.changedTouches[0].clientY - touchStart.y;
+        touchStart = null;
+        // Ignore taps and mostly-vertical scrolling
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+        step(e.target.closest('article'), dx < 0 ? 1 : -1);
+    }, { passive: true });
+}
 
 // Mobile Navigation Drawer Toggle
 function initMobileMenu() {
@@ -491,6 +556,11 @@ function initNavScroll() {
     const sections = Array.from(desktopLinks).map(a => document.getElementById(a.getAttribute('data-path'))).filter(Boolean);
     sections.unshift(document.body);
     
+    const setCurrent = (link, isActive) => {
+        if (isActive) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+    };
+
     let ticking = false;
     let lastActive = null;
     window.addEventListener('scroll', () => {
@@ -522,13 +592,15 @@ function initNavScroll() {
                     const isActive = link.getAttribute('data-path') === current;
                     link.classList.toggle('text-primary', isActive);
                     link.classList.toggle('text-on-surface-variant', !isActive);
+                    setCurrent(link, isActive);
                 });
 
                 mobileLinks.forEach(link => {
                     const isActive = link.getAttribute('data-path') === current;
                     link.classList.toggle('text-primary', isActive);
-                    link.classList.toggle('bg-surface-container/40', isActive);
+                    link.classList.toggle('bg-surface-container', isActive);
                     link.classList.toggle('text-on-surface-variant', !isActive);
+                    setCurrent(link, isActive);
                 });
                 ticking = false;
             });
@@ -584,7 +656,7 @@ function initLightbox() {
             const src = trigger.getAttribute('data-lightbox');
             const title = trigger.getAttribute('data-lightbox-title');
             const img = trigger.querySelector('img');
-            const alt = img ? img.alt : '';
+            const alt = trigger.getAttribute('data-lightbox-alt') || (img ? img.alt : '');
             openLightbox(src, alt, title);
         }
     });
@@ -607,6 +679,8 @@ function initLightbox() {
 function initApp() {
     renderFromConfig();
     initSocials();
+    initFeaturedSkin();
+    initSkinSliders();
     initScrollReveal();
     initNavScroll();
     initMobileMenu();

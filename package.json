@@ -6,9 +6,12 @@
     "start": "npx serve .",
     "dev": "npx serve .",
     "build": "tailwindcss -i ./css/styles.css -o ./css/output.css --minify",
-    "build:css": "tailwindcss -i ./css/styles.css -o ./css/output.css --watch"
+    "build:css": "tailwindcss -i ./css/styles.css -o ./css/output.css --watch",
+    "test": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "serve": "^14.2.6",
     "tailwindcss": "^3.4.19"
   }
 }

@@ -14,3 +14,10 @@ desktop.ini
 node_modules/
 .agents/
 skills-lock.json
+
+# Brainstorm mockups
+.superpowers/
+
+# Playwright
+test-results/
+playwright-report/

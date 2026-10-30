@@ -36,9 +36,26 @@ During development, run `npm run build:css` to rebuild the CSS on every change.
 Edit `js/config.js` to change the content shown on the page:
 
 - `profile`: username, avatar, social links, Discord tag, and last update date
-- `tablet`, `keyboard`, `keypad`, `monitor`, `audio`: device names, settings, and preview images
-- `skins`: skin cards, screenshots, and download links. Set `isPlaceholder: true` to show an empty "Coming Soon" card
+- `tablet`, `keyboard`, `monitor`, `audio`: device names, settings, and preview images
+- `skins`: skins, screenshots, and download links. Set `current: true` on the skin you play with to feature it in the wide banner (otherwise the first skin is featured). The featured skin can also have a `note` (a short line from you) and `details` (rows of `{ label, value }`). `badgeText` is the type tag shown on the other skins' cards
 - `overlays`: overlay details, preview video, and download and source links
+
+## Testing
+
+`npm test` runs the Playwright tests against the installed Google Chrome, on a desktop and a mobile (Pixel 7) viewport. It rebuilds `css/output.css` first. The tests use `tests/fixtures/config.js` in place of `js/config.js`, so they don't depend on the real content. Swipe is touch-only, so that one test is skipped on desktop.
+
+## Design Classes
+
+Shared classes in `css/styles.css`:
+
+- `.reg`, `.reg-t`, `.reg-b`: "+" registration marks just outside a frame's corners (all four, top two, bottom two). Don't put `overflow-hidden` on the same element.
+- `.btn-primary`: solid white button with 6px rounded corners
+- `.btn-secondary`: white outline button with 6px rounded corners (frames, cards and tags stay square)
+- `.tag`: small type label
+- `.section-rule`: decorative divider at the top of each content section, with "+" marks at both ends
+- `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/app.js` sets it, also on the mobile menu links)
+
+Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), `bg-rule` (`#444`, section dividers), and `text-muted` (`#9a9a9a`).
 
 ## Maintenance Notes
 
