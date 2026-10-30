@@ -63,6 +63,10 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
   - **Tags:** `.tag` for small type labels.
 - Nothing may appear only on hover. Download buttons, slide controls, dots, and zoom buttons are always visible.
 
+### Background
+
+- The floating rounded crosses live only in the hero (`#overview`) and scroll away with it. Gear, Skins, Overlay and the footer have a plain solid background with no crosses.
+
 ### Skins section (done)
 
 - The skin flagged `current: true` is featured. If none is flagged, the first skin is featured.
@@ -139,7 +143,6 @@ The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` li
 ## Not decided yet (ask the owner before doing these)
 
 - **Section order:** move Skins above Gear and/or make the hero shorter. This was the biggest problem the site audit found. Today skins start about 3 screens down on desktop and about 9 on mobile.
-- **Floating crosses:** whether the cross background should stay fixed across every section. Today it floats over all content while scrolling.
 - **Hero:** the hero wordmark is a pre-drawn SVG in Geist Bold, and its entrance animation takes about 2 seconds. Both are out of scope unless the owner asks.
 
 ## How the tests work
