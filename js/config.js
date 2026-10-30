@@ -113,6 +113,12 @@ const SITE_CONFIG = {
                 downloadUrl: "https://github.com/znapppp/Znap-OsuBackground/archive/refs/heads/main.zip",
                 videoPreviewUrl: "https://drive.google.com/file/d/1B7kju2izmLIfe_iq1cu05M1qIrqgbPBp/view?usp=drive_link",
                 sourceRefUrl: "https://github.com/Citrusis/OBSDecoratePack",
+                sourceRefName: "Citrusis/OBSDecoratePack",
+                specs: [
+                    { label: "Compatible with", value: "tosu" },
+                    { label: "Target screen", value: "1440x900 on 1080p" },
+                    { label: "Key features", value: "Dynamic BG & Video / Custom Dim" }
+                ],
                 previewImg: "",
                 previewVideo: "picture/overlay/vdo/preview_vdo.mp4",
                 tags: ["tosu", "OBS Overlay", "1440x900 / 1920x1080", "Beatmap Video / BG", "Custom Dim"]

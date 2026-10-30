@@ -101,6 +101,13 @@ const SITE_CONFIG = {
                 name: "Fixture Overlay",
                 description: "An overlay used only by tests.",
                 downloadUrl: "https://github.example/overlay.zip",
+                sourceRefUrl: "https://github.example/upstream/pack",
+                sourceRefName: "Upstream/Pack",
+                specs: [
+                    { label: "Compatible with", value: "Fixture Engine" },
+                    { label: "Target screen", value: "800x600 on 1080p" },
+                    { label: "Key features", value: "Fixture Feature" }
+                ],
                 previewVideo: ""
             }
         ]

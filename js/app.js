@@ -118,6 +118,75 @@ function renderSkinCard(skin, index) {
     </article>`;
 }
 
+// One tosu overlay: name, description, spec cells, links, and the preview video or image beside them
+function renderOverlay(item, index) {
+    const name = escapeHtml(item.name);
+    const specs = item.specs || [];
+    const imgSrc = escapeHtml(item.previewImg || (item.slides && item.slides.length > 0 ? item.slides[0].src : ''));
+    const downloadUrl = item.downloadUrl && item.downloadUrl !== '#' ? escapeHtml(item.downloadUrl) : '';
+
+    return `
+    <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="overlay-name-${index}">
+        <!-- Left: Info & Specs (5 Cols) -->
+        <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
+            <div>
+                <h3 id="overlay-name-${index}" class="font-display font-bold text-2xl md:text-3xl text-primary mb-2">${name}</h3>
+                ${item.description ? `<p class="font-sans text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${escapeHtml(item.description)}</p>` : ''}
+            </div>
+
+            ${specs.length ? `
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                ${specs.map((spec, i) => `
+                <div class="bg-background p-4 flex flex-col-reverse justify-end gap-1 min-w-0${specs.length % 2 && i === specs.length - 1 ? ' sm:col-span-2' : ''}">
+                    <dt class="text-xs text-muted">${escapeHtml(spec.label)}</dt>
+                    <dd class="font-mono text-sm text-primary">${escapeHtml(spec.value)}</dd>
+                </div>`).join('')}
+            </dl>` : ''}
+
+            <!-- Action Buttons & Credit -->
+            <div class="flex flex-col gap-3 mt-1">
+                <div class="flex flex-wrap items-center gap-3">
+                    ${downloadUrl ? `
+                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${name} (.zip)" class="btn-primary">
+                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                        <span>Download Overlay (.zip)</span>
+                    </a>` : ''}
+                    ${item.videoPreviewUrl ? `
+                    <a href="${escapeHtml(item.videoPreviewUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${name}" class="btn-secondary">
+                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
+                        <span>Video Preview</span>
+                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
+                    </a>` : ''}
+                    ${item.githubUrl ? `
+                    <a href="${escapeHtml(item.githubUrl)}" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="btn-secondary">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        <span>Source Code</span>
+                    </a>` : ''}
+                </div>
+
+                ${item.sourceRefUrl ? `
+                <p class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
+                    <span>Forked from:</span>
+                    <a href="${escapeHtml(item.sourceRefUrl)}" target="_blank" rel="noopener noreferrer" class="text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">${escapeHtml(item.sourceRefName || item.sourceRefUrl)}</a>
+                </p>` : ''}
+            </div>
+        </div>
+
+        <!-- Right: Large Video/Image Showcase (7 Cols) -->
+        <div class="md:col-span-7 relative group">
+            <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
+                ${item.previewVideo ? `
+                <video id="overlay-preview-video-${index}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${escapeHtml(item.previewVideo)}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${name} video preview"></video>
+                ` : (imgSrc ? `
+                <img class="absolute inset-0 w-full h-full object-contain" src="${imgSrc}" alt="${name} preview" loading="lazy" decoding="async" />
+                ` : `
+                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-muted font-mono text-sm">No preview available</div>
+                `)}
+            </div>
+        </div>
+    </article>`;
+}
+
 // A lone number with a unit ("180 Hz", "0.3 mm") shows the number large; anything else stays plain text
 function setSpecValue(id, text) {
     const el = document.getElementById(id);
@@ -260,7 +329,7 @@ function renderFromConfig() {
         }
     }
 
-    // 8. tosu Overlays Grid
+    // 4. tosu Overlays Grid
     if (SITE_CONFIG.overlays) {
         const o = SITE_CONFIG.overlays;
         const githubLink = document.getElementById('overlays-github-link');
@@ -279,92 +348,10 @@ function renderFromConfig() {
 
         const grid = document.getElementById('overlays-grid');
         if (grid && Array.isArray(o.items) && o.items.length > 0) {
-            grid.innerHTML = o.items.map((item, i) => {
-                const desc = item.description || `Custom overlay created for tosu.`;
-                const imgSrc = item.previewImg || (item.slides && item.slides.length > 0 ? item.slides[0].src : '');
-                const downloadUrl = item.downloadUrl || '#';
-                const videoPreviewUrl = item.videoPreviewUrl || '';
-                const githubUrl = item.githubUrl || '';
-                const sourceRefUrl = item.sourceRefUrl || '';
-
-                const hasVideo = Boolean(item.previewVideo);
-                const videoSrc = item.previewVideo || '';
-
-                return `
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${i * 100}ms;">
-                    <!-- Left: Info & Specs (5 Cols) -->
-                    <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
-                        <div>
-                            <h3 class="font-display font-bold text-2xl md:text-3xl text-primary mb-2">${item.name}</h3>
-                            <p class="font-sans text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${desc}</p>
-                        </div>
-
-                        <!-- Quick Spec Boxes -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span class="font-mono text-sm text-primary">tosu</span>
-                                <span class="text-xs text-muted">Compatible with</span>
-                            </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span class="font-mono text-sm text-primary">1440x900 on 1080p</span>
-                                <span class="text-xs text-muted">Target screen</span>
-                            </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0 sm:col-span-2">
-                                <span class="font-mono text-sm text-primary">Dynamic BG &amp; Video / Custom Dim</span>
-                                <span class="text-xs text-muted">Key features</span>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons & Tags -->
-                        <div class="flex flex-col gap-3 mt-1">
-                            <div class="flex flex-wrap items-center gap-3">
-                                ${downloadUrl && downloadUrl !== '#' ? `
-                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="btn-primary">
-                                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
-                                        <span>Download Overlay (.zip)</span>
-                                    </a>
-                                ` : ''}
-                                ${videoPreviewUrl ? `
-                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="btn-secondary">
-                                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
-                                        <span>Video Preview</span>
-                                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
-                                    </a>
-                                ` : ''}
-                                ${githubUrl ? `
-                                    <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="btn-secondary">
-                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                                        <span>Source Code</span>
-                                    </a>
-                                ` : ''}
-                            </div>
-
-                            ${sourceRefUrl ? `
-                                <div class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
-                                    <span>Forked from:</span>
-                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">Citrusis/OBSDecoratePack</a>
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-
-                    <!-- Right: Large Video/Image Showcase (7 Cols) -->
-                    <div class="md:col-span-7 relative group">
-                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
-                            ${hasVideo ? `
-                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
-                            ` : (imgSrc ? `
-                                <img class="absolute inset-0 w-full h-full object-contain" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
-                            ` : `
-                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-muted font-mono text-sm">No preview available</div>
-                            `)}
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
+            grid.innerHTML = o.items.map(renderOverlay).join('');
 
             // IntersectionObserver for video playback: Play only when visible on screen
-            const videos = document.querySelectorAll('video.video-layer');
+            const videos = grid.querySelectorAll('video.video-layer');
             if ('IntersectionObserver' in window && videos.length > 0) {
                 const videoObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {

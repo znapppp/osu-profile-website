@@ -39,7 +39,7 @@ Edit `js/config.js` to change the content shown on the page:
 - `tablet`, `keyboard`, `monitor`, `audio`: device names, settings, and preview images
 - `skins`: skins, screenshots, and download links. Set `current: true` on the skin you play with to feature it in the wide banner (otherwise the first skin is featured). The featured skin can also have a `note` (a short line from you) and `details` (rows of `{ label, value }`). `badgeText` is the type tag shown on the other skins' cards
 - `tablet`: `driverDownloadUrl` turns the driver name into a link to its download page. `keyboard`: `keybind` shows which fingers press which keys
-- `overlays`: overlay details, preview video, and download and source links
+- `overlays`: overlay details, preview video, and download and source links. `specs` (rows of `{ label, value }`) fill the spec cells, and `sourceRefName` is the text of the "Forked from" link to `sourceRefUrl`
 
 ## Testing
 
