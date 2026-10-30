@@ -262,7 +262,7 @@
         </div>
 
         <!-- Mobile Menu Toggle Button -->
-        <button type="button" id="mobile-menu-toggle" class="sm:hidden flex items-center justify-center w-9 h-9 bg-surface-container-lowest border border-hairline text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button type="button" id="mobile-menu-toggle" class="rounded-md sm:hidden flex items-center justify-center w-9 h-9 bg-surface-container-lowest border border-hairline text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
             <span id="mobile-menu-icon" class="material-symbols-outlined text-[20px]" aria-hidden="true">menu</span>
         </button>
     </div>
@@ -368,12 +368,12 @@
                         <div class="flex flex-col gap-5">
                             <h3 id="tablet-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Wacom CTL-472</h3>
                             <div class="reg grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="tablet-area" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="tablet-area" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Active area</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="tablet-driver" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="tablet-driver" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Driver</span>
                             </div>
                             </div>
@@ -383,7 +383,7 @@
                         <div class="relative w-full">
                             <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="picture/tablet/tablet-area.png" data-lightbox-title="Wacom CTL-472 Tablet Settings" aria-label="Expand Wacom CTL-472 tablet settings image">
                                 <img id="tablet-img" class="w-full h-full object-contain" src="picture/tablet/tablet-area.png" alt="Wacom CTL-472 Tablet Settings" loading="lazy" decoding="async" />
-                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary" aria-hidden="true">
+                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary" aria-hidden="true">
                                     <span class="material-symbols-outlined text-[18px]">zoom_in</span>
                                 </span>
                             </button>
@@ -397,12 +397,12 @@
                         <div class="flex flex-col gap-5">
                             <h3 id="keyboard-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Keychron C75 TMR</h3>
                             <div class="reg grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="keyboard-actuation" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="keyboard-actuation" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Actuation</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="keyboard-rapid" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="keyboard-rapid" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Rapid trigger</span>
                             </div>
                             </div>
@@ -412,7 +412,7 @@
                         <div class="relative w-full">
                             <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="picture/keyboard/Screenshot 2026-08-23 231651.webp" data-lightbox-title="Keychron C75 Keyboard Settings" aria-label="Expand Keychron C75 keyboard settings image">
                                 <img id="keyboard-img" class="w-full h-full object-contain" src="picture/keyboard/Screenshot 2026-08-23 231651.webp" alt="Keychron C75 Keyboard Settings" loading="lazy" decoding="async" />
-                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary" aria-hidden="true">
+                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary" aria-hidden="true">
                                     <span class="material-symbols-outlined text-[18px]">zoom_in</span>
                                 </span>
                             </button>
@@ -426,16 +426,16 @@
                         <div class="flex flex-col gap-5">
                             <h3 id="keypad-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Sayodevice O3C</h3>
                             <div class="reg grid grid-cols-1 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="keypad-stroke" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="keypad-stroke" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Stroke</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="keypad-actuation" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="keypad-actuation" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Actuation point</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="keypad-rapid" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="keypad-rapid" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Rapid trigger</span>
                             </div>
                             </div>
@@ -445,7 +445,7 @@
                         <div class="relative w-full">
                             <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="picture/keypad/Screenshot 2026-08-22 221530.webp" data-lightbox-title="Sayodevice O3C Keypad Settings" aria-label="Expand Sayodevice O3C keypad settings image">
                                 <img id="keypad-img" class="w-full h-full object-contain" src="picture/keypad/Screenshot 2026-08-22 221530.webp" alt="Sayodevice O3C Keypad Settings" loading="lazy" decoding="async" />
-                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary" aria-hidden="true">
+                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary" aria-hidden="true">
                                     <span class="material-symbols-outlined text-[18px]">zoom_in</span>
                                 </span>
                             </button>
@@ -454,36 +454,36 @@
                     </div>
                 </article>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12">
-                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="flex flex-col gap-5">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-stretch">
+                <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="flex flex-col flex-1 gap-5">
                             <h3 id="monitor-device" class="font-display font-bold text-2xl md:text-3xl text-primary">LG ULTRAGEAR 24GS60F-B</h3>
-                            <div class="reg grid grid-cols-1 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="monitor-refresh" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="reg flex-1 grid grid-cols-1 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="monitor-refresh" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Refresh rate</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="monitor-response" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="monitor-response" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Response time</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="monitor-resolution" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="monitor-resolution" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Resolution</span>
                             </div>
                             </div>
                         </div>
                 </article>
-                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="flex flex-col gap-5">
+                <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="flex flex-col flex-1 gap-5">
                             <h3 id="audio-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Apple EarPods</h3>
-                            <div class="reg grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="audio-conn" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="reg flex-1 grid grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="audio-conn" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Connection</span>
                             </div>
-                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
-                                <span id="audio-type" class="font-mono text-sm text-primary break-words"></span>
+                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
+                                <span id="audio-type" class="block font-mono text-sm leading-9 text-primary break-words"></span>
                                 <span class="text-xs text-muted">Type</span>
                             </div>
                             </div>
@@ -554,8 +554,8 @@
             </div>
             <nav class="flex flex-wrap justify-center md:justify-end items-center gap-6 md:gap-8" aria-label="Footer Social Navigation">
                 <button type="button" id="footer-discord" class="text-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer bg-transparent border-0 p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" title="Copy Discord ID" aria-label="Copy Discord username">Discord</button>
-                <a id="footer-x" class="text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">X</a>
-                <a id="footer-tiktok" class="text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">TikTok</a>
+                <a id="footer-x" class="rounded-md text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">X</a>
+                <a id="footer-tiktok" class="rounded-md text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">TikTok</a>
             </nav>
         </div>
     </div>
@@ -567,7 +567,7 @@
             <!-- Header with Title & Close button -->
             <div class="w-full flex items-center justify-between px-1 text-white">
                 <span id="lightbox-title" class="font-sans text-sm md:text-base font-medium text-on-surface truncate"></span>
-                <button type="button" id="lightbox-close" class="inline-flex items-center justify-center w-9 h-9 bg-surface-container-lowest border border-hairline text-on-surface hover:text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer" aria-label="Close image preview">
+                <button type="button" id="lightbox-close" class="rounded-md inline-flex items-center justify-center w-9 h-9 bg-surface-container-lowest border border-hairline text-on-surface hover:text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer" aria-label="Close image preview">
                     <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
                 </button>
             </div>

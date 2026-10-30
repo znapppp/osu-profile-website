@@ -45,3 +45,36 @@ test('every setting value from the config is shown', async ({ page }) => {
         await expect(gear).toContainText(text);
     }
 });
+
+test.describe('equal spec cells', () => {
+    test('the monitor and audio boxes and every cell line up', async ({ page, isMobile }) => {
+        test.skip(isMobile, 'side by side only on desktop');
+        await page.goto('/');
+        const gear = page.locator('#hardware');
+        const box = async (label) => {
+            const cell = gear.locator('div').filter({ has: page.getByText(label, { exact: true }) }).last();
+            return cell.boundingBox();
+        };
+        const refresh = await box('Refresh rate');
+        const resolution = await box('Resolution');
+        const connection = await box('Connection');
+        const type = await box('Type');
+
+        expect(Math.abs(resolution.height - refresh.height)).toBeLessThan(1);
+        // the frame around the audio cells is as tall as the frame around the monitor cells
+        expect(Math.abs(connection.height - refresh.height)).toBeLessThan(1);
+        expect(Math.abs(type.y - connection.y)).toBeLessThan(1);
+        expect(Math.abs(connection.y - refresh.y)).toBeLessThan(1);
+    });
+
+    test('cells hold the same height whatever kind of value they show', async ({ page }) => {
+        await page.goto('/');
+        const gear = page.locator('#hardware');
+        const heights = [];
+        for (const label of ['Active area', 'Driver', 'Actuation', 'Stroke', 'Refresh rate', 'Connection']) {
+            const cell = gear.locator('div').filter({ has: page.getByText(label, { exact: true }) }).last();
+            heights.push((await cell.boundingBox()).height);
+        }
+        expect(Math.min(...heights)).toBeGreaterThanOrEqual(104);
+    });
+});
