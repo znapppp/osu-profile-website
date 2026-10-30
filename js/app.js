@@ -586,7 +586,7 @@ function initNavScroll() {
                 mobileLinks.forEach(link => {
                     const isActive = link.getAttribute('data-path') === current;
                     link.classList.toggle('text-primary', isActive);
-                    link.classList.toggle('bg-surface-container/40', isActive);
+                    link.classList.toggle('bg-surface-container', isActive);
                     link.classList.toggle('text-on-surface-variant', !isActive);
                 });
                 ticking = false;
