@@ -40,10 +40,10 @@
   .reg-b::before { background: var(--mark-bl), var(--mark-br); }
 
   .btn-primary {
-    @apply inline-flex items-center justify-between gap-3 px-4 py-3 bg-primary text-obsidian-deep font-display font-bold text-sm transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+    @apply inline-flex items-center justify-between gap-3 rounded-md px-4 py-3 bg-primary text-obsidian-deep font-display font-bold text-sm transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-between gap-3 px-3 py-2 border border-primary text-primary font-display font-bold text-sm transition-colors hover:bg-primary hover:text-obsidian-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+    @apply inline-flex items-center justify-between gap-3 rounded-md px-3 py-2 border border-primary text-primary font-display font-bold text-sm transition-colors hover:bg-primary hover:text-obsidian-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
   .tag {
     @apply inline-block px-2 py-1 font-display font-bold text-xs tracking-wider uppercase;
