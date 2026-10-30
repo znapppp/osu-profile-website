@@ -18,12 +18,14 @@ const SITE_CONFIG = {
         device: "Fixture Tablet T1",
         area: "50 mm x 30 mm",
         driverName: "Fixture Driver v1",
+        driverDownloadUrl: "https://drivers.example/fixture",
         previewImage: "picture/tablet/tablet-area.png",
         previewAlt: "Fixture tablet area screenshot"
     },
 
     keyboard: {
         device: "Fixture Keyboard K1",
+        keybind: "Fixture Fingers (X, Y)",
         actuationPoint: "0.4 mm",
         rapidTrigger: "0.2 mm",
         previewImage: "picture/keyboard/Screenshot 2026-08-23 231651.webp",

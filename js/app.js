@@ -137,6 +137,23 @@ function setSpecValue(id, text) {
     el.replaceChildren(number, ' ', unit);
 }
 
+// Turns a shown setting value into a link out, e.g. the driver name to its download page
+function linkSpecValue(id, url) {
+    const el = document.getElementById(id);
+    if (!el || !url || !el.firstChild) return;
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.className = 'inline-flex items-center gap-1 underline underline-offset-4 decoration-outline hover:decoration-primary transition-colors';
+    const icon = document.createElement('span');
+    icon.className = 'material-symbols-outlined text-[16px]';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = 'arrow_outward';
+    link.append(...el.childNodes, icon);
+    el.replaceChildren(link);
+}
+
 // Dynamic Data Rendering from SITE_CONFIG (js/config.js)
 function renderFromConfig() {
     if (typeof SITE_CONFIG === 'undefined') return;
@@ -189,7 +206,7 @@ function renderFromConfig() {
     // 2. Gear spec sheet: tablet, keyboard, monitor, audio
     const gear = [
         ['tablet', SITE_CONFIG.tablet, { area: 'area', driver: 'driverName' }],
-        ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
+        ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger', keybind: 'keybind' }],
         ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', resolution: 'resolution' }],
         ['audio', SITE_CONFIG.audio, { conn: 'connector', type: 'type' }],
     ];
@@ -198,6 +215,7 @@ function renderFromConfig() {
         const device = document.getElementById(`${prefix}-device`);
         if (device && data.device) device.textContent = data.device;
         Object.entries(fields).forEach(([suffix, key]) => setSpecValue(`${prefix}-${suffix}`, data[key]));
+        if (prefix === 'tablet') linkSpecValue('tablet-driver', data.driverDownloadUrl);
 
         const img = document.getElementById(`${prefix}-img`);
         if (img && data.previewImage) {

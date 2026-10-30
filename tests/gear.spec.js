@@ -40,9 +40,23 @@ test('a single-number setting shows a large number with a monospace unit', async
 test('every setting value from the config is shown', async ({ page }) => {
     await page.goto('/');
     const gear = page.locator('#hardware');
-    for (const text of ['Fixture Driver v1', '2560 x 1440', '3.5 mm', 'Over-ear']) {
+    for (const text of ['Fixture Driver v1', 'Fixture Fingers (X, Y)', '2560 x 1440', '3.5 mm', 'Over-ear']) {
         await expect(gear).toContainText(text);
     }
+});
+
+test('the keyboard shows which fingers press which keys', async ({ page }) => {
+    await page.goto('/');
+    const keyboard = page.locator('#hardware').getByRole('article').filter({ hasText: 'Fixture Keyboard K1' });
+    await expect(keyboard.getByText('Keybind', { exact: true })).toBeVisible();
+    await expect(keyboard.getByText('Fixture Fingers (X, Y)', { exact: true })).toBeVisible();
+});
+
+test('the tablet driver name links to its download page', async ({ page }) => {
+    await page.goto('/');
+    const driver = page.locator('#hardware').getByRole('link', { name: 'Fixture Driver v1' });
+    await expect(driver).toHaveAttribute('href', 'https://drivers.example/fixture');
+    await expect(driver).toHaveAttribute('target', '_blank');
 });
 
 test.describe('equal spec cells', () => {
@@ -70,7 +84,7 @@ test.describe('equal spec cells', () => {
         await page.goto('/');
         const gear = page.locator('#hardware');
         const heights = [];
-        for (const label of ['Active area', 'Driver', 'Actuation', 'Refresh rate', 'Connection']) {
+        for (const label of ['Active area', 'Driver', 'Actuation', 'Keybind', 'Refresh rate', 'Connection']) {
             const cell = gear.locator('div').filter({ has: page.getByText(label, { exact: true }) }).last();
             heights.push((await cell.boundingBox()).height);
         }
