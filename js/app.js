@@ -2,9 +2,18 @@
    Znap- osu! Setup Configuration - Interactive Application Logic (Tailwind)
    ========================================================================== */
 
+// Alt text and lightbox title for one screenshot of a skin
+function slideAlt(skin, slide) {
+    return slide.alt || slide.label || skin.name;
+}
+
+function slideTitle(skin, slide) {
+    return `${skin.name} — ${slide.label}`;
+}
+
 // Attributes the lightbox reads to open a skin screenshot full size
 function lightboxAttrs(skin, slide) {
-    return `data-lightbox="${slide.src}" data-lightbox-title="${skin.name} — ${slide.label}" data-lightbox-alt="${slide.alt || slide.label || skin.name}"`;
+    return `data-lightbox="${slide.src}" data-lightbox-title="${slideTitle(skin, slide)}" data-lightbox-alt="${slideAlt(skin, slide)}"`;
 }
 
 function zoomButton(skin, slide) {
@@ -33,7 +42,7 @@ function renderFeaturedSkin(skin) {
     <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
         <div class="reg-t">
             <div class="relative overflow-hidden bg-surface-container">
-                <img id="featured-skin-img" src="${first.src}" alt="${first.alt || first.label || skin.name}" decoding="async" class="w-full aspect-video md:aspect-[3/1] object-cover cursor-zoom-in" ${lightboxAttrs(skin, first)} />
+                <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="w-full aspect-video md:aspect-[3/1] object-cover cursor-zoom-in" ${lightboxAttrs(skin, first)} />
                 <div class="absolute inset-0 bg-gradient-to-t from-obsidian-deep/90 via-obsidian-deep/10 to-transparent pointer-events-none"></div>
                 ${zoomButton(skin, first)}
                 <div class="absolute left-4 right-4 bottom-4 md:left-6 md:bottom-6">
@@ -46,7 +55,7 @@ function renderFeaturedSkin(skin) {
             ${slides.length > 1 ? `
             <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
                 ${slides.map((slide, i) => `
-                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slide.alt || slide.label || skin.name}" data-title="${skin.name} — ${slide.label}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
+                <button type="button" data-featured-slide data-src="${slide.src}" data-alt="${slideAlt(skin, slide)}" data-title="${slideTitle(skin, slide)}" aria-label="Show ${slide.label} screenshot of ${skin.name}" aria-pressed="${i === 0}" class="w-[72px] shrink-0 opacity-60 hover:opacity-100 aria-pressed:opacity-100 aria-pressed:outline aria-pressed:outline-2 aria-pressed:outline-offset-2 aria-pressed:outline-primary transition-opacity cursor-pointer">
                     <img src="${slide.src}" alt="" loading="lazy" decoding="async" class="block w-full aspect-video object-cover" />
                 </button>`).join('')}
             </div>` : ''}
@@ -75,7 +84,7 @@ function renderSkinCard(skin, index) {
             <div class="relative overflow-hidden bg-surface-container">
                 <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
                     ${slides.map((slide, i) => `
-                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slide.alt || slide.label || skin.name}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
+                    <img ${i === 0 ? `src="${slide.src}"` : `data-src="${slide.src}" aria-hidden="true"`} data-label="${slide.label}" alt="${slideAlt(skin, slide)}" loading="lazy" decoding="async" class="block w-full min-w-full aspect-video object-cover" />`).join('')}
                 </div>
                 ${zoomButton(skin, slides[0] || {})}
                 ${slides.length > 1 ? `
