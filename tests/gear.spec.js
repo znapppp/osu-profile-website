@@ -8,7 +8,6 @@ test('the gear section lists every device', async ({ page }) => {
     for (const name of [
         'Fixture Tablet T1',
         'Fixture Keyboard K1',
-        'Fixture Keypad P1',
         'Fixture Monitor M1',
         'Fixture Headphones H1',
     ]) {
@@ -21,7 +20,7 @@ test('gear screenshots are shown in full colour', async ({ page }) => {
     const looks = await page.locator('#hardware img').evaluateAll((imgs) =>
         imgs.map((img) => [img.alt, getComputedStyle(img).filter, getComputedStyle(img).opacity])
     );
-    expect(looks.length).toBe(3);
+    expect(looks.length).toBe(2);
     for (const [alt, filter, opacity] of looks) {
         expect([alt, filter, opacity]).toEqual([alt, 'none', '1']);
     }
@@ -41,7 +40,7 @@ test('a single-number setting shows a large number with a monospace unit', async
 test('every setting value from the config is shown', async ({ page }) => {
     await page.goto('/');
     const gear = page.locator('#hardware');
-    for (const text of ['Fixture Driver v1', 'Release: 0.1 mm | Trigger: 0.2 mm', '2560 x 1440', '3.5 mm', 'Over-ear']) {
+    for (const text of ['Fixture Driver v1', '2560 x 1440', '3.5 mm', 'Over-ear']) {
         await expect(gear).toContainText(text);
     }
 });

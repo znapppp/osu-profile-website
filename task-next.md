@@ -102,7 +102,7 @@ The renderer supports the new skin shape, but the real config still uses the old
 
 The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` line at the top, confirm the tests fail, then build until they pass.
 
-- **One section:** put all five devices (tablet, keyboard, keypad, monitor, audio) inside the single `#hardware` section. Monitor and audio currently sit in a separate, unlabelled `<section>` after `#hardware`.
+- **One section:** put all four devices (tablet, keyboard, monitor, audio) inside the single `#hardware` section. Monitor and audio currently sit in a separate, unlabelled `<section>` after `#hardware`.
 - **Equal cells:** every value cell has the same minimum height (104px) and value row height, so large numbers and mono text share a baseline and labels sit at the same place. Monitor and audio sit side by side and stretch to equal height.
 - **One treatment for every device:**
   - an `<article>` with the device name as an `<h3>` in `font-display`

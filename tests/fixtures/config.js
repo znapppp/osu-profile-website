@@ -30,15 +30,6 @@ const SITE_CONFIG = {
         previewAlt: "Fixture keyboard settings screenshot"
     },
 
-    keypad: {
-        device: "Fixture Keypad P1",
-        stroke: "4.00 mm",
-        actuationPoint: "Release: 0.1 mm | Trigger: 0.2 mm",
-        rapidTrigger: "Release: 0.3 mm | Trigger: 0.4 mm",
-        previewImage: "picture/keypad/Screenshot 2026-08-22 221530.webp",
-        previewAlt: "Fixture keypad settings screenshot"
-    },
-
     monitor: {
         device: "Fixture Monitor M1",
         refreshRate: "240 Hz",

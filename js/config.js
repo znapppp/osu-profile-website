@@ -42,17 +42,6 @@ const SITE_CONFIG = {
         previewAlt: "Keychron C75 Keyboard Settings"
     },
 
-    // Keypad Configuration
-    keypad: {
-        title: "Keypad Setting",
-        device: "Sayodevice O3C",
-        stroke: "3.00 mm",
-        actuationPoint: "Release: 0.3 mm | Trigger: 0.7 mm",
-        rapidTrigger: "Release: 0.5 mm | Trigger: 0.3 mm",
-        previewImage: "picture/keypad/Screenshot 2026-08-22 221530.webp",
-        previewAlt: "Sayodevice O3C Keypad Settings"
-    },
-
     // Monitor Configuration
     monitor: {
         title: "Monitor",

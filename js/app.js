@@ -179,11 +179,10 @@ function renderFromConfig() {
         }
     }
 
-    // 2. Gear spec sheet: tablet, keyboard, keypad, monitor, audio
+    // 2. Gear spec sheet: tablet, keyboard, monitor, audio
     const gear = [
         ['tablet', SITE_CONFIG.tablet, { area: 'area', driver: 'driverName' }],
         ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
-        ['keypad', SITE_CONFIG.keypad, { stroke: 'stroke', actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
         ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', response: 'responseTime', resolution: 'resolution' }],
         ['audio', SITE_CONFIG.audio, { conn: 'connector', type: 'type' }],
     ];
