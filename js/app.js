@@ -40,7 +40,7 @@ function renderFeaturedSkin(skin) {
     const details = skin.details || [];
 
     return `
-    <article class="reg border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
+    <article class="border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
         <div class="relative overflow-hidden bg-black lg:flex lg:items-center">
             <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
             ${zoomButton(skin, first)}
@@ -78,7 +78,7 @@ function renderSkinCard(skin, index) {
 
     return `
     <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
-        <div class="reg-t">
+        <div>
             <div class="relative overflow-hidden bg-surface-container">
                 <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${lightboxAttrs(skin, slides[0] || {})}>
                     ${slides.map((slide, i) => `
@@ -324,7 +324,7 @@ function renderFromConfig() {
                     </div>
 
                     <!-- Right: Large Video/Image Showcase (7 Cols) -->
-                    <div class="md:col-span-7 relative group reg">
+                    <div class="md:col-span-7 relative group">
                         <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
                             ${hasVideo ? `
                                 <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>

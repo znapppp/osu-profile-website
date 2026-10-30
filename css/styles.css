@@ -19,26 +19,6 @@
 }
 
 @layer components {
-  /* Registration marks: "+" marks drawn just outside a frame's corners, taken from the floating cross motif.
-     .reg marks all four corners, .reg-t only the top two, .reg-b only the bottom two. */
-  .reg, .reg-t, .reg-b {
-    position: relative;
-    --mark-tl: linear-gradient(#fff, #fff) top 0 left 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) top 6px left 0 / 14px 2px no-repeat;
-    --mark-tr: linear-gradient(#fff, #fff) top 0 right 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) top 6px right 0 / 14px 2px no-repeat;
-    --mark-bl: linear-gradient(#fff, #fff) bottom 0 left 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) bottom 6px left 0 / 14px 2px no-repeat;
-    --mark-br: linear-gradient(#fff, #fff) bottom 0 right 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) bottom 6px right 0 / 14px 2px no-repeat;
-  }
-  .reg::before, .reg-t::before, .reg-b::before {
-    content: "";
-    position: absolute;
-    inset: -7px;
-    z-index: 2;
-    pointer-events: none;
-  }
-  .reg::before { background: var(--mark-tl), var(--mark-tr), var(--mark-bl), var(--mark-br); }
-  .reg-t::before { background: var(--mark-tl), var(--mark-tr); }
-  .reg-b::before { background: var(--mark-bl), var(--mark-br); }
-
   /* Section divider: a thin rule across the content width with "+" marks at both ends. */
   .section-rule {
     position: relative;
