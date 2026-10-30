@@ -53,7 +53,8 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
 
 ### Frames and buttons
 
-- Corners are square: no `rounded-*` except `rounded-full` on dots.
+- Frames, the banner, cards, gear grids and `.tag` have square corners: no `rounded-*` there except `rounded-full` on dots.
+- Buttons (`.btn-primary`, `.btn-secondary`, slide arrows, zoom buttons, thumbnails, lightbox close, menu toggle, footer links) have 6px corners (`rounded-md`).
 - Hairline borders use the `border-hairline` colour (`#2e2e2e`).
 - Shared classes in `css/styles.css` under `@layer components`:
   - **Registration marks:** `.reg`, `.reg-t`, `.reg-b` draw "+" marks just outside a frame's corners (all four, top two, or bottom two). Don't put `overflow-hidden` on the same element, or the marks get clipped; put it on an inner wrapper instead.
@@ -64,7 +65,7 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
 ### Skins section (done)
 
 - The skin flagged `current: true` is featured. If none is flagged, the first skin is featured.
-- **Featured banner:** short and wide (3:1 on desktop, 16:9 on mobile), with a CURRENT tag and the skin name.
+- **Featured banner:** 16:9 at every size with `object-contain` on black, so the whole screenshot is visible (non-16:9 images are letterboxed). The CURRENT tag and skin name sit on a solid `bg-background` plate in the bottom-left corner. Skin card sliders use the same 16:9, `object-contain` rule.
 - **Spec bar** under the banner holds:
   - screenshot thumbnails; clicking one swaps the banner image
   - the owner's `note`
@@ -102,6 +103,7 @@ The renderer supports the new skin shape, but the real config still uses the old
 The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` line at the top, confirm the tests fail, then build until they pass.
 
 - **One section:** put all five devices (tablet, keyboard, keypad, monitor, audio) inside the single `#hardware` section. Monitor and audio currently sit in a separate, unlabelled `<section>` after `#hardware`.
+- **Equal cells:** every value cell has the same minimum height (104px) and value row height, so large numbers and mono text share a baseline and labels sit at the same place. Monitor and audio sit side by side and stretch to equal height.
 - **One treatment for every device:**
   - an `<article>` with the device name as an `<h3>` in `font-display`
   - setting values in hairline-divided cells (e.g. a `grid gap-px bg-hairline border border-hairline` container with `bg-background` cells)

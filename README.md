@@ -49,8 +49,8 @@ Edit `js/config.js` to change the content shown on the page:
 Shared classes in `css/styles.css`:
 
 - `.reg`, `.reg-t`, `.reg-b`: "+" registration marks just outside a frame's corners (all four, top two, bottom two). Don't put `overflow-hidden` on the same element.
-- `.btn-primary`: solid white button
-- `.btn-secondary`: white outline button
+- `.btn-primary`: solid white button with 6px rounded corners
+- `.btn-secondary`: white outline button with 6px rounded corners (frames, cards and tags stay square)
 - `.tag`: small type label
 
 Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), and `text-muted` (`#9a9a9a`).
