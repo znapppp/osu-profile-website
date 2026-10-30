@@ -556,6 +556,11 @@ function initNavScroll() {
     const sections = Array.from(desktopLinks).map(a => document.getElementById(a.getAttribute('data-path'))).filter(Boolean);
     sections.unshift(document.body);
     
+    const setCurrent = (link, isActive) => {
+        if (isActive) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+    };
+
     let ticking = false;
     let lastActive = null;
     window.addEventListener('scroll', () => {
@@ -587,6 +592,7 @@ function initNavScroll() {
                     const isActive = link.getAttribute('data-path') === current;
                     link.classList.toggle('text-primary', isActive);
                     link.classList.toggle('text-on-surface-variant', !isActive);
+                    setCurrent(link, isActive);
                 });
 
                 mobileLinks.forEach(link => {
@@ -594,6 +600,7 @@ function initNavScroll() {
                     link.classList.toggle('text-primary', isActive);
                     link.classList.toggle('bg-surface-container', isActive);
                     link.classList.toggle('text-on-surface-variant', !isActive);
+                    setCurrent(link, isActive);
                 });
                 ticking = false;
             });
