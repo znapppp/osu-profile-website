@@ -104,6 +104,25 @@ function renderSkinCard(skin, index) {
     </article>`;
 }
 
+// A lone number with a unit ("180 Hz", "0.3 mm") shows the number large; anything else stays plain text
+function setSpecValue(id, text) {
+    const el = document.getElementById(id);
+    if (!el || !text) return;
+    el.title = text;
+    const match = /^(\d+(?:\.\d+)?)\s+([A-Za-z]+(?:\s*\([^)]*\))?)$/.exec(text);
+    if (!match) {
+        el.textContent = text;
+        return;
+    }
+    const number = document.createElement('span');
+    number.className = 'font-display font-bold text-3xl leading-none';
+    number.textContent = match[1];
+    const unit = document.createElement('span');
+    unit.className = 'font-mono text-sm text-muted';
+    unit.textContent = match[2];
+    el.replaceChildren(number, ' ', unit);
+}
+
 // Dynamic Data Rendering from SITE_CONFIG (js/config.js)
 function renderFromConfig() {
     if (typeof SITE_CONFIG === 'undefined') return;
@@ -153,87 +172,33 @@ function renderFromConfig() {
         }
     }
 
-    // 2. Tablet Settings
-    if (SITE_CONFIG.tablet) {
-        const t = SITE_CONFIG.tablet;
-        const el = (id) => document.getElementById(id);
-        if (el('tablet-device') && t.device) el('tablet-device').textContent = t.device;
-        if (el('tablet-area') && t.area) el('tablet-area').textContent = t.area;
-        if (el('tablet-driver') && t.driverName) el('tablet-driver').textContent = t.driverName;
-        if (el('tablet-img') && t.previewImage) {
-            el('tablet-img').src = t.previewImage;
-            if (t.previewAlt) el('tablet-img').alt = t.previewAlt;
-            const btn = el('tablet-img').closest('[data-lightbox]');
+    // 2. Gear spec sheet: tablet, keyboard, keypad, monitor, audio
+    const gear = [
+        ['tablet', SITE_CONFIG.tablet, { area: 'area', driver: 'driverName' }],
+        ['keyboard', SITE_CONFIG.keyboard, { actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
+        ['keypad', SITE_CONFIG.keypad, { stroke: 'stroke', actuation: 'actuationPoint', rapid: 'rapidTrigger' }],
+        ['monitor', SITE_CONFIG.monitor, { refresh: 'refreshRate', response: 'responseTime', resolution: 'resolution' }],
+        ['audio', SITE_CONFIG.audio, { conn: 'connector', type: 'type' }],
+    ];
+    gear.forEach(([prefix, data, fields]) => {
+        if (!data) return;
+        const device = document.getElementById(`${prefix}-device`);
+        if (device && data.device) device.textContent = data.device;
+        Object.entries(fields).forEach(([suffix, key]) => setSpecValue(`${prefix}-${suffix}`, data[key]));
+
+        const img = document.getElementById(`${prefix}-img`);
+        if (img && data.previewImage) {
+            img.src = data.previewImage;
+            if (data.previewAlt) img.alt = data.previewAlt;
+            const btn = img.closest('[data-lightbox]');
             if (btn) {
-                btn.setAttribute('data-lightbox', t.previewImage);
-                if (t.previewAlt) btn.setAttribute('data-lightbox-title', t.previewAlt);
+                btn.setAttribute('data-lightbox', data.previewImage);
+                if (data.previewAlt) btn.setAttribute('data-lightbox-title', data.previewAlt);
             }
         }
-    }
+    });
 
-    // 3. Keyboard Settings
-    if (SITE_CONFIG.keyboard) {
-        const k = SITE_CONFIG.keyboard;
-        const el = (id) => document.getElementById(id);
-        if (el('keyboard-device') && k.device) el('keyboard-device').textContent = k.device;
-        if (el('keyboard-actuation') && k.actuationPoint) el('keyboard-actuation').textContent = k.actuationPoint;
-        if (el('keyboard-rapid') && k.rapidTrigger) el('keyboard-rapid').textContent = k.rapidTrigger;
-        if (el('keyboard-img') && k.previewImage) {
-            el('keyboard-img').src = k.previewImage;
-            if (k.previewAlt) el('keyboard-img').alt = k.previewAlt;
-            const btn = el('keyboard-img').closest('[data-lightbox]');
-            if (btn) {
-                btn.setAttribute('data-lightbox', k.previewImage);
-                if (k.previewAlt) btn.setAttribute('data-lightbox-title', k.previewAlt);
-            }
-        }
-    }
-
-    // 4. Keypad Settings
-    if (SITE_CONFIG.keypad) {
-        const kp = SITE_CONFIG.keypad;
-        const el = (id) => document.getElementById(id);
-        if (el('keypad-device') && kp.device) el('keypad-device').textContent = kp.device;
-        if (el('keypad-stroke') && kp.stroke) el('keypad-stroke').textContent = kp.stroke;
-        if (el('keypad-actuation') && kp.actuationPoint) {
-            el('keypad-actuation').textContent = kp.actuationPoint;
-            el('keypad-actuation').title = kp.actuationPoint;
-        }
-        if (el('keypad-rapid') && kp.rapidTrigger) {
-            el('keypad-rapid').textContent = kp.rapidTrigger;
-            el('keypad-rapid').title = kp.rapidTrigger;
-        }
-        if (el('keypad-img') && kp.previewImage) {
-            el('keypad-img').src = kp.previewImage;
-            if (kp.previewAlt) el('keypad-img').alt = kp.previewAlt;
-            const btn = el('keypad-img').closest('[data-lightbox]');
-            if (btn) {
-                btn.setAttribute('data-lightbox', kp.previewImage);
-                if (kp.previewAlt) btn.setAttribute('data-lightbox-title', kp.previewAlt);
-            }
-        }
-    }
-
-    // 5. Monitor Settings
-    if (SITE_CONFIG.monitor) {
-        const m = SITE_CONFIG.monitor;
-        const el = (id) => document.getElementById(id);
-        if (el('monitor-device') && m.device) el('monitor-device').textContent = m.device;
-        if (el('monitor-refresh') && m.refreshRate) el('monitor-refresh').textContent = m.refreshRate;
-        if (el('monitor-response') && m.responseTime) el('monitor-response').textContent = m.responseTime;
-        if (el('monitor-resolution') && m.resolution) el('monitor-resolution').textContent = m.resolution;
-    }
-
-    // 6. Audio Settings
-    if (SITE_CONFIG.audio) {
-        const a = SITE_CONFIG.audio;
-        const el = (id) => document.getElementById(id);
-        if (el('audio-device') && a.device) el('audio-device').textContent = a.device;
-        if (el('audio-conn') && a.connector) el('audio-conn').textContent = a.connector;
-        if (el('audio-type') && a.type) el('audio-type').textContent = a.type;
-    }
-
-    // 7. Skins Grid
+    // 3. Skins Grid
     if (SITE_CONFIG.skins) {
         const s = SITE_CONFIG.skins;
         
@@ -299,23 +264,23 @@ function renderFromConfig() {
                     <!-- Left: Info & Specs (5 Cols) -->
                     <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
                         <div>
-                            <h3 class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">${item.name}</h3>
+                            <h3 class="font-display font-bold text-2xl md:text-3xl text-primary mb-2">${item.name}</h3>
                             <p class="font-sans text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${desc}</p>
                         </div>
 
                         <!-- Quick Spec Boxes -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-1">
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest border border-glass-stroke shadow-sm">
-                                <span class="font-sans text-sm text-on-surface-variant">Compatible With</span>
-                                <span class="font-mono text-body-md text-primary">tosu</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span class="font-mono text-sm text-primary">tosu</span>
+                                <span class="text-xs text-muted">Compatible with</span>
                             </div>
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest border border-glass-stroke shadow-sm">
-                                <span class="font-sans text-sm text-on-surface-variant">Target Screen</span>
-                                <span class="font-mono text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="1440x900 on 1920x1080">1440x900 on 1080p</span>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span class="font-mono text-sm text-primary">1440x900 on 1080p</span>
+                                <span class="text-xs text-muted">Target screen</span>
                             </div>
-                            <div class="flex flex-col gap-1 p-4 bg-surface-container-lowest border border-glass-stroke shadow-sm sm:col-span-2">
-                                <span class="font-sans text-sm text-on-surface-variant">Key Features</span>
-                                <span class="font-mono text-[12px] text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Dynamic Beatmap Artwork, Video Toggle, Custom Dim">Dynamic BG & Video / Custom Dim</span>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0 sm:col-span-2">
+                                <span class="font-mono text-sm text-primary">Dynamic BG &amp; Video / Custom Dim</span>
+                                <span class="text-xs text-muted">Key features</span>
                             </div>
                         </div>
 
@@ -323,16 +288,16 @@ function renderFromConfig() {
                         <div class="flex flex-col gap-3 mt-1">
                             <div class="flex flex-wrap items-center gap-3">
                                 ${downloadUrl && downloadUrl !== '#' ? `
-                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-obsidian-deep font-semibold text-xs hover:bg-secondary transition-all duration-300 shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${item.name} (.zip)" class="btn-primary">
                                         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
                                         <span>Download Overlay (.zip)</span>
                                     </a>
                                 ` : ''}
                                 ${videoPreviewUrl ? `
-                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest/80 border border-white/10 text-on-surface hover:text-primary hover:border-white/25 text-xs font-medium transition-all duration-300 shadow-sm hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group">
-                                        <span class="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform" aria-hidden="true">smart_display</span>
+                                    <a href="${videoPreviewUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${item.name}" class="btn-secondary">
+                                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
                                         <span>Video Preview</span>
-                                        <span class="material-symbols-outlined text-[14px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
+                                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
                                     </a>
                                 ` : ''}
                                 ${githubUrl ? `
@@ -344,23 +309,23 @@ function renderFromConfig() {
                             </div>
 
                             ${sourceRefUrl ? `
-                                <div class="text-xs text-on-surface-variant/75 flex items-center gap-1.5 pt-1">
+                                <div class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
                                     <span>Forked from:</span>
-                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant/90 hover:text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">Citrusis/OBSDecoratePack</a>
+                                    <a href="${sourceRefUrl}" target="_blank" rel="noopener noreferrer" class="text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">Citrusis/OBSDecoratePack</a>
                                 </div>
                             ` : ''}
                         </div>
                     </div>
 
                     <!-- Right: Large Video/Image Showcase (7 Cols) -->
-                    <div class="md:col-span-7 relative group">
-                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-glass-stroke shadow-xl">
+                    <div class="md:col-span-7 relative group reg">
+                        <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
                             ${hasVideo ? `
-                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
+                                <video id="overlay-preview-video-${i}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${videoSrc}" ${imgSrc ? `poster="${imgSrc}"` : ''} loop muted playsinline preload="none" aria-label="${item.name} video preview"></video>
                             ` : (imgSrc ? `
-                                <img class="absolute inset-0 w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 transition-all duration-700" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
+                                <img class="absolute inset-0 w-full h-full object-contain" src="${imgSrc}" alt="${item.name} preview" loading="lazy" decoding="async" />
                             ` : `
-                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-on-surface-variant/50 font-mono text-sm">No preview available</div>
+                                <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-muted font-mono text-sm">No preview available</div>
                             `)}
                         </div>
                     </div>

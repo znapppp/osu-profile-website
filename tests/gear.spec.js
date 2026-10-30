@@ -1,8 +1,6 @@
 // @ts-check
 const { test, expect } = require('./fixture');
 
-// Ticket 6 (gear spec sheet) is not built yet: remove this line when implementing it
-test.fixme(true, 'gear spec sheet not implemented yet (see task-next.md)');
 
 test('the gear section lists every device', async ({ page }) => {
     await page.goto('/');

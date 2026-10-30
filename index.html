@@ -255,9 +255,9 @@
             <!-- Desktop Navigation -->
             <nav class="hidden sm:flex items-center gap-4 md:gap-8" aria-label="Main Navigation" data-active-classes="text-primary">
                 <a aria-current="page" class="text-sm md:text-base font-medium transition-colors text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Home</a>
-                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="hardware" href="#hardware">Hardware</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="hardware" href="#hardware">Gear</a>
                 <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="skins" href="#skins">Skins</a>
-                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="overlays" href="#overlays">Overlays</a>
+                <a class="text-sm md:text-base font-medium text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="overlays" href="#overlays">Overlay</a>
             </nav>
         </div>
 
@@ -275,7 +275,7 @@
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
             <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="hardware" href="#hardware">
-                <span>Hardware</span>
+                <span>Gear</span>
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
             <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="skins" href="#skins">
@@ -283,7 +283,7 @@
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
             <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/30 transition-colors" data-path="overlays" href="#overlays">
-                <span>Overlays</span>
+                <span>Overlay</span>
                 <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
             </a>
         </div>
@@ -353,154 +353,142 @@
             </div>
         </section>
 
-        <!-- Hardware Section -->
+        <!-- Gear Section -->
         <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative overflow-hidden" id="hardware">
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="flex items-center gap-4 mb-12 md:mb-16 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <h2 class="font-display text-3xl md:text-headline-lg text-primary tracking-tight">Gear & Settings</h2>
-                    <div class="flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
+                <div class="flex items-end gap-x-4 mb-10 md:mb-12 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <span class="font-mono text-sm text-muted pb-1">01</span>
+                    <h2 class="font-display text-5xl md:text-headline-lg text-primary leading-none">Gear</h2>
                 </div>
-                
+
                 <div class="flex flex-col gap-16 md:gap-20">
-                    <!-- Tablet -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal group">
-                        <div class="md:col-span-7 flex flex-col gap-4 md:gap-5">
-                            <div>
-                                <h3 id="tablet-device" class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">Wacom CTL-472</h3>
+                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                        <div class="md:col-span-7">
+                        <div class="flex flex-col gap-5">
+                            <h3 id="tablet-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Wacom CTL-472</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="tablet-area" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Active area</span>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-1">
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Active Area</span>
-                                    <span id="tablet-area" class="font-mono text-sm md:text-base text-primary">43 mm x 28.5 mm</span>
-                                </div>
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Driver</span>
-                                    <span id="tablet-driver" class="font-mono text-sm md:text-base text-primary" title="OpenTabletDriver v0.6.7">OpenTabletDriver v0.6.7</span>
-                                </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="tablet-driver" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Driver</span>
+                            </div>
                             </div>
                         </div>
-                        <div class="md:col-span-5 relative w-full max-w-[460px] mx-auto md:ml-auto">
-                            <button type="button" class="group/btn relative w-full aspect-[16/10] overflow-hidden bg-surface-container border border-glass-stroke hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left transition-colors" data-lightbox="picture/tablet/tablet-area.png" data-lightbox-title="Wacom CTL-472 Tablet Settings" aria-label="Expand Wacom CTL-472 tablet settings image">
-                                <img id="tablet-img" class="w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" src="picture/tablet/tablet-area.png" alt="Wacom CTL-472 Tablet Settings" loading="lazy" decoding="async" />
-                                <span class="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1.5 px-2 py-1 bg-black/75 backdrop-blur border border-white/10 text-xs font-medium text-white/90 opacity-0 group-hover/btn:opacity-100 group-focus-visible/btn:opacity-100 transition-opacity pointer-events-none">
-                                    <span class="material-symbols-outlined text-[14px]" aria-hidden="true">zoom_in</span>
-                                    <span>Click to zoom</span>
+                        </div>
+                        <div class="md:col-span-5 max-w-[460px] w-full">
+                        <div class="reg relative w-full">
+                            <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="picture/tablet/tablet-area.png" data-lightbox-title="Wacom CTL-472 Tablet Settings" aria-label="Expand Wacom CTL-472 tablet settings image">
+                                <img id="tablet-img" class="w-full h-full object-contain" src="picture/tablet/tablet-area.png" alt="Wacom CTL-472 Tablet Settings" loading="lazy" decoding="async" />
+                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary" aria-hidden="true">
+                                    <span class="material-symbols-outlined text-[18px]">zoom_in</span>
                                 </span>
                             </button>
                         </div>
+                        </div>
                     </div>
-
-                    <!-- Keyboard -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal group">
-                        <div class="md:col-span-5 order-2 md:order-1 relative w-full max-w-[460px] mx-auto md:mr-auto">
-                            <button type="button" class="group/btn relative w-full aspect-[16/10] overflow-hidden bg-surface-container border border-glass-stroke hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left transition-colors" data-lightbox="picture/keyboard/Screenshot 2026-08-23 231651.webp" data-lightbox-title="Keychron C75 Keyboard Settings" aria-label="Expand Keychron C75 keyboard settings image">
-                                <img id="keyboard-img" class="w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" src="picture/keyboard/Screenshot 2026-08-23 231651.webp" alt="Keychron C75 Keyboard Settings" loading="lazy" decoding="async" />
-                                <span class="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1.5 px-2 py-1 bg-black/75 backdrop-blur border border-white/10 text-xs font-medium text-white/90 opacity-0 group-hover/btn:opacity-100 group-focus-visible/btn:opacity-100 transition-opacity pointer-events-none">
-                                    <span class="material-symbols-outlined text-[14px]" aria-hidden="true">zoom_in</span>
-                                    <span>Click to zoom</span>
+                </article>
+                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                        <div class="md:col-span-7">
+                        <div class="flex flex-col gap-5">
+                            <h3 id="keyboard-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Keychron C75 TMR</h3>
+                            <div class="grid grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="keyboard-actuation" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Actuation</span>
+                            </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="keyboard-rapid" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Rapid trigger</span>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="md:col-span-5 max-w-[460px] w-full">
+                        <div class="reg relative w-full">
+                            <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="picture/keyboard/Screenshot 2026-08-23 231651.webp" data-lightbox-title="Keychron C75 Keyboard Settings" aria-label="Expand Keychron C75 keyboard settings image">
+                                <img id="keyboard-img" class="w-full h-full object-contain" src="picture/keyboard/Screenshot 2026-08-23 231651.webp" alt="Keychron C75 Keyboard Settings" loading="lazy" decoding="async" />
+                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary" aria-hidden="true">
+                                    <span class="material-symbols-outlined text-[18px]">zoom_in</span>
                                 </span>
                             </button>
                         </div>
-                        <div class="md:col-span-7 order-1 md:order-2 flex flex-col gap-4 md:gap-5">
-                            <div>
-                                <h3 id="keyboard-device" class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">Keychron C75 TMR</h3>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-1">
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Actuation</span>
-                                    <span id="keyboard-actuation" class="font-mono text-sm md:text-base text-primary">0.3 mm</span>
-                                </div>
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Rapid Trigger</span>
-                                    <span id="keyboard-rapid" class="font-mono text-sm md:text-base text-primary">0.5 mm</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <!-- Keypad -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal group">
-                        <div class="md:col-span-7 flex flex-col gap-4 md:gap-5">
-                            <div>
-                                <h3 id="keypad-device" class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-2">Sayodevice O3C</h3>
+                </article>
+                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                        <div class="md:col-span-7">
+                        <div class="flex flex-col gap-5">
+                            <h3 id="keypad-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Sayodevice O3C</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="keypad-stroke" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Stroke</span>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mt-1">
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Stroke</span>
-                                    <span id="keypad-stroke" class="font-mono text-sm md:text-base text-primary">3.00 mm</span>
-                                </div>
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke sm:col-span-2">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Actuation Point</span>
-                                    <span id="keypad-actuation" class="font-mono text-xs sm:text-sm text-primary">Release: 0.3 mm | Trigger: 0.7 mm</span>
-                                </div>
-                                <div class="flex flex-col gap-1.5 p-4 bg-surface-container-lowest border border-glass-stroke sm:col-span-3">
-                                    <span class="text-xs uppercase tracking-wider text-on-surface-variant font-medium">Rapid Trigger</span>
-                                    <span id="keypad-rapid" class="font-mono text-xs sm:text-sm text-primary">Release: 0.5 mm | Trigger: 0.3 mm</span>
-                                </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="keypad-actuation" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Actuation point</span>
+                            </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="keypad-rapid" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Rapid trigger</span>
+                            </div>
                             </div>
                         </div>
-                        <div class="md:col-span-5 relative w-full max-w-[460px] mx-auto md:ml-auto">
-                            <button type="button" class="group/btn relative w-full aspect-[16/10] overflow-hidden bg-surface-container border border-glass-stroke hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left transition-colors" data-lightbox="picture/keypad/Screenshot 2026-08-22 221530.webp" data-lightbox-title="Sayodevice O3C Keypad Settings" aria-label="Expand Sayodevice O3C keypad settings image">
-                                <img id="keypad-img" class="w-full h-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" src="picture/keypad/Screenshot 2026-08-22 221530.webp" alt="Sayodevice O3C Keypad Settings" loading="lazy" decoding="async" />
-                                <span class="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1.5 px-2 py-1 bg-black/75 backdrop-blur border border-white/10 text-xs font-medium text-white/90 opacity-0 group-hover/btn:opacity-100 group-focus-visible/btn:opacity-100 transition-opacity pointer-events-none">
-                                    <span class="material-symbols-outlined text-[14px]" aria-hidden="true">zoom_in</span>
-                                    <span>Click to zoom</span>
+                        </div>
+                        <div class="md:col-span-5 max-w-[460px] w-full">
+                        <div class="reg relative w-full">
+                            <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="picture/keypad/Screenshot 2026-08-22 221530.webp" data-lightbox-title="Sayodevice O3C Keypad Settings" aria-label="Expand Sayodevice O3C keypad settings image">
+                                <img id="keypad-img" class="w-full h-full object-contain" src="picture/keypad/Screenshot 2026-08-22 221530.webp" alt="Sayodevice O3C Keypad Settings" loading="lazy" decoding="async" />
+                                <span class="absolute top-3 right-3 w-8 h-8 grid place-items-center bg-obsidian-deep/85 text-primary" aria-hidden="true">
+                                    <span class="material-symbols-outlined text-[18px]">zoom_in</span>
                                 </span>
                             </button>
                         </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </article>
 
-        <!-- Monitor & Audio Section -->
-        <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe bg-surface-container-lowest/50 relative overflow-hidden border-y border-glass-stroke/50">
-            <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                    <!-- Monitor -->
-                    <div class="flex flex-col gap-5 md:gap-6 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="flex items-center gap-3 border-b border-glass-stroke pb-4">
-                            <span class="material-symbols-outlined text-primary text-[20px]" aria-hidden="true">desktop_windows</span>
-                            <span class="text-xs md:text-sm font-medium text-primary uppercase tracking-wider">Output Monitor</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12">
+                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="flex flex-col gap-5">
+                            <h3 id="monitor-device" class="font-display font-bold text-2xl md:text-3xl text-primary">LG ULTRAGEAR 24GS60F-B</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="monitor-refresh" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Refresh rate</span>
+                            </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="monitor-response" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Response time</span>
+                            </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="monitor-resolution" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Resolution</span>
+                            </div>
+                            </div>
                         </div>
-                        <div>
-                            <h3 id="monitor-device" class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-4">LG ULTRAGEAR 24GS60F-B</h3>
-                            <ul class="flex flex-col gap-3">
-                                <li class="flex justify-between items-center py-2.5 border-b border-surface-container-high">
-                                    <span class="font-sans text-sm md:text-base text-on-surface-variant">Refresh Rate</span>
-                                    <span id="monitor-refresh" class="font-mono text-sm md:text-base text-primary">180 Hz</span>
-                                </li>
-                                <li class="flex justify-between items-center py-2.5 border-b border-surface-container-high">
-                                    <span class="font-sans text-sm md:text-base text-on-surface-variant">Response Time</span>
-                                    <span id="monitor-response" class="font-mono text-sm md:text-base text-primary">1 ms (GtG)</span>
-                                </li>
-                                <li class="flex justify-between items-center py-2.5 border-b border-surface-container-high">
-                                    <span class="font-sans text-sm md:text-base text-on-surface-variant">Resolution</span>
-                                    <span id="monitor-resolution" class="font-mono text-sm md:text-base text-primary">1920 x 1080 (FHD)</span>
-                                </li>
-                            </ul>
+                </article>
+                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                        <div class="flex flex-col gap-5">
+                            <h3 id="audio-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Apple EarPods</h3>
+                            <div class="grid grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="audio-conn" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Connection</span>
+                            </div>
+                            <div class="bg-background p-4 flex flex-col gap-1 min-w-0">
+                                <span id="audio-type" class="font-mono text-sm text-primary break-words"></span>
+                                <span class="text-xs text-muted">Type</span>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Audio -->
-                    <div class="flex flex-col gap-5 md:gap-6 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal delay-100">
-                        <div class="flex items-center gap-3 border-b border-glass-stroke pb-4">
-                            <span class="material-symbols-outlined text-primary text-[20px]" aria-hidden="true">headphones</span>
-                            <span class="text-xs md:text-sm font-medium text-primary uppercase tracking-wider">Audio Output</span>
-                        </div>
-                        <div>
-                            <h3 id="audio-device" class="font-display text-2xl md:text-headline-lg-mobile text-primary tracking-tight mb-4">Apple EarPods</h3>
-                            <ul class="flex flex-col gap-3">
-                                <li class="flex justify-between items-center py-2.5 border-b border-surface-container-high">
-                                    <span class="font-sans text-sm md:text-base text-on-surface-variant">Connection</span>
-                                    <span id="audio-conn" class="font-mono text-sm md:text-base text-primary">USB-C</span>
-                                </li>
-                                <li class="flex justify-between items-center py-2.5 border-b border-surface-container-high">
-                                    <span class="font-sans text-sm md:text-base text-on-surface-variant">Type</span>
-                                    <span id="audio-type" class="font-mono text-sm md:text-base text-primary">Earbud Wired</span>
-                                </li>
-                            </ul>
-                        </div>
+                </article>
                     </div>
                 </div>
             </div>
@@ -532,25 +520,23 @@
         <!-- Overlays Section -->
         <section class="w-full py-section-mobile md:py-section-desktop px-6 md:px-margin-safe relative overflow-hidden" id="overlays">
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-10 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <div class="flex items-center gap-4 flex-grow">
-                        <h2 class="font-display text-3xl md:text-headline-lg text-primary tracking-tight">My tosu overlay</h2>
-                        <div class="hidden md:block flex-grow h-[1px] bg-gradient-to-r from-surface-variant to-transparent ml-4 md:ml-8"></div>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-3 shrink-0">
-                        <a id="tosu-download-link" href="https://github.com/tosuapp/tosu/releases" target="_blank" rel="noopener noreferrer" aria-label="Get tosu release on GitHub" class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest/80 backdrop-blur-md border border-white/[0.08] text-xs font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group w-max">
+                <div class="flex flex-wrap items-end gap-x-4 gap-y-5 mb-10 md:mb-12 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
+                    <span class="font-mono text-sm text-muted pb-1">03</span>
+                    <h2 class="font-display text-5xl md:text-headline-lg text-primary leading-none">Overlay</h2>
+                    <div class="flex flex-wrap items-center gap-3 ml-auto">
+                        <a id="tosu-download-link" href="https://github.com/tosuapp/tosu/releases" target="_blank" rel="noopener noreferrer" aria-label="Get tosu release on GitHub" class="btn-secondary">
                             <img src="picture/overlay/tosu-logo.png" alt="tosu logo" width="16" height="16" class="w-4 h-4 object-contain" />
                             <span>Get tosu</span>
-                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
+                            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
                         </a>
-                        <a id="overlays-github-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest/80 backdrop-blur-md border border-white/[0.08] text-xs font-medium text-on-surface-variant hover:text-primary hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary group w-max">
-                            <svg class="w-3.5 h-3.5 fill-current text-on-surface-variant/80 group-hover:text-primary transition-colors" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        <a id="overlays-github-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="btn-secondary">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                             <span>Overlay GitHub</span>
-                            <span class="material-symbols-outlined text-[15px] text-on-surface-variant/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" aria-hidden="true">arrow_outward</span>
+                            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div id="overlays-grid" class="flex flex-col gap-12 md:gap-16 min-h-[350px]">
                     <!-- JS WILL INJECT CARDS HERE -->
                 </div>
@@ -561,15 +547,15 @@
 
 <footer class="w-full bg-background pt-12 md:pt-16 pb-8 md:pb-12">
     <div class="max-w-[1440px] mx-auto px-6 md:px-margin-safe">
-        <div class="w-full h-[1px] bg-glass-stroke mb-6 md:mb-8"></div>
+        <div class="w-full h-[1px] bg-hairline mb-6 md:mb-8"></div>
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex flex-col gap-1 items-center md:items-start">
-                <div id="footer-last-update" class="text-xs text-on-surface-variant/70 text-center md:text-left">Last update: 6 October 2026</div>
+                <div id="footer-last-update" class="text-sm text-muted text-center md:text-left">Last update: 6 October 2026</div>
             </div>
             <nav class="flex flex-wrap justify-center md:justify-end items-center gap-6 md:gap-8" aria-label="Footer Social Navigation">
-                <button type="button" id="footer-discord" class="text-xs text-on-surface-variant hover:text-primary transition-colors cursor-pointer bg-transparent border-0 p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" title="Copy Discord ID" aria-label="Copy Discord username">Discord</button>
-                <a id="footer-x" class="text-xs text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">X</a>
-                <a id="footer-tiktok" class="text-xs text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">TikTok</a>
+                <button type="button" id="footer-discord" class="text-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer bg-transparent border-0 p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" title="Copy Discord ID" aria-label="Copy Discord username">Discord</button>
+                <a id="footer-x" class="text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">X</a>
+                <a id="footer-tiktok" class="text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">TikTok</a>
             </nav>
         </div>
     </div>
