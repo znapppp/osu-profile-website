@@ -17,6 +17,12 @@ module.exports = defineConfig({
     projects: [
         { name: 'desktop', use: { ...devices['Desktop Chrome'], channel: 'chrome' } },
         { name: 'mobile', use: { ...devices['Pixel 7'], channel: 'chrome' } },
+        // Chrome with "Use graphics acceleration when available" turned off draws everything in software
+        {
+            name: 'desktop-no-gpu',
+            testMatch: 'motion.spec.js',
+            use: { ...devices['Desktop Chrome'], channel: 'chrome', launchOptions: { args: ['--disable-gpu'] } },
+        },
     ],
     webServer: {
         command: `npm run build && npx serve . -l ${PORT} --no-clipboard`,
