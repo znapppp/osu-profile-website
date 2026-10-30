@@ -65,7 +65,7 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
 ### Skins section (done)
 
 - The skin flagged `current: true` is featured. If none is flagged, the first skin is featured.
-- **Featured banner:** 16:9 at every size with `object-contain` on black, so the whole screenshot is visible (non-16:9 images are letterboxed). The CURRENT tag and skin name sit on a solid `bg-background` plate in the bottom-left corner. Skin card sliders use the same 16:9, `object-contain` rule.
+- **Featured banner:** 16:9 at every size with `object-contain` on black, so the whole screenshot is visible (non-16:9 images are letterboxed). The CURRENT tag and skin name sit in a row directly below the image (nothing overlays the screenshot except the zoom button), above the spec bar. Skin card sliders use the same 16:9, `object-contain` rule.
 - **Spec bar** under the banner holds:
   - screenshot thumbnails; clicking one swaps the banner image
   - the owner's `note`

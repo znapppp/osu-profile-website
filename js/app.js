@@ -44,13 +44,13 @@ function renderFeaturedSkin(skin) {
             <div class="relative overflow-hidden bg-surface-container">
                 <img id="featured-skin-img" src="${first.src}" alt="${slideAlt(skin, first)}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${lightboxAttrs(skin, first)} />
                 ${zoomButton(skin, first)}
-                <div class="absolute left-0 bottom-0 max-w-[calc(100%-1rem)] bg-background px-4 py-3 md:px-5 md:py-4">
-                    <span class="tag bg-primary text-obsidian-deep">Current</span>
-                    <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary mt-2">${skin.name}</h3>
-                </div>
             </div>
         </div>
-        <div class="reg-b flex flex-col md:flex-row border border-t-0 border-hairline divide-y md:divide-y-0 md:divide-x divide-hairline">
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 px-4 py-3 border border-t-0 border-hairline">
+            <span class="tag bg-primary text-obsidian-deep self-start">Current</span>
+            <h3 id="featured-skin-name" class="font-display font-bold text-xl md:text-[28px] leading-tight text-primary">${skin.name}</h3>
+        </div>
+        <div class="reg-b flex flex-col md:flex-row border border-hairline divide-y md:divide-y-0 md:divide-x divide-hairline">
             ${slides.length > 1 ? `
             <div class="flex gap-2.5 p-4 shrink-0" role="group" aria-label="Screenshots of ${skin.name}">
                 ${slides.map((slide, i) => `

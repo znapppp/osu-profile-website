@@ -116,3 +116,14 @@ test.describe('button corners', () => {
         await expect(page.getByRole('link', { name: /older skins archive/i })).toHaveCSS('border-radius', '6px');
     });
 });
+
+test('the featured skin name sits below the banner screenshot, not over it', async ({ page }) => {
+    await page.goto('/');
+    const featured = featuredSkin(page);
+    const image = await featured.getByRole('img', { name: 'Bravo gameplay' }).boundingBox();
+    const name = await featured.getByRole('heading').boundingBox();
+
+    expect(image).not.toBeNull();
+    expect(name).not.toBeNull();
+    expect(name.y).toBeGreaterThanOrEqual(image.y + image.height - 1);
+});
