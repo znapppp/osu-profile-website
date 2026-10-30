@@ -6,23 +6,19 @@ const SITE_CONFIG = {
     // Profile & Social Reference
     profile: {
         username: "Znap-",
-        titleHighlight: "Setup Configuration",
         lastUpdate: "6 October 2026",
         avatarUrl: "https://a.ppy.sh/22919575",
         avatarFallback: "avatar.jpg",
         socials: {
             osuProfileUrl: "https://osu.ppy.sh/users/22919575",
             tiktokUrl: "https://www.tiktok.com/@znapppp_",
-            tiktokTitle: "TikTok (@znapppp_)",
             xUrl: "https://x.com/znapppp_",
-            xTitle: "X / Twitter (@znapppp_)",
             discordTag: "Salmoneverydayplss"
         }
     },
 
     // Tablet Configuration
     tablet: {
-        title: "Tablet Settings",
         device: "Wacom CTL-472",
         area: "43 mm x 28.5 mm",
         driverName: "OpenTabletDriver v0.6.7",
@@ -33,7 +29,6 @@ const SITE_CONFIG = {
 
     // Keyboard Configuration
     keyboard: {
-        title: "Keyboard Setting",
         device: "Keychron C75 TMR",
         keybind: "Ring / Index (Z, C)",
         actuationPoint: "0.3 mm",
@@ -44,7 +39,6 @@ const SITE_CONFIG = {
 
     // Monitor Configuration
     monitor: {
-        title: "Monitor",
         device: "LG ULTRAGEAR 24GS60F-B",
         refreshRate: "180 Hz",
         resolution: "1920 x 1080 (FHD)"
@@ -52,7 +46,6 @@ const SITE_CONFIG = {
 
     // Audio Configuration
     audio: {
-        title: "Audio",
         device: "Apple EarPods",
         connector: "USB-C",
         type: "Earbud Wired"
@@ -102,13 +95,11 @@ const SITE_CONFIG = {
 
     // tosu Overlays Configuration
     overlays: {
-        subtext: "Custom stream overlays & widgets built for tosu to decorate your osu! streaming screen.",
         githubUrl: "https://github.com/znapppp/Znap-OsuBackground",
         tosuDownloadUrl: "https://github.com/tosuapp/tosu/releases",
         items: [
             {
                 name: "Znap-OsuBackground",
-                badgeText: "tosu Overlay",
                 description: "Designed for players using letterboxed / non-fullscreen resolutions (e.g., playing at 1440x900 on a 1920x1080 monitor with black borders). Fills the empty border space with dynamic beatmap artwork or music videos, featuring customizable background dimming and video toggles via config.",
                 downloadUrl: "https://github.com/znapppp/Znap-OsuBackground/archive/refs/heads/main.zip",
                 videoPreviewUrl: "https://drive.google.com/file/d/1B7kju2izmLIfe_iq1cu05M1qIrqgbPBp/view?usp=drive_link",
@@ -120,8 +111,7 @@ const SITE_CONFIG = {
                     { label: "Key features", value: "Dynamic BG & Video / Custom Dim" }
                 ],
                 previewImg: "",
-                previewVideo: "picture/overlay/vdo/preview_vdo.mp4",
-                tags: ["tosu", "OBS Overlay", "1440x900 / 1920x1080", "Beatmap Video / BG", "Custom Dim"]
+                previewVideo: "picture/overlay/vdo/preview_vdo.mp4"
             }
         ]
     }
