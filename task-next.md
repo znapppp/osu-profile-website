@@ -63,6 +63,11 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
   - **Tags:** `.tag` for small type labels.
 - Nothing may appear only on hover. Download buttons, slide controls, dots, and zoom buttons are always visible.
 
+### Section breaks and navigation
+
+- No section numbers. Each content section (Gear, Skins, Overlay) opens with a divider rule with "+" marks at both ends.
+- The header nav underlines the link of the section in view (2px, no layout shift) and sets `aria-current="location"` on it, on the mobile menu links too.
+
 ### Background
 
 - The floating rounded crosses live only in the hero (`#overview`) and scroll away with it. Gear, Skins, Overlay and the footer have a plain solid background with no crosses.
@@ -82,7 +87,7 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
   - an instant switch when reduced motion is preferred
   - a type tag and an outline Download button
 - **Lightbox:** clicking a banner or card screenshot, or its zoom button, opens the existing lightbox on the screenshot currently shown. The title is "Skin name — Screen label".
-- **Header:** the section number, the "N skins" count, and an "Older skins" archive link.
+- **Header:** the "N skins" count, and an "Older skins" archive link.
 - Placeholder ("Coming Soon") items and auto-generated card descriptions are removed.
 
 ## Remaining work, in order
@@ -121,13 +126,13 @@ The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` li
 - **Screenshots:** full colour. Remove the `grayscale opacity-80` / hover treatment. Keep their lightbox buttons.
 - **Possible test update:** if the tablet area value gets split into number and unit, the test "setting values use Geist Mono" in `tests/typography.spec.js` looks up `getByText('50 mm x 30 mm')`. Point it at a value that stays whole, e.g. the driver "Fixture Driver v1".
 
-### 3. Ticket 7: naming, numbering, overlay, and footer
+### 3. Ticket 7: naming, overlay, and footer
 
 - Make navigation labels match section headings, in both the desktop and mobile nav:
   - "Hardware" becomes **Gear**
   - the heading "Gear & Settings" becomes **Gear**
   - "Overlays" stays the nav label, and the heading "My tosu overlay" becomes **Overlay**
-- Number the sections in page order: Gear `01`, Skins `02` (already shown), Overlay `03`. Use the same header pattern as Skins: mono number, then the `font-display` heading.
+- Sections are not numbered (the owner rejected section numbers). Instead each content section starts with a divider rule: a 1px `rule` (#444) line with "+" marks at both ends (`.section-rule`, `aria-hidden`), then the `font-display` heading.
 - Restyle the overlay section and footer:
   - use `.btn-primary` / `.btn-secondary`, hairline frames, and `.reg*` marks
   - remove the glassmorphism (`backdrop-blur`, inset shadows) and the `/40`–`/80` opacity text

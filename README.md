@@ -52,8 +52,10 @@ Shared classes in `css/styles.css`:
 - `.btn-primary`: solid white button with 6px rounded corners
 - `.btn-secondary`: white outline button with 6px rounded corners (frames, cards and tags stay square)
 - `.tag`: small type label
+- `.section-rule`: decorative divider at the top of each content section, with "+" marks at both ends
+- `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/app.js` sets it, also on the mobile menu links)
 
-Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), and `text-muted` (`#9a9a9a`).
+Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), `bg-rule` (`#444`, section dividers), and `text-muted` (`#9a9a9a`).
 
 ## Maintenance Notes
 
