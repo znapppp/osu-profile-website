@@ -58,14 +58,13 @@ The owner chose these from browser mockups. The mockups aren't in the repo, so t
 - Owner exception: the hero social dock (TikTok, X, Discord) is rounded (`rounded-2xl`, 16px), and its icon buttons use `rounded-lg`.
 - Hairline borders use the `border-hairline` colour (`#2e2e2e`).
 - Shared classes in `css/styles.css` under `@layer components`:
-  - **Registration marks:** `.reg`, `.reg-t`, `.reg-b` draw "+" marks just outside a frame's corners (all four, top two, or bottom two). Don't put `overflow-hidden` on the same element, or the marks get clipped; put it on an inner wrapper instead.
   - **Buttons:** `.btn-primary` is solid white, `.btn-secondary` is a white outline.
   - **Tags:** `.tag` for small type labels.
 - Nothing may appear only on hover. Download buttons, slide controls, dots, and zoom buttons are always visible.
 
 ### Section breaks and navigation
 
-- No section numbers. Each content section (Gear, Skins, Overlay) opens with a divider rule with "+" marks at both ends.
+- No section numbers. Each content section (Gear, Skins, Overlay) opens with a divider rule with "+" marks at both ends. These are the only "+" marks on the site: frames have no registration marks.
 - The header nav underlines the link of the section in view (2px, no layout shift) and sets `aria-current="location"` on it, on the mobile menu links too.
 
 ### Background
@@ -134,7 +133,7 @@ The tests already exist in `tests/gear.spec.js`. Delete the `test.fixme(...)` li
   - "Overlays" stays the nav label, and the heading "My tosu overlay" becomes **Overlay**
 - Sections are not numbered (the owner rejected section numbers). Instead each content section starts with a divider rule: a 1px `rule` (#444) line with "+" marks at both ends (`.section-rule`, `aria-hidden`), then the `font-display` heading.
 - Restyle the overlay section and footer:
-  - use `.btn-primary` / `.btn-secondary`, hairline frames, and `.reg*` marks
+  - use `.btn-primary` / `.btn-secondary`, and hairline frames
   - remove the glassmorphism (`backdrop-blur`, inset shadows) and the `/40`–`/80` opacity text
 - Add a test in which each nav label equals its target section's `<h2>` text.
 

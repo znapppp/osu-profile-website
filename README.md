@@ -48,11 +48,11 @@ Edit `js/config.js` to change the content shown on the page:
 
 Shared classes in `css/styles.css`:
 
-- `.reg`, `.reg-t`, `.reg-b`: "+" registration marks just outside a frame's corners (all four, top two, bottom two). Don't put `overflow-hidden` on the same element.
+
 - `.btn-primary`: solid white button with 6px rounded corners
 - `.btn-secondary`: white outline button with 6px rounded corners (frames, cards and tags stay square)
 - `.tag`: small type label
-- `.section-rule`: decorative divider at the top of each content section, with "+" marks at both ends
+- `.section-rule`: divider at the top of each content section: a 1px hairline with "+" marks at both ends (the only "+" marks on the site; frames have none)
 - `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/app.js` sets it, also on the mobile menu links)
 
 Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), `bg-rule` (`#444`, section dividers), and `text-muted` (`#9a9a9a`).
