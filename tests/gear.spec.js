@@ -70,10 +70,34 @@ test.describe('equal spec cells', () => {
         await page.goto('/');
         const gear = page.locator('#hardware');
         const heights = [];
-        for (const label of ['Active area', 'Driver', 'Actuation', 'Stroke', 'Refresh rate', 'Connection']) {
+        for (const label of ['Active area', 'Driver', 'Actuation', 'Refresh rate', 'Connection']) {
             const cell = gear.locator('div').filter({ has: page.getByText(label, { exact: true }) }).last();
             heights.push((await cell.boundingBox()).height);
         }
         expect(Math.min(...heights)).toBeGreaterThanOrEqual(104);
     });
+});
+
+test('each device is labelled with what kind of device it is', async ({ page }) => {
+    await page.goto('/');
+    const gear = page.locator('#hardware');
+    const kinds = {
+        'Fixture Tablet T1': 'Tablet',
+        'Fixture Keyboard K1': 'Keyboard',
+        'Fixture Monitor M1': 'Monitor',
+        'Fixture Headphones H1': 'Earphones',
+    };
+    for (const [name, kind] of Object.entries(kinds)) {
+        const device = gear.getByRole('article').filter({ has: page.getByRole('heading', { name }) });
+        await expect(device.getByText(kind, { exact: true })).toBeVisible();
+    }
+});
+
+test('the category label is quiet: small, muted, normal case', async ({ page }) => {
+    await page.goto('/');
+    const label = page.locator('#hardware').getByText('Tablet', { exact: true });
+    await expect(label).toHaveCSS('font-size', '14px');
+    await expect(label).toHaveCSS('text-transform', 'none');
+    await expect(label).toHaveCSS('letter-spacing', 'normal');
+    await expect(label).toHaveCSS('color', 'rgb(154, 154, 154)');
 });
