@@ -55,16 +55,17 @@ test('card screenshots change without sliding when reduced motion is preferred',
     await page.goto('/');
     const alpha = card(page, 'Alpha Skin');
     const next = alpha.getByRole('button', { name: 'Next screenshot of Alpha Skin' });
-    const gameplay = alpha.getByRole('img', { name: 'Alpha gameplay' });
+    const gameplay = await alpha.getByRole('img', { name: 'Alpha gameplay' }).elementHandle();
+    if (!gameplay) throw new Error('no gameplay image');
     await gameplay.scrollIntoViewIfNeeded();
-    const resting = await gameplay.boundingBox();
-    if (!resting) throw new Error('no image box');
+    const before = await gameplay.boundingBox();
+    if (!before) throw new Error('no image box');
 
     await next.click();
 
-    // measured right after the click: a sliding track would still be mid-transition
-    const songSelect = await alpha.getByRole('img', { name: 'Alpha song select' }).boundingBox();
-    expect(songSelect && Math.abs(songSelect.x - resting.x)).toBeLessThan(1);
+    // measured right after the click: with a slide the old screenshot would still be on its way out
+    const after = await gameplay.boundingBox();
+    expect(after && Math.abs(after.x - (before.x - before.width))).toBeLessThan(1);
 });
 
 // Dispatches a horizontal touch swipe on `target`
