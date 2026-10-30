@@ -54,13 +54,17 @@ test('card screenshots change without sliding when reduced motion is preferred',
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');
     const alpha = card(page, 'Alpha Skin');
-    const track = alpha.locator('[data-skin-slider]');
+    const next = alpha.getByRole('button', { name: 'Next screenshot of Alpha Skin' });
+    const gameplay = alpha.getByRole('img', { name: 'Alpha gameplay' });
+    await gameplay.scrollIntoViewIfNeeded();
+    const resting = await gameplay.boundingBox();
+    if (!resting) throw new Error('no image box');
 
-    const animates = await track.evaluate((el) => {
-        const style = getComputedStyle(el);
-        return style.transitionProperty !== 'none' && style.transitionDuration !== '0s';
-    });
-    expect(animates).toBe(false);
+    await next.click();
+
+    // measured right after the click: a sliding track would still be mid-transition
+    const songSelect = await alpha.getByRole('img', { name: 'Alpha song select' }).boundingBox();
+    expect(songSelect && Math.abs(songSelect.x - resting.x)).toBeLessThan(1);
 });
 
 // Dispatches a horizontal touch swipe on `target`
