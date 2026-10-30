@@ -39,6 +39,44 @@
   .reg-t::before { background: var(--mark-tl), var(--mark-tr); }
   .reg-b::before { background: var(--mark-bl), var(--mark-br); }
 
+  /* Section divider: a thin rule across the content width with "+" marks at both ends. */
+  .section-rule {
+    position: relative;
+    height: 1px;
+    background: theme('colors.rule');
+    --mark-tl: linear-gradient(#fff, #fff) top 0 left 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) top 6px left 0 / 14px 2px no-repeat;
+    --mark-tr: linear-gradient(#fff, #fff) top 0 right 6px / 2px 14px no-repeat, linear-gradient(#fff, #fff) top 6px right 0 / 14px 2px no-repeat;
+  }
+  .section-rule::before {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    background: var(--mark-tl), var(--mark-tr);
+    pointer-events: none;
+  }
+
+  /* Header nav link; the section in view gets a 2px underline that takes no layout space */
+  .nav-link {
+    position: relative;
+    transition: color 0.15s;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: -6px;
+    height: 2px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .nav-link[aria-current]::after { transform: scaleX(1); }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link, .nav-link::after { transition: none; }
+  }
+
   .btn-primary {
     @apply inline-flex items-center justify-between gap-3 rounded-md px-4 py-3 bg-primary text-obsidian-deep font-display font-bold text-sm transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }

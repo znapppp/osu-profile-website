@@ -19,6 +19,7 @@ module.exports = {
         "tertiary": "#ffffff",
         "glass-stroke": "rgba(255, 255, 255, 0.15)",
         "hairline": "#2e2e2e",
+        "rule": "#444444",
         "muted": "#9a9a9a",
         "on-error": "#690005",
         "error": "#ffb4ab",
