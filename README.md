@@ -38,7 +38,7 @@ Edit `js/config.js` to change the content shown on the page:
 - `profile`: username, avatar, social links, Discord tag, and last update date
 - `tablet`, `keyboard`, `monitor`, `audio`: device names, settings, and preview images. `tablet.driverDownloadUrl` turns the driver name into a link to its download page, and `keyboard.keybind` shows which fingers press which keys
 - `skins`: skins, screenshots, and download links. Set `current: true` on the skin you play with to feature it in the wide banner (otherwise the first skin is featured). The featured skin can also have a `note` (a short line from you) and `details` (rows of `{ label, value }`). `badgeText` is the type tag shown on the other skins' cards
-- `overlays`: overlay details, preview video, and download and source links. `specs` (rows of `{ label, value }`) fill the spec cells, and `sourceRefName` is the text of the "Forked from" link to `sourceRefUrl`
+- `overlays`: overlay details, preview video, and download and source links. `previewVideo` plays beside the details; `previewImg` is its poster, or the image shown when there is no video. `specs` (rows of `{ label, value }`) fill the spec cells, and `sourceRefName` is the text of the "Forked from" link to `sourceRefUrl`
 
 ## Testing
 
@@ -59,7 +59,7 @@ Shared classes in `css/styles.css`:
 - `.section-rule`: divider at the top of each content section: a 1px hairline with "+" marks at both ends (the only "+" marks on the site; frames have none)
 - `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/app.js` sets it, also on the mobile menu links)
 
-Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), `bg-rule` (`#444`, section dividers), and `text-muted` (`#9a9a9a`).
+Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), the `rule` colour (`#444`, used by `.section-rule`), and `text-muted` (`#9a9a9a`).
 
 ## Maintenance Notes
 
