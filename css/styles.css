@@ -234,8 +234,8 @@
 
 .tuna-anim-pulse {
   animation: tuna-sparkle-pulse 5s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 /* Browser Surfaces: Themed Selection */
