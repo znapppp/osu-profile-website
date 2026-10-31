@@ -3,7 +3,8 @@ const { test, expect } = require('./fixture');
 
 // Windows reports "prefers reduced motion" whenever its animation effects are off, as on many PCs tuned for games,
 // where Chrome's hardware acceleration is often off too. The owner wants those visitors to see the hero animate and
-// the overlay preview play, so only the skin card slides honour the setting (see skin-slides.spec.js).
+// the overlay preview play, so only the skin card slides (see skin-slides.spec.js) and the nav underline transition
+// honour the setting.
 
 // The hero's CSS animations: the entrance ones run once, the floating crosses run forever
 const heroAnimations = (page) =>
@@ -54,10 +55,30 @@ for (const reducedMotion of /** @type {const} */ (['no-preference', 'reduce'])) 
             expect(animations.entrance).toBeGreaterThan(0);
             expect(animations.floating).toBeGreaterThan(0);
             await expect.poll(() => shownOpacity(hero.getByText('Scroll to explore'))).toBe(1);
+            await expect.poll(() => shownOpacity(hero.getByText('settings', { exact: true }))).toBe(1);
+            // The wordmark ends filled in: the fill path of each letter reaches full fill opacity
+            const filled = () => page.getByRole('heading', { level: 1 }).evaluate((h1) =>
+                [...h1.querySelectorAll('svg path')].filter((p) => getComputedStyle(p).fillOpacity === '1').length);
+            await expect.poll(filled).toBeGreaterThan(0);
 
             const before = await floatingCrossPositions(page);
             await page.waitForTimeout(1000);
             expect(await floatingCrossPositions(page)).not.toEqual(before);
+        });
+
+        test('sections fade in as they scroll into view', async ({ page }) => {
+            await page.goto('/');
+            for (const target of [
+                page.locator('#skins').getByRole('article').filter({ has: page.getByText('Current', { exact: true }) }),
+                page.locator('#overlays').getByRole('article').first(),
+            ]) {
+                await target.scrollIntoViewIfNeeded();
+                await page.waitForTimeout(150);
+                const midway = await shownOpacity(target);
+                expect(midway).toBeGreaterThan(0);
+                expect(midway).toBeLessThan(1);
+                await expect.poll(() => shownOpacity(target)).toBe(1);
+            }
         });
 
         test.describe('with a preview video', () => {
@@ -78,4 +99,14 @@ test('the no-GPU project really draws without hardware acceleration', async ({ b
     const cdp = await browser.newBrowserCDPSession();
     const { gpu } = await cdp.send('SystemInfo.getInfo');
     expect(gpu.featureStatus.gpu_compositing).toBe('disabled_software');
+});
+
+test('hero sparkles animate on compositor-friendly HTML elements without repainting SVG', async ({ page }) => {
+    await page.goto('/');
+    const count = await page.locator('#overview .tuna-anim-pulse').count();
+    expect(count).toBeGreaterThanOrEqual(6);
+    const nonHtml = await page.locator('#overview .tuna-anim-pulse').evaluateAll((els) =>
+        els.filter((el) => !(el instanceof HTMLElement)).length
+    );
+    expect(nonHtml).toBe(0);
 });

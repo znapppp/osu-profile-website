@@ -30,3 +30,15 @@ for (const [label, id] of [['Skins', 'skins'], ['Overlay', 'overlays']]) {
         })).toBe(true);
     });
 }
+
+test('the mobile menu underlines the section in view, marked straight away from a #section link', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'mobile menu');
+    await page.goto('/#skins');
+    await page.getByRole('button', { name: /menu/i }).click();
+    const link = page.getByRole('navigation', { name: 'Mobile Navigation' }).getByRole('link', { name: 'Skins', exact: true });
+    await expect(link).toHaveAttribute('aria-current', /.+/);
+    await expect.poll(() => link.getByText('Skins', { exact: true }).evaluate((el) => {
+        const style = getComputedStyle(el);
+        return style.textDecorationLine === 'underline' && parseFloat(style.textDecorationThickness) >= 2;
+    })).toBe(true);
+});

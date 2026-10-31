@@ -147,3 +147,27 @@ test('on desktop the whole featured skin, download included, fits in one screen 
     expect(download.y + download.height).toBeLessThanOrEqual(viewport.height);
     expect(image.y).toBeGreaterThanOrEqual(0);
 });
+
+test.describe('skin text with markup characters', () => {
+    test.use({
+        configPatch: `
+            SITE_CONFIG.skins.items[1].name = 'Bravo <b>x</b> "Edit"';
+            SITE_CONFIG.skins.items[1].note = 'a <i>b</i> & c';
+            SITE_CONFIG.skins.items[1].details[0].value = '<u>Base</u>';
+            SITE_CONFIG.skins.items[2].name = 'Charlie <b>x</b> "Edit"';
+            SITE_CONFIG.skins.items[2].badgeText = '<em>AR</em>';
+        `,
+    });
+
+    test('names, notes, details and tags are shown exactly as written', async ({ page }) => {
+        await page.goto('/');
+        const skins = page.locator('#skins');
+        for (const name of ['Bravo <b>x</b> "Edit"', 'Charlie <b>x</b> "Edit"']) {
+            await expect(skins.getByRole('heading', { name, exact: true })).toBeVisible();
+            await expect(skins.getByRole('link', { name: `Download ${name}`, exact: true })).toBeVisible();
+        }
+        for (const text of ['a <i>b</i> & c', '<u>Base</u>', '<em>AR</em>']) {
+            await expect(skins.getByText(text, { exact: true })).toBeVisible();
+        }
+    });
+});
