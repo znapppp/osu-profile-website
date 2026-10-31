@@ -28,7 +28,7 @@
             
             <!-- Desktop Navigation -->
             <nav class="hidden sm:flex items-center gap-4 md:gap-8" aria-label="Main Navigation" data-active-classes="text-primary">
-                <a aria-current="location" class="nav-link text-sm md:text-base font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Home</a>
+                <a aria-current="location" class="nav-link text-sm md:text-base font-medium text-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Home</a>
                 <a class="nav-link text-sm md:text-base font-medium text-on-surface-variant hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="hardware" href="#hardware">Gear</a>
                 <a class="nav-link text-sm md:text-base font-medium text-on-surface-variant hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="skins" href="#skins">Skins</a>
                 <a class="nav-link text-sm md:text-base font-medium text-on-surface-variant hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" data-path="overlays" href="#overlays">Overlay</a>
@@ -46,19 +46,19 @@
         <div class="flex flex-col gap-1">
             <a aria-current="location" class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-primary bg-surface-container hover:text-primary transition-colors" data-path="overview" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
                 <span>Home</span>
-                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40" aria-hidden="true">chevron_right</span>
             </a>
             <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/50 transition-colors" data-path="hardware" href="#hardware">
                 <span>Gear</span>
-                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40" aria-hidden="true">chevron_right</span>
             </a>
             <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/50 transition-colors" data-path="skins" href="#skins">
                 <span>Skins</span>
-                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40" aria-hidden="true">chevron_right</span>
             </a>
             <a class="nav-mobile-link flex items-center justify-between py-2.5 px-3 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-surface-container/50 transition-colors" data-path="overlays" href="#overlays">
                 <span>Overlay</span>
-                <span class="material-symbols-outlined text-[16px] opacity-40">chevron_right</span>
+                <span class="material-symbols-outlined text-[16px] opacity-40" aria-hidden="true">chevron_right</span>
             </a>
         </div>
     </nav>
@@ -370,16 +370,16 @@
                                 <p class="text-sm text-muted mb-1">Tablet</p>
                                 <h3 id="tablet-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Wacom CTL-472</h3>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="tablet-area" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Active area</span>
+                            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Active area</dt>
+                                <dd id="tablet-area" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="tablet-driver" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Driver</span>
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Driver</dt>
+                                <dd id="tablet-driver" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            </div>
+                            </dl>
                         </div>
                         </div>
                         <div class="md:col-span-5 max-w-[460px] w-full">
@@ -402,20 +402,20 @@
                                 <p class="text-sm text-muted mb-1">Keyboard</p>
                                 <h3 id="keyboard-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Keychron C75 TMR</h3>
                             </div>
-                            <div class="grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="keyboard-actuation" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Actuation</span>
+                            <dl class="grid grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Actuation</dt>
+                                <dd id="keyboard-actuation" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="keyboard-rapid" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Rapid trigger</span>
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Rapid trigger</dt>
+                                <dd id="keyboard-rapid" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            <div class="col-span-2 bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="keyboard-keybind" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Keybind</span>
+                            <div class="col-span-2 bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Keybind</dt>
+                                <dd id="keyboard-keybind" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            </div>
+                            </dl>
                         </div>
                         </div>
                         <div class="md:col-span-5 max-w-[460px] w-full">
@@ -438,16 +438,16 @@
                                 <p class="text-sm text-muted mb-1">Monitor</p>
                                 <h3 id="monitor-device" class="font-display font-bold text-2xl md:text-3xl text-primary">LG ULTRAGEAR 24GS60F-B</h3>
                             </div>
-                            <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="monitor-refresh" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Refresh rate</span>
+                            <dl class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Refresh rate</dt>
+                                <dd id="monitor-refresh" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="monitor-resolution" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Resolution</span>
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Resolution</dt>
+                                <dd id="monitor-resolution" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            </div>
+                            </dl>
                         </div>
                 </article>
                 <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
@@ -456,16 +456,16 @@
                                 <p class="text-sm text-muted mb-1">Earphones</p>
                                 <h3 id="audio-device" class="font-display font-bold text-2xl md:text-3xl text-primary">Apple EarPods</h3>
                             </div>
-                            <div class="flex-1 grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="audio-conn" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Connection</span>
+                            <dl class="flex-1 grid grid-cols-2 gap-px bg-hairline border border-hairline">
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Connection</dt>
+                                <dd id="audio-conn" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            <div class="bg-background p-4 flex flex-col justify-between gap-2 min-h-[104px] min-w-0">
-                                <span id="audio-type" class="block font-mono text-sm leading-9 text-primary break-words"></span>
-                                <span class="text-xs text-muted">Type</span>
+                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
+                                <dt class="text-xs text-muted">Type</dt>
+                                <dd id="audio-type" class="font-mono text-sm leading-9 text-primary break-words"></dd>
                             </div>
-                            </div>
+                            </dl>
                         </div>
                 </article>
                     </div>
@@ -532,7 +532,7 @@
                 <div id="footer-last-update" class="text-sm text-muted text-center md:text-left">Last update: 6 October 2026</div>
             </div>
             <nav class="flex flex-wrap justify-center md:justify-end items-center gap-6 md:gap-8" aria-label="Footer Social Navigation">
-                <button type="button" id="footer-discord" class="text-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer bg-transparent border-0 p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" title="Copy Discord ID" aria-label="Copy Discord username">Discord</button>
+                <button type="button" id="footer-discord" class="text-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer bg-transparent border-0 rounded-md px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" title="Copy Discord ID" aria-label="Copy Discord username">Discord</button>
                 <a id="footer-x" class="rounded-md text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit X (Twitter) profile">X</a>
                 <a id="footer-tiktok" class="rounded-md text-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary px-1" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">TikTok</a>
             </nav>

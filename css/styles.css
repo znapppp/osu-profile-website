@@ -56,6 +56,12 @@
   @media (prefers-reduced-motion: reduce) {
     .nav-link, .nav-link::after { transition: none; }
   }
+  /* Mobile menu: the current section's label gets the same 2px underline, drawn as text decoration so nothing moves */
+  .nav-mobile-link[aria-current] > span:first-child {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
 
   .btn-primary {
     @apply inline-flex items-center justify-between gap-3 rounded-md px-4 py-3 bg-primary text-obsidian-deep font-display font-bold text-sm transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;

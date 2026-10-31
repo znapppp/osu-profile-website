@@ -122,7 +122,7 @@ function renderSkinCard(skin, index) {
 function renderOverlay(item, index) {
     const name = escapeHtml(item.name);
     const specs = item.specs || [];
-    const imgSrc = escapeHtml(item.previewImg || (item.slides && item.slides.length > 0 ? item.slides[0].src : ''));
+    const imgSrc = escapeHtml(item.previewImg || '');
     const downloadUrl = item.downloadUrl && item.downloadUrl !== '#' ? escapeHtml(item.downloadUrl) : '';
 
     return `
@@ -137,9 +137,9 @@ function renderOverlay(item, index) {
             ${specs.length ? `
             <dl class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
                 ${specs.map((spec, i) => `
-                <div class="bg-background p-4 flex flex-col-reverse justify-end gap-1 min-w-0${specs.length % 2 && i === specs.length - 1 ? ' sm:col-span-2' : ''}">
+                <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0${specs.length % 2 && i === specs.length - 1 ? ' sm:col-span-2' : ''}">
                     <dt class="text-xs text-muted">${escapeHtml(spec.label)}</dt>
-                    <dd class="font-mono text-sm text-primary">${escapeHtml(spec.value)}</dd>
+                    <dd class="font-mono text-sm leading-9 text-primary break-words">${escapeHtml(spec.value)}</dd>
                 </div>`).join('')}
             </dl>` : ''}
 
@@ -157,17 +157,12 @@ function renderOverlay(item, index) {
                         <span>Video Preview</span>
                         <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
                     </a>` : ''}
-                    ${item.githubUrl ? `
-                    <a href="${escapeHtml(item.githubUrl)}" target="_blank" rel="noopener noreferrer" aria-label="View overlay source code on GitHub" class="btn-secondary">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                        <span>Source Code</span>
-                    </a>` : ''}
                 </div>
 
                 ${item.sourceRefUrl ? `
-                <p class="text-xs text-on-surface-variant flex items-center gap-1.5 pt-1">
+                <p class="text-xs text-on-surface-variant flex flex-wrap items-center gap-x-1.5 gap-y-0.5 pt-1">
                     <span>Forked from:</span>
-                    <a href="${escapeHtml(item.sourceRefUrl)}" target="_blank" rel="noopener noreferrer" class="text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">${escapeHtml(item.sourceRefName || item.sourceRefUrl)}</a>
+                    <a href="${escapeHtml(item.sourceRefUrl)}" target="_blank" rel="noopener noreferrer" class="min-w-0 [overflow-wrap:anywhere] text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">${escapeHtml(item.sourceRefName || item.sourceRefUrl)}</a>
                 </p>` : ''}
             </div>
         </div>
@@ -214,12 +209,15 @@ function linkSpecValue(id, url) {
     link.href = url;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.className = 'inline-flex items-center gap-1 underline underline-offset-4 decoration-outline hover:decoration-primary transition-colors';
+    link.className = 'group inline-flex items-center gap-1';
+    const text = document.createElement('span');
+    text.className = 'underline underline-offset-4 decoration-outline group-hover:decoration-primary transition-colors';
+    text.append(...el.childNodes);
     const icon = document.createElement('span');
     icon.className = 'material-symbols-outlined text-[16px]';
     icon.setAttribute('aria-hidden', 'true');
     icon.textContent = 'arrow_outward';
-    link.append(...el.childNodes, icon);
+    link.append(text, icon);
     el.replaceChildren(link);
 }
 
@@ -293,6 +291,7 @@ function renderFromConfig() {
             const btn = img.closest('[data-lightbox]');
             if (btn) {
                 btn.setAttribute('data-lightbox', data.previewImage);
+                btn.setAttribute('aria-label', `Expand ${data.previewAlt || `${data.device} settings`} image`);
                 if (data.previewAlt) btn.setAttribute('data-lightbox-title', data.previewAlt);
             }
         }
@@ -692,14 +691,14 @@ function initLightbox() {
 
 // Application Initialization Entry Point
 function initApp() {
-    renderFromConfig();
-    initSocials();
-    initFeaturedSkin();
-    initSkinSliders();
-    initScrollReveal();
-    initNavScroll();
-    initMobileMenu();
-    initLightbox();
+    [renderFromConfig, initSocials, initFeaturedSkin, initSkinSliders, initScrollReveal, initNavScroll, initMobileMenu, initLightbox]
+        .forEach((step) => {
+            try {
+                step();
+            } catch (error) {
+                console.error(error);
+            }
+        });
 }
 
 // Dom Ready Execution
