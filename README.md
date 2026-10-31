@@ -4,8 +4,10 @@ A static website presenting the osu! setup of Znap-: hardware and settings, skin
 
 ## Tech Stack
 
-- HTML and vanilla JavaScript (no framework, no bundler)
+- HTML and vanilla JavaScript ES modules (no framework, no JS bundler)
+- Static type-checking via JSDoc + `@ts-check` (`jsconfig.json`)
 - Tailwind CSS 3, compiled with the Tailwind CLI
+- Playwright end-to-end tests (`desktop`, `mobile`, and `desktop-no-gpu`)
 
 ## Getting Started
 
@@ -14,6 +16,7 @@ Requires Node.js.
 ```bash
 npm install
 npm run build      # compile css/styles.css to css/output.css (minified)
+npm run typecheck  # run strict JSDoc / @ts-check verification
 npm start          # serve the site locally
 ```
 
@@ -23,13 +26,19 @@ During development, run `npm run build:css` to rebuild the CSS on every change.
 
 | Path | Description |
 |------|-------------|
-| `index.html` | Page markup |
-| `js/config.js` | Site content (`SITE_CONFIG`) |
-| `js/app.js` | Renders the content from `config.js` and handles page interactions |
+| `index.html` | Page markup, CSP, and Open Graph metadata |
+| `js/config.js` | Single source of truth for site content (`SITE_CONFIG`) |
+| `js/types.js` | JSDoc `@typedef` schema definitions for `SITE_CONFIG` |
+| `js/main.js` | ES module entry point and fault-isolated initializer |
+| `js/render/` | Section renderers (`profile.js`, `gear.js`, `skins.js`, `overlays.js`) |
+| `js/ui/` | Interactive controllers (`lightbox.js`, `slider.js`, `navigation.js`) |
+| `js/utils/dom.js` | HTML escaping, URL sanitization, motion query, and toast helpers |
+| `jsconfig.json` | Strict TypeScript `checkJs` configuration |
 | `css/styles.css` | Tailwind input and custom styles |
 | `css/output.css` | Compiled stylesheet loaded by the page |
 | `tailwind.config.js` | Theme colors, fonts, and spacing |
-| `picture/` | Images and the overlay preview video |
+| `picture/` | Hardware screenshots, skin slides, and overlay preview video |
+| `.github/workflows/ci.yml` | Automated CI checks (`typecheck`, CSS diff check, Playwright) |
 
 ## Updating Content
 
@@ -42,7 +51,7 @@ Edit `js/config.js` to change the content shown on the page:
 
 ## Testing
 
-`npm test` runs the Playwright tests against the installed Google Chrome. It rebuilds `css/output.css` first. There are three projects:
+`npm test` rebuilds `css/output.css` and runs the Playwright tests against the installed Google Chrome. There are three projects:
 
 - `desktop` and `mobile` (Pixel 7, touch) run every test. A test that only applies to one kind of device is skipped on the other, such as swipe on desktop.
 - `desktop-no-gpu` runs `tests/motion.spec.js` in Chrome started with `--disable-gpu`, the same as turning off "Use graphics acceleration when available".
@@ -57,13 +66,14 @@ Shared classes in `css/styles.css`:
 - `.btn-secondary`: white outline button with 6px rounded corners (frames, cards and tags stay square)
 - `.tag`: small type label
 - `.section-rule`: divider at the top of each content section: a 1px hairline with "+" marks at both ends (the only "+" marks on the site; frames have none)
-- `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/app.js` sets it, also on the mobile menu links)
+- `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/ui/navigation.js` sets it, also on the mobile menu links)
 
 Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), the `rule` colour (`#444`, used by `.section-rule`), and `text-muted` (`#9a9a9a`).
 
 ## Maintenance Notes
 
-- `css/output.css` is committed to the repository. Run `npm run build` after changing `css/styles.css`, `tailwind.config.js`, or any Tailwind classes in HTML or JavaScript.
+- `css/output.css` is committed to the repository. Run `npm run build` after changing `css/styles.css`, `tailwind.config.js`, or any Tailwind classes in HTML or JavaScript (enforced automatically in CI).
+- Run `npm run typecheck` after editing `js/config.js` or any module under `js/` to verify types and schema definitions.
 - The Material Symbols font loads only the icons listed in the `icon_names` parameter in `index.html`. When using a new icon, add its name to that list in alphabetical order, or it will not render.
-- The avatar URL is set in both `index.html` and `js/config.js`. Update both when changing it.
-- Animations play even when the visitor's system prefers reduced motion; only the skin card slides and the nav underline switch instantly. See `docs/adr/0001-animations-play-with-reduced-motion.md` before changing this.
+- Page content (including `#header-avatar`) renders dynamically from `js/config.js`. Static `og:image` and `twitter:image` `<meta>` tags in `index.html` are read by social link crawlers without executing JavaScript; update those meta tags if the osu! user ID changes.
+- Animations play even when the visitor's system prefers reduced motion; only the skin card slides, Home top-scroll, and nav underline switch instantly. See `docs/adr/0001-animations-play-with-reduced-motion.md` before changing this.

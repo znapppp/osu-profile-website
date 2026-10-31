@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Typecheck, CSS Build & Playwright E2E
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Google Chrome & OS dependencies
+        run: npx playwright install --with-deps chrome
+
+      - name: Static typecheck (@ts-check)
+        run: npm run typecheck
+
+      - name: Verify compiled CSS is up to date
+        run: |
+          npm run build
+          git diff --exit-code css/output.css
+
+      - name: Run Playwright test suite
+        run: npm test
+
+      - name: Upload Playwright failure traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 7
