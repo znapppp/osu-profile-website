@@ -5,9 +5,14 @@ const base = require('@playwright/test');
 
 const FIXTURE_CONFIG = fs.readFileSync(path.join(__dirname, 'fixtures', 'config.js'), 'utf8');
 
-// Every test sees the page with the fixture SITE_CONFIG instead of the real js/config.js.
-// A test can change that data with test.use({ configPatch: '<js run after SITE_CONFIG is defined>' }).
-const test = base.test.extend({
+/**
+ * @typedef {{ configPatch: string }} FixtureOptions
+ * @typedef {import('@playwright/test').PlaywrightTestArgs & import('@playwright/test').PlaywrightTestOptions} BaseTestFixtures
+ * @typedef {import('@playwright/test').PlaywrightWorkerArgs & import('@playwright/test').PlaywrightWorkerOptions} BaseWorkerFixtures
+ */
+
+/** @type {import('@playwright/test').Fixtures<FixtureOptions, {}, BaseTestFixtures, BaseWorkerFixtures>} */
+const fixtures = {
     configPatch: ['', { option: true }],
     page: async ({ page, configPatch, baseURL }, use) => {
         // Third-party requests (Google Fonts, osu! avatar) only slow tests down and make them flaky
@@ -18,6 +23,10 @@ const test = base.test.extend({
         );
         await use(page);
     },
-});
+};
+
+// Every test sees the page with the fixture SITE_CONFIG instead of the real js/config.js.
+// A test can change that data with test.use({ configPatch: '<js run after SITE_CONFIG is defined>' }).
+const test = base.test.extend(fixtures);
 
 module.exports = { test, expect: base.expect };

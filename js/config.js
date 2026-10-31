@@ -2,7 +2,10 @@
    Znap- osu! Setup Website - Application Configuration
    ========================================================================== */
 
-const SITE_CONFIG = {
+// @ts-check
+
+/** @type {import('./types.js').SiteConfig} */
+export const SITE_CONFIG = {
     // Profile & Social Reference
     profile: {
         username: "Znap-",
@@ -76,7 +79,7 @@ const SITE_CONFIG = {
                 downloadUrl: "https://drive.google.com/file/d/1mhUefUPC8CJZUHipbji5iUXXV1HgmZck/view?usp=drive_link",
                 slides: [
                     { src: "picture/skin/DT/gameplay.webp", label: "Gameplay", alt: "Milkteaism Hydro DT Gameplay" },
-                    { src: "picture/skin/DT/songelect.webp", label: "Song Select", alt: "Milkteaism Hydro DT Song Select" },
+                    { src: "picture/skin/DT/songselect.webp", label: "Song Select", alt: "Milkteaism Hydro DT Song Select" },
                     { src: "picture/skin/DT/result.webp", label: "Results UI", alt: "Milkteaism Hydro DT Results UI" }
                 ]
             },

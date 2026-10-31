@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "strict": true,
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "include": [
+    "js/**/*.js",
+    "tests/fixtures/**/*.js",
+    "tests/fixture.js",
+    "tests/resilience.spec.js",
+    "playwright.config.js",
+    "tailwind.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    ".claude"
+  ]
+}

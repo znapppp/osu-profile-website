@@ -42,3 +42,51 @@ test('the mobile menu underlines the section in view, marked straight away from 
         return style.textDecorationLine === 'underline' && parseFloat(style.textDecorationThickness) >= 2;
     })).toBe(true);
 });
+
+test('on tall QHD 2560x1440 screens, scrolling to Overlay marks Overlay instead of leaving Skins active', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'desktop QHD viewport');
+    await page.setViewportSize({ width: 2560, height: 1440 });
+    await page.goto('/');
+    const nav = page.getByRole('navigation', { name: 'Main Navigation' });
+
+    await nav.getByRole('link', { name: 'Overlay' }).click();
+
+    await expect(nav.getByRole('link', { name: 'Overlay' })).toHaveAttribute('aria-current', 'location');
+    await expect(nav.getByRole('link', { name: 'Skins' })).not.toHaveAttribute('aria-current', /.+/);
+});
+
+test('mobile hero quick-jump reaches Skins in one tap and mobile controls meet 44x44 touch target size', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'mobile touch targets and quick-jump');
+    await page.goto('/');
+
+    for (const selector of ['#osu-profile-link', '#mobile-menu-toggle', '#footer-discord', '#footer-x', '#footer-tiktok']) {
+        const box = await page.locator(selector).boundingBox();
+        expect(box, selector).not.toBeNull();
+        if (box) {
+            expect(box.width, `${selector} width`).toBeGreaterThanOrEqual(44);
+            expect(box.height, `${selector} height`).toBeGreaterThanOrEqual(44);
+        }
+    }
+
+    const quickSkins = page.locator('#overview').getByRole('link', { name: 'Skins', exact: true });
+    await expect(quickSkins).toBeVisible();
+    await quickSkins.click();
+    await expect(page.getByRole('heading', { level: 2, name: 'Skins', exact: true })).toBeInViewport();
+});
+
+test('toast notification sits clear of the hero Scroll to explore cue', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.goto('/');
+    await page.locator('#dock-discord').click();
+
+    const toast = page.locator('#toast');
+    await expect(toast).toContainText('Copied Discord ID');
+    const toastBox = await toast.boundingBox();
+    const cueBox = await page.locator('#overview').getByText('Scroll to explore').boundingBox();
+    expect(toastBox).not.toBeNull();
+    expect(cueBox).not.toBeNull();
+    if (toastBox && cueBox) {
+        const overlapsVertically = toastBox.y < cueBox.y + cueBox.height && toastBox.y + toastBox.height > cueBox.y;
+        expect(overlapsVertically).toBe(false);
+    }
+});

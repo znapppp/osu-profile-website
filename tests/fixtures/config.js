@@ -1,6 +1,9 @@
 /* Test-only SITE_CONFIG, served in place of js/config.js so tests don't depend on the real content */
 
-const SITE_CONFIG = {
+// @ts-check
+
+/** @type {import('../../js/types.js').SiteConfig} */
+export const SITE_CONFIG = {
     profile: {
         username: "TestPlayer",
         lastUpdate: "1 January 2026",
@@ -53,7 +56,7 @@ const SITE_CONFIG = {
                 downloadUrl: "https://drive.example/alpha",
                 slides: [
                     { src: "picture/skin/DT/gameplay.webp", label: "Gameplay", alt: "Alpha gameplay" },
-                    { src: "picture/skin/DT/songelect.webp", label: "Song Select", alt: "Alpha song select" },
+                    { src: "picture/skin/DT/songselect.webp", label: "Song Select", alt: "Alpha song select" },
                     { src: "picture/skin/DT/result.webp", label: "Results UI", alt: "Alpha results" }
                 ]
             },
