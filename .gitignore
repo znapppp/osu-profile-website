@@ -1,6 +1,7 @@
 # Personal / draft setting notes
 my setting.md
 design.md
+review.md
 
 # OS / System generated files
 .DS_Store
@@ -13,6 +14,7 @@ desktop.ini
 # Dependencies & Agent Skills
 node_modules/
 .agents/
+.claude/
 skills-lock.json
 
 # Brainstorm mockups
