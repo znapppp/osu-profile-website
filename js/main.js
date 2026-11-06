@@ -7,6 +7,7 @@ import { renderOverlays } from './render/overlays.js';
 import { initFeaturedSkin, initSkinSliders } from './ui/slider.js';
 import { initScrollReveal, initNavScroll, initMobileMenu } from './ui/navigation.js';
 import { initLightbox } from './ui/lightbox.js';
+import { initScrollEffects } from './ui/motion.js';
 
 function initApp() {
     /** @type {Array<() => void>} */
@@ -21,6 +22,7 @@ function initApp() {
         initNavScroll,
         initMobileMenu,
         initLightbox,
+        initScrollEffects,
     ];
 
     steps.forEach((step) => {

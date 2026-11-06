@@ -26,3 +26,24 @@ Measured on 2026-10-30 with Chrome 156:
 
 - Visitors who turned motion off for comfort still see the hero animate. If that becomes a problem, add a way on the page to pause the animations, instead of following the system setting.
 - A change that stops one of these animations under reduced motion fails `tests/motion.spec.js`.
+
+## Update, 2026-11-06: the redesign
+
+The redesign added the pinned hero with the page sliding over it, the crosses spreading out on entry, the outline-to-fill section headings, the screenshot reveals and wipe, and the overlay video growing on scroll. They follow the same decision and play under reduced motion: the owner's own PC reports reduced motion, so anything gated on it would never be seen there.
+
+A first version also had a canvas of hit circles in the hero, a cursor trail, a ticker, animated setting drawings and a colour glow behind screenshots. The owner removed them as clutter after seeing them live; see the look note in the README.
+
+Measured in Chrome with `--disable-gpu`, frames per second after the entrance, against the site before the redesign:
+
+| | Before | After |
+| --- | --- | --- |
+| Hero, 1920x1080 | 60 | 60 |
+| Hero, 1920x1080, CPU throttled 4 times | 60 | 60 |
+| Hero, 2560x1440 | 60 | 60 |
+| Overlay video playing, all three of the above | 60 | 60 |
+| Scrolling the whole page in 8 s, 1920x1080 | 59 | 55 |
+
+What that first version taught, for anyone adding a large effect:
+
+- Stretching a whole-screen layer costs more than drawing it. A hero canvas drawn smaller to save pixels dropped to 44 fps at 1080p and 30 at 1440p.
+- Measure while scrolling as well as at rest. A small stretched and masked canvas behind a frame cost nothing while the page was still and took scrolling down to 49 fps, because a moving layer like that has to be redone every frame.

@@ -21,7 +21,7 @@ function setSpecValue(id, text, isNumeric = false) {
         return;
     }
     const number = document.createElement('span');
-    number.className = 'font-display font-bold text-3xl leading-none';
+    number.className = 'spec-number';
     number.textContent = match[1];
     const unit = document.createElement('span');
     unit.className = 'font-mono text-sm text-muted';

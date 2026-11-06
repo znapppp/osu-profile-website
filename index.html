@@ -32,8 +32,8 @@
 <body class="bg-background font-sans text-on-surface antialiased relative overflow-x-hidden">
 
 
-<header class="fixed top-0 w-full z-50 bg-background border-b border-hairline">
-    <div class="h-16 max-w-[1440px] mx-auto px-5 sm:px-6 md:px-margin-safe flex items-center justify-between">
+<header id="site-header" class="site-header fixed top-0 w-full z-50">
+    <div class="h-16 max-w-[1536px] mx-auto px-5 sm:px-6 md:px-margin-safe flex items-center justify-between">
         <div class="flex items-center gap-3 sm:gap-4 md:gap-8">
             <div class="flex items-center gap-1.5 sm:gap-3">
                 <a id="osu-profile-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Znap- osu! Profile" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] -ml-1.5 sm:ml-0 sm:min-w-0 sm:min-h-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
@@ -80,11 +80,11 @@
     </nav>
 </header>
 
-<main class="w-full pt-16 bg-background">
+<main class="w-full bg-background">
     <div class="flex flex-col w-full text-on-surface">
         
         <!-- Hero Section -->
-        <section class="w-full relative min-h-[calc(100svh-4rem)] flex flex-col justify-between items-center pt-16 sm:pt-20 pb-6 sm:pb-8 px-6 md:px-margin-safe overflow-hidden" id="overview">
+        <section class="hero w-full min-h-[100svh] flex flex-col justify-between items-center pt-20 sm:pt-24 pb-5 sm:pb-6 px-6 md:px-margin-safe overflow-hidden" id="overview">
                 <!-- FlyingTuna Inspired Aesthetic Floating Cross Background (Monochrome White on Obsidian Dark) -->
                 <div class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
                     <!-- SVG Master Sprite Defs -->
@@ -102,9 +102,9 @@
                                 <rect x="-6.5" y="-17" width="13" height="34" rx="6.5" fill="white" />
                             </g>
 
-                            <!-- 4-Point Sparkle Star -->
+                            <!-- Small dot -->
                             <g id="tuna-sparkle">
-                                <path d="M 0 -9 C 0 -2.5 2.5 0 9 0 C 2.5 0 0 2.5 0 9 C 0 2.5 -2.5 0 -9 0 C -2.5 0 0 -2.5 0 -9 Z" fill="white" />
+                                <circle r="4" fill="white" />
                             </g>
                         </defs>
                     </svg>
@@ -115,7 +115,7 @@
                     -->
 
                     <!-- Top-Right Cluster (FlyingTuna Signature Corner) -->
-                    <div class="absolute -top-3 -right-3 sm:top-0 sm:right-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
+                    <div data-cluster data-dx="1" data-dy="-1" data-depth="1" style="--dx:1;--dy:-1" class="hero-cluster absolute -top-3 -right-3 sm:top-0 sm:right-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
                         <!-- Static Depth Crosses -->
                         <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" fill="none">
                             <g opacity="0.06">
@@ -150,19 +150,10 @@
                                 <use href="#tuna-cross" transform="translate(125, 215) rotate(-25) scale(0.95)" opacity="0.18" />
                             </svg>
                         </div>
-
-                        <!-- Floating Layer C: Ambient Crosses -->
-                        <div class="tuna-anim-sway absolute inset-0">
-                            <svg class="block w-full h-full" viewBox="0 0 420 420" fill="none">
-                                <use href="#tuna-cross" transform="translate(315, 30) rotate(0) scale(0.55)" opacity="0.85" />
-                                <use href="#tuna-cross" transform="translate(285, 185) rotate(-20) scale(0.65)" opacity="0.45" />
-                                <use href="#tuna-cross" transform="translate(360, 160) rotate(15) scale(0.45)" opacity="0.40" />
-                            </svg>
-                        </div>
                     </div>
 
                     <!-- Top-Left Cluster -->
-                    <div class="absolute -top-3 -left-3 sm:top-0 sm:left-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
+                    <div data-cluster data-dx="-1" data-dy="-1" data-depth="1.3" style="--dx:-1;--dy:-1" class="hero-cluster absolute -top-3 -left-3 sm:top-0 sm:left-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
                         <!-- Static Depth Crosses -->
                         <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" fill="none">
                             <g opacity="0.09">
@@ -181,7 +172,6 @@
                         <!-- Floating Layer A: Vertical Drift -->
                         <div class="tuna-anim-slow absolute inset-0">
                             <svg class="block w-full h-full" viewBox="0 0 420 420" fill="none">
-                                <use href="#tuna-cross" transform="translate(235, 50) rotate(45) scale(1.15)" opacity="0.85" />
                                 <use href="#tuna-cross" transform="translate(80, 150) rotate(0) scale(1.0)" opacity="0.82" />
                                 <use href="#tuna-sparkle" transform="translate(120, 80) scale(0.6)" opacity="0.70" />
                             </svg>
@@ -195,18 +185,10 @@
                                 <use href="#tuna-cross" transform="translate(55, 75) rotate(30) scale(0.75)" opacity="0.15" />
                             </svg>
                         </div>
-
-                        <!-- Floating Layer C: Ambient Crosses -->
-                        <div class="tuna-anim-sway absolute inset-0">
-                            <svg class="block w-full h-full" viewBox="0 0 420 420" fill="none">
-                                <use href="#tuna-cross" transform="translate(85, 235) rotate(-20) scale(0.55)" opacity="0.50" />
-                                <use href="#tuna-cross" transform="translate(150, 40) rotate(10) scale(0.45)" opacity="0.35" />
-                            </svg>
-                        </div>
                     </div>
 
                     <!-- Bottom-Left Cluster -->
-                    <div class="absolute -bottom-3 -left-3 sm:bottom-0 sm:left-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
+                    <div data-cluster data-dx="-1" data-dy="1" data-depth="0.8" style="--dx:-1;--dy:1" class="hero-cluster absolute -bottom-3 -left-3 sm:bottom-0 sm:left-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
                         <!-- Static Depth Crosses -->
                         <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" fill="none">
                             <g opacity="0.06">
@@ -241,18 +223,10 @@
                                 <use href="#tuna-cross" transform="translate(190, 360) rotate(20) scale(0.55)" opacity="0.72" />
                             </svg>
                         </div>
-
-                        <!-- Floating Layer C: Ambient Crosses -->
-                        <div class="tuna-anim-sway absolute inset-0">
-                            <svg class="block w-full h-full" viewBox="0 0 420 420" fill="none">
-                                <use href="#tuna-cross" transform="translate(235, 385) rotate(-15) scale(0.5)" opacity="0.40" />
-                                <use href="#tuna-cross" transform="translate(35, 305) rotate(20) scale(0.45)" opacity="0.55" />
-                            </svg>
-                        </div>
                     </div>
 
                     <!-- Bottom-Right Cluster -->
-                    <div class="absolute -bottom-3 -right-3 sm:bottom-0 sm:right-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
+                    <div data-cluster data-dx="1" data-dy="1" data-depth="1.15" style="--dx:1;--dy:1" class="hero-cluster absolute -bottom-3 -right-3 sm:bottom-0 sm:right-0 w-56 h-56 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[540px] lg:h-[540px]">
                         <!-- Static Depth Crosses -->
                         <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" fill="none">
                             <g opacity="0.06">
@@ -292,24 +266,10 @@
                                 <use href="#tuna-cross" transform="translate(185, 360) rotate(-15) scale(0.85)" opacity="0.22" />
                             </svg>
                         </div>
-
-                        <!-- Floating Layer C: Ambient Crosses -->
-                        <div class="tuna-anim-sway absolute inset-0">
-                            <svg class="block w-full h-full" viewBox="0 0 420 420" fill="none">
-                                <use href="#tuna-cross" transform="translate(365, 140) rotate(10) scale(0.45)" opacity="0.35" />
-                                <use href="#tuna-cross" transform="translate(280, 380) rotate(-25) scale(0.55)" opacity="0.50" />
-                            </svg>
-                        </div>
                     </div>
 
                     <!-- Outer Flank Accents (Visible on desktop screens for widescreen balance) -->
-                    <div class="hidden xl:block absolute top-1/2 left-8 -translate-y-1/2 w-36 h-60 pointer-events-none">
-                        <div class="tuna-anim-drift absolute inset-0">
-                            <svg class="block w-full h-full" viewBox="0 0 120 200" fill="none">
-                                <use href="#tuna-cross" transform="translate(45, 80) rotate(22) scale(0.85)" opacity="0.20" />
-                                <use href="#tuna-cross" transform="translate(75, 140) rotate(-15) scale(0.45)" opacity="0.38" />
-                            </svg>
-                        </div>
+                    <div data-cluster data-dx="-1" data-dy="0" data-depth="1.6" style="--dx:-1;--dy:0" class="hero-cluster hidden xl:block absolute top-1/2 left-8 -translate-y-1/2 w-36 h-60 pointer-events-none">
                         <div class="tuna-anim-pulse absolute inset-0" style="transform-origin: 70.8333% 30%;">
                             <svg class="block w-full h-full" viewBox="0 0 120 200" fill="none">
                                 <use href="#tuna-sparkle" transform="translate(85, 60) scale(0.45)" />
@@ -317,13 +277,7 @@
                         </div>
                     </div>
 
-                    <div class="hidden xl:block absolute top-1/2 right-8 -translate-y-1/2 w-36 h-60 pointer-events-none">
-                        <div class="tuna-anim-slow absolute inset-0">
-                            <svg class="block w-full h-full" viewBox="0 0 120 200" fill="none">
-                                <use href="#tuna-cross" transform="translate(65, 90) rotate(-18) scale(0.85)" opacity="0.22" />
-                                <use href="#tuna-cross" transform="translate(35, 150) rotate(30) scale(0.45)" opacity="0.40" />
-                            </svg>
-                        </div>
+                    <div data-cluster data-dx="1" data-dy="0" data-depth="1.6" style="--dx:1;--dy:0" class="hero-cluster hidden xl:block absolute top-1/2 right-8 -translate-y-1/2 w-36 h-60 pointer-events-none">
                         <div class="tuna-anim-pulse absolute inset-0" style="transform-origin: 33.3333% 32.5%;">
                             <svg class="block w-full h-full" viewBox="0 0 120 200" fill="none">
                                 <use href="#tuna-sparkle" transform="translate(40, 65) scale(0.45)" />
@@ -332,16 +286,11 @@
                     </div>
                 </div>
             <!-- Ambient Glow (Zero-filter radial gradient for smooth mobile rendering) -->
-            <div class="hero-ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] sm:w-[720px] sm:h-[720px] rounded-full pointer-events-none" aria-hidden="true"></div>
+            <div class="hero-ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] sm:w-[900px] sm:h-[900px] rounded-full pointer-events-none" aria-hidden="true"></div>
 
-
-            <!-- Top spacer for layout balance -->
-            <div class="h-4"></div>
-
-            <div class="z-10 text-center max-w-4xl mx-auto flex flex-col items-center gap-4 md:gap-6 my-auto py-6">
-
-                <!-- Wordmark: "Znap-" in Geist Bold as SVG outlines. Regenerate the paths if the username changes. -->
-                <h1 id="hero-title" class="text-white text-6xl sm:text-7xl md:text-8xl lg:text-[104px] leading-none select-none py-1">
+            <div class="z-10 text-center w-full mx-auto flex flex-col items-center gap-3 md:gap-5 my-auto py-4" data-hero-content>
+                    <!-- Wordmark: "Znap-" in Geist Bold as SVG outlines. Regenerate the paths if the username changes. -->
+                    <h1 id="hero-title" class="hero-wordmark text-white leading-none select-none py-1">
                     <span id="hero-title-text" class="sr-only">Znap-</span>
                     <svg class="wordmark-reveal block h-[0.876em] w-auto" viewBox="19 -718 2659 876" aria-hidden="true">
                         <g style="--i:0">
@@ -367,11 +316,11 @@
                             <path pathLength="1" d="M2327,-353h343v123h-343z" />
                         </g>
                     </svg>
-                </h1>
-                <p class="font-sans text-base md:text-body-lg text-on-surface-variant max-w-2xl"><span class="hero-word" style="--delay:0.85s">my</span> <span class="hero-word" style="--delay:0.93s">current</span> <span class="hero-word" style="--delay:1.01s">gear,</span> <span class="hero-word" style="--delay:1.09s">settings</span> <span class="hero-word" style="--delay:1.17s">&amp;</span> <span class="hero-word" style="--delay:1.25s">skins</span></p>
-                
+                    </h1>
+                <p class="font-sans text-base md:text-body-lg text-on-surface-variant max-w-2xl"><span class="hero-word" style="--delay:1.1s">my</span> <span class="hero-word" style="--delay:1.16s">current</span> <span class="hero-word" style="--delay:1.22s">gear,</span> <span class="hero-word" style="--delay:1.28s">settings</span> <span class="hero-word" style="--delay:1.34s">&amp;</span> <span class="hero-word" style="--delay:1.4s">skins</span></p>
+
                 <!-- Social Dock -->
-                <div class="flex items-center gap-3 md:gap-4 px-4 py-2.5 mt-4 bg-background border border-hairline rounded-2xl opacity-0 translate-y-8 animate-[fade-in-up_0.7s_ease-out_1.2s_forwards]">
+                <div class="flex items-center gap-3 md:gap-4 px-4 py-2.5 mt-2 md:mt-3 bg-background border border-hairline rounded-2xl opacity-0 translate-y-8 animate-[fade-in-up_0.7s_ease-out_1.35s_forwards]">
                     <a href="#" id="dock-tiktok" class="group relative flex items-center justify-center w-11 h-11 rounded-lg bg-transparent hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile">
                         <svg viewBox="0 0 448 512" class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors fill-current" aria-hidden="true"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
                     </a>
@@ -384,145 +333,130 @@
                 </div>
 
                 <!-- Mobile Quick-Jump Links -->
-                <div class="sm:hidden flex items-center justify-center gap-2 mt-1 opacity-0 translate-y-4 animate-[fade-in-up_0.7s_ease-out_1.35s_forwards]">
+                <div class="sm:hidden flex items-center justify-center gap-2 mt-1 opacity-0 translate-y-4 animate-[fade-in-up_0.7s_ease-out_1.5s_forwards]">
                     <a href="#skins" class="inline-flex items-center justify-center rounded-md min-h-[44px] px-4 bg-surface-container-lowest border border-hairline text-primary hover:border-primary font-sans text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Skins</a>
                     <a href="#hardware" class="inline-flex items-center justify-center rounded-md min-h-[44px] px-4 bg-surface-container-lowest border border-hairline text-on-surface-variant hover:text-primary hover:border-primary font-sans text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Gear</a>
                     <a href="#overlays" class="inline-flex items-center justify-center rounded-md min-h-[44px] px-4 bg-surface-container-lowest border border-hairline text-on-surface-variant hover:text-primary hover:border-primary font-sans text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Overlay</a>
                 </div>
             </div>
-            <div class="z-10 flex flex-col items-center gap-2 opacity-0 animate-[fade-in_0.7s_ease-out_1.5s_forwards] pb-1">
+            <div class="z-10 flex flex-col items-center gap-2 opacity-0 animate-[fade-in_0.7s_ease-out_1.6s_forwards]">
                 <a href="#hardware" class="inline-flex items-center min-h-[44px] sm:min-h-0 px-3 rounded-md text-sm font-medium text-muted select-none transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Scroll to explore</a>
-                <div class="w-[1px] h-10 bg-hairline"></div>
+                <div class="cue-line" aria-hidden="true"></div>
             </div>
         </section>
 
         <!-- Gear Section -->
-        <section class="w-full pt-section-mobile md:pt-section-desktop pb-12 md:pb-20 px-6 md:px-margin-safe relative overflow-hidden" id="hardware">
+        <section class="sheet w-full pt-section-mobile md:pt-section-desktop pb-16 md:pb-24 px-6 md:px-margin-safe overflow-hidden" id="hardware">
             <div class="max-w-[1440px] mx-auto">
                 <div class="section-rule" aria-hidden="true"></div>
-                <div class="flex items-end gap-x-4 mt-10 md:mt-14 mb-10 md:mb-12 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <h2 class="font-display font-bold text-5xl md:text-headline-lg text-primary leading-none">Gear</h2>
+                <div class="section-head scroll-reveal">
+                    <h2 class="section-title">Gear</h2>
                 </div>
 
-                <div class="flex flex-col gap-16 md:gap-20">
-                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-                        <div class="md:col-span-7">
-                        <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-14 md:gap-20">
+                    <article class="gear-row scroll-reveal">
+                        <div class="gear-info">
                             <div>
-                                <p class="text-sm text-muted mb-1">Tablet</p>
-                                <h3 id="tablet-device" class="font-display font-bold text-2xl md:text-3xl text-primary"></h3>
+                                <p class="text-sm text-muted mb-2">Tablet</p>
+                                <h3 id="tablet-device" class="gear-name"></h3>
                             </div>
-                            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Active area</dt>
-                                <dd id="tablet-area" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Driver</dt>
-                                <dd id="tablet-driver" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
+                            <dl class="spec-grid spec-grid--stack grid-cols-1 sm:grid-cols-2">
+                                <div class="spec-cell">
+                                    <dt>Active area</dt>
+                                    <dd id="tablet-area" class="spec-value"></dd>
+                                </div>
+                                <div class="spec-cell">
+                                    <dt>Driver</dt>
+                                    <dd id="tablet-driver" class="spec-value"></dd>
+                                </div>
                             </dl>
                         </div>
-                        </div>
-                        <div class="md:col-span-5 max-w-[460px] w-full">
-                        <div class="relative w-full">
-                            <button type="button" class="relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="" data-lightbox-title="" aria-label="Expand tablet settings image">
+                        <div class="gear-media w-full">
+                            <button type="button" class="gear-shot relative w-full aspect-[16/10] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left overflow-hidden" data-lightbox="" data-lightbox-title="" aria-label="Expand tablet settings image">
                                 <img id="tablet-img" class="w-full h-full object-contain" alt="" loading="lazy" decoding="async" />
                                 <span class="absolute top-3 right-3 w-11 h-11 sm:w-9 sm:h-9 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary" aria-hidden="true">
-                                    <span class="material-symbols-outlined text-[18px]">zoom_in</span>
-                                </span>
+                                <span class="material-symbols-outlined text-[18px]">zoom_in</span>
+                            </span>
                             </button>
                         </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-                        <div class="md:col-span-7">
-                        <div class="flex flex-col gap-5">
+                    </article>
+
+                    <article class="gear-row gear-row--flip scroll-reveal">
+                        <div class="gear-info">
                             <div>
-                                <p class="text-sm text-muted mb-1">Keyboard</p>
-                                <h3 id="keyboard-device" class="font-display font-bold text-2xl md:text-3xl text-primary"></h3>
+                                <p class="text-sm text-muted mb-2">Keyboard</p>
+                                <h3 id="keyboard-device" class="gear-name"></h3>
                             </div>
-                            <dl class="grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Actuation</dt>
-                                <dd id="keyboard-actuation" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Rapid trigger</dt>
-                                <dd id="keyboard-rapid" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
-                            <div class="col-span-2 bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Keybind</dt>
-                                <dd id="keyboard-keybind" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
+                            <dl class="spec-grid grid-cols-2">
+                                <div class="spec-cell">
+                                    <dt>Actuation</dt>
+                                    <dd id="keyboard-actuation" class="spec-value"></dd>
+                                </div>
+                                <div class="spec-cell">
+                                    <dt>Rapid trigger</dt>
+                                    <dd id="keyboard-rapid" class="spec-value"></dd>
+                                </div>
+                                <div class="spec-cell col-span-2">
+                                    <dt>Keybind</dt>
+                                    <dd id="keyboard-keybind" class="spec-value"></dd>
+                                </div>
                             </dl>
                         </div>
-                        </div>
-                        <div class="md:col-span-5 max-w-[460px] w-full">
-                        <div class="relative w-full">
-                            <button type="button" class="relative w-full aspect-[2/1] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left" data-lightbox="" data-lightbox-title="" aria-label="Expand keyboard settings image">
+                        <div class="gear-media w-full">
+                            <button type="button" class="gear-shot relative w-full aspect-[2/1] bg-surface-container border border-hairline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-zoom-in block text-left overflow-hidden" data-lightbox="" data-lightbox-title="" aria-label="Expand keyboard settings image">
                                 <img id="keyboard-img" class="w-full h-full object-contain" alt="" loading="lazy" decoding="async" />
                                 <span class="absolute top-3 right-3 w-11 h-11 sm:w-9 sm:h-9 grid place-items-center rounded-md bg-obsidian-deep/85 text-primary" aria-hidden="true">
-                                    <span class="material-symbols-outlined text-[18px]">zoom_in</span>
-                                </span>
+                                <span class="material-symbols-outlined text-[18px]">zoom_in</span>
+                            </span>
                             </button>
                         </div>
-                        </div>
-                    </div>
-                </article>
+                    </article>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-stretch">
-                <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="flex flex-col flex-1 gap-5">
+                    <div class="gear-pair">
+                        <article class="gear-half scroll-reveal">
                             <div>
-                                <p class="text-sm text-muted mb-1">Monitor</p>
-                                <h3 id="monitor-device" class="font-display font-bold text-2xl md:text-3xl text-primary"></h3>
+                                <p class="text-sm text-muted mb-2">Monitor</p>
+                                <h3 id="monitor-device" class="gear-name"></h3>
                             </div>
-                            <dl class="flex-1 grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Refresh rate</dt>
-                                <dd id="monitor-refresh" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Resolution</dt>
-                                <dd id="monitor-resolution" class="font-mono text-sm leading-snug sm:leading-9 text-primary break-words"></dd>
-                            </div>
+                            <dl class="spec-grid grid-cols-2">
+                                <div class="spec-cell">
+                                    <dt>Refresh rate</dt>
+                                    <dd id="monitor-refresh" class="spec-value"></dd>
+                                </div>
+                                <div class="spec-cell">
+                                    <dt>Resolution</dt>
+                                    <dd id="monitor-resolution" class="spec-value"></dd>
+                                </div>
                             </dl>
-                        </div>
-                </article>
-                <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                        <div class="flex flex-col flex-1 gap-5">
+                        </article>
+                        <article class="gear-half scroll-reveal">
                             <div>
-                                <p class="text-sm text-muted mb-1">Earphones</p>
-                                <h3 id="audio-device" class="font-display font-bold text-2xl md:text-3xl text-primary"></h3>
+                                <p class="text-sm text-muted mb-2">Earphones</p>
+                                <h3 id="audio-device" class="gear-name"></h3>
                             </div>
-                            <dl class="flex-1 grid grid-cols-2 gap-px bg-hairline border border-hairline">
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Connection</dt>
-                                <dd id="audio-conn" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
-                            <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0">
-                                <dt class="text-xs text-muted">Type</dt>
-                                <dd id="audio-type" class="font-mono text-sm leading-9 text-primary break-words"></dd>
-                            </div>
+                            <dl class="spec-grid grid-cols-2">
+                                <div class="spec-cell">
+                                    <dt>Connection</dt>
+                                    <dd id="audio-conn" class="spec-value"></dd>
+                                </div>
+                                <div class="spec-cell">
+                                    <dt>Type</dt>
+                                    <dd id="audio-type" class="spec-value"></dd>
+                                </div>
                             </dl>
-                        </div>
-                </article>
+                        </article>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Skins Section -->
-        <section class="w-full pt-section-mobile md:pt-section-desktop pb-12 md:pb-20 px-6 md:px-margin-safe relative overflow-hidden" id="skins">
+        <section class="sheet w-full pt-section-mobile md:pt-section-desktop pb-16 md:pb-24 px-6 md:px-margin-safe overflow-hidden" id="skins">
             <div class="max-w-[1440px] mx-auto">
                 <div class="section-rule" aria-hidden="true"></div>
-                <div class="flex flex-wrap items-end gap-x-4 gap-y-5 mt-10 md:mt-14 mb-10 md:mb-12 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <h2 class="font-display font-bold text-5xl md:text-headline-lg text-primary leading-none">Skins</h2>
-                    <div class="flex items-center gap-3 sm:gap-4 ml-auto">
+                <div class="section-head scroll-reveal">
+                    <h2 class="section-title">Skins</h2>
+                    <div class="flex items-center gap-3 sm:gap-4 ml-auto mb-1 md:mb-3">
                         <span id="skins-count" class="font-mono text-sm text-muted"></span>
                         <a id="skins-drive-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open the older skins archive in Google Drive" class="btn-secondary">
                             <span>Older skins</span>
@@ -535,17 +469,17 @@
                 <div id="skins-featured"></div>
 
                 <!-- JS renders the other skins here -->
-                <div id="skins-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 mt-12"></div>
+                <div id="skins-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 mt-12 md:mt-16"></div>
             </div>
         </section>
 
         <!-- Overlays Section -->
-        <section class="w-full pt-section-mobile md:pt-section-desktop pb-12 md:pb-20 px-6 md:px-margin-safe relative overflow-hidden" id="overlays">
+        <section class="sheet w-full pt-section-mobile md:pt-section-desktop pb-16 md:pb-20 px-6 md:px-margin-safe overflow-hidden" id="overlays">
             <div class="max-w-[1440px] mx-auto">
                 <div class="section-rule" aria-hidden="true"></div>
-                <div class="flex flex-wrap items-end gap-x-4 gap-y-5 mt-10 md:mt-14 mb-10 md:mb-12 opacity-0 transition-all duration-700 translate-y-8 scroll-reveal">
-                    <h2 class="font-display font-bold text-5xl md:text-headline-lg text-primary leading-none">Overlay</h2>
-                    <div class="flex flex-wrap items-center gap-3 sm:ml-auto">
+                <div class="section-head scroll-reveal">
+                    <h2 class="section-title">Overlay</h2>
+                    <div class="flex flex-wrap items-center gap-3 sm:ml-auto mb-1 md:mb-3">
                         <a id="tosu-download-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Get tosu release on GitHub" class="btn-secondary">
                             <img src="picture/overlay/tosu-logo.png" alt="tosu logo" width="16" height="16" class="w-4 h-4 object-contain" />
                             <span>Get tosu</span>
@@ -567,8 +501,8 @@
     </div>
 </main>
 
-<footer class="w-full bg-background pt-12 md:pt-16 pb-8 md:pb-12">
-    <div class="max-w-[1440px] mx-auto px-6 md:px-margin-safe">
+<footer class="sheet w-full pt-10 md:pt-12 overflow-hidden">
+    <div class="max-w-[1536px] mx-auto px-6 md:px-margin-safe">
         <div class="w-full h-[1px] bg-hairline mb-6 md:mb-8"></div>
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex flex-col gap-1 items-center md:items-start">
@@ -581,11 +515,21 @@
             </nav>
         </div>
     </div>
+    <!-- The wordmark as a large outline running off the bottom of the page -->
+    <div class="footer-mark scroll-reveal" aria-hidden="true">
+        <svg viewBox="19 -718 2659 876">
+            <path pathLength="1" d="M567,0h-540v-124l338,-458h-322v-128h511v124l-345,458h358z" />
+            <path pathLength="1" d="M770,0h-150v-536h135l3.3,86.7c4.6,-11.3 10,-21.6 16.1,-30.7c16.3,-24 36.8,-41.3 61.5,-52c24.6,-10.6 51.6,-16 81,-16c38.6,0 71.5,8.3 98.5,25c27,16.6 47.6,40.1 62,70.5c14.3,30.3 21.5,66.1 21.5,107.5v345h-150v-295c0,-28.6 -2.3,-53 -7,-73c-4.6,-20 -13,-35.1 -25,-45.5c-12,-10.3 -28.6,-15.5 -50,-15.5c-31.3,0 -55.3,11.5 -72,34.5c-16.6,23 -25,56.1 -25,99.5z" />
+            <path pathLength="1" d="M1347,12c-55.3,0 -100.5,-12.8 -135.5,-38.5c-35,-25.6 -52.5,-61.5 -52.5,-107.5c0,-47.3 14.8,-83.8 44.5,-109.5c29.6,-25.6 73.5,-44.5 131.5,-56.5l173,-34c0,-34.6 -7.8,-60.8 -23.5,-78.5c-15.6,-17.6 -38.1,-26.5 -67.5,-26.5c-28.6,0 -51,6.5 -67,19.5c-16,13 -26.3,32.1 -31,57.5l-151,-7c10,-58.6 36.5,-103.1 79.5,-133.5c43,-30.3 99.5,-45.5 169.5,-45.5c80,0 140.1,19 180.5,57c40.3,38 60.5,93.6 60.5,167v183c0,15.3 2.5,25.5 7.5,30.5c5,5 12.5,7.5 22.5,7.5h15v103c-4.6,1.3 -12.1,2.6 -22.5,4c-10.3,1.3 -20.5,2 -30.5,2c-21.3,0 -41.1,-3.6 -59.5,-11c-18.3,-7.3 -33.1,-19.8 -44.5,-37.5c-6.6,-10.3 -11.3,-23.3 -14.1,-38.8c-6.5,13.2 -14.9,25.3 -25.3,36.3c-17,18 -39,32 -66,42c-27,10 -58.1,15 -93.5,15zM1383,-91c24.6,0 46.3,-4.8 65,-14.5c18.6,-9.6 33.3,-23.8 44,-42.5c10.6,-18.6 16,-40.6 16,-66v-26l-122,26c-24,4.6 -42.1,12.5 -54.5,23.5c-12.3,11 -18.5,25.1 -18.5,42.5c0,18 6,32 18,42c12,10 29.3,15 52,15z" />
+            <path pathLength="1" d="M1902,150h-150v-686h144l2.1,81.4c13.1,-25.9 31.1,-46.8 53.8,-62.4c30,-20.6 65,-31 105,-31c50,0 91.6,12.3 125,37c33.3,24.6 58.5,58.1 75.5,100.5c17,42.3 25.5,89.8 25.5,142.5c0,52 -8.5,99.3 -25.5,142c-17,42.6 -42.3,76.3 -76,101c-33.6,24.6 -75.5,37 -125.5,37c-26,0 -50.3,-4.8 -73,-14.5c-22.6,-9.6 -42.1,-23.1 -58.5,-40.5c-8.8,-9.3 -16.3,-19.6 -22.5,-30.9zM2015,-103c35.3,0 63.1,-14.6 83.5,-44c20.3,-29.3 30.5,-69.6 30.5,-121c0,-51.3 -10.1,-91.6 -30.5,-121c-20.3,-29.3 -48.1,-44 -83.5,-44c-23.3,0 -43.5,6.1 -60.5,18.5c-17,12.3 -30,30.8 -39,55.5c-9,24.6 -13.5,55 -13.5,91c0,36 4.5,66.3 13.5,91c9,24.6 22,43.1 39,55.5c17,12.3 37.1,18.5 60.5,18.5z" />
+            <path pathLength="1" d="M2670,-230h-343v-123h343z" />
+        </svg>
+    </div>
 </footer>
 
     <!-- Accessible Image Lightbox Modal -->
     <dialog id="image-lightbox" class="fixed inset-0 m-0 w-full h-full max-w-none max-h-none bg-black/90 p-4 sm:p-6 md:p-8 z-50 open:flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 open:opacity-100 open:pointer-events-auto" aria-labelledby="lightbox-title" aria-modal="true">
-        <div class="relative w-full max-w-5xl max-h-full flex flex-col items-center gap-3">
+        <div class="lightbox-body relative w-full max-w-6xl max-h-full flex flex-col items-center gap-3">
             <!-- Header with Title & Close button -->
             <div class="w-full flex items-center justify-between px-1 text-white">
                 <span id="lightbox-title" class="font-sans text-sm md:text-base font-medium text-on-surface truncate"></span>
@@ -595,8 +539,8 @@
             </div>
             
             <!-- Image Viewport -->
-            <div class="relative w-full max-h-[78vh] flex items-center justify-center overflow-hidden border border-hairline bg-surface-container-lowest">
-                <img id="lightbox-img" class="max-w-full max-h-[78vh] w-auto h-auto object-contain select-none" src="" alt="" />
+            <div class="relative w-full max-h-[80vh] flex items-center justify-center overflow-hidden border border-hairline bg-surface-container-lowest">
+                <img id="lightbox-img" class="max-w-full max-h-[80vh] w-auto h-auto object-contain select-none" src="" alt="" />
             </div>
 
             <!-- Helper caption -->
@@ -604,7 +548,7 @@
         </div>
     </dialog>
 
-    <div id="toast" role="status" aria-live="polite" class="fixed top-20 left-1/2 -translate-x-1/2 whitespace-nowrap max-w-[calc(100vw-2rem)] truncate px-6 py-3 bg-surface-container-highest border border-hairline text-primary text-sm font-medium opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
+    <div id="toast" role="status" aria-live="polite" class="fixed top-20 left-1/2 -translate-x-1/2 whitespace-nowrap max-w-[calc(100vw-2rem)] truncate px-5 py-3 rounded-md bg-primary text-obsidian-deep text-sm font-medium opacity-0 transition-opacity duration-300 z-50 pointer-events-none"></div>
 
     <!-- Scripts -->
     <script type="module" src="js/main.js"></script>

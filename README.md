@@ -31,7 +31,7 @@ During development, run `npm run build:css` to rebuild the CSS on every change.
 | `js/types.js` | JSDoc `@typedef` schema definitions for `SITE_CONFIG` |
 | `js/main.js` | ES module entry point and fault-isolated initializer |
 | `js/render/` | Section renderers (`profile.js`, `gear.js`, `skins.js`, `overlays.js`) |
-| `js/ui/` | Interactive controllers (`lightbox.js`, `slider.js`, `navigation.js`) |
+| `js/ui/` | Interactive controllers (`lightbox.js`, `slider.js`, `navigation.js`) and `motion.js` (everything tied to scroll or the mouse) |
 | `js/utils/dom.js` | HTML escaping, URL sanitization, motion query, and toast helpers |
 | `jsconfig.json` | Strict TypeScript `checkJs` configuration |
 | `css/styles.css` | Tailwind input and custom styles |
@@ -66,6 +66,10 @@ Shared classes in `css/styles.css`:
 - `.btn-secondary`: white outline button with 6px rounded corners (frames, cards and tags stay square)
 - `.tag`: small type label
 - `.section-rule`: divider at the top of each content section: a 1px hairline with "+" marks at both ends (the only "+" marks on the site; frames have none)
+- `.section-title`: large section heading; starts as an outline and the fill wipes across when it comes into view, the same idea as the hero wordmark
+- `.sheet`: anything after the hero. The hero is pinned (`.hero`) and sheets slide up over it, so every section needs this class and no shared positioned wrapper (`tests/navigation.spec.js` reads `offsetTop` against the page)
+- `.spec-grid` / `.spec-cell` / `.spec-value` / `.spec-number`: setting tables, open at both sides, with hairlines between cells
+- `.gear-shot`, `.skin-ghost`, `.overlay-frame`: the screenshot and video frames with their reveal, wipe and scroll-in motion
 - `.nav-link`: header link; the one with `aria-current` gets a 2px underline (the scroll spy in `js/ui/navigation.js` sets it, also on the mobile menu links)
 
 Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), `border-hairline` / `bg-hairline` (`#2e2e2e`), the `rule` colour (`#444`, used by `.section-rule`), and `text-muted` (`#9a9a9a`).
@@ -77,3 +81,6 @@ Tailwind additions: `font-display` (Zen Maru Gothic), `font-mono` (Geist Mono), 
 - The Material Symbols font loads only the icons listed in the `icon_names` parameter in `index.html`. When using a new icon, add its name to that list in alphabetical order, or it will not render.
 - Page content (including `#header-avatar`) renders dynamically from `js/config.js`. Static `og:image` and `twitter:image` `<meta>` tags in `index.html` are read by social link crawlers without executing JavaScript; update those meta tags if the osu! user ID changes.
 - Animations play even when the visitor's system prefers reduced motion; only the skin card slides, Home top-scroll, and nav underline switch instantly. See `docs/adr/0001-animations-play-with-reduced-motion.md` before changing this.
+- The look is minimal on purpose: large type, plenty of space, and motion only where something enters or changes. Don't add osu! gameplay decoration (hit circles, sliders, cursor trails) or anything that moves on its own beyond the hero crosses.
+- Many visitors run Chrome without hardware acceleration. Move things with `transform` and `opacity`; don't add blur or backdrop filters; Measure a new effect with Chrome started with `--disable-gpu`: the numbers to beat are in the ADR.
+- The wordmark outlines appear twice in `index.html`: the hero (one path per contour, for the draw-in) and the footer. Regenerate both if the username changes.

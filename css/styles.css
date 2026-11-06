@@ -50,7 +50,7 @@
     background: #fff;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s cubic-bezier(.16, 1, .3, 1);
   }
   .nav-link[aria-current]::after { transform: scaleX(1); }
   @media (prefers-reduced-motion: reduce) {
@@ -101,7 +101,19 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* Animations */
+/* ==========================================================================
+   Motion rules for everything below (see docs/adr/0001)
+   - Move things with transform and opacity only; no blur filters or backdrop
+     filters, because many visitors run Chrome in software rendering.
+   - Nothing here is switched off by prefers-reduced-motion except the skin
+     card slide and the nav underline.
+   ========================================================================== */
+
+:root {
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+}
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -111,14 +123,106 @@
   to { opacity: 1; }
 }
 
+/* Elements come in once as they scroll into view */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(2.5rem);
+  transition: opacity 0.9s var(--ease-out), transform 1.1s var(--ease-out);
+}
 .scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Everything after the hero is a sheet that slides up over it */
+.sheet {
+  position: relative;
+  z-index: 1;
+  background: #131313;
+}
+#hardware {
+  border-top: 1px solid theme('colors.hairline');
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.site-header {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.site-header[data-scrolled],
+.site-header:has(#mobile-menu.flex) {
+  background: #131313;
+  border-bottom-color: theme('colors.hairline');
+}
+/* Over the hero the bar has no fill, so a soft shade keeps the links clear of the crosses */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 112px;
+  background: linear-gradient(#0a0a0a 38%, rgba(10, 10, 10, 0));
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+.site-header[data-scrolled]::before {
+  opacity: 0;
+}
+#mobile-menu.flex {
+  animation: menu-drop 0.28s var(--ease-out);
+}
+@keyframes menu-drop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Hero: stays pinned while the page slides over it
+   ========================================================================== */
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  background: radial-gradient(120% 90% at 50% 42%, #161616 0%, #0a0a0a 70%);
+}
+/* A hero taller than the screen would have its bottom cut off while pinned */
+@media (max-height: 560px) {
+  .hero { position: relative; }
+}
+/* Fully covered by the page: stop painting it */
+.hero-past .hero { visibility: hidden; }
+
+.hero-content {
+  will-change: transform, opacity;
+}
+
+/* The crosses spread out from behind the wordmark as its fill lands */
+.hero-cluster {
+  animation: cluster-in 1.2s var(--ease-out) 0.95s backwards;
+}
+@keyframes cluster-in {
+  from {
+    opacity: 0;
+    transform: translate(calc(var(--dx) * -22%), calc(var(--dy) * -22%)) scale(0.72);
+  }
+}
+
 /* Zero-filter radial ambient glow (replaces expensive blur-[140px] filter on mobile) */
 .hero-ambient-glow {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 255, 255, 0) 70%);
+  opacity: 0.7;
+}
+
+.hero-wordmark {
+  font-size: clamp(88px, min(23vw, 36svh), 420px);
+}
+@media (max-width: 639px) {
+  .hero-wordmark { font-size: min(32vw, 36svh); }
 }
 
 /* Hero wordmark: each letter's outline draws in, then the fill fades in as the outline fades out.
@@ -127,18 +231,18 @@
 .wordmark-reveal g > path:first-child {
   fill: currentColor;
   fill-opacity: 0;
-  animation: wordmark-fill 0.8s cubic-bezier(.14, 1, .34, 1) calc(1s + var(--i) * 90ms) forwards;
+  animation: wordmark-fill 0.8s var(--ease-out) calc(1s + var(--i) * 40ms) forwards;
 }
 
 .wordmark-reveal g > path:not(:first-child) {
   fill: none;
   stroke: currentColor;
-  stroke-width: 18px;
+  stroke-width: 10px;
   stroke-dasharray: 1.01;
   stroke-dashoffset: 1.01;
   animation:
-    wordmark-draw 0.9s cubic-bezier(.645, .045, .355, 1) calc(0.2s + var(--i) * 90ms) forwards,
-    wordmark-outline-out 0.8s cubic-bezier(.14, 1, .34, 1) calc(1s + var(--i) * 90ms) forwards;
+    wordmark-draw 0.85s var(--ease-in-out) calc(0.1s + var(--i) * 40ms) forwards,
+    wordmark-outline-out 0.8s var(--ease-out) calc(1s + var(--i) * 40ms) forwards;
 }
 
 @keyframes wordmark-draw {
@@ -153,27 +257,39 @@
   to { opacity: 0; }
 }
 
-/* Hero subtitle: words fade in one after another */
+/* Hero subtitle: words rise in one after another */
 .hero-word {
   display: inline-block;
   opacity: 0;
-  animation: fade-in 0.4s linear var(--delay) forwards;
+  animation: hero-word-in 0.7s var(--ease-out) var(--delay) forwards;
+}
+@keyframes hero-word-in {
+  from { opacity: 0; transform: translateY(0.7em); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Lightbox is display:none while closed, so fade in from opacity 0 on open */
-@starting-style {
-  #image-lightbox[open] {
-    opacity: 0;
-  }
+/* "Scroll to explore" cue: a short line with a highlight running down it */
+.cue-line {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  background: theme('colors.hairline');
+  overflow: hidden;
 }
-
-.video-layer {
-  transform: translateZ(0);
-  backface-visibility: hidden;
+.cue-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  animation: cue-run 2.4s var(--ease-in-out) infinite;
+}
+@keyframes cue-run {
+  from { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(100%); }
 }
 
 /* ==========================================================================
-   FlyingTuna Floating Cross Background Animations (Visibly Floating & Smooth)
+   Floating crosses (hero only)
    ========================================================================== */
 
 @keyframes tuna-float-slow {
@@ -191,15 +307,6 @@
   }
   50% {
     transform: translate3d(-10px, 12px, 0);
-  }
-}
-
-@keyframes tuna-float-sway {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(10px, -10px, 0);
   }
 }
 
@@ -226,22 +333,353 @@
   will-change: transform;
 }
 
-.tuna-anim-sway {
-  animation: tuna-float-sway 10.5s ease-in-out infinite;
-  backface-visibility: hidden;
-  will-change: transform;
-}
-
 .tuna-anim-pulse {
   animation: tuna-sparkle-pulse 5s ease-in-out infinite;
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
 
+/* ==========================================================================
+   Section headings: outline first, then the fill wipes across (same idea as the wordmark)
+   ========================================================================== */
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  column-gap: 1rem;
+  row-gap: 1.25rem;
+  margin-top: 1.75rem;
+  margin-bottom: 2rem;
+}
+.section-title {
+  display: inline-block;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+  /* Also follows the screen height: on a short window the heading must not push the content off screen */
+  font-size: clamp(56px, min(6.5vw, 13svh), 112px);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  /* Room for the "y" descender inside the painted box */
+  padding: 0 0.04em 0.16em 0;
+  margin-bottom: -0.16em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #fff;
+  background: linear-gradient(#fff, #fff) no-repeat left / 0% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-size 1.1s var(--ease-in-out) 0.2s;
+  will-change: transform;
+}
+.visible > .section-title {
+  background-size: 100% 100%;
+}
+
+/* ==========================================================================
+   Gear
+   ========================================================================== */
+
+.gear-row {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  padding-top: 2.5rem;
+  border-top: 1px solid theme('colors.hairline');
+}
+@media (min-width: 768px) {
+  .gear-row {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 4rem;
+    padding-top: 3.5rem;
+  }
+  .gear-row--flip {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+  .gear-row--flip .gear-media { order: -1; }
+}
+.gear-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-width: 0;
+}
+.gear-name {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.4vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: #fff;
+  /* Never strands a lone character, e.g. the B of "24GS60F-B" */
+  text-wrap: balance;
+}
+.overlay-name {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 2.9vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-wrap: balance;
+}
+/* Device names rise out of a mask as their row comes in */
+.scroll-reveal .gear-name,
+.scroll-reveal .overlay-name {
+  clip-path: inset(-10% 0 100% 0);
+  transform: translateY(36%);
+  transition: clip-path 1.1s var(--ease-out) 0.05s, transform 1.1s var(--ease-out) 0.05s;
+}
+.scroll-reveal.visible .gear-name,
+.scroll-reveal.visible .overlay-name {
+  /* Room below the box for descenders */
+  clip-path: inset(-10% 0 -14% 0);
+  transform: none;
+}
+.gear-pair .gear-name {
+  font-size: clamp(28px, 2.6vw, 44px);
+}
+
+.gear-pair {
+  display: grid;
+  gap: 4rem;
+}
+.gear-half {
+  display: grid;
+  gap: 1.75rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid theme('colors.hairline');
+  align-content: start;
+}
+@media (min-width: 1024px) {
+  /* Names can wrap differently; subgrid keeps the two spec tables on one line */
+  .gear-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    column-gap: 4rem;
+    row-gap: 0;
+  }
+  .gear-half {
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    padding-top: 3.5rem;
+  }
+  .gear-half:nth-child(2) { transition-delay: 0.12s; }
+}
+
+/* Screenshot frame opens top-down when the row comes in */
+.gear-shot {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.1s var(--ease-out) 0.15s, border-color 0.25s ease;
+}
+.visible .gear-shot {
+  clip-path: inset(0 0 0 0);
+}
+.gear-shot:hover {
+  border-color: #fff;
+}
+
+/* Spec table: hairlines between cells, open at both sides */
+.spec-grid {
+  display: grid;
+  gap: 1px;
+  background: theme('colors.hairline');
+  border-block: 1px solid theme('colors.hairline');
+}
+.spec-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 112px;
+  min-width: 0;
+  padding: 1.1rem 1rem 1rem;
+  background: #131313;
+}
+.spec-cell:nth-child(odd) {
+  padding-left: 0;
+}
+@media (max-width: 639px) {
+  .spec-grid--stack .spec-cell {
+    padding-left: 0;
+  }
+}
+.spec-cell dt {
+  font-size: 13px;
+  color: theme('colors.muted');
+}
+.spec-value {
+  font-family: "Geist Mono", monospace;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 768px) {
+  .spec-value { font-size: 17px; }
+}
+.spec-number {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 3.4vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   Skins
+   ========================================================================== */
+
+.skin-featured {
+  position: relative;
+  border: 1px solid theme('colors.rule');
+}
+@media (min-width: 1024px) {
+  .skin-featured {
+    display: grid;
+    /* The screenshot narrows on short screens, so heading, banner and download all fit on one screen */
+    grid-template-columns: minmax(0, min(66%, calc((100svh - 260px) * 16 / 9))) minmax(0, 1fr);
+  }
+}
+
+/* Screenshots open sideways as they come in */
+.skin-featured > div:first-of-type,
+.skin-card-media {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s var(--ease-out) 0.1s, outline-color 0.25s ease;
+}
+.visible > div:first-of-type,
+.visible .skin-card-media {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Copy of the old screenshot, wiped away by js/ui/slider.js */
+.skin-ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  pointer-events: none;
+}
+
+.skin-card-body {
+  border: 1px solid theme('colors.hairline');
+  border-top: 0;
+  transition: border-color 0.25s ease;
+}
+.skin-card-media {
+  outline: 1px solid theme('colors.hairline');
+  outline-offset: -1px;
+}
+@media (hover: hover) {
+  .skin-card:hover .skin-card-body,
+  .skin-card:hover .skin-card-media {
+    border-color: #fff;
+    outline-color: #fff;
+  }
+}
+.skin-track {
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ==========================================================================
+   Overlay: the video grows into place on scroll
+   ========================================================================== */
+
+.overlay-stage {
+  position: relative;
+}
+.overlay-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: theme('colors.surface-container');
+  border: 1px solid theme('colors.rule');
+  aspect-ratio: 16 / 10;
+  transform-origin: center top;
+  will-change: transform;
+}
+@media (min-width: 768px) {
+  /* Never taller than the screen below the header */
+  .overlay-frame {
+    width: min(100%, calc((100svh - 112px) * 16 / 9));
+    margin-inline: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+.video-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ==========================================================================
+   Footer: the wordmark again, as an outline running off the page
+   ========================================================================== */
+
+.footer-mark {
+  margin-top: 2.5rem;
+  height: 23vw;
+  max-height: 460px;
+  overflow: hidden;
+  padding-inline: 1.5rem;
+  opacity: 1;
+  transform: none;
+}
+.footer-mark svg {
+  display: block;
+  width: 100%;
+  max-width: 1760px;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+.footer-mark path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.34);
+  stroke-width: 1.2px;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.2s var(--ease-in-out);
+}
+.footer-mark.visible path {
+  stroke-dashoffset: 0;
+}
+
+/* ==========================================================================
+   Lightbox and toast
+   ========================================================================== */
+
+/* Lightbox is display:none while closed, so fade in from opacity 0 on open */
+@starting-style {
+  #image-lightbox[open] {
+    opacity: 0;
+  }
+  #image-lightbox[open] .lightbox-body {
+    transform: translateY(14px) scale(0.965);
+  }
+}
+.lightbox-body {
+  transition: transform 0.45s var(--ease-out);
+}
+
+#toast {
+  translate: 0 -10px;
+  transition: opacity 0.3s ease, translate 0.45s var(--ease-out);
+}
+#toast.visible {
+  translate: 0 0;
+}
+
 /* Browser Surfaces: Themed Selection */
 ::selection {
   background: #ffffff;
   color: #0a0a0a;
+}
+.section-title::selection {
+  -webkit-text-fill-color: #0a0a0a;
 }
 
 /* Global Focus-Visible Styling for Accessibility */

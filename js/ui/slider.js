@@ -8,6 +8,25 @@ export function initFeaturedSkin() {
     const banner = document.getElementById('featured-skin-img');
     if (!featured || !(banner instanceof HTMLImageElement)) return;
 
+    /**
+     * The old screenshot wipes away to reveal the new one. The copy is hidden from assistive tech and from clicks.
+     */
+    function wipeOldBanner() {
+        if (!(banner instanceof HTMLImageElement) || !banner.parentElement || !banner.currentSrc) return;
+        const ghost = document.createElement('img');
+        ghost.src = banner.currentSrc;
+        ghost.alt = '';
+        ghost.className = 'skin-ghost';
+        ghost.setAttribute('aria-hidden', 'true');
+        banner.after(ghost);
+        const wipe = ghost.animate(
+            [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 0 100%)' }],
+            { duration: 620, easing: 'cubic-bezier(.65,0,.35,1)' }
+        );
+        wipe.onfinish = () => ghost.remove();
+        wipe.oncancel = () => ghost.remove();
+    }
+
     featured.addEventListener('click', (e) => {
         if (!(e.target instanceof Element)) return;
         const thumb = e.target.closest('[data-featured-slide]');
@@ -16,6 +35,8 @@ export function initFeaturedSkin() {
         if (!src) return;
         const alt = thumb.dataset.alt || '';
         const title = thumb.dataset.title || '';
+        if (thumb.getAttribute('aria-pressed') === 'true') return;
+        wipeOldBanner();
         banner.src = src;
         banner.alt = alt;
         setLightboxTarget(featured, src, title, alt);

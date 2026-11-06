@@ -2,7 +2,7 @@
 import { escapeHtml, sanitizeUrl } from '../utils/dom.js';
 
 /**
- * One tosu overlay: name, description, spec cells, links, and the preview video or image beside them.
+ * One tosu overlay: the preview video or image across the full width, with name, description, spec cells and links under it.
  * @param {import('../types.js').OverlayItem} item
  * @param {number} index
  * @returns {string}
@@ -17,50 +17,10 @@ function renderOverlay(item, index) {
     const safeSourceRefUrl = sanitizeUrl(item.sourceRefUrl);
 
     return `
-    <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="overlay-name-${index}">
-        <!-- Left: Info & Specs (5 Cols) -->
-        <div class="md:col-span-5 flex flex-col gap-4 md:gap-5">
-            <div>
-                <h3 id="overlay-name-${index}" class="font-display font-bold text-2xl md:text-3xl text-primary mb-2">${name}</h3>
-                ${item.description ? `<p class="font-sans text-sm md:text-base text-on-surface-variant max-w-lg leading-relaxed">${escapeHtml(item.description)}</p>` : ''}
-            </div>
-
-            ${specs.length ? `
-            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline">
-                ${specs.map((spec, i) => `
-                <div class="bg-background p-4 flex flex-col-reverse justify-between gap-2 min-h-[104px] min-w-0${specs.length % 2 && i === specs.length - 1 ? ' sm:col-span-2' : ''}">
-                    <dt class="text-xs text-muted">${escapeHtml(spec.label)}</dt>
-                    <dd class="font-mono text-sm leading-9 text-primary break-words">${escapeHtml(spec.value)}</dd>
-                </div>`).join('')}
-            </dl>` : ''}
-
-            <!-- Action Buttons & Credit -->
-            <div class="flex flex-col gap-3 mt-1">
-                <div class="flex flex-wrap items-center gap-3">
-                    ${safeDownloadUrl ? `
-                    <a href="${escapeHtml(safeDownloadUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${name} (.zip)" class="btn-primary">
-                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
-                        <span>Download Overlay (.zip)</span>
-                    </a>` : ''}
-                    ${safeVideoPreviewUrl ? `
-                    <a href="${escapeHtml(safeVideoPreviewUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${name}" class="btn-secondary">
-                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
-                        <span>Video Preview</span>
-                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
-                    </a>` : ''}
-                </div>
-
-                ${safeSourceRefUrl ? `
-                <p class="text-xs text-on-surface-variant flex flex-wrap items-center gap-x-1.5 gap-y-0.5 pt-1">
-                    <span>Forked from:</span>
-                    <a href="${escapeHtml(safeSourceRefUrl)}" target="_blank" rel="noopener noreferrer" class="min-w-0 [overflow-wrap:anywhere] text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">${escapeHtml(item.sourceRefName || item.sourceRefUrl)}</a>
-                </p>` : ''}
-            </div>
-        </div>
-
-        <!-- Right: Large Video/Image Showcase (7 Cols) -->
-        <div class="md:col-span-7 relative group">
-            <div class="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-surface-container border border-hairline">
+    <article class="flex flex-col gap-10 md:gap-14 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="overlay-name-${index}">
+        <!-- Video/image showcase: grows into place on scroll -->
+        <div class="overlay-stage">
+            <div class="overlay-frame" data-scroll-zoom>
                 ${safeVideoSrc ? `
                 <video id="overlay-preview-video-${index}" class="video-layer absolute inset-0 w-full h-full object-cover" src="${escapeHtml(safeVideoSrc)}" ${safeImgSrc ? `poster="${escapeHtml(safeImgSrc)}"` : ''} loop muted playsinline preload="none" aria-label="${name} video preview"></video>
                 ` : (safeImgSrc ? `
@@ -68,6 +28,49 @@ function renderOverlay(item, index) {
                 ` : `
                 <div class="absolute inset-0 bg-surface-container flex items-center justify-center text-muted font-mono text-sm">No preview available</div>
                 `)}
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+            <!-- Left: name and description -->
+            <div class="md:col-span-5">
+                <h3 id="overlay-name-${index}" class="overlay-name mb-4 [overflow-wrap:anywhere]">${name}</h3>
+                ${item.description ? `<p class="font-sans text-base text-on-surface-variant max-w-xl leading-relaxed">${escapeHtml(item.description)}</p>` : ''}
+            </div>
+
+            <!-- Right: specs and actions -->
+            <div class="md:col-span-7 flex flex-col gap-6">
+                ${specs.length ? `
+                <dl class="spec-grid spec-grid--stack grid-cols-1 sm:grid-cols-2">
+                    ${specs.map((spec, i) => `
+                    <div class="spec-cell${specs.length % 2 && i === specs.length - 1 ? ' sm:col-span-2' : ''}">
+                        <dt>${escapeHtml(spec.label)}</dt>
+                        <dd class="spec-value">${escapeHtml(spec.value)}</dd>
+                    </div>`).join('')}
+                </dl>` : ''}
+
+                <!-- Action Buttons & Credit -->
+                <div class="flex flex-col gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
+                        ${safeDownloadUrl ? `
+                        <a href="${escapeHtml(safeDownloadUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Download overlay ${name} (.zip)" class="btn-primary">
+                            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                            <span>Download Overlay (.zip)</span>
+                        </a>` : ''}
+                        ${safeVideoPreviewUrl ? `
+                        <a href="${escapeHtml(safeVideoPreviewUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Watch video preview for ${name}" class="btn-secondary">
+                            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">smart_display</span>
+                            <span>Video Preview</span>
+                            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_outward</span>
+                        </a>` : ''}
+                    </div>
+
+                    ${safeSourceRefUrl ? `
+                    <p class="text-xs text-on-surface-variant flex flex-wrap items-center gap-x-1.5 gap-y-0.5 pt-1">
+                        <span>Forked from:</span>
+                        <a href="${escapeHtml(safeSourceRefUrl)}" target="_blank" rel="noopener noreferrer" class="min-w-0 [overflow-wrap:anywhere] text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary">${escapeHtml(item.sourceRefName || item.sourceRefUrl)}</a>
+                    </p>` : ''}
+                </div>
             </div>
         </div>
     </article>`;

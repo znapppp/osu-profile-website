@@ -52,7 +52,7 @@ function renderFeaturedSkin(skin) {
     const downloadUrl = sanitizeUrl(skin.downloadUrl, '#');
 
     return `
-    <article class="border border-hairline lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" aria-labelledby="featured-skin-name">
+    <article class="skin-featured scroll-reveal" aria-labelledby="featured-skin-name">
         <div class="relative overflow-hidden bg-black lg:flex lg:items-center">
             ${first ? `
             <img id="featured-skin-img" src="${escapeHtml(sanitizeUrl(first.src))}" alt="${escapeHtml(rawSlideAlt(skin, first))}" decoding="async" class="block w-full aspect-video object-contain bg-black cursor-zoom-in" ${skinLightboxAttrs(skin, first)} />
@@ -104,11 +104,11 @@ function renderSkinCard(skin, index) {
     const downloadUrl = sanitizeUrl(skin.downloadUrl, '#');
 
     return `
-    <article class="flex flex-col opacity-0 transition-all duration-700 translate-y-8 scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
+    <article class="skin-card flex flex-col scroll-reveal" style="transition-delay: ${index * 100}ms;" aria-labelledby="skin-card-name-${index}">
         <div>
-            <div class="relative overflow-hidden bg-surface-container">
+            <div class="skin-card-media relative overflow-hidden bg-surface-container">
                 ${first ? `
-                <div class="flex transition-transform duration-500 ease-in-out motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${skinLightboxAttrs(skin, first)}>
+                <div class="skin-track flex transition-transform duration-500 motion-reduce:transition-none cursor-zoom-in" data-skin-slider data-current="0" ${skinLightboxAttrs(skin, first)}>
                     ${slides.map((slide, i) => {
                         const safeSrc = sanitizeUrl(slide.src);
                         return `
@@ -132,8 +132,8 @@ function renderSkinCard(skin, index) {
                 </div>` : ''}
             </div>
         </div>
-        <div class="flex flex-col flex-1 gap-4 p-4 border border-t-0 border-hairline">
-            <h3 id="skin-card-name-${index}" class="font-display font-bold text-lg leading-snug text-primary">${name}</h3>
+        <div class="skin-card-body flex flex-col flex-1 gap-5 p-4 md:p-5">
+            <h3 id="skin-card-name-${index}" class="font-display font-bold text-xl md:text-2xl leading-snug text-primary">${name}</h3>
             <div class="flex items-center justify-between gap-3 mt-auto">
                 ${skin.badgeText ? `<span class="tag border border-outline text-on-surface">${escapeHtml(skin.badgeText)}</span>` : '<span></span>'}
                 <a href="${escapeHtml(downloadUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Download ${name}" class="btn-secondary">
